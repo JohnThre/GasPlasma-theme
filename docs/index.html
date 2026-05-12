@@ -115,6 +115,13 @@
       background: #0D0500;
       box-shadow: 0 32px 80px rgba(0,0,0,.45);
     }
+    .diagram {
+      display: block;
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #0D0500;
+    }
     .band {
       border-top: 1px solid var(--line);
       padding: 56px 0;
@@ -148,6 +155,7 @@
       color: #FFC887;
       line-height: 1.65;
     }
+    .section-note { margin-bottom: 22px; }
     .command {
       display: block;
       margin-top: 16px;
@@ -159,6 +167,34 @@
       border-radius: 8px;
       font-size: 14px;
       white-space: nowrap;
+    }
+    .icon-strip {
+      display: grid;
+      grid-template-columns: repeat(8, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .icon-sample {
+      margin: 0;
+      min-height: 128px;
+      display: grid;
+      place-items: center;
+      gap: 10px;
+      padding: 16px 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(20, 8, 0, .78);
+    }
+    .icon-sample img {
+      width: 72px;
+      height: 72px;
+      display: block;
+    }
+    .icon-sample figcaption {
+      color: #FFD2A6;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+      text-align: center;
+      text-transform: uppercase;
     }
     .palette {
       display: grid;
@@ -185,6 +221,7 @@
       .hero { grid-template-columns: 1fr; min-height: 0; }
       h1 { font-size: 56px; }
       .grid { grid-template-columns: 1fr; }
+      .icon-strip { grid-template-columns: repeat(4, 1fr); }
       .palette { grid-template-columns: repeat(4, 1fr); }
     }
     @media (max-width: 560px) {
@@ -192,7 +229,9 @@
       .nav { align-items: flex-start; flex-direction: column; }
       h1 { font-size: 44px; }
       .lead { font-size: 18px; }
+      .icon-strip { grid-template-columns: repeat(2, 1fr); }
       .palette { grid-template-columns: repeat(2, 1fr); }
+      .diagram { min-height: 300px; object-fit: cover; object-position: left center; }
     }
   </style>
 </head>
@@ -204,8 +243,10 @@
     </a>
     <div class="links">
       <a href="#install">Install</a>
+      <a href="#icons">Icons</a>
+      <a href="#architecture">Architecture</a>
       <a href="#palette">Palette</a>
-      <a href="https://open-vsx.org/extension/johnthre/gas-plasma-theme">Open VSX</a>
+      <a href="https://open-vsx.org/extension/jpfchang/gas-plasma-theme">Open VSX</a>
       <a href="https://github.com/JohnThre/GasPlasma-theme">GitHub</a>
     </div>
   </nav>
@@ -217,7 +258,7 @@
         <p class="lead">An orange-dominant dark theme inspired by ionized gas glow. A single warm, high-contrast palette for Apple Terminal, iTerm2, VS Code, and Open VSX-compatible editors.</p>
         <div class="actions">
           <a class="button primary" href="https://github.com/JohnThre/GasPlasma-theme/releases">Releases</a>
-          <a class="button" href="https://open-vsx.org/extension/johnthre/gas-plasma-theme">Open VSX</a>
+          <a class="button" href="https://open-vsx.org/extension/jpfchang/gas-plasma-theme">Open VSX</a>
         </div>
       </div>
       <img class="mockup" src="assets/mockup.svg" alt="Gas Plasma terminal and editor mockup">
@@ -239,9 +280,172 @@
           <article class="tile">
             <h3>VS Code</h3>
             <p>Install the published VSIX from Open VSX-compatible editors.</p>
-            <code class="command">johnthre.gas-plasma-theme</code>
+            <code class="command">jpfchang.gas-plasma-theme</code>
           </article>
         </div>
+      </div>
+    </section>
+    <section id="icons" class="band">
+      <div class="wrap">
+        <h2>VS Code Icons</h2>
+        <p class="section-note">File icons are generated from recognizable upstream language and ecosystem logo geometry where available. Product icons are generated from VS Code Codicons to preserve the original editor UI language.</p>
+        <div class="icon-strip" aria-label="Gas Plasma file icon samples">
+          <figure class="icon-sample">
+      <img src="assets/icons/markdown.svg" alt="">
+      <figcaption>markdown</figcaption>
+    </figure>
+          <figure class="icon-sample">
+      <img src="assets/icons/json.svg" alt="">
+      <figcaption>json</figcaption>
+    </figure>
+          <figure class="icon-sample">
+      <img src="assets/icons/yaml.svg" alt="">
+      <figcaption>yaml</figcaption>
+    </figure>
+          <figure class="icon-sample">
+      <img src="assets/icons/npm.svg" alt="">
+      <figcaption>npm</figcaption>
+    </figure>
+          <figure class="icon-sample">
+      <img src="assets/icons/git.svg" alt="">
+      <figcaption>git</figcaption>
+    </figure>
+          <figure class="icon-sample">
+      <img src="assets/icons/docker.svg" alt="">
+      <figcaption>docker</figcaption>
+    </figure>
+          <figure class="icon-sample">
+      <img src="assets/icons/image.svg" alt="">
+      <figcaption>image</figcaption>
+    </figure>
+          <figure class="icon-sample">
+      <img src="assets/icons/database.svg" alt="">
+      <figcaption>database</figcaption>
+    </figure>
+          <figure class="icon-sample">
+      <img src="assets/icons/cd.svg" alt="">
+      <figcaption>cd</figcaption>
+    </figure>
+          <figure class="icon-sample">
+      <img src="assets/icons/terminal-crt.svg" alt="">
+      <figcaption>terminal crt</figcaption>
+    </figure>
+          <figure class="icon-sample">
+      <img src="assets/icons/c.svg" alt="">
+      <figcaption>c</figcaption>
+    </figure>
+          <figure class="icon-sample">
+      <img src="assets/icons/cpp.svg" alt="">
+      <figcaption>cpp</figcaption>
+    </figure>
+          <figure class="icon-sample">
+      <img src="assets/icons/python.svg" alt="">
+      <figcaption>python</figcaption>
+    </figure>
+          <figure class="icon-sample">
+      <img src="assets/icons/pascal.svg" alt="">
+      <figcaption>pascal</figcaption>
+    </figure>
+          <figure class="icon-sample">
+      <img src="assets/icons/vala.svg" alt="">
+      <figcaption>vala</figcaption>
+    </figure>
+          <figure class="icon-sample">
+      <img src="assets/icons/csharp.svg" alt="">
+      <figcaption>csharp</figcaption>
+    </figure>
+          <figure class="icon-sample">
+      <img src="assets/icons/java.svg" alt="">
+      <figcaption>java</figcaption>
+    </figure>
+          <figure class="icon-sample">
+      <img src="assets/icons/php.svg" alt="">
+      <figcaption>php</figcaption>
+    </figure>
+          <figure class="icon-sample">
+      <img src="assets/icons/go.svg" alt="">
+      <figcaption>go</figcaption>
+    </figure>
+          <figure class="icon-sample">
+      <img src="assets/icons/swift.svg" alt="">
+      <figcaption>swift</figcaption>
+    </figure>
+          <figure class="icon-sample">
+      <img src="assets/icons/objectivec.svg" alt="">
+      <figcaption>objectivec</figcaption>
+    </figure>
+          <figure class="icon-sample">
+      <img src="assets/icons/powershell.svg" alt="">
+      <figcaption>powershell</figcaption>
+    </figure>
+          <figure class="icon-sample">
+      <img src="assets/icons/terraform.svg" alt="">
+      <figcaption>terraform</figcaption>
+    </figure>
+          <figure class="icon-sample">
+      <img src="assets/icons/nix.svg" alt="">
+      <figcaption>nix</figcaption>
+    </figure>
+          <figure class="icon-sample">
+      <img src="assets/icons/julia.svg" alt="">
+      <figcaption>julia</figcaption>
+    </figure>
+          <figure class="icon-sample">
+      <img src="assets/icons/fortran.svg" alt="">
+      <figcaption>fortran</figcaption>
+    </figure>
+          <figure class="icon-sample">
+      <img src="assets/icons/javascript.svg" alt="">
+      <figcaption>javascript</figcaption>
+    </figure>
+          <figure class="icon-sample">
+      <img src="assets/icons/typescript.svg" alt="">
+      <figcaption>typescript</figcaption>
+    </figure>
+          <figure class="icon-sample">
+      <img src="assets/icons/rust.svg" alt="">
+      <figcaption>rust</figcaption>
+    </figure>
+          <figure class="icon-sample">
+      <img src="assets/icons/ruby.svg" alt="">
+      <figcaption>ruby</figcaption>
+    </figure>
+          <figure class="icon-sample">
+      <img src="assets/icons/graphql.svg" alt="">
+      <figcaption>graphql</figcaption>
+    </figure>
+          <figure class="icon-sample">
+      <img src="assets/icons/assembly.svg" alt="">
+      <figcaption>assembly</figcaption>
+    </figure>
+          <figure class="icon-sample">
+      <img src="assets/icons/linux.svg" alt="">
+      <figcaption>linux</figcaption>
+    </figure>
+          <figure class="icon-sample">
+      <img src="assets/icons/fsf-bull.svg" alt="">
+      <figcaption>fsf bull</figcaption>
+    </figure>
+          <figure class="icon-sample">
+      <img src="assets/icons/crypto.svg" alt="">
+      <figcaption>crypto</figcaption>
+    </figure>
+          <figure class="icon-sample">
+      <img src="assets/icons/folder.svg" alt="">
+      <figcaption>folder</figcaption>
+    </figure>
+          <figure class="icon-sample">
+      <img src="assets/icons/code.svg" alt="">
+      <figcaption>code</figcaption>
+    </figure>
+        </div>
+      </div>
+    </section>
+    <section id="architecture" class="band">
+      <div class="wrap">
+        <h2>Build Architecture</h2>
+        <p class="section-note">The release package is generated from one palette, one icon manifest, upstream icon sources, and deterministic build scripts.</p>
+        <img class="diagram" src="assets/architecture.svg" alt="Gas Plasma build architecture diagram">
       </div>
     </section>
     <section id="palette" class="band">

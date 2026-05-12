@@ -1,35 +1,51 @@
 # Gas Plasma
 
-An orange-dominant dark theme for VS Code and Open VSX-compatible editors.
+Gas Plasma is an orange-dominant dark theme for VS Code and Open VSX-compatible editors.
 
-Gas Plasma is inspired by the glow of ionized gas: warm, vibrant, and readable for long coding sessions. It keeps the palette orange-shifted while preserving enough contrast for syntax highlighting, git diffs, and terminal output.
+It ships a VS Code color theme, a file icon theme, and a product icon theme generated from one shared palette and icon manifest.
 
-![Gas Plasma Screenshot](assets/mockup.png)
+![Gas Plasma preview](assets/mockup.png)
 
 ## Install
 
-Install from Open VSX:
-
 ```bash
-code --install-extension johnthre.gas-plasma-theme
+code --install-extension jpfchang.gas-plasma-theme
 ```
 
 Or install the VSIX from a GitHub Release:
 
 ```bash
-code --install-extension johnthre.gas-plasma-theme-0.1.0.vsix
+code --install-extension jpfchang.gas-plasma-theme-0.1.0.vsix
 ```
 
-## Included Theme
+## Included Themes
 
 - `Gas Plasma`
+- `Gas Plasma Icons`
+- `Gas Plasma Product Icons`
 
-## Related Theme Files
+Enable the icon themes from the command palette:
 
-The same palette is also available for Apple Terminal and iTerm2 from the GitHub repository releases:
+- `Preferences: File Icon Theme` > `Gas Plasma Icons`
+- `Preferences: Product Icon Theme` > `Gas Plasma Product Icons`
+
+## Icon System
+
+File icons are generated from recognizable upstream language and ecosystem logo geometry where available, with restrained Gas Plasma color treatment for contrast. Product icons are generated from VS Code Codicons so the editor UI keeps the original VS Code visual language.
+
+Language coverage includes C, C++, Objective-C, Pascal, Python, Vala, C#, Java, PHP, Go, Swift, JavaScript, TypeScript, HTML, CSS, Rust, Ruby, Dart, Kotlin, Scala, Lua, R, Zig, Perl, Haskell, Elixir, Erlang, Clojure, F#, SQL, Vue, Svelte, PowerShell, Terraform/HCL, Nix, Julia, Fortran, Ada, COBOL, assembly, Groovy, Crystal, Nim, OCaml, Reason, Elm, MATLAB, VB, Verilog/VHDL, LaTeX, GraphQL, WASM, Astro, Pug, Handlebars, and EJS.
+
+## Related Files
+
+The repository release also includes matching terminal profiles:
 
 - `GasPlasma.terminal`
 - `GasPlasma.itermcolors`
+
+## Attribution
+
+- File icon source geometry uses Simple Icons where available. Simple Icons is licensed under CC0-1.0.
+- Product icon source geometry uses VS Code Codicons, licensed under CC-BY-4.0.
 
 ## Support
 

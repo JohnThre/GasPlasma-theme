@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96" role="img" aria-label="Gas Plasma DART language icon">
+  <defs>
+    <linearGradient id="tile" x1="14" y1="10" x2="82" y2="86" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2A1200"/>
+      <stop offset=".48" stop-color="#160700"/>
+      <stop offset="1" stop-color="#080200"/>
+    </linearGradient>
+    <linearGradient id="ember" x1="20" y1="15" x2="76" y2="83" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFD2A6"/>
+      <stop offset=".28" stop-color="#FFD700"/>
+      <stop offset=".72" stop-color="#FF8C00"/>
+      <stop offset="1" stop-color="#FF4500"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="24" y1="24" x2="72" y2="72" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2A1200"/>
+      <stop offset=".6" stop-color="#100600"/>
+      <stop offset="1" stop-color="#050100"/>
+    </linearGradient>
+    <linearGradient id="darkGlass" x1="24" y1="22" x2="72" y2="72" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2A1200"/>
+      <stop offset=".58" stop-color="#100600"/>
+      <stop offset="1" stop-color="#050100"/>
+    </linearGradient>
+    <radialGradient id="disc" cx="39%" cy="31%" r="68%">
+      <stop offset="0" stop-color="#FFF0DB"/>
+      <stop offset=".28" stop-color="#E8C547"/>
+      <stop offset=".56" stop-color="#FF9B7A"/>
+      <stop offset="1" stop-color="#4D2600"/>
+    </radialGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#050100" flood-opacity=".48"/>
+    </filter>
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <g filter="url(#shadow)">
+    <path d="M4.105 4.105S9.158 1.58 11.684.316a3.079 3.079 0 0 1 1.481-.315c.766.047 1.677.788 1.677.788L24 9.948v9.789h-4.263V24H9.789l-9-9C.303 14.5 0 13.795 0 13.105c0-.319.18-.818.316-1.105l3.789-7.895zm.679.679v11.787c.002.543.021 1.024.498 1.508L10.204 23h8.533v-4.263L4.784 4.784zm12.055-.678c-.899-.896-1.809-1.78-2.74-2.643-.302-.267-.567-.468-1.07-.462-.37.014-.87.195-.87.195L6.341 4.105l10.498.001z" transform="translate(12.00 12.00) scale(3)" fill="#0175C2" stroke="#080200" stroke-width="0.52" paint-order="stroke fill" stroke-linejoin="round"/>
+  </g>
+</svg>

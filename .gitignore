@@ -9,6 +9,8 @@ dist/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+icons/product/svg/
+icons/product/gas-plasma-product-icons.json
 
 # Local AI coding assistant files and histories.
 .claude/

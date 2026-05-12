@@ -69,7 +69,7 @@ jobs:
           files: |
             dist/GasPlasma.terminal
             dist/GasPlasma.itermcolors
-            dist/johnthre.gas-plasma-theme-*.vsix
+            dist/jpfchang.gas-plasma-theme-*.vsix
             dist/logo.png
             dist/mockup.png
             dist/SHA256SUMS
@@ -79,10 +79,10 @@ jobs:
           OVSX_PAT: ${{ secrets.OVSX_PAT }}
         run: |
           test -n "$OVSX_PAT"
-          if ! curl -fsS https://open-vsx.org/api/johnthre/details >/dev/null; then
-            npx ovsx create-namespace johnthre -p "$OVSX_PAT"
+          if ! curl -fsS https://open-vsx.org/api/jpfchang/details >/dev/null; then
+            npx ovsx create-namespace jpfchang -p "$OVSX_PAT"
           fi
       - name: Publish to Open VSX
         env:
           OVSX_PAT: ${{ secrets.OVSX_PAT }}
-        run: npx ovsx publish dist/johnthre.gas-plasma-theme-*.vsix -p "$OVSX_PAT"
+        run: npx ovsx publish dist/jpfchang.gas-plasma-theme-*.vsix -p "$OVSX_PAT"

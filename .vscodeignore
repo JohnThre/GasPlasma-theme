@@ -9,6 +9,8 @@
 .github/**
 docs/**
 dist/**
+icons/product/svg/**
+icons/product/gas-plasma-product-icons.json
 node_modules/**
 scripts/**
 src/**

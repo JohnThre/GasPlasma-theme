@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="780" viewBox="0 0 1440 780" role="img" aria-labelledby="title desc">
+  <title id="title">Gas Plasma build architecture</title>
+  <desc id="desc">A diagram showing palette and icon sources flowing through generators into terminal, editor, documentation, and release artifacts.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B0300"/>
+      <stop offset=".55" stop-color="#1A0A00"/>
+      <stop offset="1" stop-color="#261000"/>
+    </linearGradient>
+    <filter id="shadow" x="-8%" y="-12%" width="116%" height="130%">
+      <feDropShadow dx="0" dy="16" stdDeviation="16" flood-color="#000" flood-opacity=".45"/>
+    </filter>
+  </defs>
+  <rect width="1440" height="780" fill="url(#bg)"/>
+  <text x="70" y="82" fill="#FFD2A6" font-family="Inter, Arial, sans-serif" font-size="38" font-weight="900">Gas Plasma Generation Pipeline</text>
+  <text x="70" y="122" fill="#FFC887" font-family="Inter, Arial, sans-serif" font-size="19">One palette and icon manifest drive every shipped theme asset, release package, and documentation surface.</text>
+  <g filter="url(#shadow)">
+    <g transform="translate(70 200)">
+    <rect width="270" height="126" rx="10" fill="#140800" stroke="#E8C547" stroke-width="2"/>
+    <rect x="0" y="0" width="270" height="36" rx="10" fill="#261000"/>
+    <path d="M0 36h270" stroke="#4D2600"/>
+    <text x="20" y="25" fill="#FFF0DB" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800">Source Data</text>
+    <text x="20" y="66" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="14">src/palette.json</text>
+    <text x="20" y="91" fill="#E8C547" font-family="SF Mono, Menlo, Consolas, monospace" font-size="14">src/icon-manifest.json</text>
+  </g>
+    <g transform="translate(70 396)">
+    <rect width="270" height="126" rx="10" fill="#140800" stroke="#FFD700" stroke-width="2"/>
+    <rect x="0" y="0" width="270" height="36" rx="10" fill="#261000"/>
+    <path d="M0 36h270" stroke="#4D2600"/>
+    <text x="20" y="25" fill="#FFF0DB" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800">Upstream Icons</text>
+    <text x="20" y="66" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="14">simple-icons</text>
+    <text x="20" y="91" fill="#E8C547" font-family="SF Mono, Menlo, Consolas, monospace" font-size="14">@vscode/codicons</text>
+  </g>
+    <g transform="translate(400 298)">
+    <rect width="270" height="126" rx="10" fill="#140800" stroke="#FF8C00" stroke-width="2"/>
+    <rect x="0" y="0" width="270" height="36" rx="10" fill="#261000"/>
+    <path d="M0 36h270" stroke="#4D2600"/>
+    <text x="20" y="25" fill="#FFF0DB" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800">Generators</text>
+    <text x="20" y="66" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="14">scripts/build.mjs</text>
+    <text x="20" y="91" fill="#E8C547" font-family="SF Mono, Menlo, Consolas, monospace" font-size="14">generate-theme.swift</text>
+  </g>
+    <g transform="translate(730 146)">
+    <rect width="270" height="126" rx="10" fill="#140800" stroke="#B5CC18" stroke-width="2"/>
+    <rect x="0" y="0" width="270" height="36" rx="10" fill="#261000"/>
+    <path d="M0 36h270" stroke="#4D2600"/>
+    <text x="20" y="25" fill="#FFF0DB" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800">Terminal Assets</text>
+    <text x="20" y="66" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="14">GasPlasma.terminal</text>
+    <text x="20" y="91" fill="#E8C547" font-family="SF Mono, Menlo, Consolas, monospace" font-size="14">GasPlasma.itermcolors</text>
+  </g>
+    <g transform="translate(730 312)">
+    <rect width="270" height="126" rx="10" fill="#140800" stroke="#FF6B3D" stroke-width="2"/>
+    <rect x="0" y="0" width="270" height="36" rx="10" fill="#261000"/>
+    <path d="M0 36h270" stroke="#4D2600"/>
+    <text x="20" y="25" fill="#FFF0DB" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800">Editor Assets</text>
+    <text x="20" y="66" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="14">themes/*.json</text>
+    <text x="20" y="91" fill="#E8C547" font-family="SF Mono, Menlo, Consolas, monospace" font-size="14">icons/**/*</text>
+  </g>
+    <g transform="translate(730 478)">
+    <rect width="270" height="126" rx="10" fill="#140800" stroke="#E8C547" stroke-width="2"/>
+    <rect x="0" y="0" width="270" height="36" rx="10" fill="#261000"/>
+    <path d="M0 36h270" stroke="#4D2600"/>
+    <text x="20" y="25" fill="#FFF0DB" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800">Documentation</text>
+    <text x="20" y="66" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="14">assets/*.svg/png</text>
+    <text x="20" y="91" fill="#E8C547" font-family="SF Mono, Menlo, Consolas, monospace" font-size="14">docs/index.html</text>
+  </g>
+    <g transform="translate(1060 312)">
+    <rect width="270" height="126" rx="10" fill="#140800" stroke="#FFD700" stroke-width="2"/>
+    <rect x="0" y="0" width="270" height="36" rx="10" fill="#261000"/>
+    <path d="M0 36h270" stroke="#4D2600"/>
+    <text x="20" y="25" fill="#FFF0DB" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800">Release Channels</text>
+    <text x="20" y="66" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="14">GitHub Releases</text>
+    <text x="20" y="91" fill="#E8C547" font-family="SF Mono, Menlo, Consolas, monospace" font-size="14">Open VSX VSIX</text>
+  </g>
+  </g>
+  <path d="M340 263H382" fill="none" stroke="#CC7A00" stroke-width="3" stroke-linecap="round"/>
+  <path d="M380 256l16 7-16 7z" fill="#CC7A00"/>
+  <path d="M340 459H382" fill="none" stroke="#CC7A00" stroke-width="3" stroke-linecap="round"/>
+  <path d="M380 452l16 7-16 7z" fill="#CC7A00"/>
+  <path d="M670 361h34c15 0 26-12 26-26v-73" fill="none" stroke="#CC7A00" stroke-width="3" stroke-linecap="round"/>
+  <path d="M714 255l16 7-16 7z" fill="#CC7A00"/>
+  <path d="M670 361H712" fill="none" stroke="#CC7A00" stroke-width="3" stroke-linecap="round"/>
+  <path d="M710 354l16 7-16 7z" fill="#CC7A00"/>
+  <path d="M670 361h34c15 0 26 12 26 26v210" fill="none" stroke="#CC7A00" stroke-width="3" stroke-linecap="round"/>
+  <path d="M714 590l16 7-16 7z" fill="#CC7A00"/>
+  <path d="M1000 375H1042" fill="none" stroke="#CC7A00" stroke-width="3" stroke-linecap="round"/>
+  <path d="M1040 368l16 7-16 7z" fill="#CC7A00"/>
+  <g transform="translate(70 642)">
+    <rect width="1298" height="62" rx="10" fill="#100600" stroke="#4D2600"/>
+    <text x="24" y="39" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="18">npm run build -> npm run check -> npm run package -> signed release tag -> Open VSX publish</text>
+  </g>
+</svg>

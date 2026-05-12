@@ -35,7 +35,9 @@ jobs:
             GasPlasma.itermcolors \
             themes/gas-plasma-color-theme.json \
             assets/logo.svg \
+            assets/architecture.svg \
             assets/mockup.svg \
             docs/assets/logo.svg \
+            docs/assets/architecture.svg \
             docs/assets/mockup.svg \
             docs/index.html

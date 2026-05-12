@@ -53,10 +53,43 @@
     <path d="M650 190h1062" stroke="#4D2600"/>
     <text x="690" y="185" fill="#FFF0DB" font-family="SF Mono, Menlo, Consolas, monospace" font-size="19">gas-plasma-color-theme.json</text>
     <rect x="650" y="208" width="220" height="686" fill="#0D0500"/>
-    <text x="690" y="268" fill="#FFD700" font-family="SF Mono, Menlo, Consolas, monospace" font-size="20">src</text>
-    <text x="690" y="308" fill="#E8C547" font-family="SF Mono, Menlo, Consolas, monospace" font-size="20">themes</text>
-    <text x="690" y="348" fill="#FF8C00" font-family="SF Mono, Menlo, Consolas, monospace" font-size="20">assets</text>
-    <text x="690" y="388" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="20">README.md</text>
+    <g font-family="SF Mono, Menlo, Consolas, monospace" font-size="20">
+      <g transform="translate(690 248)">
+        <rect width="24" height="20" rx="4" fill="#FF8C00" stroke="#FFD2A6"/>
+        <path d="M3 4h7l3 4h8" stroke="#FFF0DB" stroke-width="2" opacity=".55"/>
+        <text x="36" y="18" fill="#FFD700">src</text>
+      </g>
+      <g transform="translate(690 288)">
+        <rect width="24" height="24" rx="5" fill="#140800" stroke="#E8C547"/>
+        <rect x="5" y="5" width="6" height="6" rx="2" fill="#FF4500"/>
+        <rect x="13" y="5" width="6" height="6" rx="2" fill="#FFD700"/>
+        <rect x="5" y="13" width="6" height="6" rx="2" fill="#8B9A00"/>
+        <rect x="13" y="13" width="6" height="6" rx="2" fill="#E8C547"/>
+        <text x="36" y="20" fill="#E8C547">themes</text>
+      </g>
+      <g transform="translate(690 328)">
+        <circle cx="12" cy="12" r="11" fill="#E8C547" stroke="#FFD2A6"/>
+        <circle cx="12" cy="12" r="4" fill="#140800" stroke="#FFF0DB"/>
+        <text x="36" y="20" fill="#FF8C00">assets</text>
+      </g>
+      <g transform="translate(690 368)">
+        <path d="M5 1h12l7 7v22H5z" fill="#FFD2A6" stroke="#FF8C00"/>
+        <path d="M17 1v8h7" fill="#4D2600"/>
+        <text x="36" y="20" fill="#FFD2A6">README.md</text>
+      </g>
+      <g transform="translate(690 408)">
+        <circle cx="13" cy="17" r="12" fill="#140800" stroke="#FFD2A6"/>
+        <path d="M8 21c1-10 3-15 6-15s5 5 6 15c-2 4-4 6-6 6s-4-2-6-6z" fill="#FFD2A6"/>
+        <path d="M11 16h6" stroke="#FF8C00" stroke-width="3" stroke-linecap="round"/>
+        <text x="36" y="24" fill="#FFF0DB">linux</text>
+      </g>
+      <g transform="translate(690 448)">
+        <circle cx="10" cy="14" r="9" fill="#140800" stroke="#FFD700" stroke-width="3"/>
+        <circle cx="18" cy="14" r="9" fill="none" stroke="#FFD2A6" stroke-width="3"/>
+        <path d="M8 14h15" stroke="#FF8C00" stroke-width="3" stroke-linecap="round"/>
+        <text x="36" y="22" fill="#FFD700">crypto</text>
+      </g>
+    </g>
     <rect x="870" y="208" width="842" height="506" fill="#1A0A00"/>
     <text x="770" y="220" font-family="SF Mono, Menlo, Consolas, monospace" font-size="25"><tspan fill="#8F4A00"> 1</tspan><tspan dx="34"><tspan fill="#FF6B3D">const </tspan><tspan fill="#FFD2A6">theme</tspan><tspan fill="#FFF0DB"> = </tspan><tspan fill="#FFF0DB">{</tspan></tspan></text>
   <text x="770" y="258" font-family="SF Mono, Menlo, Consolas, monospace" font-size="25"><tspan fill="#8F4A00"> 2</tspan><tspan dx="34"><tspan fill="#E8C547">  name</tspan><tspan fill="#FFF0DB">: </tspan><tspan fill="#B5CC18">'Gas Plasma'</tspan><tspan fill="#FFF0DB">,</tspan></tspan></text>
@@ -67,9 +100,9 @@
   <text x="770" y="486" font-family="SF Mono, Menlo, Consolas, monospace" font-size="25"><tspan fill="#8F4A00"> 7</tspan><tspan dx="34"><tspan fill="#FF6B3D">export </tspan><tspan fill="#FF6B3D">default </tspan><tspan fill="#FFD2A6">theme</tspan><tspan fill="#FFF0DB">;</tspan></tspan></text>
     <rect x="870" y="714" width="842" height="132" fill="#100600" stroke="#4D2600"/>
     <text x="905" y="764" fill="#FF8C00" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">$ npm run package</text>
-    <text x="905" y="804" fill="#B5CC18" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">DONE Packaged: johnthre.gas-plasma-theme-0.1.0.vsix</text>
+    <text x="905" y="804" fill="#B5CC18" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">DONE Packaged: jpfchang.gas-plasma-theme-0.1.0.vsix</text>
     <rect x="650" y="846" width="1062" height="48" rx="0" fill="#3A1800"/>
-    <text x="690" y="878" fill="#FFF0DB" font-family="SF Mono, Menlo, Consolas, monospace" font-size="18">Open VSX namespace: johnthre</text>
+    <text x="690" y="878" fill="#FFF0DB" font-family="SF Mono, Menlo, Consolas, monospace" font-size="18">Open VSX namespace: jpfchang</text>
   </g>
 
   <g transform="translate(110, 755)">

@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96" role="img" aria-label="Gas Plasma ADA language icon">
+  <defs>
+    <linearGradient id="tile" x1="14" y1="10" x2="82" y2="86" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2A1200"/>
+      <stop offset=".48" stop-color="#160700"/>
+      <stop offset="1" stop-color="#080200"/>
+    </linearGradient>
+    <linearGradient id="ember" x1="20" y1="15" x2="76" y2="83" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFD2A6"/>
+      <stop offset=".28" stop-color="#FFD700"/>
+      <stop offset=".72" stop-color="#FF8C00"/>
+      <stop offset="1" stop-color="#FF4500"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="24" y1="24" x2="72" y2="72" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2A1200"/>
+      <stop offset=".6" stop-color="#100600"/>
+      <stop offset="1" stop-color="#050100"/>
+    </linearGradient>
+    <linearGradient id="darkGlass" x1="24" y1="22" x2="72" y2="72" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2A1200"/>
+      <stop offset=".58" stop-color="#100600"/>
+      <stop offset="1" stop-color="#050100"/>
+    </linearGradient>
+    <radialGradient id="disc" cx="39%" cy="31%" r="68%">
+      <stop offset="0" stop-color="#FFF0DB"/>
+      <stop offset=".28" stop-color="#E8C547"/>
+      <stop offset=".56" stop-color="#FF9B7A"/>
+      <stop offset="1" stop-color="#4D2600"/>
+    </radialGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#050100" flood-opacity=".48"/>
+    </filter>
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <g filter="url(#shadow)">
+    <path d="M18.869 13.45c0-.428.45-.585 1.18-.663.606-.068 1.09-.169 1.404-.371v.539c0 .644-.542.957-1.265 1.028a47.006 47 0 0 0-.925-.077c-.25-.095-.394-.256-.394-.457m-13.99.19h3.113l.256.755a33.004 33 0 0 0-3.96.97zM6.43 9.056l1.09 3.202H5.34zm6.921 1.606c.82 0 1.483.742 1.483 1.663 0 .651-.348 1.212-.852 1.473a47.006 47 0 0 0-1.152.053c-.562-.227-.961-.812-.961-1.526 0-.944.663-1.663 1.483-1.663m9.484 3.657v-3.072c0-.461-.18-1.978-2.529-1.978-1.516 0-2.572.82-2.718 1.921h1.483c.134-.494.741-.73 1.27-.73.662 0 1.055.247 1.055.55 0 .472-.685.585-1.651.675-1.28.112-2.37.449-2.37 1.752q0 .194.035.367a51.006 51 0 0 0-1.092-.028V6.844h-1.484v3.123a2.43 2.43 0 0 0-1.707-.674c-1.505 0-2.752 1.303-2.752 3.022a3.2 3.2 0 0 0 .474 1.702 38.005 38 0 0 0-1.12.14L7.376 7.406H5.498l-2.992 8.587A22.003 22 0 0 0 0 17.156c3.835-1.673 13.295-3.938 24-2.55-.051-.057-.466-.166-1.164-.286" transform="translate(12.00 12.00) scale(3)" fill="#FFD2A6" stroke="#080200" stroke-width="0.52" paint-order="stroke fill" stroke-linejoin="round"/>
+  </g>
+</svg>
