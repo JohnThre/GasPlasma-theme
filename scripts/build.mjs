@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, writeFileSync, copyFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { deflateSync } from "node:zlib";
+import { Resvg } from "@resvg/resvg-js";
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(scriptDir, "..");
@@ -199,33 +199,38 @@ function writeVsCodeTheme() {
 function writeLogoSvg() {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
   <title id="title">Gas Plasma logo</title>
-  <desc id="desc">A glowing orange plasma ring around the letters GP.</desc>
+  <desc id="desc">A glowing plasma aperture around the letters GP.</desc>
   <defs>
-    <radialGradient id="core" cx="50%" cy="45%" r="55%">
-      <stop offset="0" stop-color="#FFF0DB"/>
-      <stop offset="0.28" stop-color="#FFD700"/>
-      <stop offset="0.58" stop-color="#FF6B3D"/>
-      <stop offset="1" stop-color="#1A0A00"/>
-    </radialGradient>
-    <linearGradient id="flare" x1="70" y1="430" x2="440" y2="90">
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#261000"/>
+      <stop offset=".58" stop-color="#1A0A00"/>
+      <stop offset="1" stop-color="#080200"/>
+    </linearGradient>
+    <linearGradient id="ring" x1="76" y1="404" x2="434" y2="96">
       <stop offset="0" stop-color="#FF4500"/>
-      <stop offset="0.5" stop-color="#FFD700"/>
-      <stop offset="1" stop-color="#FF9B7A"/>
+      <stop offset=".34" stop-color="#FFD700"/>
+      <stop offset=".7" stop-color="#FF8C00"/>
+      <stop offset="1" stop-color="#FF6B6B"/>
     </linearGradient>
     <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
-      <feGaussianBlur stdDeviation="13" result="blur"/>
-      <feColorMatrix in="blur" type="matrix" values="1 0 0 0 1 0 .45 0 0 .27 0 0 .1 0 0 0 0 0 .85 0"/>
+      <feGaussianBlur stdDeviation="10" result="blur"/>
       <feMerge>
-        <feMergeNode/>
+        <feMergeNode in="blur"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
+    <filter id="smallGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
   </defs>
-  <rect width="512" height="512" rx="96" fill="#1A0A00"/>
-  <circle cx="256" cy="256" r="184" fill="none" stroke="url(#core)" stroke-width="52" filter="url(#glow)"/>
-  <path d="M93 375C167 244 259 151 419 98" fill="none" stroke="url(#flare)" stroke-width="18" stroke-linecap="round" opacity=".9"/>
-  <circle cx="256" cy="256" r="130" fill="#1A0A00" opacity=".92"/>
-  <text x="256" y="305" text-anchor="middle" font-family="SF Mono, Menlo, Consolas, monospace" font-size="136" font-weight="800" letter-spacing="-10" fill="#FFD2A6">GP</text>
+  <rect width="512" height="512" rx="104" fill="url(#panel)"/>
+  <path d="M116 361C83 295 94 218 144 164c62-68 166-79 242-25 78 56 97 163 45 240" fill="none" stroke="#4D2600" stroke-width="58" stroke-linecap="round"/>
+  <path d="M116 361C83 295 94 218 144 164c62-68 166-79 242-25 78 56 97 163 45 240" fill="none" stroke="url(#ring)" stroke-width="36" stroke-linecap="round" filter="url(#glow)"/>
+  <path d="M142 364c37 38 87 58 138 55 50-3 96-29 128-69" fill="none" stroke="#E8C547" stroke-width="14" stroke-linecap="round" opacity=".85" filter="url(#smallGlow)"/>
+  <circle cx="252" cy="257" r="116" fill="#120600" stroke="#3A1800" stroke-width="2"/>
+  <text x="256" y="303" text-anchor="middle" font-family="SF Mono, Menlo, Consolas, monospace" font-size="132" font-weight="900" letter-spacing="-8" fill="#FFD2A6">GP</text>
+  <path d="M360 134l18 34 38 6-28 27 7 38-35-18-34 18 6-38-27-27 38-6z" fill="#FFD700" opacity=".95"/>
 </svg>
 `;
   writeFileSync(path.join(root, "assets/logo.svg"), svg);
@@ -233,219 +238,140 @@ function writeLogoSvg() {
 }
 
 function writeMockupSvg() {
-  const lines = [
-    ["const plasma = createTheme({", "#FF6B3D", 80],
-    ["  background: '#1A0A00',", "#FFD2A6", 70],
-    ["  foreground: '#FF8C00',", "#FFB347", 72],
-    ["  accent: ionize(tokens),", "#E8C547", 63],
-    ["});", "#FF6B6B", 28]
-  ];
-  const svgLines = lines.map(([text, color], index) => {
-    const y = 210 + index * 42;
-    return `<text x="565" y="${y}" fill="${color}" font-family="SF Mono, Menlo, Consolas, monospace" font-size="26">${xmlEscape(text)}</text>`;
+  const codeLine = (line, y, parts) => {
+    const content = parts.map(([text, color]) => `<tspan fill="${color}">${xmlEscape(text)}</tspan>`).join("");
+    return `<text x="770" y="${y}" font-family="SF Mono, Menlo, Consolas, monospace" font-size="25"><tspan fill="#8F4A00">${String(line).padStart(2, " ")}</tspan><tspan dx="34">${content}</tspan></text>`;
+  };
+  const editorLines = [
+    codeLine(1, 220, [["const ", "#FF6B3D"], ["theme", "#FFD2A6"], [" = ", "#FFF0DB"], ["{", "#FFF0DB"]]),
+    codeLine(2, 258, [["  name", "#E8C547"], [": ", "#FFF0DB"], ["'Gas Plasma'", "#B5CC18"], [",", "#FFF0DB"]]),
+    codeLine(3, 296, [["  background", "#E8C547"], [": ", "#FFF0DB"], ["'#1A0A00'", "#B5CC18"], [",", "#FFF0DB"]]),
+    codeLine(4, 334, [["  foreground", "#E8C547"], [": ", "#FFF0DB"], ["'#FF8C00'", "#B5CC18"], [",", "#FFF0DB"]]),
+    codeLine(5, 372, [["  accents", "#E8C547"], [": [", "#FFF0DB"], ["'plasma'", "#B5CC18"], [", ", "#FFF0DB"], ["'ember'", "#B5CC18"], ["]", "#FFF0DB"]]),
+    codeLine(6, 410, [["};", "#FFF0DB"]]),
+    codeLine(7, 486, [["export ", "#FF6B3D"], ["default ", "#FF6B3D"], ["theme", "#FFD2A6"], [";", "#FFF0DB"]])
+  ].join("\n  ");
+  const swatches = [
+    ["#1A0A00", "bg"],
+    ["#FF8C00", "fg"],
+    ["#FF4500", "red"],
+    ["#8B9A00", "green"],
+    ["#FFD700", "yellow"],
+    ["#E8C547", "cyan"],
+    ["#FFF0DB", "white"]
+  ].map(([hex, label], index) => {
+    const x = 110 + index * 78;
+    return `<g transform="translate(${x}, 755)">
+    <rect width="52" height="52" rx="8" fill="${hex}" stroke="#4D2600"/>
+    <text x="26" y="78" text-anchor="middle" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="14">${label}</text>
+  </g>`;
   }).join("\n  ");
-  const terminalLines = Array.from({ length: 8 }, (_, index) => {
-    const width = [320, 250, 290, 210, 360, 275, 330, 230][index];
-    const color = [palette.ansi.bright.yellow, palette.ansi.normal.red, palette.ansi.normal.green, palette.ansi.bright.cyan][index % 4];
-    return `<rect x="120" y="${205 + index * 34}" width="${width}" height="12" rx="6" fill="${color}" opacity=".9"/>`;
-  }).join("\n  ");
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1080" viewBox="0 0 1800 1080" role="img" aria-labelledby="title desc">
   <title id="title">Gas Plasma theme mockup</title>
-  <desc id="desc">A design mockup showing Gas Plasma in terminal and editor windows.</desc>
+  <desc id="desc">A polished design mockup showing Gas Plasma in Terminal, iTerm2, and VS Code.</desc>
   <defs>
-    <radialGradient id="bg" cx="50%" cy="45%" r="80%">
-      <stop offset="0" stop-color="#4D2600"/>
-      <stop offset="0.45" stop-color="#1A0A00"/>
-      <stop offset="1" stop-color="#0D0500"/>
-    </radialGradient>
-    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="18"/>
+    <linearGradient id="stage" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B0300"/>
+      <stop offset=".48" stop-color="#1A0A00"/>
+      <stop offset="1" stop-color="#261000"/>
+    </linearGradient>
+    <linearGradient id="window" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1E0B00"/>
+      <stop offset="1" stop-color="#0F0500"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FF4500"/>
+      <stop offset=".5" stop-color="#FFD700"/>
+      <stop offset="1" stop-color="#E8C547"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="28" stdDeviation="28" flood-color="#000" flood-opacity=".55"/>
     </filter>
+    <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse">
+      <path d="M42 0H0v42" fill="none" stroke="#3A1800" stroke-width="1" opacity=".3"/>
+    </pattern>
   </defs>
-  <rect width="1600" height="1000" fill="url(#bg)"/>
-  <circle cx="1320" cy="130" r="150" fill="#FF4500" opacity=".22" filter="url(#softGlow)"/>
-  <circle cx="210" cy="870" r="180" fill="#FFD700" opacity=".14" filter="url(#softGlow)"/>
-  <rect x="72" y="110" width="640" height="520" rx="18" fill="#1A0A00" stroke="#4D2600" stroke-width="2"/>
-  <rect x="72" y="110" width="640" height="56" rx="18" fill="#261000"/>
-  <circle cx="112" cy="139" r="10" fill="#FF4500"/>
-  <circle cx="144" cy="139" r="10" fill="#FFB347"/>
-  <circle cx="176" cy="139" r="10" fill="#8B9A00"/>
-  <text x="220" y="148" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="20">Gas Plasma Terminal</text>
-  ${terminalLines}
-  <text x="118" y="535" fill="#FF8C00" font-family="SF Mono, Menlo, Consolas, monospace" font-size="24">$ swift generate-theme.swift</text>
-  <rect x="505" y="510" width="14" height="30" fill="#FF8C00"/>
-  <rect x="520" y="185" width="980" height="660" rx="18" fill="#140800" stroke="#4D2600" stroke-width="2"/>
-  <rect x="520" y="185" width="980" height="58" rx="18" fill="#261000"/>
-  <text x="560" y="222" fill="#FFF0DB" font-family="SF Mono, Menlo, Consolas, monospace" font-size="20">gas-plasma-color-theme.json</text>
-  <rect x="520" y="245" width="190" height="600" fill="#100600"/>
-  <text x="555" y="295" fill="#E8C547" font-family="SF Mono, Menlo, Consolas, monospace" font-size="21">themes</text>
-  <text x="555" y="335" fill="#FF8C00" font-family="SF Mono, Menlo, Consolas, monospace" font-size="21">assets</text>
-  <text x="555" y="375" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="21">README.md</text>
-  ${svgLines}
-  <rect x="565" y="465" width="760" height="2" fill="#4D2600"/>
-  <rect x="565" y="510" width="640" height="22" rx="11" fill="#FF4500" opacity=".78"/>
-  <rect x="565" y="555" width="720" height="22" rx="11" fill="#B5CC18" opacity=".78"/>
-  <rect x="565" y="600" width="510" height="22" rx="11" fill="#E09530" opacity=".78"/>
-  <rect x="565" y="645" width="690" height="22" rx="11" fill="#FF9B7A" opacity=".78"/>
-  <rect x="565" y="715" width="840" height="78" rx="16" fill="#1A0A00" stroke="#CC7A00"/>
-  <text x="600" y="765" fill="#FF8C00" font-family="SF Mono, Menlo, Consolas, monospace" font-size="24">Open VSX: johnthre.gas-plasma-theme</text>
+  <rect width="1800" height="1080" fill="url(#stage)"/>
+  <rect width="1800" height="1080" fill="url(#grid)"/>
+  <path d="M0 840C260 760 428 830 640 754c260-93 351-322 642-315 207 5 358 132 518 80v561H0z" fill="#100600" opacity=".64"/>
+  <text x="88" y="112" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="56" font-weight="900">Gas Plasma</text>
+  <text x="92" y="154" fill="#E8C547" font-family="SF Mono, Menlo, Consolas, monospace" font-size="24">Apple Terminal · iTerm2 · VS Code</text>
+  <rect x="94" y="180" width="418" height="8" rx="4" fill="url(#accent)"/>
+
+  <g filter="url(#shadow)">
+    <rect x="88" y="232" width="640" height="480" rx="18" fill="url(#window)" stroke="#4D2600" stroke-width="2"/>
+    <rect x="88" y="232" width="640" height="58" rx="18" fill="#261000"/>
+    <path d="M88 272h640" stroke="#4D2600"/>
+    <circle cx="128" cy="261" r="10" fill="#FF4500"/>
+    <circle cx="160" cy="261" r="10" fill="#FFB347"/>
+    <circle cx="192" cy="261" r="10" fill="#8B9A00"/>
+    <text x="230" y="270" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="19">GasPlasma.terminal</text>
+    <text x="126" y="338" fill="#FF8C00" font-family="SF Mono, Menlo, Consolas, monospace" font-size="24">$ npm run build</text>
+    <text x="126" y="382" fill="#FFD700" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">generated GasPlasma.itermcolors</text>
+    <text x="126" y="422" fill="#E8C547" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">generated gas-plasma-color-theme.json</text>
+    <text x="126" y="462" fill="#B5CC18" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">Generated GasPlasma.terminal</text>
+    <text x="126" y="526" fill="#FF8C00" font-family="SF Mono, Menlo, Consolas, monospace" font-size="24">$ open GasPlasma.terminal</text>
+    <text x="126" y="566" fill="#FF9B7A" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">$ code --install-extension gas-plasma</text>
+    <rect x="126" y="620" width="14" height="30" fill="#FF8C00"/>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="650" y="148" width="1062" height="746" rx="18" fill="#120600" stroke="#4D2600" stroke-width="2"/>
+    <rect x="650" y="148" width="1062" height="60" rx="18" fill="#261000"/>
+    <path d="M650 190h1062" stroke="#4D2600"/>
+    <text x="690" y="185" fill="#FFF0DB" font-family="SF Mono, Menlo, Consolas, monospace" font-size="19">gas-plasma-color-theme.json</text>
+    <rect x="650" y="208" width="220" height="686" fill="#0D0500"/>
+    <text x="690" y="268" fill="#FFD700" font-family="SF Mono, Menlo, Consolas, monospace" font-size="20">src</text>
+    <text x="690" y="308" fill="#E8C547" font-family="SF Mono, Menlo, Consolas, monospace" font-size="20">themes</text>
+    <text x="690" y="348" fill="#FF8C00" font-family="SF Mono, Menlo, Consolas, monospace" font-size="20">assets</text>
+    <text x="690" y="388" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="20">README.md</text>
+    <rect x="870" y="208" width="842" height="506" fill="#1A0A00"/>
+    ${editorLines}
+    <rect x="870" y="714" width="842" height="132" fill="#100600" stroke="#4D2600"/>
+    <text x="905" y="764" fill="#FF8C00" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">$ npm run package</text>
+    <text x="905" y="804" fill="#B5CC18" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">DONE Packaged: johnthre.gas-plasma-theme-0.1.0.vsix</text>
+    <rect x="650" y="846" width="1062" height="48" rx="0" fill="#3A1800"/>
+    <text x="690" y="878" fill="#FFF0DB" font-family="SF Mono, Menlo, Consolas, monospace" font-size="18">Open VSX namespace: johnthre</text>
+  </g>
+
+  ${swatches}
+  <g transform="translate(86 920)">
+    <rect width="362" height="62" rx="8" fill="#1A0A00" stroke="#CC7A00"/>
+    <text x="28" y="40" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">#1A0A00 / #FF8C00</text>
+  </g>
+  <g transform="translate(486 920)">
+    <rect width="350" height="62" rx="8" fill="#1A0A00" stroke="#8B9A00"/>
+    <text x="28" y="40" fill="#B5CC18" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">syntax colors intact</text>
+  </g>
+  <g transform="translate(874 920)">
+    <rect width="452" height="62" rx="8" fill="#1A0A00" stroke="#E8C547"/>
+    <text x="28" y="40" fill="#E8C547" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">single palette, four targets</text>
+  </g>
 </svg>
 `;
   writeFileSync(path.join(root, "assets/mockup.svg"), svg);
   writeFileSync(path.join(root, "docs/assets/mockup.svg"), svg);
 }
 
-const crcTable = Array.from({ length: 256 }, (_, n) => {
-  let c = n;
-  for (let k = 0; k < 8; k += 1) {
-    c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1;
-  }
-  return c >>> 0;
-});
-
-function crc32(buffer) {
-  let c = 0xffffffff;
-  for (const byte of buffer) c = crcTable[(c ^ byte) & 0xff] ^ (c >>> 8);
-  return (c ^ 0xffffffff) >>> 0;
-}
-
-function pngChunk(type, data) {
-  const typeBuffer = Buffer.from(type);
-  const length = Buffer.alloc(4);
-  length.writeUInt32BE(data.length);
-  const crc = Buffer.alloc(4);
-  crc.writeUInt32BE(crc32(Buffer.concat([typeBuffer, data])));
-  return Buffer.concat([length, typeBuffer, data, crc]);
-}
-
-function writePng(file, width, height, pixels) {
-  const raw = Buffer.alloc((width * 4 + 1) * height);
-  for (let y = 0; y < height; y += 1) {
-    const row = y * (width * 4 + 1);
-    raw[row] = 0;
-    for (let x = 0; x < width; x += 1) {
-      const source = (y * width + x) * 4;
-      const target = row + 1 + x * 4;
-      raw[target] = pixels[source];
-      raw[target + 1] = pixels[source + 1];
-      raw[target + 2] = pixels[source + 2];
-      raw[target + 3] = pixels[source + 3];
+function renderSvgToPng(svgPath, pngPath) {
+  const svg = readFileSync(svgPath);
+  const png = new Resvg(svg, {
+    fitTo: { mode: "original" },
+    font: {
+      fontFamily: "SF Mono",
+      loadSystemFonts: true
     }
-  }
-
-  const header = Buffer.alloc(13);
-  header.writeUInt32BE(width, 0);
-  header.writeUInt32BE(height, 4);
-  header[8] = 8;
-  header[9] = 6;
-  header[10] = 0;
-  header[11] = 0;
-  header[12] = 0;
-
-  const png = Buffer.concat([
-    Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]),
-    pngChunk("IHDR", header),
-    pngChunk("IDAT", deflateSync(raw, { level: 9 })),
-    pngChunk("IEND", Buffer.alloc(0))
-  ]);
-  writeFileSync(file, png);
-}
-
-function putPixel(pixels, width, x, y, color) {
-  if (x < 0 || y < 0 || x >= width) return;
-  const index = (y * width + x) * 4;
-  const alpha = (color.a ?? 255) / 255;
-  const destAlpha = pixels[index + 3] / 255;
-  const outAlpha = alpha + destAlpha * (1 - alpha);
-  if (outAlpha <= 0) return;
-  pixels[index] = Math.round((color.r * alpha + pixels[index] * destAlpha * (1 - alpha)) / outAlpha);
-  pixels[index + 1] = Math.round((color.g * alpha + pixels[index + 1] * destAlpha * (1 - alpha)) / outAlpha);
-  pixels[index + 2] = Math.round((color.b * alpha + pixels[index + 2] * destAlpha * (1 - alpha)) / outAlpha);
-  pixels[index + 3] = Math.round(outAlpha * 255);
-}
-
-function fillRect(pixels, width, height, x, y, rectWidth, rectHeight, color) {
-  const x0 = Math.max(0, Math.round(x));
-  const y0 = Math.max(0, Math.round(y));
-  const x1 = Math.min(width, Math.round(x + rectWidth));
-  const y1 = Math.min(height, Math.round(y + rectHeight));
-  for (let yy = y0; yy < y1; yy += 1) {
-    for (let xx = x0; xx < x1; xx += 1) {
-      putPixel(pixels, width, xx, yy, color);
-    }
-  }
-}
-
-function color(hex, a = 255) {
-  return { ...hexToRgb(hex), a };
+  }).render().asPng();
+  writeFileSync(pngPath, png);
 }
 
 function writeLogoPng() {
-  const width = 512;
-  const height = 512;
-  const pixels = new Uint8ClampedArray(width * height * 4);
-  const bg = color("#1A0A00", 255);
-  fillRect(pixels, width, height, 0, 0, width, height, bg);
-
-  for (let y = 0; y < height; y += 1) {
-    for (let x = 0; x < width; x += 1) {
-      const dx = x - 256;
-      const dy = y - 256;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-      if (distance > 155 && distance < 220) {
-        const t = (distance - 155) / 65;
-        const angle = Math.atan2(dy, dx);
-        const glow = 0.5 + 0.5 * Math.sin(angle * 3 + distance * 0.045);
-        const r = Math.round(255);
-        const g = Math.round(70 + 150 * (1 - t) + 40 * glow);
-        const b = Math.round(10 + 50 * glow);
-        putPixel(pixels, width, x, y, { r, g, b, a: Math.round(210 * (1 - Math.abs(t - 0.5))) });
-      }
-      if (distance < 132) {
-        putPixel(pixels, width, x, y, color("#1A0A00", 235));
-      }
-    }
-  }
-
-  fillRect(pixels, width, height, 132, 180, 42, 160, color("#FFD2A6"));
-  fillRect(pixels, width, height, 132, 180, 120, 38, color("#FFD2A6"));
-  fillRect(pixels, width, height, 132, 302, 120, 38, color("#FFD2A6"));
-  fillRect(pixels, width, height, 210, 258, 42, 82, color("#FFD2A6"));
-  fillRect(pixels, width, height, 190, 258, 62, 34, color("#FFD2A6"));
-  fillRect(pixels, width, height, 286, 180, 42, 160, color("#FFF0DB"));
-  fillRect(pixels, width, height, 286, 180, 112, 38, color("#FFF0DB"));
-  fillRect(pixels, width, height, 356, 218, 42, 62, color("#FFF0DB"));
-  fillRect(pixels, width, height, 286, 272, 112, 36, color("#FFF0DB"));
-
-  writePng(path.join(root, "assets/logo.png"), width, height, pixels);
+  renderSvgToPng(path.join(root, "assets/logo.svg"), path.join(root, "assets/logo.png"));
   copyFileSync(path.join(root, "assets/logo.png"), path.join(root, "docs/assets/logo.png"));
 }
 
 function writeMockupPng() {
-  const width = 1600;
-  const height = 1000;
-  const pixels = new Uint8ClampedArray(width * height * 4);
-  fillRect(pixels, width, height, 0, 0, width, height, color("#0D0500"));
-  fillRect(pixels, width, height, 70, 110, 650, 520, color("#1A0A00"));
-  fillRect(pixels, width, height, 70, 110, 650, 56, color("#261000"));
-  fillRect(pixels, width, height, 520, 185, 980, 660, color("#140800"));
-  fillRect(pixels, width, height, 520, 185, 980, 58, color("#261000"));
-  fillRect(pixels, width, height, 520, 245, 190, 600, color("#100600"));
-
-  const terminalColors = ["#FFD700", "#FF4500", "#8B9A00", "#E8C547", "#FF6B3D", "#FF9B7A"];
-  for (let i = 0; i < 11; i += 1) {
-    fillRect(pixels, width, height, 120, 205 + i * 34, 190 + ((i * 47) % 185), 13, color(terminalColors[i % terminalColors.length], 225));
-  }
-  for (let i = 0; i < 14; i += 1) {
-    fillRect(pixels, width, height, 565, 290 + i * 34, 480 + ((i * 73) % 310), 16, color(terminalColors[(i + 2) % terminalColors.length], 220));
-  }
-  for (let i = 0; i < 6; i += 1) {
-    fillRect(pixels, width, height, 555, 295 + i * 40, 95 + ((i * 29) % 80), 14, color(["#E8C547", "#FF8C00", "#FFD2A6"][i % 3], 210));
-  }
-  fillRect(pixels, width, height, 565, 715, 840, 78, color("#1A0A00"));
-  fillRect(pixels, width, height, 600, 750, 600, 20, color("#FF8C00", 235));
-  copyFileSync(path.join(root, "assets/logo.png"), path.join(root, "docs/assets/logo.png"));
-  writePng(path.join(root, "assets/mockup.png"), width, height, pixels);
+  renderSvgToPng(path.join(root, "assets/mockup.svg"), path.join(root, "assets/mockup.png"));
   copyFileSync(path.join(root, "assets/mockup.png"), path.join(root, "docs/assets/mockup.png"));
   copyFileSync(path.join(root, "assets/mockup.png"), path.join(root, "screenshot.png"));
 }
@@ -461,91 +387,259 @@ function writeDocsIndex() {
   <style>
     :root {
       color-scheme: dark;
-      --bg: ${palette.core.background};
-      --fg: ${palette.core.foreground};
-      --bold: ${palette.core.bold};
+      --bg: #0B0300;
+      --surface: ${palette.core.background};
+      --surface-2: #261000;
+      --surface-3: #3A1800;
+      --text: ${palette.core.bold};
+      --muted: #E09530;
+      --accent: ${palette.core.foreground};
       --red: ${palette.ansi.normal.red};
+      --green: ${palette.ansi.bright.green};
       --yellow: ${palette.ansi.bright.yellow};
-      --panel: #261000;
+      --cyan: ${palette.ansi.bright.cyan};
       --line: #4D2600;
     }
     * { box-sizing: border-box; }
+    html { background: var(--bg); }
     body {
       margin: 0;
-      min-height: 100vh;
-      background: radial-gradient(circle at 70% 10%, rgba(255,69,0,.22), transparent 28%), var(--bg);
-      color: var(--fg);
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      background:
+        linear-gradient(135deg, rgba(255,69,0,.10), transparent 32rem),
+        linear-gradient(180deg, var(--bg) 0, var(--surface) 56rem, #0B0300 100%);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
-    main {
-      width: min(1120px, calc(100% - 32px));
+    a { color: var(--yellow); text-decoration-thickness: 1px; text-underline-offset: 4px; }
+    code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .wrap {
+      width: min(1180px, calc(100% - 40px));
       margin: 0 auto;
-      padding: 48px 0 64px;
     }
-    header {
-      display: grid;
-      grid-template-columns: 120px 1fr;
-      gap: 28px;
+    .nav {
+      display: flex;
       align-items: center;
-      margin-bottom: 32px;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 26px 0;
+      color: var(--muted);
+      font-size: 15px;
     }
-    .logo { width: 120px; height: 120px; }
-    h1 { margin: 0 0 10px; color: var(--bold); font-size: clamp(38px, 8vw, 82px); line-height: .95; }
-    p { max-width: 760px; line-height: 1.7; }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text);
+      font-weight: 800;
+    }
+    .brand img { width: 34px; height: 34px; }
+    .links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, .78fr) minmax(560px, 1.22fr);
+      gap: 42px;
+      align-items: center;
+      min-height: 720px;
+      padding: 30px 0 70px;
+    }
+    .hero-logo { width: 118px; height: 118px; margin-bottom: 28px; }
+    h1 {
+      margin: 0;
+      color: var(--text);
+      font-size: 78px;
+      line-height: .96;
+      letter-spacing: 0;
+    }
+    .lead {
+      max-width: 560px;
+      margin: 24px 0 0;
+      color: #FFC887;
+      font-size: 20px;
+      line-height: 1.65;
+    }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border: 1px solid var(--line);
+      background: var(--surface-2);
+      color: var(--text);
+      font-weight: 760;
+      text-decoration: none;
+      border-radius: 8px;
+    }
+    .button.primary {
+      background: var(--red);
+      border-color: var(--red);
+      color: #FFF0DB;
+    }
     .mockup {
       display: block;
       width: 100%;
       border: 1px solid var(--line);
-      background: #0d0500;
+      border-radius: 8px;
+      background: #0D0500;
+      box-shadow: 0 32px 80px rgba(0,0,0,.45);
+    }
+    .band {
+      border-top: 1px solid var(--line);
+      padding: 56px 0;
     }
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 14px;
-      margin-top: 28px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
     }
     .tile {
       border: 1px solid var(--line);
-      background: color-mix(in srgb, var(--panel), transparent 10%);
-      padding: 18px;
+      background: rgba(38,16,0,.78);
+      border-radius: 8px;
+      padding: 22px;
+      min-height: 178px;
     }
-    h2 { margin: 0 0 12px; color: var(--yellow); font-size: 20px; }
-    code { color: var(--bold); }
-    a { color: var(--yellow); }
-    @media (max-width: 640px) {
-      header { grid-template-columns: 1fr; }
+    h2 {
+      margin: 0 0 22px;
+      font-size: 28px;
+      line-height: 1.15;
+      letter-spacing: 0;
+    }
+    h3 {
+      margin: 0 0 12px;
+      color: var(--yellow);
+      font-size: 19px;
+      letter-spacing: 0;
+    }
+    p {
+      margin: 0;
+      color: #FFC887;
+      line-height: 1.65;
+    }
+    .command {
+      display: block;
+      margin-top: 16px;
+      padding: 14px;
+      overflow-x: auto;
+      background: #100600;
+      color: var(--green);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+    .palette {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .swatch {
+      min-height: 84px;
+      padding: 12px;
+      color: #FFF0DB;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 13px;
+      text-shadow: 0 1px 8px rgba(0,0,0,.65);
+    }
+    .footer {
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      padding: 30px 0 46px;
+      font-size: 14px;
+    }
+    @media (max-width: 980px) {
+      .hero { grid-template-columns: 1fr; min-height: 0; }
+      h1 { font-size: 56px; }
+      .grid { grid-template-columns: 1fr; }
+      .palette { grid-template-columns: repeat(4, 1fr); }
+    }
+    @media (max-width: 560px) {
+      .wrap { width: min(100% - 28px, 1180px); }
+      .nav { align-items: flex-start; flex-direction: column; }
+      h1 { font-size: 44px; }
+      .lead { font-size: 18px; }
+      .palette { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
 <body>
+  <nav class="wrap nav">
+    <a class="brand" href="https://github.com/JohnThre/GasPlasma-theme">
+      <img src="assets/logo.svg" alt="">
+      <span>Gas Plasma</span>
+    </a>
+    <div class="links">
+      <a href="#install">Install</a>
+      <a href="#palette">Palette</a>
+      <a href="https://open-vsx.org/extension/johnthre/gas-plasma-theme">Open VSX</a>
+      <a href="https://github.com/JohnThre/GasPlasma-theme">GitHub</a>
+    </div>
+  </nav>
   <main>
-    <header>
-      <img class="logo" src="assets/logo.svg" alt="Gas Plasma logo">
+    <section class="wrap hero">
       <div>
+        <img class="hero-logo" src="assets/logo.svg" alt="Gas Plasma logo">
         <h1>Gas Plasma</h1>
-        <p>${xmlEscape(palette.description)} Built for Apple Terminal, iTerm2, VS Code, and Open VSX-compatible editors.</p>
+        <p class="lead">${xmlEscape(palette.description)} A single warm, high-contrast palette for Apple Terminal, iTerm2, VS Code, and Open VSX-compatible editors.</p>
+        <div class="actions">
+          <a class="button primary" href="https://github.com/JohnThre/GasPlasma-theme/releases">Releases</a>
+          <a class="button" href="https://open-vsx.org/extension/johnthre/gas-plasma-theme">Open VSX</a>
+        </div>
       </div>
-    </header>
-    <img class="mockup" src="assets/mockup.svg" alt="Gas Plasma terminal and editor mockup">
-    <section class="grid" aria-label="Installation options">
-      <article class="tile">
-        <h2>Apple Terminal</h2>
-        <p>Download <code>GasPlasma.terminal</code> from the latest GitHub release and open it in Terminal.</p>
-      </article>
-      <article class="tile">
-        <h2>iTerm2</h2>
-        <p>Import <code>GasPlasma.itermcolors</code> from iTerm2 Profiles color presets.</p>
-      </article>
-      <article class="tile">
-        <h2>VS Code</h2>
-        <p>Install the VSIX from GitHub Releases or search Open VSX for <code>johnthre.gas-plasma-theme</code>.</p>
-      </article>
-      <article class="tile">
-        <h2>Source</h2>
-        <p><a href="https://github.com/JohnThre/GasPlasma-theme">View the repository on GitHub</a>.</p>
-      </article>
+      <img class="mockup" src="assets/mockup.svg" alt="Gas Plasma terminal and editor mockup">
+    </section>
+    <section id="install" class="band">
+      <div class="wrap">
+        <h2>Install Targets</h2>
+        <div class="grid">
+          <article class="tile">
+            <h3>Apple Terminal</h3>
+            <p>Download <code>GasPlasma.terminal</code> from GitHub Releases and open it in Terminal.</p>
+            <code class="command">open GasPlasma.terminal</code>
+          </article>
+          <article class="tile">
+            <h3>iTerm2</h3>
+            <p>Import <code>GasPlasma.itermcolors</code> from iTerm2 color presets.</p>
+            <code class="command">GasPlasma.itermcolors</code>
+          </article>
+          <article class="tile">
+            <h3>VS Code</h3>
+            <p>Install the published VSIX from Open VSX-compatible editors.</p>
+            <code class="command">johnthre.gas-plasma-theme</code>
+          </article>
+        </div>
+      </div>
+    </section>
+    <section id="palette" class="band">
+      <div class="wrap">
+        <h2>Palette</h2>
+        <div class="palette" aria-label="Gas Plasma palette">
+          <div class="swatch" style="background:#1A0A00">#1A0A00</div>
+          <div class="swatch" style="background:#FF8C00">#FF8C00</div>
+          <div class="swatch" style="background:#FF4500">#FF4500</div>
+          <div class="swatch" style="background:#8B9A00">#8B9A00</div>
+          <div class="swatch" style="background:#FFD700">#FFD700</div>
+          <div class="swatch" style="background:#CC7A00">#CC7A00</div>
+          <div class="swatch" style="background:#FF6B6B">#FF6B6B</div>
+          <div class="swatch" style="background:#E8C547">#E8C547</div>
+        </div>
+      </div>
     </section>
   </main>
+  <footer class="wrap footer">GPL-3.0-or-later · Generated from one shared palette · GitHub Pages</footer>
 </body>
 </html>
 `;

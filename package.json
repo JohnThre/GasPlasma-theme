@@ -50,6 +50,7 @@
     "package": "npm run build && node -e \"require('fs').mkdirSync('dist',{recursive:true})\" && vsce package --readme-path README.open-vsx.md --out dist/johnthre.gas-plasma-theme-${npm_package_version}.vsix"
   },
   "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2",
     "@vscode/vsce": "^3.9.1",
     "ovsx": "^0.10.12"
   }

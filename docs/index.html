@@ -8,90 +8,258 @@
   <style>
     :root {
       color-scheme: dark;
-      --bg: #1A0A00;
-      --fg: #FF8C00;
-      --bold: #FFD2A6;
+      --bg: #0B0300;
+      --surface: #1A0A00;
+      --surface-2: #261000;
+      --surface-3: #3A1800;
+      --text: #FFD2A6;
+      --muted: #E09530;
+      --accent: #FF8C00;
       --red: #FF4500;
+      --green: #B5CC18;
       --yellow: #FFD700;
-      --panel: #261000;
+      --cyan: #E8C547;
       --line: #4D2600;
     }
     * { box-sizing: border-box; }
+    html { background: var(--bg); }
     body {
       margin: 0;
-      min-height: 100vh;
-      background: radial-gradient(circle at 70% 10%, rgba(255,69,0,.22), transparent 28%), var(--bg);
-      color: var(--fg);
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      background:
+        linear-gradient(135deg, rgba(255,69,0,.10), transparent 32rem),
+        linear-gradient(180deg, var(--bg) 0, var(--surface) 56rem, #0B0300 100%);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
-    main {
-      width: min(1120px, calc(100% - 32px));
+    a { color: var(--yellow); text-decoration-thickness: 1px; text-underline-offset: 4px; }
+    code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .wrap {
+      width: min(1180px, calc(100% - 40px));
       margin: 0 auto;
-      padding: 48px 0 64px;
     }
-    header {
-      display: grid;
-      grid-template-columns: 120px 1fr;
-      gap: 28px;
+    .nav {
+      display: flex;
       align-items: center;
-      margin-bottom: 32px;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 26px 0;
+      color: var(--muted);
+      font-size: 15px;
     }
-    .logo { width: 120px; height: 120px; }
-    h1 { margin: 0 0 10px; color: var(--bold); font-size: clamp(38px, 8vw, 82px); line-height: .95; }
-    p { max-width: 760px; line-height: 1.7; }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text);
+      font-weight: 800;
+    }
+    .brand img { width: 34px; height: 34px; }
+    .links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, .78fr) minmax(560px, 1.22fr);
+      gap: 42px;
+      align-items: center;
+      min-height: 720px;
+      padding: 30px 0 70px;
+    }
+    .hero-logo { width: 118px; height: 118px; margin-bottom: 28px; }
+    h1 {
+      margin: 0;
+      color: var(--text);
+      font-size: 78px;
+      line-height: .96;
+      letter-spacing: 0;
+    }
+    .lead {
+      max-width: 560px;
+      margin: 24px 0 0;
+      color: #FFC887;
+      font-size: 20px;
+      line-height: 1.65;
+    }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border: 1px solid var(--line);
+      background: var(--surface-2);
+      color: var(--text);
+      font-weight: 760;
+      text-decoration: none;
+      border-radius: 8px;
+    }
+    .button.primary {
+      background: var(--red);
+      border-color: var(--red);
+      color: #FFF0DB;
+    }
     .mockup {
       display: block;
       width: 100%;
       border: 1px solid var(--line);
-      background: #0d0500;
+      border-radius: 8px;
+      background: #0D0500;
+      box-shadow: 0 32px 80px rgba(0,0,0,.45);
+    }
+    .band {
+      border-top: 1px solid var(--line);
+      padding: 56px 0;
     }
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 14px;
-      margin-top: 28px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
     }
     .tile {
       border: 1px solid var(--line);
-      background: color-mix(in srgb, var(--panel), transparent 10%);
-      padding: 18px;
+      background: rgba(38,16,0,.78);
+      border-radius: 8px;
+      padding: 22px;
+      min-height: 178px;
     }
-    h2 { margin: 0 0 12px; color: var(--yellow); font-size: 20px; }
-    code { color: var(--bold); }
-    a { color: var(--yellow); }
-    @media (max-width: 640px) {
-      header { grid-template-columns: 1fr; }
+    h2 {
+      margin: 0 0 22px;
+      font-size: 28px;
+      line-height: 1.15;
+      letter-spacing: 0;
+    }
+    h3 {
+      margin: 0 0 12px;
+      color: var(--yellow);
+      font-size: 19px;
+      letter-spacing: 0;
+    }
+    p {
+      margin: 0;
+      color: #FFC887;
+      line-height: 1.65;
+    }
+    .command {
+      display: block;
+      margin-top: 16px;
+      padding: 14px;
+      overflow-x: auto;
+      background: #100600;
+      color: var(--green);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+    .palette {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .swatch {
+      min-height: 84px;
+      padding: 12px;
+      color: #FFF0DB;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 13px;
+      text-shadow: 0 1px 8px rgba(0,0,0,.65);
+    }
+    .footer {
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      padding: 30px 0 46px;
+      font-size: 14px;
+    }
+    @media (max-width: 980px) {
+      .hero { grid-template-columns: 1fr; min-height: 0; }
+      h1 { font-size: 56px; }
+      .grid { grid-template-columns: 1fr; }
+      .palette { grid-template-columns: repeat(4, 1fr); }
+    }
+    @media (max-width: 560px) {
+      .wrap { width: min(100% - 28px, 1180px); }
+      .nav { align-items: flex-start; flex-direction: column; }
+      h1 { font-size: 44px; }
+      .lead { font-size: 18px; }
+      .palette { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
 <body>
+  <nav class="wrap nav">
+    <a class="brand" href="https://github.com/JohnThre/GasPlasma-theme">
+      <img src="assets/logo.svg" alt="">
+      <span>Gas Plasma</span>
+    </a>
+    <div class="links">
+      <a href="#install">Install</a>
+      <a href="#palette">Palette</a>
+      <a href="https://open-vsx.org/extension/johnthre/gas-plasma-theme">Open VSX</a>
+      <a href="https://github.com/JohnThre/GasPlasma-theme">GitHub</a>
+    </div>
+  </nav>
   <main>
-    <header>
-      <img class="logo" src="assets/logo.svg" alt="Gas Plasma logo">
+    <section class="wrap hero">
       <div>
+        <img class="hero-logo" src="assets/logo.svg" alt="Gas Plasma logo">
         <h1>Gas Plasma</h1>
-        <p>An orange-dominant dark theme inspired by ionized gas glow. Built for Apple Terminal, iTerm2, VS Code, and Open VSX-compatible editors.</p>
+        <p class="lead">An orange-dominant dark theme inspired by ionized gas glow. A single warm, high-contrast palette for Apple Terminal, iTerm2, VS Code, and Open VSX-compatible editors.</p>
+        <div class="actions">
+          <a class="button primary" href="https://github.com/JohnThre/GasPlasma-theme/releases">Releases</a>
+          <a class="button" href="https://open-vsx.org/extension/johnthre/gas-plasma-theme">Open VSX</a>
+        </div>
       </div>
-    </header>
-    <img class="mockup" src="assets/mockup.svg" alt="Gas Plasma terminal and editor mockup">
-    <section class="grid" aria-label="Installation options">
-      <article class="tile">
-        <h2>Apple Terminal</h2>
-        <p>Download <code>GasPlasma.terminal</code> from the latest GitHub release and open it in Terminal.</p>
-      </article>
-      <article class="tile">
-        <h2>iTerm2</h2>
-        <p>Import <code>GasPlasma.itermcolors</code> from iTerm2 Profiles color presets.</p>
-      </article>
-      <article class="tile">
-        <h2>VS Code</h2>
-        <p>Install the VSIX from GitHub Releases or search Open VSX for <code>johnthre.gas-plasma-theme</code>.</p>
-      </article>
-      <article class="tile">
-        <h2>Source</h2>
-        <p><a href="https://github.com/JohnThre/GasPlasma-theme">View the repository on GitHub</a>.</p>
-      </article>
+      <img class="mockup" src="assets/mockup.svg" alt="Gas Plasma terminal and editor mockup">
+    </section>
+    <section id="install" class="band">
+      <div class="wrap">
+        <h2>Install Targets</h2>
+        <div class="grid">
+          <article class="tile">
+            <h3>Apple Terminal</h3>
+            <p>Download <code>GasPlasma.terminal</code> from GitHub Releases and open it in Terminal.</p>
+            <code class="command">open GasPlasma.terminal</code>
+          </article>
+          <article class="tile">
+            <h3>iTerm2</h3>
+            <p>Import <code>GasPlasma.itermcolors</code> from iTerm2 color presets.</p>
+            <code class="command">GasPlasma.itermcolors</code>
+          </article>
+          <article class="tile">
+            <h3>VS Code</h3>
+            <p>Install the published VSIX from Open VSX-compatible editors.</p>
+            <code class="command">johnthre.gas-plasma-theme</code>
+          </article>
+        </div>
+      </div>
+    </section>
+    <section id="palette" class="band">
+      <div class="wrap">
+        <h2>Palette</h2>
+        <div class="palette" aria-label="Gas Plasma palette">
+          <div class="swatch" style="background:#1A0A00">#1A0A00</div>
+          <div class="swatch" style="background:#FF8C00">#FF8C00</div>
+          <div class="swatch" style="background:#FF4500">#FF4500</div>
+          <div class="swatch" style="background:#8B9A00">#8B9A00</div>
+          <div class="swatch" style="background:#FFD700">#FFD700</div>
+          <div class="swatch" style="background:#CC7A00">#CC7A00</div>
+          <div class="swatch" style="background:#FF6B6B">#FF6B6B</div>
+          <div class="swatch" style="background:#E8C547">#E8C547</div>
+        </div>
+      </div>
     </section>
   </main>
+  <footer class="wrap footer">GPL-3.0-or-later · Generated from one shared palette · GitHub Pages</footer>
 </body>
 </html>

@@ -1,52 +1,115 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1080" viewBox="0 0 1800 1080" role="img" aria-labelledby="title desc">
   <title id="title">Gas Plasma theme mockup</title>
-  <desc id="desc">A design mockup showing Gas Plasma in terminal and editor windows.</desc>
+  <desc id="desc">A polished design mockup showing Gas Plasma in Terminal, iTerm2, and VS Code.</desc>
   <defs>
-    <radialGradient id="bg" cx="50%" cy="45%" r="80%">
-      <stop offset="0" stop-color="#4D2600"/>
-      <stop offset="0.45" stop-color="#1A0A00"/>
-      <stop offset="1" stop-color="#0D0500"/>
-    </radialGradient>
-    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="18"/>
+    <linearGradient id="stage" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B0300"/>
+      <stop offset=".48" stop-color="#1A0A00"/>
+      <stop offset="1" stop-color="#261000"/>
+    </linearGradient>
+    <linearGradient id="window" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1E0B00"/>
+      <stop offset="1" stop-color="#0F0500"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FF4500"/>
+      <stop offset=".5" stop-color="#FFD700"/>
+      <stop offset="1" stop-color="#E8C547"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="28" stdDeviation="28" flood-color="#000" flood-opacity=".55"/>
     </filter>
+    <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse">
+      <path d="M42 0H0v42" fill="none" stroke="#3A1800" stroke-width="1" opacity=".3"/>
+    </pattern>
   </defs>
-  <rect width="1600" height="1000" fill="url(#bg)"/>
-  <circle cx="1320" cy="130" r="150" fill="#FF4500" opacity=".22" filter="url(#softGlow)"/>
-  <circle cx="210" cy="870" r="180" fill="#FFD700" opacity=".14" filter="url(#softGlow)"/>
-  <rect x="72" y="110" width="640" height="520" rx="18" fill="#1A0A00" stroke="#4D2600" stroke-width="2"/>
-  <rect x="72" y="110" width="640" height="56" rx="18" fill="#261000"/>
-  <circle cx="112" cy="139" r="10" fill="#FF4500"/>
-  <circle cx="144" cy="139" r="10" fill="#FFB347"/>
-  <circle cx="176" cy="139" r="10" fill="#8B9A00"/>
-  <text x="220" y="148" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="20">Gas Plasma Terminal</text>
-  <rect x="120" y="205" width="320" height="12" rx="6" fill="#FFD700" opacity=".9"/>
-  <rect x="120" y="239" width="250" height="12" rx="6" fill="#FF4500" opacity=".9"/>
-  <rect x="120" y="273" width="290" height="12" rx="6" fill="#8B9A00" opacity=".9"/>
-  <rect x="120" y="307" width="210" height="12" rx="6" fill="#E8C547" opacity=".9"/>
-  <rect x="120" y="341" width="360" height="12" rx="6" fill="#FFD700" opacity=".9"/>
-  <rect x="120" y="375" width="275" height="12" rx="6" fill="#FF4500" opacity=".9"/>
-  <rect x="120" y="409" width="330" height="12" rx="6" fill="#8B9A00" opacity=".9"/>
-  <rect x="120" y="443" width="230" height="12" rx="6" fill="#E8C547" opacity=".9"/>
-  <text x="118" y="535" fill="#FF8C00" font-family="SF Mono, Menlo, Consolas, monospace" font-size="24">$ swift generate-theme.swift</text>
-  <rect x="505" y="510" width="14" height="30" fill="#FF8C00"/>
-  <rect x="520" y="185" width="980" height="660" rx="18" fill="#140800" stroke="#4D2600" stroke-width="2"/>
-  <rect x="520" y="185" width="980" height="58" rx="18" fill="#261000"/>
-  <text x="560" y="222" fill="#FFF0DB" font-family="SF Mono, Menlo, Consolas, monospace" font-size="20">gas-plasma-color-theme.json</text>
-  <rect x="520" y="245" width="190" height="600" fill="#100600"/>
-  <text x="555" y="295" fill="#E8C547" font-family="SF Mono, Menlo, Consolas, monospace" font-size="21">themes</text>
-  <text x="555" y="335" fill="#FF8C00" font-family="SF Mono, Menlo, Consolas, monospace" font-size="21">assets</text>
-  <text x="555" y="375" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="21">README.md</text>
-  <text x="565" y="210" fill="#FF6B3D" font-family="SF Mono, Menlo, Consolas, monospace" font-size="26">const plasma = createTheme({</text>
-  <text x="565" y="252" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="26">  background: '#1A0A00',</text>
-  <text x="565" y="294" fill="#FFB347" font-family="SF Mono, Menlo, Consolas, monospace" font-size="26">  foreground: '#FF8C00',</text>
-  <text x="565" y="336" fill="#E8C547" font-family="SF Mono, Menlo, Consolas, monospace" font-size="26">  accent: ionize(tokens),</text>
-  <text x="565" y="378" fill="#FF6B6B" font-family="SF Mono, Menlo, Consolas, monospace" font-size="26">});</text>
-  <rect x="565" y="465" width="760" height="2" fill="#4D2600"/>
-  <rect x="565" y="510" width="640" height="22" rx="11" fill="#FF4500" opacity=".78"/>
-  <rect x="565" y="555" width="720" height="22" rx="11" fill="#B5CC18" opacity=".78"/>
-  <rect x="565" y="600" width="510" height="22" rx="11" fill="#E09530" opacity=".78"/>
-  <rect x="565" y="645" width="690" height="22" rx="11" fill="#FF9B7A" opacity=".78"/>
-  <rect x="565" y="715" width="840" height="78" rx="16" fill="#1A0A00" stroke="#CC7A00"/>
-  <text x="600" y="765" fill="#FF8C00" font-family="SF Mono, Menlo, Consolas, monospace" font-size="24">Open VSX: johnthre.gas-plasma-theme</text>
+  <rect width="1800" height="1080" fill="url(#stage)"/>
+  <rect width="1800" height="1080" fill="url(#grid)"/>
+  <path d="M0 840C260 760 428 830 640 754c260-93 351-322 642-315 207 5 358 132 518 80v561H0z" fill="#100600" opacity=".64"/>
+  <text x="88" y="112" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="56" font-weight="900">Gas Plasma</text>
+  <text x="92" y="154" fill="#E8C547" font-family="SF Mono, Menlo, Consolas, monospace" font-size="24">Apple Terminal · iTerm2 · VS Code</text>
+  <rect x="94" y="180" width="418" height="8" rx="4" fill="url(#accent)"/>
+
+  <g filter="url(#shadow)">
+    <rect x="88" y="232" width="640" height="480" rx="18" fill="url(#window)" stroke="#4D2600" stroke-width="2"/>
+    <rect x="88" y="232" width="640" height="58" rx="18" fill="#261000"/>
+    <path d="M88 272h640" stroke="#4D2600"/>
+    <circle cx="128" cy="261" r="10" fill="#FF4500"/>
+    <circle cx="160" cy="261" r="10" fill="#FFB347"/>
+    <circle cx="192" cy="261" r="10" fill="#8B9A00"/>
+    <text x="230" y="270" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="19">GasPlasma.terminal</text>
+    <text x="126" y="338" fill="#FF8C00" font-family="SF Mono, Menlo, Consolas, monospace" font-size="24">$ npm run build</text>
+    <text x="126" y="382" fill="#FFD700" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">generated GasPlasma.itermcolors</text>
+    <text x="126" y="422" fill="#E8C547" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">generated gas-plasma-color-theme.json</text>
+    <text x="126" y="462" fill="#B5CC18" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">Generated GasPlasma.terminal</text>
+    <text x="126" y="526" fill="#FF8C00" font-family="SF Mono, Menlo, Consolas, monospace" font-size="24">$ open GasPlasma.terminal</text>
+    <text x="126" y="566" fill="#FF9B7A" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">$ code --install-extension gas-plasma</text>
+    <rect x="126" y="620" width="14" height="30" fill="#FF8C00"/>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="650" y="148" width="1062" height="746" rx="18" fill="#120600" stroke="#4D2600" stroke-width="2"/>
+    <rect x="650" y="148" width="1062" height="60" rx="18" fill="#261000"/>
+    <path d="M650 190h1062" stroke="#4D2600"/>
+    <text x="690" y="185" fill="#FFF0DB" font-family="SF Mono, Menlo, Consolas, monospace" font-size="19">gas-plasma-color-theme.json</text>
+    <rect x="650" y="208" width="220" height="686" fill="#0D0500"/>
+    <text x="690" y="268" fill="#FFD700" font-family="SF Mono, Menlo, Consolas, monospace" font-size="20">src</text>
+    <text x="690" y="308" fill="#E8C547" font-family="SF Mono, Menlo, Consolas, monospace" font-size="20">themes</text>
+    <text x="690" y="348" fill="#FF8C00" font-family="SF Mono, Menlo, Consolas, monospace" font-size="20">assets</text>
+    <text x="690" y="388" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="20">README.md</text>
+    <rect x="870" y="208" width="842" height="506" fill="#1A0A00"/>
+    <text x="770" y="220" font-family="SF Mono, Menlo, Consolas, monospace" font-size="25"><tspan fill="#8F4A00"> 1</tspan><tspan dx="34"><tspan fill="#FF6B3D">const </tspan><tspan fill="#FFD2A6">theme</tspan><tspan fill="#FFF0DB"> = </tspan><tspan fill="#FFF0DB">{</tspan></tspan></text>
+  <text x="770" y="258" font-family="SF Mono, Menlo, Consolas, monospace" font-size="25"><tspan fill="#8F4A00"> 2</tspan><tspan dx="34"><tspan fill="#E8C547">  name</tspan><tspan fill="#FFF0DB">: </tspan><tspan fill="#B5CC18">'Gas Plasma'</tspan><tspan fill="#FFF0DB">,</tspan></tspan></text>
+  <text x="770" y="296" font-family="SF Mono, Menlo, Consolas, monospace" font-size="25"><tspan fill="#8F4A00"> 3</tspan><tspan dx="34"><tspan fill="#E8C547">  background</tspan><tspan fill="#FFF0DB">: </tspan><tspan fill="#B5CC18">'#1A0A00'</tspan><tspan fill="#FFF0DB">,</tspan></tspan></text>
+  <text x="770" y="334" font-family="SF Mono, Menlo, Consolas, monospace" font-size="25"><tspan fill="#8F4A00"> 4</tspan><tspan dx="34"><tspan fill="#E8C547">  foreground</tspan><tspan fill="#FFF0DB">: </tspan><tspan fill="#B5CC18">'#FF8C00'</tspan><tspan fill="#FFF0DB">,</tspan></tspan></text>
+  <text x="770" y="372" font-family="SF Mono, Menlo, Consolas, monospace" font-size="25"><tspan fill="#8F4A00"> 5</tspan><tspan dx="34"><tspan fill="#E8C547">  accents</tspan><tspan fill="#FFF0DB">: [</tspan><tspan fill="#B5CC18">'plasma'</tspan><tspan fill="#FFF0DB">, </tspan><tspan fill="#B5CC18">'ember'</tspan><tspan fill="#FFF0DB">]</tspan></tspan></text>
+  <text x="770" y="410" font-family="SF Mono, Menlo, Consolas, monospace" font-size="25"><tspan fill="#8F4A00"> 6</tspan><tspan dx="34"><tspan fill="#FFF0DB">};</tspan></tspan></text>
+  <text x="770" y="486" font-family="SF Mono, Menlo, Consolas, monospace" font-size="25"><tspan fill="#8F4A00"> 7</tspan><tspan dx="34"><tspan fill="#FF6B3D">export </tspan><tspan fill="#FF6B3D">default </tspan><tspan fill="#FFD2A6">theme</tspan><tspan fill="#FFF0DB">;</tspan></tspan></text>
+    <rect x="870" y="714" width="842" height="132" fill="#100600" stroke="#4D2600"/>
+    <text x="905" y="764" fill="#FF8C00" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">$ npm run package</text>
+    <text x="905" y="804" fill="#B5CC18" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">DONE Packaged: johnthre.gas-plasma-theme-0.1.0.vsix</text>
+    <rect x="650" y="846" width="1062" height="48" rx="0" fill="#3A1800"/>
+    <text x="690" y="878" fill="#FFF0DB" font-family="SF Mono, Menlo, Consolas, monospace" font-size="18">Open VSX namespace: johnthre</text>
+  </g>
+
+  <g transform="translate(110, 755)">
+    <rect width="52" height="52" rx="8" fill="#1A0A00" stroke="#4D2600"/>
+    <text x="26" y="78" text-anchor="middle" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="14">bg</text>
+  </g>
+  <g transform="translate(188, 755)">
+    <rect width="52" height="52" rx="8" fill="#FF8C00" stroke="#4D2600"/>
+    <text x="26" y="78" text-anchor="middle" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="14">fg</text>
+  </g>
+  <g transform="translate(266, 755)">
+    <rect width="52" height="52" rx="8" fill="#FF4500" stroke="#4D2600"/>
+    <text x="26" y="78" text-anchor="middle" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="14">red</text>
+  </g>
+  <g transform="translate(344, 755)">
+    <rect width="52" height="52" rx="8" fill="#8B9A00" stroke="#4D2600"/>
+    <text x="26" y="78" text-anchor="middle" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="14">green</text>
+  </g>
+  <g transform="translate(422, 755)">
+    <rect width="52" height="52" rx="8" fill="#FFD700" stroke="#4D2600"/>
+    <text x="26" y="78" text-anchor="middle" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="14">yellow</text>
+  </g>
+  <g transform="translate(500, 755)">
+    <rect width="52" height="52" rx="8" fill="#E8C547" stroke="#4D2600"/>
+    <text x="26" y="78" text-anchor="middle" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="14">cyan</text>
+  </g>
+  <g transform="translate(578, 755)">
+    <rect width="52" height="52" rx="8" fill="#FFF0DB" stroke="#4D2600"/>
+    <text x="26" y="78" text-anchor="middle" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="14">white</text>
+  </g>
+  <g transform="translate(86 920)">
+    <rect width="362" height="62" rx="8" fill="#1A0A00" stroke="#CC7A00"/>
+    <text x="28" y="40" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">#1A0A00 / #FF8C00</text>
+  </g>
+  <g transform="translate(486 920)">
+    <rect width="350" height="62" rx="8" fill="#1A0A00" stroke="#8B9A00"/>
+    <text x="28" y="40" fill="#B5CC18" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">syntax colors intact</text>
+  </g>
+  <g transform="translate(874 920)">
+    <rect width="452" height="62" rx="8" fill="#1A0A00" stroke="#E8C547"/>
+    <text x="28" y="40" fill="#E8C547" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">single palette, four targets</text>
+  </g>
 </svg>
