@@ -8,7 +8,7 @@ Gas Plasma is an orange-dominant dark theme for Apple Terminal, iTerm2, VS Code,
 
 The project ships one shared palette across terminal profiles, a VS Code color theme, a VS Code file icon theme, a VS Code product icon theme, a generated logo, and a generated documentation site.
 
-![Gas Plasma theme preview](assets/mockup.svg)
+![Gas Plasma theme preview](assets/mockup.png)
 
 ## Contents
 
@@ -77,7 +77,7 @@ Language coverage includes C, C++, Objective-C, Pascal, Python, Vala, C#, Java, 
 
 The repository is organized so generated files can be reproduced from source data and scripts.
 
-![Gas Plasma build architecture](assets/architecture.svg)
+![Gas Plasma build architecture](assets/architecture.png)
 
 The generated site lives in `docs/` for GitHub Pages. The extension package intentionally excludes build sources, docs sources, local editor metadata, and AI-assistant local state through `.vscodeignore`.
 

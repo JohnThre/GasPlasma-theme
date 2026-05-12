@@ -856,16 +856,16 @@ function writeLogoSvg() {
 function writeMockupSvg() {
   const codeLine = (line, y, parts) => {
     const content = parts.map(([text, color]) => `<tspan fill="${color}">${xmlEscape(text)}</tspan>`).join("");
-    return `<text x="770" y="${y}" font-family="SF Mono, Menlo, Consolas, monospace" font-size="25"><tspan fill="#8F4A00">${String(line).padStart(2, " ")}</tspan><tspan dx="34">${content}</tspan></text>`;
+    return `<text x="1008" y="${y}" font-family="SF Mono, Menlo, Consolas, monospace" font-size="25"><tspan fill="#8F4A00">${String(line).padStart(2, " ")}</tspan><tspan dx="42">${content}</tspan></text>`;
   };
   const editorLines = [
-    codeLine(1, 220, [["const ", "#FF6B3D"], ["theme", "#FFD2A6"], [" = ", "#FFF0DB"], ["{", "#FFF0DB"]]),
-    codeLine(2, 258, [["  name", "#E8C547"], [": ", "#FFF0DB"], ["'Gas Plasma'", "#B5CC18"], [",", "#FFF0DB"]]),
-    codeLine(3, 296, [["  background", "#E8C547"], [": ", "#FFF0DB"], ["'#1A0A00'", "#B5CC18"], [",", "#FFF0DB"]]),
-    codeLine(4, 334, [["  foreground", "#E8C547"], [": ", "#FFF0DB"], ["'#FF8C00'", "#B5CC18"], [",", "#FFF0DB"]]),
-    codeLine(5, 372, [["  accents", "#E8C547"], [": [", "#FFF0DB"], ["'plasma'", "#B5CC18"], [", ", "#FFF0DB"], ["'ember'", "#B5CC18"], ["]", "#FFF0DB"]]),
-    codeLine(6, 410, [["};", "#FFF0DB"]]),
-    codeLine(7, 486, [["export ", "#FF6B3D"], ["default ", "#FF6B3D"], ["theme", "#FFD2A6"], [";", "#FFF0DB"]])
+    codeLine(1, 256, [["const ", "#FF6B3D"], ["theme", "#FFD2A6"], [" = ", "#FFF0DB"], ["{", "#FFF0DB"]]),
+    codeLine(2, 294, [["  name", "#E8C547"], [": ", "#FFF0DB"], ["'Gas Plasma'", "#B5CC18"], [",", "#FFF0DB"]]),
+    codeLine(3, 332, [["  background", "#E8C547"], [": ", "#FFF0DB"], ["'#1A0A00'", "#B5CC18"], [",", "#FFF0DB"]]),
+    codeLine(4, 370, [["  foreground", "#E8C547"], [": ", "#FFF0DB"], ["'#FF8C00'", "#B5CC18"], [",", "#FFF0DB"]]),
+    codeLine(5, 408, [["  accents", "#E8C547"], [": [", "#FFF0DB"], ["'plasma'", "#B5CC18"], [", ", "#FFF0DB"], ["'ember'", "#B5CC18"], ["]", "#FFF0DB"]]),
+    codeLine(6, 446, [["};", "#FFF0DB"]]),
+    codeLine(7, 532, [["export ", "#FF6B3D"], ["default ", "#FF6B3D"], ["theme", "#FFD2A6"], [";", "#FFF0DB"]])
   ].join("\n  ");
   const swatches = [
     ["#1A0A00", "bg"],
@@ -909,41 +909,41 @@ function writeMockupSvg() {
   </defs>
   <rect width="1800" height="1080" fill="url(#stage)"/>
   <rect width="1800" height="1080" fill="url(#grid)"/>
-  <path d="M0 840C260 760 428 830 640 754c260-93 351-322 642-315 207 5 358 132 518 80v561H0z" fill="#100600" opacity=".64"/>
+  <path d="M0 844C260 770 434 824 652 760c250-73 374-272 666-256 184 10 328 92 482 54v522H0z" fill="#100600" opacity=".62"/>
   <text x="88" y="112" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="56" font-weight="900">Gas Plasma</text>
-  <text x="92" y="154" fill="#E8C547" font-family="SF Mono, Menlo, Consolas, monospace" font-size="24">Apple Terminal · iTerm2 · VS Code</text>
+  <text x="92" y="154" fill="#E8C547" font-family="SF Mono, Menlo, Consolas, monospace" font-size="24">Apple Terminal  |  iTerm2  |  VS Code</text>
   <rect x="94" y="180" width="418" height="8" rx="4" fill="url(#accent)"/>
 
   <g filter="url(#shadow)">
-    <rect x="88" y="232" width="640" height="480" rx="18" fill="url(#window)" stroke="#4D2600" stroke-width="2"/>
-    <rect x="88" y="232" width="640" height="58" rx="18" fill="#261000"/>
-    <path d="M88 272h640" stroke="#4D2600"/>
+    <rect x="88" y="248" width="572" height="456" rx="18" fill="url(#window)" stroke="#4D2600" stroke-width="2"/>
+    <rect x="88" y="248" width="572" height="58" rx="18" fill="#261000"/>
+    <path d="M88 288h572" stroke="#4D2600"/>
     <circle cx="128" cy="261" r="10" fill="#FF4500"/>
     <circle cx="160" cy="261" r="10" fill="#FFB347"/>
     <circle cx="192" cy="261" r="10" fill="#8B9A00"/>
     <text x="230" y="270" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="19">GasPlasma.terminal</text>
-    <text x="126" y="338" fill="#FF8C00" font-family="SF Mono, Menlo, Consolas, monospace" font-size="24">$ npm run build</text>
-    <text x="126" y="382" fill="#FFD700" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">generated GasPlasma.itermcolors</text>
-    <text x="126" y="422" fill="#E8C547" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">generated gas-plasma-color-theme.json</text>
-    <text x="126" y="462" fill="#B5CC18" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">Generated GasPlasma.terminal</text>
-    <text x="126" y="526" fill="#FF8C00" font-family="SF Mono, Menlo, Consolas, monospace" font-size="24">$ open GasPlasma.terminal</text>
-    <text x="126" y="566" fill="#FF9B7A" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">$ code --install-extension gas-plasma</text>
-    <rect x="126" y="620" width="14" height="30" fill="#FF8C00"/>
+    <text x="126" y="354" fill="#FF8C00" font-family="SF Mono, Menlo, Consolas, monospace" font-size="24">$ npm run build</text>
+    <text x="126" y="398" fill="#FFD700" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">generated GasPlasma.itermcolors</text>
+    <text x="126" y="438" fill="#E8C547" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">generated VS Code theme</text>
+    <text x="126" y="478" fill="#B5CC18" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">generated icon themes</text>
+    <text x="126" y="542" fill="#FF8C00" font-family="SF Mono, Menlo, Consolas, monospace" font-size="24">$ npm run package</text>
+    <text x="126" y="584" fill="#FF9B7A" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">jpfchang.gas-plasma-theme.vsix</text>
+    <rect x="126" y="638" width="14" height="30" fill="#FF8C00"/>
   </g>
 
   <g filter="url(#shadow)">
-    <rect x="650" y="148" width="1062" height="746" rx="18" fill="#120600" stroke="#4D2600" stroke-width="2"/>
-    <rect x="650" y="148" width="1062" height="60" rx="18" fill="#261000"/>
-    <path d="M650 190h1062" stroke="#4D2600"/>
-    <text x="690" y="185" fill="#FFF0DB" font-family="SF Mono, Menlo, Consolas, monospace" font-size="19">gas-plasma-color-theme.json</text>
-    <rect x="650" y="208" width="220" height="686" fill="#0D0500"/>
+    <rect x="734" y="148" width="978" height="746" rx="18" fill="#120600" stroke="#4D2600" stroke-width="2"/>
+    <rect x="734" y="148" width="978" height="60" rx="18" fill="#261000"/>
+    <path d="M734 190h978" stroke="#4D2600"/>
+    <text x="774" y="185" fill="#FFF0DB" font-family="SF Mono, Menlo, Consolas, monospace" font-size="19">gas-plasma-color-theme.json</text>
+    <rect x="734" y="208" width="238" height="686" fill="#0D0500"/>
     <g font-family="SF Mono, Menlo, Consolas, monospace" font-size="20">
-      <g transform="translate(690 248)">
+      <g transform="translate(774 248)">
         <rect width="24" height="20" rx="4" fill="#FF8C00" stroke="#FFD2A6"/>
         <path d="M3 4h7l3 4h8" stroke="#FFF0DB" stroke-width="2" opacity=".55"/>
         <text x="36" y="18" fill="#FFD700">src</text>
       </g>
-      <g transform="translate(690 288)">
+      <g transform="translate(774 288)">
         <rect width="24" height="24" rx="5" fill="#140800" stroke="#E8C547"/>
         <rect x="5" y="5" width="6" height="6" rx="2" fill="#FF4500"/>
         <rect x="13" y="5" width="6" height="6" rx="2" fill="#FFD700"/>
@@ -951,36 +951,36 @@ function writeMockupSvg() {
         <rect x="13" y="13" width="6" height="6" rx="2" fill="#E8C547"/>
         <text x="36" y="20" fill="#E8C547">themes</text>
       </g>
-      <g transform="translate(690 328)">
+      <g transform="translate(774 328)">
         <circle cx="12" cy="12" r="11" fill="#E8C547" stroke="#FFD2A6"/>
         <circle cx="12" cy="12" r="4" fill="#140800" stroke="#FFF0DB"/>
         <text x="36" y="20" fill="#FF8C00">assets</text>
       </g>
-      <g transform="translate(690 368)">
+      <g transform="translate(774 368)">
         <path d="M5 1h12l7 7v22H5z" fill="#FFD2A6" stroke="#FF8C00"/>
         <path d="M17 1v8h7" fill="#4D2600"/>
         <text x="36" y="20" fill="#FFD2A6">README.md</text>
       </g>
-      <g transform="translate(690 408)">
+      <g transform="translate(774 408)">
         <circle cx="13" cy="17" r="12" fill="#140800" stroke="#FFD2A6"/>
         <path d="M8 21c1-10 3-15 6-15s5 5 6 15c-2 4-4 6-6 6s-4-2-6-6z" fill="#FFD2A6"/>
         <path d="M11 16h6" stroke="#FF8C00" stroke-width="3" stroke-linecap="round"/>
         <text x="36" y="24" fill="#FFF0DB">linux</text>
       </g>
-      <g transform="translate(690 448)">
+      <g transform="translate(774 448)">
         <circle cx="10" cy="14" r="9" fill="#140800" stroke="#FFD700" stroke-width="3"/>
         <circle cx="18" cy="14" r="9" fill="none" stroke="#FFD2A6" stroke-width="3"/>
         <path d="M8 14h15" stroke="#FF8C00" stroke-width="3" stroke-linecap="round"/>
         <text x="36" y="22" fill="#FFD700">crypto</text>
       </g>
     </g>
-    <rect x="870" y="208" width="842" height="506" fill="#1A0A00"/>
+    <rect x="972" y="208" width="740" height="506" fill="#1A0A00"/>
     ${editorLines}
-    <rect x="870" y="714" width="842" height="132" fill="#100600" stroke="#4D2600"/>
-    <text x="905" y="764" fill="#FF8C00" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">$ npm run package</text>
-    <text x="905" y="804" fill="#B5CC18" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">DONE Packaged: jpfchang.gas-plasma-theme-0.1.0.vsix</text>
-    <rect x="650" y="846" width="1062" height="48" rx="0" fill="#3A1800"/>
-    <text x="690" y="878" fill="#FFF0DB" font-family="SF Mono, Menlo, Consolas, monospace" font-size="18">Open VSX namespace: jpfchang</text>
+    <rect x="972" y="714" width="740" height="132" fill="#100600" stroke="#4D2600"/>
+    <text x="1008" y="764" fill="#FF8C00" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">$ code --install-extension jpfchang.gas-plasma-theme</text>
+    <text x="1008" y="804" fill="#B5CC18" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">Gas Plasma Icons + Product Icons enabled</text>
+    <rect x="734" y="846" width="978" height="48" rx="0" fill="#3A1800"/>
+    <text x="774" y="878" fill="#FFF0DB" font-family="SF Mono, Menlo, Consolas, monospace" font-size="18">Open VSX namespace: jpfchang</text>
   </g>
 
   ${swatches}
@@ -1056,12 +1056,15 @@ function writeArchitectureSvg() {
   writeFileSync(path.join(root, "docs/assets/architecture.svg"), svg);
 }
 
-function renderSvgToPng(svgPath, pngPath) {
+function renderSvgToPng(svgPath, pngPath, { zoom = 1 } = {}) {
   const svg = readFileSync(svgPath);
   const png = new Resvg(svg, {
-    fitTo: { mode: "original" },
+    fitTo: zoom === 1 ? { mode: "original" } : { mode: "zoom", value: zoom },
+    shapeRendering: 2,
+    textRendering: 2,
+    imageRendering: 0,
     font: {
-      fontFamily: "SF Mono",
+      defaultFontFamily: "SF Mono",
       loadSystemFonts: true
     }
   }).render().asPng();
@@ -1074,9 +1077,14 @@ function writeLogoPng() {
 }
 
 function writeMockupPng() {
-  renderSvgToPng(path.join(root, "assets/mockup.svg"), path.join(root, "assets/mockup.png"));
+  renderSvgToPng(path.join(root, "assets/mockup.svg"), path.join(root, "assets/mockup.png"), { zoom: 2 });
   copyFileSync(path.join(root, "assets/mockup.png"), path.join(root, "docs/assets/mockup.png"));
   copyFileSync(path.join(root, "assets/mockup.png"), path.join(root, "screenshot.png"));
+}
+
+function writeArchitecturePng() {
+  renderSvgToPng(path.join(root, "assets/architecture.svg"), path.join(root, "assets/architecture.png"), { zoom: 2 });
+  copyFileSync(path.join(root, "assets/architecture.png"), path.join(root, "docs/assets/architecture.png"));
 }
 
 function writeDocsIndex() {
@@ -1350,7 +1358,7 @@ function writeDocsIndex() {
           <a class="button" href="https://open-vsx.org/extension/jpfchang/gas-plasma-theme">Open VSX</a>
         </div>
       </div>
-      <img class="mockup" src="assets/mockup.svg" alt="Gas Plasma terminal and editor mockup">
+      <img class="mockup" src="assets/mockup.png" alt="Gas Plasma terminal and editor mockup">
     </section>
     <section id="install" class="band">
       <div class="wrap">
@@ -1387,7 +1395,7 @@ function writeDocsIndex() {
       <div class="wrap">
         <h2>Build Architecture</h2>
         <p class="section-note">The release package is generated from one palette, one icon manifest, upstream icon sources, and deterministic build scripts.</p>
-        <img class="diagram" src="assets/architecture.svg" alt="Gas Plasma build architecture diagram">
+        <img class="diagram" src="assets/architecture.png" alt="Gas Plasma build architecture diagram">
       </div>
     </section>
     <section id="palette" class="band">
@@ -1422,6 +1430,7 @@ writeMockupSvg();
 writeArchitectureSvg();
 writeLogoPng();
 writeMockupPng();
+writeArchitecturePng();
 writeDocsIndex();
 
 const built = [
@@ -1433,6 +1442,7 @@ const built = [
   "assets/logo.svg",
   "assets/logo.png",
   "assets/architecture.svg",
+  "assets/architecture.png",
   "assets/mockup.svg",
   "assets/mockup.png",
   "screenshot.png",

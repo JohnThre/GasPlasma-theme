@@ -55,6 +55,7 @@ jobs:
           cp GasPlasma.itermcolors dist/
           cp assets/logo.png dist/
           cp assets/mockup.png dist/
+          cp assets/architecture.png dist/
           (cd dist && shasum -a 256 * > SHA256SUMS)
       - name: Sign checksums
         env:
@@ -72,6 +73,7 @@ jobs:
             dist/jpfchang.gas-plasma-theme-*.vsix
             dist/logo.png
             dist/mockup.png
+            dist/architecture.png
             dist/SHA256SUMS
             dist/SHA256SUMS.asc
       - name: Ensure Open VSX namespace
