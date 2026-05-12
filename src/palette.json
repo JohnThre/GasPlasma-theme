@@ -1,0 +1,43 @@
+{
+  "name": "Gas Plasma",
+  "slug": "gas-plasma",
+  "description": "An orange-dominant dark theme inspired by ionized gas glow.",
+  "core": {
+    "background": "#1A0A00",
+    "foreground": "#FF8C00",
+    "bold": "#FFD2A6",
+    "cursor": "#FF8C00",
+    "cursorText": "#1A0A00",
+    "selection": "#FF8C00",
+    "selectionAlpha": 0.3
+  },
+  "ansi": {
+    "normal": {
+      "black": "#1A0A00",
+      "red": "#FF4500",
+      "green": "#8B9A00",
+      "yellow": "#FFB347",
+      "blue": "#CC7A00",
+      "magenta": "#FF6B6B",
+      "cyan": "#D4A017",
+      "white": "#FFD2A6"
+    },
+    "bright": {
+      "black": "#4D2600",
+      "red": "#FF6B3D",
+      "green": "#B5CC18",
+      "yellow": "#FFD700",
+      "blue": "#E09530",
+      "magenta": "#FF9B7A",
+      "cyan": "#E8C547",
+      "white": "#FFF0DB"
+    }
+  },
+  "terminal": {
+    "fontName": "SFMono-Regular",
+    "fontSize": 13,
+    "columns": 120,
+    "rows": 30,
+    "backgroundBlur": 0.4
+  }
+}

@@ -1,0 +1,47 @@
+name: Create Signed Release Tag
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: SemVer version without the leading v, for example 0.1.0
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  tag:
+    name: Create signed tag
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Validate version
+        run: |
+          case "${{ inputs.version }}" in
+            v*) echo "Use version without leading v" >&2; exit 1 ;;
+          esac
+          printf '%s' "${{ inputs.version }}" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+([-.+][0-9A-Za-z.-]+)?$'
+          PACKAGE_VERSION="$(python3 -c 'import json; print(json.load(open("package.json"))["version"])')"
+          test "${{ inputs.version }}" = "$PACKAGE_VERSION"
+      - name: Import GPG key
+        env:
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+        run: |
+          test -n "$GPG_PRIVATE_KEY"
+          printf '%s' "$GPG_PRIVATE_KEY" | gpg --batch --import
+      - name: Create and push signed tag
+        env:
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+        run: |
+          chmod +x .github/scripts/gpg-wrapper.sh
+          git config user.name "Pengfan Chang"
+          git config user.email "developer@jpfchang.org"
+          git config user.signingkey FEA322F2C85C0E17
+          git config gpg.program "$PWD/.github/scripts/gpg-wrapper.sh"
+          git tag -s "v${{ inputs.version }}" -m "Release v${{ inputs.version }}"
+          git push origin "v${{ inputs.version }}"

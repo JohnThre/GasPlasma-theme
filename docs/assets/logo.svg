@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Gas Plasma logo</title>
+  <desc id="desc">A glowing orange plasma ring around the letters GP.</desc>
+  <defs>
+    <radialGradient id="core" cx="50%" cy="45%" r="55%">
+      <stop offset="0" stop-color="#FFF0DB"/>
+      <stop offset="0.28" stop-color="#FFD700"/>
+      <stop offset="0.58" stop-color="#FF6B3D"/>
+      <stop offset="1" stop-color="#1A0A00"/>
+    </radialGradient>
+    <linearGradient id="flare" x1="70" y1="430" x2="440" y2="90">
+      <stop offset="0" stop-color="#FF4500"/>
+      <stop offset="0.5" stop-color="#FFD700"/>
+      <stop offset="1" stop-color="#FF9B7A"/>
+    </linearGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="13" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="1 0 0 0 1 0 .45 0 0 .27 0 0 .1 0 0 0 0 0 .85 0"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="512" height="512" rx="96" fill="#1A0A00"/>
+  <circle cx="256" cy="256" r="184" fill="none" stroke="url(#core)" stroke-width="52" filter="url(#glow)"/>
+  <path d="M93 375C167 244 259 151 419 98" fill="none" stroke="url(#flare)" stroke-width="18" stroke-linecap="round" opacity=".9"/>
+  <circle cx="256" cy="256" r="130" fill="#1A0A00" opacity=".92"/>
+  <text x="256" y="305" text-anchor="middle" font-family="SF Mono, Menlo, Consolas, monospace" font-size="136" font-weight="800" letter-spacing="-10" fill="#FFD2A6">GP</text>
+</svg>

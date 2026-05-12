@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gas Plasma Theme</title>
+  <meta name="description" content="An orange-dominant dark theme inspired by ionized gas glow.">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #1A0A00;
+      --fg: #FF8C00;
+      --bold: #FFD2A6;
+      --red: #FF4500;
+      --yellow: #FFD700;
+      --panel: #261000;
+      --line: #4D2600;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at 70% 10%, rgba(255,69,0,.22), transparent 28%), var(--bg);
+      color: var(--fg);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    main {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 48px 0 64px;
+    }
+    header {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 28px;
+      align-items: center;
+      margin-bottom: 32px;
+    }
+    .logo { width: 120px; height: 120px; }
+    h1 { margin: 0 0 10px; color: var(--bold); font-size: clamp(38px, 8vw, 82px); line-height: .95; }
+    p { max-width: 760px; line-height: 1.7; }
+    .mockup {
+      display: block;
+      width: 100%;
+      border: 1px solid var(--line);
+      background: #0d0500;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-top: 28px;
+    }
+    .tile {
+      border: 1px solid var(--line);
+      background: color-mix(in srgb, var(--panel), transparent 10%);
+      padding: 18px;
+    }
+    h2 { margin: 0 0 12px; color: var(--yellow); font-size: 20px; }
+    code { color: var(--bold); }
+    a { color: var(--yellow); }
+    @media (max-width: 640px) {
+      header { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <img class="logo" src="assets/logo.svg" alt="Gas Plasma logo">
+      <div>
+        <h1>Gas Plasma</h1>
+        <p>An orange-dominant dark theme inspired by ionized gas glow. Built for Apple Terminal, iTerm2, VS Code, and Open VSX-compatible editors.</p>
+      </div>
+    </header>
+    <img class="mockup" src="assets/mockup.svg" alt="Gas Plasma terminal and editor mockup">
+    <section class="grid" aria-label="Installation options">
+      <article class="tile">
+        <h2>Apple Terminal</h2>
+        <p>Download <code>GasPlasma.terminal</code> from the latest GitHub release and open it in Terminal.</p>
+      </article>
+      <article class="tile">
+        <h2>iTerm2</h2>
+        <p>Import <code>GasPlasma.itermcolors</code> from iTerm2 Profiles color presets.</p>
+      </article>
+      <article class="tile">
+        <h2>VS Code</h2>
+        <p>Install the VSIX from GitHub Releases or search Open VSX for <code>johnthre.gas-plasma-theme</code>.</p>
+      </article>
+      <article class="tile">
+        <h2>Source</h2>
+        <p><a href="https://github.com/JohnThre/GasPlasma-theme">View the repository on GitHub</a>.</p>
+      </article>
+    </section>
+  </main>
+</body>
+</html>

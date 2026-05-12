@@ -1,7 +1,7 @@
 #!/usr/bin/env swift
 //
 // generate-theme.swift
-// Generates the GasPlasma.terminal profile for Apple Terminal (macOS 26.4+)
+// Generates the GasPlasma.terminal profile for Apple Terminal.
 //
 // Usage: swift generate-theme.swift
 // Output: GasPlasma.terminal in the current directory
@@ -11,7 +11,46 @@
 import AppKit
 import Foundation
 
-// MARK: - Color Palette (Gas Plasma — Orange-shifted rainbow)
+struct ThemeSpec: Decodable {
+    struct Core: Decodable {
+        let background: String
+        let foreground: String
+        let bold: String
+        let cursor: String
+        let cursorText: String
+        let selection: String
+        let selectionAlpha: Double
+    }
+
+    struct ColorSet: Decodable {
+        let black: String
+        let red: String
+        let green: String
+        let yellow: String
+        let blue: String
+        let magenta: String
+        let cyan: String
+        let white: String
+    }
+
+    struct Ansi: Decodable {
+        let normal: ColorSet
+        let bright: ColorSet
+    }
+
+    struct Terminal: Decodable {
+        let fontName: String
+        let fontSize: Double
+        let columns: Int
+        let rows: Int
+        let backgroundBlur: Double
+    }
+
+    let name: String
+    let core: Core
+    let ansi: Ansi
+    let terminal: Terminal
+}
 
 struct ColorDef {
     let r: CGFloat
@@ -19,42 +58,20 @@ struct ColorDef {
     let b: CGFloat
     let a: CGFloat
 
-    init(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat, _ a: CGFloat = 1.0) {
-        self.r = r; self.g = g; self.b = b; self.a = a
+    init(hex: String, alpha: Double = 1.0) {
+        let cleaned = hex.trimmingCharacters(in: CharacterSet(charactersIn: "#"))
+        precondition(cleaned.count == 6, "Invalid color: \(hex)")
+
+        let scanner = Scanner(string: cleaned)
+        var value: UInt64 = 0
+        precondition(scanner.scanHexInt64(&value), "Invalid color: \(hex)")
+
+        self.r = CGFloat((value >> 16) & 0xff) / 255.0
+        self.g = CGFloat((value >> 8) & 0xff) / 255.0
+        self.b = CGFloat(value & 0xff) / 255.0
+        self.a = CGFloat(alpha)
     }
 }
-
-let palette: [String: ColorDef] = [
-    // Core colors
-    "TextColor":        ColorDef(1.00, 0.55, 0.00),       // #FF8C00 bright orange
-    "BackgroundColor":  ColorDef(0.10, 0.04, 0.00),       // #1A0A00 deep burnt black
-    "TextBoldColor":    ColorDef(1.00, 0.82, 0.65),       // #FFD2A6 light orange
-    "CursorColor":      ColorDef(1.00, 0.55, 0.00),       // #FF8C00
-    "CursorTextColor":  ColorDef(0.10, 0.04, 0.00),       // #1A0A00
-    "SelectionColor":   ColorDef(1.00, 0.55, 0.00, 0.30), // #FF8C00 @ 30%
-
-    // ANSI Normal (0-7)
-    "ANSIBlackColor":   ColorDef(0.10, 0.04, 0.00),       // #1A0A00
-    "ANSIRedColor":     ColorDef(1.00, 0.27, 0.00),       // #FF4500
-    "ANSIGreenColor":   ColorDef(0.55, 0.60, 0.00),       // #8B9A00
-    "ANSIYellowColor":  ColorDef(1.00, 0.70, 0.28),       // #FFB347
-    "ANSIBlueColor":    ColorDef(0.80, 0.48, 0.00),       // #CC7A00
-    "ANSIMagentaColor": ColorDef(1.00, 0.42, 0.42),       // #FF6B6B
-    "ANSICyanColor":    ColorDef(0.83, 0.63, 0.09),       // #D4A017
-    "ANSIWhiteColor":   ColorDef(1.00, 0.82, 0.65),       // #FFD2A6
-
-    // ANSI Bright (8-15)
-    "ANSIBrightBlackColor":   ColorDef(0.30, 0.15, 0.00), // #4D2600
-    "ANSIBrightRedColor":     ColorDef(1.00, 0.42, 0.24), // #FF6B3D
-    "ANSIBrightGreenColor":   ColorDef(0.71, 0.80, 0.09), // #B5CC18
-    "ANSIBrightYellowColor":  ColorDef(1.00, 0.84, 0.00), // #FFD700
-    "ANSIBrightBlueColor":    ColorDef(0.88, 0.58, 0.19), // #E09530
-    "ANSIBrightMagentaColor": ColorDef(1.00, 0.61, 0.48), // #FF9B7A
-    "ANSIBrightCyanColor":    ColorDef(0.91, 0.77, 0.28), // #E8C547
-    "ANSIBrightWhiteColor":   ColorDef(1.00, 0.94, 0.86), // #FFF0DB
-]
-
-// MARK: - Archive NSColor to Data
 
 func archiveColor(_ def: ColorDef) -> Data {
     let color = NSColor(
@@ -65,8 +82,6 @@ func archiveColor(_ def: ColorDef) -> Data {
     )
 }
 
-// MARK: - Archive NSFont to Data
-
 func archiveFont(name: String, size: CGFloat) -> Data {
     let font = NSFont(name: name, size: size) ?? NSFont.monospacedSystemFont(ofSize: size, weight: .regular)
     return try! NSKeyedArchiver.archivedData(
@@ -74,50 +89,69 @@ func archiveFont(name: String, size: CGFloat) -> Data {
     )
 }
 
-// MARK: - Build Profile Dictionary
+let paletteURL = URL(fileURLWithPath: "src/palette.json")
+let paletteData = try Data(contentsOf: paletteURL)
+let spec = try JSONDecoder().decode(ThemeSpec.self, from: paletteData)
+
+let colors: [String: ColorDef] = [
+    "TextColor": ColorDef(hex: spec.core.foreground),
+    "BackgroundColor": ColorDef(hex: spec.core.background),
+    "TextBoldColor": ColorDef(hex: spec.core.bold),
+    "CursorColor": ColorDef(hex: spec.core.cursor),
+    "CursorTextColor": ColorDef(hex: spec.core.cursorText),
+    "SelectionColor": ColorDef(hex: spec.core.selection, alpha: spec.core.selectionAlpha),
+
+    "ANSIBlackColor": ColorDef(hex: spec.ansi.normal.black),
+    "ANSIRedColor": ColorDef(hex: spec.ansi.normal.red),
+    "ANSIGreenColor": ColorDef(hex: spec.ansi.normal.green),
+    "ANSIYellowColor": ColorDef(hex: spec.ansi.normal.yellow),
+    "ANSIBlueColor": ColorDef(hex: spec.ansi.normal.blue),
+    "ANSIMagentaColor": ColorDef(hex: spec.ansi.normal.magenta),
+    "ANSICyanColor": ColorDef(hex: spec.ansi.normal.cyan),
+    "ANSIWhiteColor": ColorDef(hex: spec.ansi.normal.white),
+
+    "ANSIBrightBlackColor": ColorDef(hex: spec.ansi.bright.black),
+    "ANSIBrightRedColor": ColorDef(hex: spec.ansi.bright.red),
+    "ANSIBrightGreenColor": ColorDef(hex: spec.ansi.bright.green),
+    "ANSIBrightYellowColor": ColorDef(hex: spec.ansi.bright.yellow),
+    "ANSIBrightBlueColor": ColorDef(hex: spec.ansi.bright.blue),
+    "ANSIBrightMagentaColor": ColorDef(hex: spec.ansi.bright.magenta),
+    "ANSIBrightCyanColor": ColorDef(hex: spec.ansi.bright.cyan),
+    "ANSIBrightWhiteColor": ColorDef(hex: spec.ansi.bright.white)
+]
 
 var profile: [String: Any] = [:]
 
-// Name & metadata
-profile["name"] = "Gas Plasma"
+profile["name"] = spec.name
 profile["type"] = "Window Settings"
 profile["ProfileCurrentVersion"] = "2.09"
 
-// Window size
-profile["columnCount"] = 120
-profile["rowCount"] = 30
+profile["columnCount"] = spec.terminal.columns
+profile["rowCount"] = spec.terminal.rows
 
-// Font: SF Mono 13pt
-profile["Font"] = archiveFont(name: "SFMono-Regular", size: 13.0)
+profile["Font"] = archiveFont(name: spec.terminal.fontName, size: CGFloat(spec.terminal.fontSize))
 profile["FontAntialias"] = true
 profile["FontWidthSpacing"] = 1.0
 profile["FontHeightSpacing"] = 1.0
 
-// Color behavior
 profile["DisableANSIColor"] = false
 profile["UseBoldFonts"] = true
 profile["UseBrightBold"] = true
 
-// macOS 26+ glass background blur
-profile["BackgroundBlur"] = 0.4
+profile["BackgroundBlur"] = spec.terminal.backgroundBlur
 profile["BackgroundBlurInactive"] = 0
 profile["BackgroundSettingsForInactiveWindows"] = true
 
-// Title bar
 profile["ShowActiveProcessInTitle"] = true
 profile["ShowRepresentedURLInTitle"] = true
 profile["ShowRepresentedURLPathInTitle"] = true
 profile["ShowWindowSettingsNameInTitle"] = true
 
-// Scrollback
 profile["ShouldLimitScrollback"] = 0
 
-// Colors
-for (key, def) in palette {
+for (key, def) in colors {
     profile[key] = archiveColor(def)
 }
-
-// MARK: - Write .terminal File
 
 let outputPath = "GasPlasma.terminal"
 let data = try PropertyListSerialization.data(
