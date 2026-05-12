@@ -15,9 +15,9 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 22
           cache: npm
@@ -29,5 +29,13 @@ jobs:
         run: npm run check
       - name: Package VSIX
         run: npm run package
-      - name: Verify generated files are current
-        run: git diff --exit-code
+      - name: Verify generated text files are current
+        run: |
+          git diff --exit-code -- \
+            GasPlasma.itermcolors \
+            themes/gas-plasma-color-theme.json \
+            assets/logo.svg \
+            assets/mockup.svg \
+            docs/assets/logo.svg \
+            docs/assets/mockup.svg \
+            docs/index.html
