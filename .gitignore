@@ -1,0 +1,37 @@
+# Local OS metadata.
+.DS_Store
+
+# Local AI coding assistant files and histories.
+.claude/
+.cursor/
+.codex/
+.continue/
+.windsurf/
+.roo/
+.cody/
+.aider*
+.gemini/
+.qwen/
+.amazonq/
+.augment/
+.codeium/
+.tabnine/
+.kilocode/
+.opencode/
+.crush/
+.mcp.json
+mcp.json
+
+# Local AI coding assistant project instructions.
+AGENTS.md
+CLAUDE.md
+CLAUDE.local.md
+GEMINI.md
+QWEN.md
+AIDER.md
+.cursorignore
+.github/copilot-instructions.md
+.github/instructions/
+.github/prompts/
+*.chatmode.md
+*.prompt.md
