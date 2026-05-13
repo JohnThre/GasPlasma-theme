@@ -1,7 +1,7 @@
 {
   "name": "gas-plasma-theme",
   "displayName": "Gas Plasma",
-  "description": "An orange-dominant dark theme for Apple Terminal, iTerm2, VS Code, and Open VSX-compatible editors.",
+  "description": "An orange-dominant dark theme for Apple Terminal, iTerm2, VS Code, Open VSX-compatible editors, and Zed.",
   "version": "0.1.0",
   "publisher": "jpfchang",
   "license": "GPL-3.0-or-later",
@@ -34,6 +34,8 @@
     "developer-icons",
     "product-icons",
     "open-vsx",
+    "zed",
+    "zed-theme",
     "gas-plasma"
   ],
   "engines": {

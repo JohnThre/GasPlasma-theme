@@ -1,0 +1,7 @@
+id = "gas-plasma-theme"
+name = "Gas Plasma Theme"
+version = "0.1.0"
+schema_version = 1
+authors = ["Pengfan Chang <developer@jpfchang.org>"]
+description = "An orange-dominant dark theme inspired by ionized gas glow."
+repository = "https://github.com/JohnThre/GasPlasma-theme"

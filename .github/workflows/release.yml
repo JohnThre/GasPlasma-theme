@@ -89,3 +89,107 @@ jobs:
         env:
           OVSX_PAT: ${{ secrets.OVSX_PAT }}
         run: npx ovsx publish dist/jpfchang.gas-plasma-theme-*.vsix -p "$OVSX_PAT"
+
+  zed-marketplace:
+    name: Update Zed marketplace entries
+    needs: release
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    env:
+      EXTENSION_REPOSITORY: https://github.com/${{ github.repository }}.git
+      ZED_EXTENSIONS_FORK: ${{ vars.ZED_EXTENSIONS_FORK || 'JohnThre/extensions' }}
+    steps:
+      - name: Checkout Zed extensions fork
+        env:
+          COMMITTER_TOKEN: ${{ secrets.COMMITTER_TOKEN }}
+        run: |
+          test -n "$COMMITTER_TOKEN"
+          test -n "$ZED_EXTENSIONS_FORK"
+          git clone "https://x-access-token:${COMMITTER_TOKEN}@github.com/${ZED_EXTENSIONS_FORK}.git" zed-extensions
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      - name: Update marketplace submodules and metadata
+        working-directory: zed-extensions
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          BRANCH="gas-plasma-${GITHUB_REF_NAME}"
+          git remote add upstream https://github.com/zed-industries/extensions.git
+          git fetch upstream main
+          git checkout -B "$BRANCH" upstream/main
+
+          sync_extension() {
+            EXTENSION_ID="$1"
+            if git config -f .gitmodules --get "submodule.extensions/${EXTENSION_ID}.url" >/dev/null; then
+              git submodule sync "extensions/${EXTENSION_ID}"
+              git submodule update --init "extensions/${EXTENSION_ID}"
+            else
+              git submodule add "$EXTENSION_REPOSITORY" "extensions/${EXTENSION_ID}"
+            fi
+            git -C "extensions/${EXTENSION_ID}" fetch --force origin "refs/tags/${GITHUB_REF_NAME}:refs/tags/${GITHUB_REF_NAME}"
+            git -C "extensions/${EXTENSION_ID}" checkout --detach "$GITHUB_REF_NAME"
+          }
+
+          sync_extension gas-plasma-theme
+          sync_extension gas-plasma-icons
+
+          VERSION="$VERSION" node <<'NODE'
+          const fs = require("node:fs");
+          const version = process.env.VERSION;
+          const entries = [
+            ["gas-plasma-theme", "extensions/gas-plasma-theme", "zed/gas-plasma-theme"],
+            ["gas-plasma-icons", "extensions/gas-plasma-icons", "zed/gas-plasma-icons"]
+          ];
+          const blocks = fs.readFileSync("extensions.toml", "utf8").trimEnd().split(/\n(?=\[[^\]]+\]\n)/);
+          const next = new Map();
+          for (const block of blocks) {
+            const match = block.match(/^\[([^\]]+)\]/);
+            if (match) next.set(match[1], block);
+          }
+          for (const [id, submodule, extensionPath] of entries) {
+            next.set(id, [
+              `[${id}]`,
+              `submodule = "${submodule}"`,
+              `path = "${extensionPath}"`,
+              `version = "${version}"`
+            ].join("\n"));
+          }
+          fs.writeFileSync("extensions.toml", `${[...next.values()].join("\n\n")}\n`);
+          NODE
+
+          corepack enable
+          pnpm install --frozen-lockfile
+          pnpm sort-extensions
+      - name: Open or update marketplace pull request
+        working-directory: zed-extensions
+        env:
+          GH_TOKEN: ${{ secrets.COMMITTER_TOKEN }}
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          BRANCH="gas-plasma-${GITHUB_REF_NAME}"
+          FORK_OWNER="${ZED_EXTENSIONS_FORK%%/*}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .gitmodules extensions.toml extensions/gas-plasma-theme extensions/gas-plasma-icons
+          if git diff --cached --quiet; then
+            echo "No Zed marketplace changes to publish."
+            exit 0
+          fi
+          git commit -m "Update Gas Plasma extensions to v${VERSION}"
+          git push --force-with-lease origin "$BRANCH"
+
+          PR_BODY="$(cat <<EOF
+          This updates the Gas Plasma color theme and file icon theme to v${VERSION}.
+
+          Source repository: ${EXTENSION_REPOSITORY}
+          Source tag: ${GITHUB_REF_NAME}
+          Source commit: ${GITHUB_SHA}
+          EOF
+          )"
+          EXISTING_PR="$(gh pr list --repo zed-industries/extensions --head "${FORK_OWNER}:${BRANCH}" --json number --jq '.[0].number')"
+          if [ -n "$EXISTING_PR" ]; then
+            gh pr edit "$EXISTING_PR" --repo zed-industries/extensions --title "Update Gas Plasma extensions to v${VERSION}" --body "$PR_BODY"
+          else
+            gh pr create --repo zed-industries/extensions --base main --head "${FORK_OWNER}:${BRANCH}" --title "Update Gas Plasma extensions to v${VERSION}" --body "$PR_BODY"
+          fi

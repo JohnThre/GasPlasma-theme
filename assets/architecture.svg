@@ -69,7 +69,7 @@
     <path d="M0 36h270" stroke="#4D2600"/>
     <text x="20" y="25" fill="#FFF0DB" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800">Release Channels</text>
     <text x="20" y="66" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="14">GitHub Releases</text>
-    <text x="20" y="91" fill="#E8C547" font-family="SF Mono, Menlo, Consolas, monospace" font-size="14">Open VSX VSIX</text>
+    <text x="20" y="91" fill="#E8C547" font-family="SF Mono, Menlo, Consolas, monospace" font-size="14">Open VSX + Zed</text>
   </g>
   </g>
   <path d="M340 263H382" fill="none" stroke="#CC7A00" stroke-width="3" stroke-linecap="round"/>
@@ -86,6 +86,6 @@
   <path d="M1040 368l16 7-16 7z" fill="#CC7A00"/>
   <g transform="translate(70 642)">
     <rect width="1298" height="62" rx="10" fill="#100600" stroke="#4D2600"/>
-    <text x="24" y="39" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="18">npm run build -> npm run check -> npm run package -> signed release tag -> Open VSX publish</text>
+    <text x="24" y="39" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="18">npm run build -> npm run check -> npm run package -> signed release tag -> Open VSX + Zed publish</text>
   </g>
 </svg>

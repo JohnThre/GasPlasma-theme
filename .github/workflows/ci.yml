@@ -46,4 +46,11 @@ jobs:
             docs/assets/architecture.png \
             docs/assets/mockup.svg \
             docs/assets/mockup.png \
-            docs/index.html
+            docs/index.html \
+            zed/gas-plasma-theme/extension.toml \
+            zed/gas-plasma-theme/LICENSE \
+            zed/gas-plasma-theme/themes/gas-plasma.json \
+            zed/gas-plasma-icons/extension.toml \
+            zed/gas-plasma-icons/LICENSE \
+            zed/gas-plasma-icons/icon_themes/gas-plasma-icons.json \
+            zed/gas-plasma-icons/icons

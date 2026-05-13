@@ -26,7 +26,18 @@ const palette = readJson("src/palette.json");
 const theme = readJson("themes/gas-plasma-color-theme.json");
 const fileIconTheme = readJson("icons/file/gas-plasma-icon-theme.json");
 const productIconTheme = readJson("icons/product/gas-plasma-product-icon-theme.json");
+const zedTheme = readJson("zed/gas-plasma-theme/themes/gas-plasma.json");
+const zedIconTheme = readJson("zed/gas-plasma-icons/icon_themes/gas-plasma-icons.json");
 const iconManifest = readJson("src/icon-manifest.json");
+
+function readText(relativePath) {
+  try {
+    return readFileSync(path.join(root, relativePath), "utf8");
+  } catch (error) {
+    errors.push(`${relativePath}: ${error.message}`);
+    return "";
+  }
+}
 
 if (pkg.publisher !== "jpfchang") errors.push("package.json publisher must be jpfchang");
 if (pkg.name !== "gas-plasma-theme") errors.push("package.json name must be gas-plasma-theme");
@@ -57,11 +68,42 @@ if (theme.type !== "dark") errors.push("VS Code theme must be dark");
 if (theme.colors?.["terminal.ansiRed"] !== palette.ansi?.normal?.red) {
   errors.push("VS Code terminal ANSI colors must come from palette");
 }
+if (zedTheme.$schema !== "https://zed.dev/schema/themes/v0.2.0.json") {
+  errors.push("Zed theme must use the v0.2.0 theme schema");
+}
+if (zedTheme.name !== palette.name || zedTheme.themes?.[0]?.name !== palette.name) {
+  errors.push("Zed theme family and theme names must match the palette name");
+}
+if (zedTheme.themes?.[0]?.appearance !== "dark") errors.push("Zed theme must be dark");
+if (zedTheme.themes?.[0]?.style?.["terminal.ansi.red"] !== palette.ansi?.normal?.red) {
+  errors.push("Zed terminal ANSI colors must come from palette");
+}
+if (zedTheme.themes?.[0]?.style?.syntax?.keyword?.color !== palette.ansi?.normal?.red) {
+  errors.push("Zed syntax colors must come from palette");
+}
 if (fileIconTheme.file !== "_gp_crt") errors.push("File icon theme must use CRT as the default file icon");
 if (fileIconTheme.folder !== "_gp_folder") errors.push("File icon theme must define generated folder icons");
 if (!fileIconTheme.fileExtensions?.json) errors.push("File icon theme must include extension mappings");
 if (Object.keys(fileIconTheme.iconDefinitions ?? {}).length < 95) {
   errors.push("File icon theme must include broad icon coverage");
+}
+if (zedIconTheme.$schema !== "https://zed.dev/schema/icon_themes/v0.3.0.json") {
+  errors.push("Zed icon theme must use the v0.3.0 icon theme schema");
+}
+if (zedIconTheme.name !== iconManifest.fileTheme?.label) {
+  errors.push("Zed icon theme name must match the file icon theme label");
+}
+if (zedIconTheme.themes?.[0]?.directory_icons?.collapsed !== "./icons/folder.svg") {
+  errors.push("Zed icon theme must define generated folder icons");
+}
+if (zedIconTheme.themes?.[0]?.file_suffixes?.json !== "json") {
+  errors.push("Zed icon theme must include suffix mappings");
+}
+if (zedIconTheme.themes?.[0]?.file_icons?.default?.path !== "./icons/crt.svg") {
+  errors.push("Zed icon theme must include the CRT default file icon");
+}
+if (!zedIconTheme.themes?.[0]?.file_icons?.crt?.path) {
+  errors.push("Zed icon theme must include generated file icon definitions");
 }
 if (!productIconTheme.fonts?.[0]?.src?.[0]?.path?.endsWith(".woff")) {
   errors.push("Product icon theme must reference a WOFF font");
@@ -170,6 +212,11 @@ for (const definition of Object.values(fileIconTheme.iconDefinitions ?? {})) {
     requireFile(path.join("icons/file", definition.iconPath));
   }
 }
+for (const definition of Object.values(zedIconTheme.themes?.[0]?.file_icons ?? {})) {
+  if (definition.path) {
+    requireFile(path.join("zed/gas-plasma-icons", definition.path));
+  }
+}
 for (const font of productIconTheme.fonts ?? []) {
   for (const source of font.src ?? []) {
     requireFile(path.join("icons/product", source.path));
@@ -198,17 +245,47 @@ for (const iconName of iconManifest.fileTheme?.gallery ?? []) {
   "README.open-vsx.md",
   "README.md",
   "CHANGELOG.md",
-  "LICENSE"
+  "LICENSE",
+  "zed/gas-plasma-theme/extension.toml",
+  "zed/gas-plasma-theme/LICENSE",
+  "zed/gas-plasma-theme/themes/gas-plasma.json",
+  "zed/gas-plasma-icons/extension.toml",
+  "zed/gas-plasma-icons/LICENSE",
+  "zed/gas-plasma-icons/icon_themes/gas-plasma-icons.json",
+  ".github/workflows/release.yml"
 ].forEach(requireFile);
 
 const readme = readFileSync(path.join(root, "README.md"), "utf8");
-for (const required of ["iTerm2", "Open VSX", "jpfchang.gas-plasma-theme", "GasPlasma.itermcolors", "Gas Plasma Icons", "Gas Plasma Product Icons"]) {
+for (const required of ["iTerm2", "Open VSX", "Zed", "jpfchang.gas-plasma-theme", "GasPlasma.itermcolors", "Gas Plasma Icons", "Gas Plasma Product Icons"]) {
   if (!readme.includes(required)) errors.push(`README.md must mention ${required}`);
 }
 
 const extensionReadme = readFileSync(path.join(root, "README.open-vsx.md"), "utf8");
 if (extensionReadme.includes(".svg")) {
   errors.push("README.open-vsx.md must not reference SVG images because vsce rejects SVG README images");
+}
+
+for (const [manifestPath, expectedId] of Object.entries({
+  "zed/gas-plasma-theme/extension.toml": "gas-plasma-theme",
+  "zed/gas-plasma-icons/extension.toml": "gas-plasma-icons"
+})) {
+  const manifest = readText(manifestPath);
+  if (!manifest.includes(`id = "${expectedId}"`)) {
+    errors.push(`${manifestPath} must define ${expectedId}`);
+  }
+  if (!manifest.includes(`version = "${pkg.version}"`)) {
+    errors.push(`${manifestPath} version must match package.json`);
+  }
+  if (!manifest.includes('schema_version = 1')) {
+    errors.push(`${manifestPath} must declare schema_version = 1`);
+  }
+}
+
+const releaseWorkflow = readText(".github/workflows/release.yml");
+for (const required of ["gas-plasma-theme", "gas-plasma-icons", "zed-industries/extensions", "ZED_EXTENSIONS_FORK", "COMMITTER_TOKEN"]) {
+  if (!releaseWorkflow.includes(required)) {
+    errors.push(`release.yml must include Zed marketplace automation detail: ${required}`);
+  }
 }
 
 if (errors.length) {

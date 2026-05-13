@@ -8,10 +8,21 @@ import * as simpleIcons from "simple-icons";
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(scriptDir, "..");
+const pkg = JSON.parse(readFileSync(path.join(root, "package.json"), "utf8"));
 const palette = JSON.parse(readFileSync(path.join(root, "src/palette.json"), "utf8"));
 const iconManifest = JSON.parse(readFileSync(path.join(root, "src/icon-manifest.json"), "utf8"));
+const author = "Pengfan Chang <developer@jpfchang.org>";
+const authorName = "Pengfan Chang";
+const repositoryUrl = pkg.repository.url.replace(/^git\+/, "").replace(/\.git$/, "");
 
-for (const dir of ["docs/assets/icons", "icons/file/svg", "icons/product/svg"]) {
+for (const dir of [
+  "docs/assets/icons",
+  "icons/file/svg",
+  "icons/product/svg",
+  "zed/gas-plasma-icons/icon_themes",
+  "zed/gas-plasma-icons/icons",
+  "zed/gas-plasma-theme/themes"
+]) {
   rmSync(path.join(root, dir), { recursive: true, force: true });
 }
 rmSync(path.join(root, "icons/product/gas-plasma-product-icons.json"), { force: true });
@@ -27,7 +38,13 @@ const dirs = [
   "icons/file",
   "icons/file/svg",
   "icons/product",
-  "icons/product/svg"
+  "icons/product/svg",
+  "zed",
+  "zed/gas-plasma-icons",
+  "zed/gas-plasma-icons/icon_themes",
+  "zed/gas-plasma-icons/icons",
+  "zed/gas-plasma-theme",
+  "zed/gas-plasma-theme/themes"
 ];
 for (const dir of dirs) {
   mkdirSync(path.join(root, dir), { recursive: true });
@@ -55,6 +72,27 @@ function xmlEscape(value) {
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;");
+}
+
+function tomlString(value) {
+  return `"${String(value).replaceAll("\\", "\\\\").replaceAll('"', '\\"')}"`;
+}
+
+function writeZedExtensionManifest(relativeDir, extension) {
+  const content = [
+    `id = ${tomlString(extension.id)}`,
+    `name = ${tomlString(extension.name)}`,
+    `version = ${tomlString(pkg.version)}`,
+    "schema_version = 1",
+    `authors = [${tomlString(author)}]`,
+    `description = ${tomlString(extension.description)}`,
+    `repository = ${tomlString(repositoryUrl)}`,
+    ""
+  ].join("\n");
+
+  const extensionDir = path.join(root, relativeDir);
+  writeFileSync(path.join(extensionDir, "extension.toml"), content);
+  copyFileSync(path.join(root, "LICENSE"), path.join(extensionDir, "LICENSE"));
 }
 
 function plistColor(hex, alpha = 1) {
@@ -213,6 +251,189 @@ function writeVsCodeTheme() {
   };
 
   writeFileSync(path.join(root, "themes/gas-plasma-color-theme.json"), `${JSON.stringify(theme, null, 2)}\n`);
+}
+
+function writeZedTheme() {
+  const normal = palette.ansi.normal;
+  const bright = palette.ansi.bright;
+  const style = {
+    accents: [normal.red, normal.yellow, bright.yellow, bright.cyan],
+    "background.appearance": "opaque",
+    background: palette.core.background,
+    "surface.background": "#140800",
+    "elevated_surface.background": "#261000",
+    foreground: palette.core.foreground,
+    text: palette.core.bold,
+    "text.muted": normal.white,
+    "text.placeholder": "#8F4A00",
+    "text.disabled": "#8F4A00",
+    "text.accent": bright.yellow,
+    icon: normal.white,
+    "icon.muted": "#8F4A00",
+    "icon.disabled": "#4D2600",
+    "icon.placeholder": "#8F4A00",
+    "icon.accent": bright.yellow,
+    border: bright.black,
+    "border.variant": "#3A1800",
+    "border.disabled": "#3A1800",
+    "border.focused": bright.yellow,
+    "border.selected": palette.core.foreground,
+    "border.transparent": "#00000000",
+    "element.background": "#261000",
+    "element.hover": "#331500",
+    "element.active": "#3A1800",
+    "element.selected": "#4D2600",
+    "element.disabled": "#140800",
+    "ghost_element.background": "#00000000",
+    "ghost_element.hover": "#261000",
+    "ghost_element.active": "#3A1800",
+    "ghost_element.selected": "#4D2600",
+    "ghost_element.disabled": "#140800",
+    "title_bar.background": "#261000",
+    "title_bar.inactive_background": "#140800",
+    "toolbar.background": "#261000",
+    "tab_bar.background": "#140800",
+    "tab.active_background": palette.core.background,
+    "tab.inactive_background": "#261000",
+    "status_bar.background": "#3A1800",
+    "panel.background": "#140800",
+    "panel.focused_border": "#4D2600",
+    "panel.indent_guide": "#4D2600",
+    "panel.indent_guide_active": "#CC7A00",
+    "panel.indent_guide_hover": bright.yellow,
+    "pane.focused_border": "#4D2600",
+    "pane_group.border": "#4D2600",
+    "editor.background": palette.core.background,
+    "editor.foreground": palette.core.foreground,
+    "editor.gutter.background": palette.core.background,
+    "editor.subheader.background": "#261000",
+    "editor.active_line.background": "#3A1800",
+    "editor.highlighted_line.background": "#3A1800",
+    "editor.line_number": "#8F4A00",
+    "editor.active_line_number": bright.yellow,
+    "editor.indent_guide": "#4D2600",
+    "editor.indent_guide_active": "#CC7A00",
+    "editor.wrap_guide": "#4D2600",
+    "editor.active_wrap_guide": "#CC7A00",
+    "editor.invisible": "#4D2600",
+    "editor.document_highlight.read_background": hexWithAlpha(normal.yellow, 0.18),
+    "editor.document_highlight.write_background": hexWithAlpha(normal.red, 0.18),
+    "editor.document_highlight.bracket_background": hexWithAlpha(bright.yellow, 0.18),
+    "scrollbar.thumb.background": hexWithAlpha(normal.white, 0.28),
+    "scrollbar.thumb.hover_background": hexWithAlpha(bright.yellow, 0.38),
+    "scrollbar.thumb.border": "#00000000",
+    "scrollbar.track.background": "#00000000",
+    "scrollbar.track.border": "#00000000",
+    "drop_target.background": hexWithAlpha(bright.yellow, 0.18),
+    "search.match_background": hexWithAlpha(bright.yellow, 0.3),
+    "link_text.hover": bright.cyan,
+    error: normal.red,
+    "error.background": hexWithAlpha(normal.red, 0.18),
+    "error.border": normal.red,
+    warning: bright.yellow,
+    "warning.background": hexWithAlpha(bright.yellow, 0.16),
+    "warning.border": bright.yellow,
+    success: bright.green,
+    "success.background": hexWithAlpha(bright.green, 0.16),
+    "success.border": bright.green,
+    hint: bright.cyan,
+    "hint.background": hexWithAlpha(bright.cyan, 0.16),
+    "hint.border": bright.cyan,
+    info: normal.cyan,
+    "info.background": hexWithAlpha(normal.cyan, 0.16),
+    "info.border": normal.cyan,
+    created: bright.green,
+    "created.background": hexWithAlpha(bright.green, 0.16),
+    "created.border": bright.green,
+    modified: bright.yellow,
+    "modified.background": hexWithAlpha(bright.yellow, 0.16),
+    "modified.border": bright.yellow,
+    deleted: normal.red,
+    "deleted.background": hexWithAlpha(normal.red, 0.16),
+    "deleted.border": normal.red,
+    conflict: normal.magenta,
+    "conflict.background": hexWithAlpha(normal.magenta, 0.16),
+    "conflict.border": normal.magenta,
+    renamed: bright.cyan,
+    "renamed.background": hexWithAlpha(bright.cyan, 0.16),
+    "renamed.border": bright.cyan,
+    predictive: normal.green,
+    "predictive.background": hexWithAlpha(normal.green, 0.14),
+    "predictive.border": normal.green,
+    ignored: "#8F4A00",
+    hidden: "#8F4A00",
+    unreachable: "#8F4A00",
+    "terminal.background": palette.core.background,
+    "terminal.foreground": palette.core.foreground,
+    "terminal.bright_foreground": bright.white,
+    "terminal.dim_foreground": bright.black,
+    "terminal.ansi.background": normal.black,
+    "terminal.ansi.black": normal.black,
+    "terminal.ansi.red": normal.red,
+    "terminal.ansi.green": normal.green,
+    "terminal.ansi.yellow": normal.yellow,
+    "terminal.ansi.blue": normal.blue,
+    "terminal.ansi.magenta": normal.magenta,
+    "terminal.ansi.cyan": normal.cyan,
+    "terminal.ansi.white": normal.white,
+    "terminal.ansi.bright_black": bright.black,
+    "terminal.ansi.bright_red": bright.red,
+    "terminal.ansi.bright_green": bright.green,
+    "terminal.ansi.bright_yellow": bright.yellow,
+    "terminal.ansi.bright_blue": bright.blue,
+    "terminal.ansi.bright_magenta": bright.magenta,
+    "terminal.ansi.bright_cyan": bright.cyan,
+    "terminal.ansi.bright_white": bright.white,
+    players: [
+      {
+        background: palette.core.background,
+        cursor: palette.core.cursor,
+        selection: hexWithAlpha(palette.core.selection, palette.core.selectionAlpha)
+      }
+    ],
+    syntax: {
+      attribute: { color: bright.cyan },
+      comment: { color: normal.cyan, font_style: "italic" },
+      constant: { color: bright.yellow },
+      constructor: { color: bright.cyan },
+      embedded: { color: bright.cyan },
+      function: { color: bright.blue },
+      keyword: { color: normal.red, font_weight: 700 },
+      number: { color: bright.yellow },
+      operator: { color: normal.red },
+      property: { color: normal.white },
+      punctuation: { color: bright.white },
+      string: { color: normal.green },
+      "string.escape": { color: bright.yellow },
+      tag: { color: bright.red },
+      type: { color: bright.cyan },
+      variable: { color: palette.core.bold },
+      "variable.special": { color: bright.yellow }
+    }
+  };
+
+  const themeFamily = {
+    $schema: "https://zed.dev/schema/themes/v0.2.0.json",
+    name: palette.name,
+    author: authorName,
+    themes: [
+      {
+        name: palette.name,
+        appearance: "dark",
+        style
+      }
+    ]
+  };
+
+  writeZedExtensionManifest("zed/gas-plasma-theme", {
+    id: "gas-plasma-theme",
+    name: "Gas Plasma Theme",
+    description: palette.description
+  });
+  writeFileSync(
+    path.join(root, "zed/gas-plasma-theme/themes/gas-plasma.json"),
+    `${JSON.stringify(themeFamily, null, 2)}\n`
+  );
 }
 
 function iconDefName(iconName) {
@@ -690,12 +911,14 @@ function writeFileIcons() {
   ]);
   const iconDir = path.join(root, "icons/file/svg");
   const docsIconDir = path.join(root, "docs/assets/icons");
+  const zedIconDir = path.join(root, "zed/gas-plasma-icons/icons");
 
   for (const iconName of [...iconNames].sort()) {
     const render = fileIconRenderers[iconName];
     if (!render) throw new Error(`Missing file icon renderer for ${iconName}`);
     const svg = render();
     writeFileSync(path.join(iconDir, `${iconName}.svg`), svg);
+    writeFileSync(path.join(zedIconDir, `${iconName}.svg`), svg);
     if (fileTheme.gallery.includes(iconName)) {
       writeFileSync(path.join(docsIconDir, `${iconName}.svg`), svg);
     }
@@ -726,6 +949,57 @@ function writeFileIcons() {
   writeFileSync(
     path.join(root, "icons/file/gas-plasma-icon-theme.json"),
     `${JSON.stringify(theme, null, 2)}\n`
+  );
+
+  const zedTheme = {
+    $schema: "https://zed.dev/schema/icon_themes/v0.3.0.json",
+    name: fileTheme.label,
+    author: authorName,
+    themes: [
+      {
+        name: fileTheme.label,
+        appearance: "dark",
+        directory_icons: {
+          collapsed: `./icons/${fileTheme.icons.folder}.svg`,
+          expanded: `./icons/${fileTheme.icons.folderExpanded}.svg`
+        },
+        named_directory_icons: Object.fromEntries(
+          Object.entries(fileTheme.folderNames).map(([folderName, iconName]) => [
+            folderName,
+            {
+              collapsed: `./icons/${iconName}.svg`,
+              expanded: `./icons/${iconName}.svg`
+            }
+          ])
+        ),
+        file_stems: Object.fromEntries(
+          Object.entries(fileTheme.fileNames).map(([fileName, iconName]) => [
+            path.parse(fileName).name || fileName,
+            iconName
+          ])
+        ),
+        file_suffixes: fileTheme.fileExtensions,
+        file_icons: {
+          default: { path: `./icons/${fileTheme.icons.file}.svg` },
+          ...Object.fromEntries(
+            [...iconNames].sort().map((iconName) => [
+              iconName,
+              { path: `./icons/${iconName}.svg` }
+            ])
+          )
+        }
+      }
+    ]
+  };
+
+  writeZedExtensionManifest("zed/gas-plasma-icons", {
+    id: "gas-plasma-icons",
+    name: fileTheme.label,
+    description: "Orange-dominant file icons inspired by the Gas Plasma palette."
+  });
+  writeFileSync(
+    path.join(root, "zed/gas-plasma-icons/icon_themes/gas-plasma-icons.json"),
+    `${JSON.stringify(zedTheme, null, 2)}\n`
   );
 }
 
@@ -884,7 +1158,7 @@ function writeMockupSvg() {
   }).join("\n  ");
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1080" viewBox="0 0 1800 1080" role="img" aria-labelledby="title desc">
   <title id="title">Gas Plasma theme mockup</title>
-  <desc id="desc">A polished design mockup showing Gas Plasma in Terminal, iTerm2, and VS Code.</desc>
+  <desc id="desc">A polished design mockup showing Gas Plasma in Terminal, iTerm2, VS Code, and Zed.</desc>
   <defs>
     <linearGradient id="stage" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#0B0300"/>
@@ -911,7 +1185,7 @@ function writeMockupSvg() {
   <rect width="1800" height="1080" fill="url(#grid)"/>
   <path d="M0 844C260 770 434 824 652 760c250-73 374-272 666-256 184 10 328 92 482 54v522H0z" fill="#100600" opacity=".62"/>
   <text x="88" y="112" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="56" font-weight="900">Gas Plasma</text>
-  <text x="92" y="154" fill="#E8C547" font-family="SF Mono, Menlo, Consolas, monospace" font-size="24">Apple Terminal  |  iTerm2  |  VS Code</text>
+  <text x="92" y="154" fill="#E8C547" font-family="SF Mono, Menlo, Consolas, monospace" font-size="24">Apple Terminal  |  iTerm2  |  VS Code  |  Zed</text>
   <rect x="94" y="180" width="418" height="8" rx="4" fill="url(#accent)"/>
 
   <g filter="url(#shadow)">
@@ -1036,7 +1310,7 @@ function writeArchitectureSvg() {
     ${node({ x: 730, y: 146, title: "Terminal Assets", body: ["GasPlasma.terminal", "GasPlasma.itermcolors"], accent: "#B5CC18" })}
     ${node({ x: 730, y: 312, title: "Editor Assets", body: ["themes/*.json", "icons/**/*"], accent: "#FF6B3D" })}
     ${node({ x: 730, y: 478, title: "Documentation", body: ["assets/*.svg/png", "docs/index.html"], accent: "#E8C547" })}
-    ${node({ x: 1060, y: 312, title: "Release Channels", body: ["GitHub Releases", "Open VSX VSIX"], accent: "#FFD700" })}
+    ${node({ x: 1060, y: 312, title: "Release Channels", body: ["GitHub Releases", "Open VSX + Zed"], accent: "#FFD700" })}
   </g>
   ${arrow(340, 263, 400, 263)}
   ${arrow(340, 459, 400, 459)}
@@ -1048,7 +1322,7 @@ function writeArchitectureSvg() {
   ${arrow(1000, 375, 1060, 375)}
   <g transform="translate(70 642)">
     <rect width="1298" height="62" rx="10" fill="#100600" stroke="#4D2600"/>
-    <text x="24" y="39" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="18">npm run build -> npm run check -> npm run package -> signed release tag -> Open VSX publish</text>
+    <text x="24" y="39" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="18">npm run build -> npm run check -> npm run package -> signed release tag -> Open VSX + Zed publish</text>
   </g>
 </svg>
 `;
@@ -1225,7 +1499,7 @@ function writeDocsIndex() {
     }
     .grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 16px;
     }
     .tile {
@@ -1352,7 +1626,7 @@ function writeDocsIndex() {
       <div>
         <img class="hero-logo" src="assets/logo.svg" alt="Gas Plasma logo">
         <h1>Gas Plasma</h1>
-        <p class="lead">${xmlEscape(palette.description)} A single warm, high-contrast palette for Apple Terminal, iTerm2, VS Code, and Open VSX-compatible editors.</p>
+        <p class="lead">${xmlEscape(palette.description)} A single warm, high-contrast palette for Apple Terminal, iTerm2, VS Code, Open VSX-compatible editors, and Zed.</p>
         <div class="actions">
           <a class="button primary" href="https://github.com/JohnThre/GasPlasma-theme/releases">Releases</a>
           <a class="button" href="https://open-vsx.org/extension/jpfchang/gas-plasma-theme">Open VSX</a>
@@ -1378,6 +1652,11 @@ function writeDocsIndex() {
             <h3>VS Code</h3>
             <p>Install the published VSIX from Open VSX-compatible editors.</p>
             <code class="command">jpfchang.gas-plasma-theme</code>
+          </article>
+          <article class="tile">
+            <h3>Zed</h3>
+            <p>Install the color theme and file icon theme from the Zed extensions store after marketplace review.</p>
+            <code class="command">Gas Plasma Theme + Icons</code>
           </article>
         </div>
       </div>
@@ -1423,6 +1702,7 @@ function writeDocsIndex() {
 
 writeItermColors();
 writeVsCodeTheme();
+writeZedTheme();
 writeFileIcons();
 await writeProductIcons();
 writeLogoSvg();

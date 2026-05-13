@@ -22,3 +22,4 @@ generate-theme.swift
 package-lock.json
 README.md
 screenshot.png
+zed/**

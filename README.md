@@ -4,9 +4,9 @@
 [![Pages](https://github.com/JohnThre/GasPlasma-theme/actions/workflows/pages.yml/badge.svg)](https://github.com/JohnThre/GasPlasma-theme/actions/workflows/pages.yml)
 [![Open VSX](https://img.shields.io/open-vsx/v/jpfchang/gas-plasma-theme?label=Open%20VSX)](https://open-vsx.org/extension/jpfchang/gas-plasma-theme)
 
-Gas Plasma is an orange-dominant dark theme for Apple Terminal, iTerm2, VS Code, and Open VSX-compatible editors.
+Gas Plasma is an orange-dominant dark theme for Apple Terminal, iTerm2, VS Code, Open VSX-compatible editors, and Zed.
 
-The project ships one shared palette across terminal profiles, a VS Code color theme, a VS Code file icon theme, a VS Code product icon theme, a generated logo, and a generated documentation site.
+The project ships one shared palette across terminal profiles, VS Code and Zed color themes, VS Code and Zed file icon themes, a VS Code product icon theme, a generated logo, and a generated documentation site.
 
 ![Gas Plasma theme preview](assets/mockup.png)
 
@@ -58,6 +58,15 @@ After installation, enable the companion icon themes from the command palette:
 - **Preferences: File Icon Theme** > `Gas Plasma Icons`
 - **Preferences: Product Icon Theme** > `Gas Plasma Product Icons`
 
+### Zed
+
+Install `Gas Plasma Theme` and `Gas Plasma Icons` from the Zed extensions store after the marketplace PR has been reviewed and merged.
+
+For local testing, install each generated extension directory as a Zed dev extension:
+
+- `zed/gas-plasma-theme`
+- `zed/gas-plasma-icons`
+
 ## Theme Package
 
 | Asset | Purpose | Source |
@@ -67,6 +76,8 @@ After installation, enable the companion icon themes from the command palette:
 | `themes/gas-plasma-color-theme.json` | VS Code color theme | `scripts/build.mjs`, `src/palette.json` |
 | `icons/file/gas-plasma-icon-theme.json` | VS Code file icon theme | `scripts/build.mjs`, `src/icon-manifest.json` |
 | `icons/product/gas-plasma-product-icon-theme.json` | VS Code product icon theme | `scripts/build.mjs`, `@vscode/codicons` |
+| `zed/gas-plasma-theme/` | Zed color theme extension | `scripts/build.mjs`, `src/palette.json` |
+| `zed/gas-plasma-icons/` | Zed file icon theme extension | `scripts/build.mjs`, `src/icon-manifest.json` |
 | `assets/logo.*`, `assets/mockup.*`, `docs/index.html` | Brand and documentation assets | `scripts/build.mjs` |
 
 File icons use recognizable upstream language and ecosystem logo geometry where available, with restrained Gas Plasma color treatment for contrast. Product icons are generated from VS Code Codicons to preserve the original editor UI icon language.
@@ -107,25 +118,30 @@ Primary source files:
 
 - `src/palette.json` controls shared colors.
 - `src/icon-manifest.json` controls file, folder, language, and product icon mappings.
-- `scripts/build.mjs` generates iTerm2, VS Code, icon, logo, mockup, architecture, and GitHub Pages assets.
+- `scripts/build.mjs` generates iTerm2, VS Code, Zed, icon, logo, mockup, architecture, and GitHub Pages assets.
 - `generate-theme.swift` generates the Apple Terminal profile because Terminal stores colors as archived AppKit color data.
 - `scripts/check.mjs` validates generated assets and release packaging assumptions.
 
 ## Release
 
-Releases are designed to start from signed `v*` tags. The release workflow verifies the tag signature, builds artifacts, signs `SHA256SUMS` with GPG key `FEA322F2C85C0E17`, creates a GitHub Release, and publishes the VSIX to Open VSX.
+Releases are designed to start from signed `v*` tags. The release workflow verifies the tag signature, builds artifacts, signs `SHA256SUMS` with GPG key `FEA322F2C85C0E17`, creates a GitHub Release, publishes the VSIX to Open VSX, and opens or updates a PR against `zed-industries/extensions` for the Zed marketplace entries.
 
 Required repository secrets:
 
 - `GPG_PRIVATE_KEY`
 - `GPG_PASSPHRASE`
 - `OVSX_PAT`
+- `COMMITTER_TOKEN` with access to push to the Zed extensions fork and open PRs
 
 Open VSX namespace: `jpfchang`
 
 If the namespace does not exist when the release workflow runs, the workflow attempts to create it with `ovsx create-namespace`. For verified namespace ownership, follow the Open VSX namespace access guide:
 
 https://github.com/eclipse-openvsx/openvsx/wiki/Namespace-Access
+
+Zed marketplace fork: `JohnThre/extensions` by default. Set the repository variable `ZED_EXTENSIONS_FORK` to another fork in `owner/repo` format if the marketplace fork lives elsewhere.
+
+Zed marketplace publication is controlled by the official `zed-industries/extensions` review flow. The release workflow automates the submodule/version update PR; the extension appears in the store after that PR is merged by Zed maintainers.
 
 ## Attribution
 
