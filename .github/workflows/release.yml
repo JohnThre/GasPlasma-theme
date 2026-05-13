@@ -159,7 +159,7 @@ jobs:
           NODE
 
           corepack enable
-          pnpm install --frozen-lockfile
+          pnpm install --frozen-lockfile --ignore-scripts
           pnpm sort-extensions
       - name: Open or update marketplace pull request
         working-directory: zed-extensions
