@@ -1,10 +1,13 @@
 # Changelog
 
+## 0.1.1
+
+- Added Zed color theme and file icon theme extension outputs.
+- Added Zed marketplace PR automation for signed release tags.
+
 ## 0.1.0
 
 - Added Gas Plasma for VS Code and Open VSX-compatible editors.
-- Added Zed color theme and file icon theme extension outputs.
-- Added Zed marketplace PR automation for signed release tags.
 - Added iTerm2 color preset support.
 - Added VS Code file icon and product icon themes.
 - Reworked the file icon artwork around upstream language and ecosystem logo geometry, with broader Markdown, config, package, media, archive, database, font, PDF, Docker, Git, Linux, and npm coverage.

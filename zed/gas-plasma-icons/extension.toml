@@ -1,6 +1,6 @@
 id = "gas-plasma-icons"
 name = "Gas Plasma Icons"
-version = "0.1.0"
+version = "0.1.1"
 schema_version = 1
 authors = ["Pengfan Chang <developer@jpfchang.org>"]
 description = "Orange-dominant file icons inspired by the Gas Plasma palette."
