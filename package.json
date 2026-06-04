@@ -76,7 +76,7 @@
     "@vscode/codicons": "^0.0.45",
     "@vscode/vsce": "^3.9.1",
     "fantasticon": "^4.1.0",
-    "ovsx": "^0.10.12",
+    "ovsx": "^1.0.0",
     "simple-icons": "^16.19.0"
   }
 }
