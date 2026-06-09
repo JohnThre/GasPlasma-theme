@@ -77,6 +77,6 @@
     "@vscode/vsce": "^3.9.1",
     "fantasticon": "^4.1.0",
     "ovsx": "^0.10.12",
-    "simple-icons": "^16.19.0"
+    "simple-icons": "^16.23.0"
   }
 }
