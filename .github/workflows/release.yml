@@ -19,7 +19,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
@@ -107,7 +107,7 @@ jobs:
           test -n "$ZED_EXTENSIONS_FORK"
           git clone "https://x-access-token:${COMMITTER_TOKEN}@github.com/${ZED_EXTENSIONS_FORK}.git" zed-extensions
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: 22
       - name: Update marketplace submodules and metadata
