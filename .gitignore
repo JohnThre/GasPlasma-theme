@@ -30,6 +30,9 @@ icons/product/gas-plasma-product-icons.json
 .kilocode/
 .opencode/
 .crush/
+.pi/
+.augmentignore
+.augment-guidelines
 .mcp.json
 mcp.json
 
