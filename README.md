@@ -237,6 +237,18 @@ Report vulnerabilities through GitHub Security Advisories when available. See [S
 
 ## Donation
 
+If Gas Plasma is useful to you, you can support its development through any of these:
+
+[![Liberapay](https://img.shields.io/badge/Liberapay-jpfchang-F6C915?logo=liberapay&logoColor=black)](https://en.liberapay.com/jpfchang/)
+[![Ko-fi](https://img.shields.io/badge/Ko--fi-jpfchang-FF5E5B?logo=ko-fi&logoColor=white)](https://ko-fi.com/jpfchang)
+[![IssueHunt](https://img.shields.io/badge/IssueHunt-johnthre-1F2328?logo=github&logoColor=white)](https://oss.issuehunt.io/u/johnthre)
+
+- Liberapay (recurring): https://en.liberapay.com/jpfchang/
+- Ko-fi (one-time): https://ko-fi.com/jpfchang
+- IssueHunt (fund a specific issue): https://oss.issuehunt.io/u/johnthre
+
+Crypto donations are available through NOWPayments:
+
 <a href="https://nowpayments.io/donation?api_key=5792a927-dd7d-4b0c-982b-584a7499ffc9" target="_blank" rel="noreferrer noopener">
     <img src="https://nowpayments.io/images/embeds/donation-button-black.svg" alt="Crypto donation button by NOWPayments">
 </a>

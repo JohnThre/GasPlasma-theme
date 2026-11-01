@@ -69,6 +69,12 @@ The repository release also includes matching terminal profiles:
 
 ## Support
 
+If Gas Plasma is useful to you, you can support its development:
+
+- Liberapay (recurring): https://en.liberapay.com/jpfchang/
+- Ko-fi (one-time): https://ko-fi.com/jpfchang
+- IssueHunt (fund a specific issue): https://oss.issuehunt.io/u/johnthre
+
 Crypto donations are available through NOWPayments:
 
 https://nowpayments.io/donation?api_key=5792a927-dd7d-4b0c-982b-584a7499ffc9
