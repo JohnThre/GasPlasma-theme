@@ -3,5 +3,5 @@ name = "Gas Plasma Theme"
 version = "0.1.1"
 schema_version = 1
 authors = ["Pengfan Chang <developer@jpfchang.org>"]
-description = "An orange-dominant dark theme inspired by ionized gas glow."
+description = "An orange-dominant theme inspired by ionized gas glow, in dark, light, and auto variants."
 repository = "https://github.com/JohnThre/GasPlasma-theme"

@@ -11,6 +11,9 @@ const root = path.resolve(scriptDir, "..");
 const pkg = JSON.parse(readFileSync(path.join(root, "package.json"), "utf8"));
 const palette = JSON.parse(readFileSync(path.join(root, "src/palette.json"), "utf8"));
 const iconManifest = JSON.parse(readFileSync(path.join(root, "src/icon-manifest.json"), "utf8"));
+const themeVariants = Object.values(palette.variants);
+const darkVariant = palette.variants.dark;
+const lightVariant = palette.variants.light;
 const author = "Pengfan Chang <developer@jpfchang.org>";
 const authorName = "Pengfan Chang";
 const repositoryUrl = pkg.repository.url.replace(/^git\+/, "").replace(/\.git$/, "");
@@ -18,6 +21,7 @@ const repositoryUrl = pkg.repository.url.replace(/^git\+/, "").replace(/\.git$/,
 for (const dir of [
   "docs/assets/icons",
   "icons/file/svg",
+  "icons/file/svg-light",
   "icons/product/svg",
   "zed/gas-plasma-icons/icon_themes",
   "zed/gas-plasma-icons/icons",
@@ -33,16 +37,19 @@ const dirs = [
   "docs",
   "docs/assets",
   "docs/assets/icons",
+  "docs/assets/icons/light",
   "dist",
   "icons",
   "icons/file",
   "icons/file/svg",
+  "icons/file/svg-light",
   "icons/product",
   "icons/product/svg",
   "zed",
   "zed/gas-plasma-icons",
   "zed/gas-plasma-icons/icon_themes",
   "zed/gas-plasma-icons/icons",
+  "zed/gas-plasma-icons/icons/light",
   "zed/gas-plasma-theme",
   "zed/gas-plasma-theme/themes"
 ];
@@ -113,10 +120,17 @@ function plistColor(hex, alpha = 1) {
   ].join("\n");
 }
 
-function writeItermColors() {
-  const normal = palette.ansi.normal;
-  const bright = palette.ansi.bright;
-  const entries = [
+function variantSlugSuffix(variant) {
+  return variant.fileSuffix.toLowerCase();
+}
+
+function vscodeThemePath(variant) {
+  return `themes/gas-plasma${variantSlugSuffix(variant)}-color-theme.json`;
+}
+
+function itermEntries(variant) {
+  const { core, ansi: { normal, bright } } = variant;
+  return [
     ["Ansi 0 Color", normal.black],
     ["Ansi 1 Color", normal.red],
     ["Ansi 2 Color", normal.green],
@@ -133,15 +147,17 @@ function writeItermColors() {
     ["Ansi 13 Color", bright.magenta],
     ["Ansi 14 Color", bright.cyan],
     ["Ansi 15 Color", bright.white],
-    ["Background Color", palette.core.background],
-    ["Bold Color", palette.core.bold],
-    ["Cursor Color", palette.core.cursor],
-    ["Cursor Text Color", palette.core.cursorText],
-    ["Foreground Color", palette.core.foreground],
-    ["Selected Text Color", palette.core.bold],
-    ["Selection Color", palette.core.selection, palette.core.selectionAlpha]
+    ["Background Color", core.background],
+    ["Bold Color", core.bold],
+    ["Cursor Color", core.cursor],
+    ["Cursor Text Color", core.cursorText],
+    ["Foreground Color", core.foreground],
+    ["Selected Text Color", core.bold],
+    ["Selection Color", core.selection, core.selectionAlpha]
   ];
+}
 
+function writeItermPlist(fileName, entries) {
   const body = entries
     .map(([key, hex, alpha]) => `  <key>${xmlEscape(key)}</key>\n${plistColor(hex, alpha ?? 1).split("\n").map((line) => `  ${line}`).join("\n")}`)
     .join("\n");
@@ -155,56 +171,71 @@ ${body}
 </plist>
 `;
 
-  writeFileSync(path.join(root, "GasPlasma.itermcolors"), xml);
+  writeFileSync(path.join(root, fileName), xml);
 }
 
-function writeVsCodeTheme() {
-  const normal = palette.ansi.normal;
-  const bright = palette.ansi.bright;
+function writeItermColors(variant) {
+  writeItermPlist(`GasPlasma${variant.fileSuffix}.itermcolors`, itermEntries(variant));
+}
+
+// iTerm2 3.5+ "Use separate colors for light and dark mode": the preset carries
+// "(Dark)" and "(Light)" copies of every key; the plain keys keep older versions on dark.
+function writeItermAutoColors() {
+  const dark = itermEntries(palette.variants.dark);
+  const light = itermEntries(palette.variants.light);
+  writeItermPlist("GasPlasma-Auto.itermcolors", [
+    ...dark,
+    ...dark.map(([key, hex, alpha]) => [`${key} (Dark)`, hex, alpha]),
+    ...light.map(([key, hex, alpha]) => [`${key} (Light)`, hex, alpha])
+  ]);
+}
+
+function writeVsCodeTheme(variant) {
+  const { core, ui, syntax, ansi: { normal, bright } } = variant;
   const theme = {
     $schema: "vscode://schemas/color-theme",
-    name: palette.name,
-    type: "dark",
+    name: variant.name,
+    type: variant.appearance,
     semanticHighlighting: true,
     colors: {
-      "activityBar.background": "#261000",
-      "activityBar.foreground": palette.core.bold,
-      "activityBarBadge.background": normal.red,
-      "activityBarBadge.foreground": bright.white,
-      "badge.background": normal.red,
-      "badge.foreground": bright.white,
-      "button.background": normal.red,
-      "button.foreground": bright.white,
-      "button.hoverBackground": bright.red,
-      "dropdown.background": "#261000",
-      "dropdown.border": bright.black,
-      "editor.background": palette.core.background,
-      "editor.foreground": palette.core.foreground,
-      "editor.lineHighlightBackground": "#3A1800",
-      "editor.selectionBackground": hexWithAlpha(palette.core.selection, palette.core.selectionAlpha),
-      "editorCursor.foreground": palette.core.cursor,
-      "editorIndentGuide.background1": "#4D2600",
-      "editorIndentGuide.activeBackground1": "#CC7A00",
-      "editorLineNumber.foreground": "#8F4A00",
-      "editorLineNumber.activeForeground": bright.yellow,
-      "editorWhitespace.foreground": "#4D2600",
-      "input.background": "#261000",
-      "input.border": bright.black,
-      "input.foreground": palette.core.bold,
-      "list.activeSelectionBackground": "#4D2600",
-      "list.activeSelectionForeground": bright.white,
-      "list.hoverBackground": "#331500",
-      "panel.background": "#140800",
-      "panel.border": "#4D2600",
-      "sideBar.background": "#140800",
-      "sideBar.foreground": palette.core.foreground,
-      "sideBarSectionHeader.background": "#261000",
-      "statusBar.background": "#3A1800",
-      "statusBar.foreground": bright.white,
-      "tab.activeBackground": palette.core.background,
-      "tab.activeForeground": bright.white,
-      "tab.inactiveBackground": "#261000",
-      "tab.inactiveForeground": normal.white,
+      "activityBar.background": ui.raised,
+      "activityBar.foreground": core.bold,
+      "activityBarBadge.background": ui.accent,
+      "activityBarBadge.foreground": ui.onAccent,
+      "badge.background": ui.accent,
+      "badge.foreground": ui.onAccent,
+      "button.background": ui.accent,
+      "button.foreground": ui.onAccent,
+      "button.hoverBackground": ui.accentHover,
+      "dropdown.background": ui.raised,
+      "dropdown.border": ui.border,
+      "editor.background": core.background,
+      "editor.foreground": core.foreground,
+      "editor.lineHighlightBackground": ui.active,
+      "editor.selectionBackground": hexWithAlpha(core.selection, core.selectionAlpha),
+      "editorCursor.foreground": core.cursor,
+      "editorIndentGuide.background1": ui.border,
+      "editorIndentGuide.activeBackground1": ui.guide,
+      "editorLineNumber.foreground": ui.muted,
+      "editorLineNumber.activeForeground": ui.focus,
+      "editorWhitespace.foreground": ui.border,
+      "input.background": ui.raised,
+      "input.border": ui.border,
+      "input.foreground": core.bold,
+      "list.activeSelectionBackground": ui.border,
+      "list.activeSelectionForeground": ui.strong,
+      "list.hoverBackground": ui.hover,
+      "panel.background": ui.deep,
+      "panel.border": ui.border,
+      "sideBar.background": ui.deep,
+      "sideBar.foreground": core.foreground,
+      "sideBarSectionHeader.background": ui.raised,
+      "statusBar.background": ui.active,
+      "statusBar.foreground": ui.strong,
+      "tab.activeBackground": core.background,
+      "tab.activeForeground": ui.strong,
+      "tab.inactiveBackground": ui.raised,
+      "tab.inactiveForeground": ui.textMuted,
       "terminal.ansiBlack": normal.black,
       "terminal.ansiRed": normal.red,
       "terminal.ansiGreen": normal.green,
@@ -221,112 +252,111 @@ function writeVsCodeTheme() {
       "terminal.ansiBrightMagenta": bright.magenta,
       "terminal.ansiBrightCyan": bright.cyan,
       "terminal.ansiBrightWhite": bright.white,
-      "titleBar.activeBackground": "#261000",
-      "titleBar.activeForeground": bright.white
+      "titleBar.activeBackground": ui.raised,
+      "titleBar.activeForeground": ui.strong
     },
     tokenColors: [
-      { scope: ["comment", "punctuation.definition.comment"], settings: { foreground: normal.cyan, fontStyle: "italic" } },
-      { scope: ["string", "constant.other.symbol"], settings: { foreground: normal.green } },
-      { scope: ["constant.numeric", "constant.language"], settings: { foreground: bright.yellow } },
-      { scope: ["keyword", "storage.type", "storage.modifier"], settings: { foreground: normal.red, fontStyle: "bold" } },
-      { scope: ["entity.name.function", "support.function"], settings: { foreground: bright.blue } },
-      { scope: ["entity.name.type", "support.class", "support.type"], settings: { foreground: bright.cyan } },
-      { scope: ["variable", "meta.definition.variable.name"], settings: { foreground: palette.core.bold } },
-      { scope: ["entity.name.tag", "support.constant"], settings: { foreground: bright.red } },
-      { scope: ["invalid", "invalid.illegal"], settings: { foreground: bright.white, background: "#8A1C00" } }
+      { scope: ["comment", "punctuation.definition.comment"], settings: { foreground: syntax.comment, fontStyle: "italic" } },
+      { scope: ["string", "constant.other.symbol"], settings: { foreground: syntax.string } },
+      { scope: ["constant.numeric", "constant.language"], settings: { foreground: syntax.constant } },
+      { scope: ["keyword", "storage.type", "storage.modifier"], settings: { foreground: syntax.keyword, fontStyle: "bold" } },
+      { scope: ["entity.name.function", "support.function"], settings: { foreground: syntax.function } },
+      { scope: ["entity.name.type", "support.class", "support.type"], settings: { foreground: syntax.type } },
+      { scope: ["variable", "meta.definition.variable.name"], settings: { foreground: syntax.variable } },
+      { scope: ["entity.name.tag", "support.constant"], settings: { foreground: syntax.tag } },
+      { scope: ["invalid", "invalid.illegal"], settings: { foreground: syntax.invalid, background: ui.invalidBackground } }
     ],
     semanticTokenColors: {
-      class: bright.cyan,
-      enum: bright.cyan,
-      function: bright.blue,
-      interface: bright.cyan,
-      keyword: normal.red,
-      method: bright.blue,
-      namespace: normal.yellow,
-      parameter: palette.core.bold,
-      property: normal.white,
-      string: normal.green,
-      variable: palette.core.bold
+      class: syntax.type,
+      enum: syntax.type,
+      function: syntax.function,
+      interface: syntax.type,
+      keyword: syntax.keyword,
+      method: syntax.function,
+      namespace: syntax.namespace,
+      parameter: syntax.variable,
+      property: syntax.property,
+      string: syntax.string,
+      variable: syntax.variable
     }
   };
 
-  writeFileSync(path.join(root, "themes/gas-plasma-color-theme.json"), `${JSON.stringify(theme, null, 2)}\n`);
+  writeFileSync(path.join(root, vscodeThemePath(variant)), `${JSON.stringify(theme, null, 2)}\n`);
 }
 
-function writeZedTheme() {
-  const normal = palette.ansi.normal;
-  const bright = palette.ansi.bright;
-  const style = {
-    accents: [normal.red, normal.yellow, bright.yellow, bright.cyan],
+function zedStyle(variant) {
+  const { core, ui, syntax, ansi: { normal, bright } } = variant;
+  return {
+    accents: [ui.accent, normal.yellow, ui.focus, syntax.type],
     "background.appearance": "opaque",
-    background: palette.core.background,
-    "surface.background": "#140800",
-    "elevated_surface.background": "#261000",
-    foreground: palette.core.foreground,
-    text: palette.core.bold,
-    "text.muted": normal.white,
-    "text.placeholder": "#8F4A00",
-    "text.disabled": "#8F4A00",
-    "text.accent": bright.yellow,
-    icon: normal.white,
-    "icon.muted": "#8F4A00",
-    "icon.disabled": "#4D2600",
-    "icon.placeholder": "#8F4A00",
-    "icon.accent": bright.yellow,
-    border: bright.black,
-    "border.variant": "#3A1800",
-    "border.disabled": "#3A1800",
-    "border.focused": bright.yellow,
-    "border.selected": palette.core.foreground,
+    background: core.background,
+    "surface.background": ui.deep,
+    "elevated_surface.background": ui.raised,
+    foreground: core.foreground,
+    text: core.bold,
+    "text.muted": ui.textMuted,
+    "text.placeholder": ui.muted,
+    "text.disabled": ui.muted,
+    "text.accent": ui.focus,
+    icon: ui.textMuted,
+    "icon.muted": ui.muted,
+    "icon.disabled": ui.border,
+    "icon.placeholder": ui.muted,
+    "icon.accent": ui.focus,
+    border: ui.border,
+    "border.variant": ui.active,
+    "border.disabled": ui.active,
+    "border.focused": ui.focus,
+    "border.selected": core.foreground,
     "border.transparent": "#00000000",
-    "element.background": "#261000",
-    "element.hover": "#331500",
-    "element.active": "#3A1800",
-    "element.selected": "#4D2600",
-    "element.disabled": "#140800",
+    "element.background": ui.raised,
+    "element.hover": ui.hover,
+    "element.active": ui.active,
+    "element.selected": ui.border,
+    "element.disabled": ui.deep,
     "ghost_element.background": "#00000000",
-    "ghost_element.hover": "#261000",
-    "ghost_element.active": "#3A1800",
-    "ghost_element.selected": "#4D2600",
-    "ghost_element.disabled": "#140800",
-    "title_bar.background": "#261000",
-    "title_bar.inactive_background": "#140800",
-    "toolbar.background": "#261000",
-    "tab_bar.background": "#140800",
-    "tab.active_background": palette.core.background,
-    "tab.inactive_background": "#261000",
-    "status_bar.background": "#3A1800",
-    "panel.background": "#140800",
-    "panel.focused_border": "#4D2600",
-    "panel.indent_guide": "#4D2600",
-    "panel.indent_guide_active": "#CC7A00",
-    "panel.indent_guide_hover": bright.yellow,
-    "pane.focused_border": "#4D2600",
-    "pane_group.border": "#4D2600",
-    "editor.background": palette.core.background,
-    "editor.foreground": palette.core.foreground,
-    "editor.gutter.background": palette.core.background,
-    "editor.subheader.background": "#261000",
-    "editor.active_line.background": "#3A1800",
-    "editor.highlighted_line.background": "#3A1800",
-    "editor.line_number": "#8F4A00",
-    "editor.active_line_number": bright.yellow,
-    "editor.indent_guide": "#4D2600",
-    "editor.indent_guide_active": "#CC7A00",
-    "editor.wrap_guide": "#4D2600",
-    "editor.active_wrap_guide": "#CC7A00",
-    "editor.invisible": "#4D2600",
+    "ghost_element.hover": ui.raised,
+    "ghost_element.active": ui.active,
+    "ghost_element.selected": ui.border,
+    "ghost_element.disabled": ui.deep,
+    "title_bar.background": ui.raised,
+    "title_bar.inactive_background": ui.deep,
+    "toolbar.background": ui.raised,
+    "tab_bar.background": ui.deep,
+    "tab.active_background": core.background,
+    "tab.inactive_background": ui.raised,
+    "status_bar.background": ui.active,
+    "panel.background": ui.deep,
+    "panel.focused_border": ui.border,
+    "panel.indent_guide": ui.border,
+    "panel.indent_guide_active": ui.guide,
+    "panel.indent_guide_hover": ui.focus,
+    "pane.focused_border": ui.border,
+    "pane_group.border": ui.border,
+    "editor.background": core.background,
+    "editor.foreground": core.foreground,
+    "editor.gutter.background": core.background,
+    "editor.subheader.background": ui.raised,
+    "editor.active_line.background": ui.active,
+    "editor.highlighted_line.background": ui.active,
+    "editor.line_number": ui.muted,
+    "editor.active_line_number": ui.focus,
+    "editor.indent_guide": ui.border,
+    "editor.indent_guide_active": ui.guide,
+    "editor.wrap_guide": ui.border,
+    "editor.active_wrap_guide": ui.guide,
+    "editor.invisible": ui.border,
     "editor.document_highlight.read_background": hexWithAlpha(normal.yellow, 0.18),
-    "editor.document_highlight.write_background": hexWithAlpha(normal.red, 0.18),
-    "editor.document_highlight.bracket_background": hexWithAlpha(bright.yellow, 0.18),
-    "scrollbar.thumb.background": hexWithAlpha(normal.white, 0.28),
-    "scrollbar.thumb.hover_background": hexWithAlpha(bright.yellow, 0.38),
+    "editor.document_highlight.write_background": hexWithAlpha(ui.accent, 0.18),
+    "editor.document_highlight.bracket_background": hexWithAlpha(ui.focus, 0.18),
+    "scrollbar.thumb.background": hexWithAlpha(ui.textMuted, 0.28),
+    "scrollbar.thumb.hover_background": hexWithAlpha(ui.focus, 0.38),
     "scrollbar.thumb.border": "#00000000",
     "scrollbar.track.background": "#00000000",
     "scrollbar.track.border": "#00000000",
-    "drop_target.background": hexWithAlpha(bright.yellow, 0.18),
-    "search.match_background": hexWithAlpha(bright.yellow, 0.3),
-    "link_text.hover": bright.cyan,
+    "drop_target.background": hexWithAlpha(ui.focus, 0.18),
+    "search.match_background": hexWithAlpha(ui.focus, 0.3),
+    "link_text.hover": ui.link,
     error: normal.red,
     "error.background": hexWithAlpha(normal.red, 0.18),
     "error.border": normal.red,
@@ -360,12 +390,12 @@ function writeZedTheme() {
     predictive: normal.green,
     "predictive.background": hexWithAlpha(normal.green, 0.14),
     "predictive.border": normal.green,
-    ignored: "#8F4A00",
-    hidden: "#8F4A00",
-    unreachable: "#8F4A00",
-    "terminal.background": palette.core.background,
-    "terminal.foreground": palette.core.foreground,
-    "terminal.bright_foreground": bright.white,
+    ignored: ui.muted,
+    hidden: ui.muted,
+    unreachable: ui.muted,
+    "terminal.background": core.background,
+    "terminal.foreground": core.foreground,
+    "terminal.bright_foreground": ui.strong,
     "terminal.dim_foreground": bright.black,
     "terminal.ansi.background": normal.black,
     "terminal.ansi.black": normal.black,
@@ -386,43 +416,43 @@ function writeZedTheme() {
     "terminal.ansi.bright_white": bright.white,
     players: [
       {
-        background: palette.core.background,
-        cursor: palette.core.cursor,
-        selection: hexWithAlpha(palette.core.selection, palette.core.selectionAlpha)
+        background: core.background,
+        cursor: core.cursor,
+        selection: hexWithAlpha(core.selection, core.selectionAlpha)
       }
     ],
     syntax: {
-      attribute: { color: bright.cyan },
-      comment: { color: normal.cyan, font_style: "italic" },
-      constant: { color: bright.yellow },
-      constructor: { color: bright.cyan },
-      embedded: { color: bright.cyan },
-      function: { color: bright.blue },
-      keyword: { color: normal.red, font_weight: 700 },
-      number: { color: bright.yellow },
-      operator: { color: normal.red },
-      property: { color: normal.white },
-      punctuation: { color: bright.white },
-      string: { color: normal.green },
-      "string.escape": { color: bright.yellow },
-      tag: { color: bright.red },
-      type: { color: bright.cyan },
-      variable: { color: palette.core.bold },
-      "variable.special": { color: bright.yellow }
+      attribute: { color: syntax.type },
+      comment: { color: syntax.comment, font_style: "italic" },
+      constant: { color: syntax.constant },
+      constructor: { color: syntax.type },
+      embedded: { color: syntax.type },
+      function: { color: syntax.function },
+      keyword: { color: syntax.keyword, font_weight: 700 },
+      number: { color: syntax.constant },
+      operator: { color: syntax.keyword },
+      property: { color: syntax.property },
+      punctuation: { color: syntax.punctuation },
+      string: { color: syntax.string },
+      "string.escape": { color: syntax.constant },
+      tag: { color: syntax.tag },
+      type: { color: syntax.type },
+      variable: { color: syntax.variable },
+      "variable.special": { color: syntax.constant }
     }
   };
+}
 
+function writeZedTheme() {
   const themeFamily = {
     $schema: "https://zed.dev/schema/themes/v0.2.0.json",
     name: palette.name,
     author: authorName,
-    themes: [
-      {
-        name: palette.name,
-        appearance: "dark",
-        style
-      }
-    ]
+    themes: themeVariants.map((variant) => ({
+      name: variant.name,
+      appearance: variant.appearance,
+      style: zedStyle(variant)
+    }))
   };
 
   writeZedExtensionManifest("zed/gas-plasma-theme", {
@@ -440,15 +470,15 @@ function iconDefName(iconName) {
   return `_gp_${iconName.replaceAll("-", "_")}`;
 }
 
-function mapIconAssociations(values = {}) {
+function mapIconAssociations(values = {}, suffix = "") {
   return Object.fromEntries(
-    Object.entries(values).map(([key, iconName]) => [key, iconDefName(iconName)])
+    Object.entries(values).map(([key, iconName]) => [key, iconDefName(iconName) + suffix])
   );
 }
 
-function mapFolderAssociations(values = {}, open = false) {
+function mapFolderAssociations(values = {}, open = false, suffix = "") {
   return Object.fromEntries(
-    Object.entries(values).map(([folderName, emblem]) => [folderName, iconDefName(folderIconName(emblem, open))])
+    Object.entries(values).map(([folderName, emblem]) => [folderName, iconDefName(folderIconName(emblem, open)) + suffix])
   );
 }
 
@@ -539,6 +569,84 @@ function liftForDarkTile(hex, fallback = iconLiftColor) {
     if (relativeLuminance(lifted) >= minIconLuminance) return lifted;
   }
   return fallback;
+}
+
+function contrastRatio(a, b) {
+  const [hi, lo] = [relativeLuminance(a), relativeLuminance(b)].sort((x, y) => y - x);
+  return (hi + 0.05) / (lo + 0.05);
+}
+
+function rgbToHsl({ r, g, b }) {
+  const [rn, gn, bn] = [r / 255, g / 255, b / 255];
+  const max = Math.max(rn, gn, bn);
+  const min = Math.min(rn, gn, bn);
+  const l = (max + min) / 2;
+  if (max === min) return { h: 0, s: 0, l };
+  const d = max - min;
+  const s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+  let h;
+  if (max === rn) h = ((gn - bn) / d) + (gn < bn ? 6 : 0);
+  else if (max === gn) h = ((bn - rn) / d) + 2;
+  else h = ((rn - gn) / d) + 4;
+  return { h: h / 6, s, l };
+}
+
+function hslToHex({ h, s, l }) {
+  const hue = (p, q, t) => {
+    if (t < 0) t += 1;
+    if (t > 1) t -= 1;
+    if (t < 1 / 6) return p + ((q - p) * 6 * t);
+    if (t < 1 / 2) return q;
+    if (t < 2 / 3) return p + ((q - p) * ((2 / 3) - t) * 6);
+    return p;
+  };
+  let r = l;
+  let g = l;
+  let b = l;
+  if (s !== 0) {
+    const q = l < 0.5 ? l * (1 + s) : l + s - (l * s);
+    const p = (2 * l) - q;
+    r = hue(p, q, h + (1 / 3));
+    g = hue(p, q, h);
+    b = hue(p, q, h - (1 / 3));
+  }
+  const channel = (value) => Math.round(value * 255).toString(16).padStart(2, "0");
+  return `#${channel(r)}${channel(g)}${channel(b)}`.toUpperCase();
+}
+
+// Light variants of generated artwork: the warm near-black/peach neutrals are mirrored
+// in lightness (dark tiles become cream, peach strokes become deep brown) while
+// mid-tone accents and brand colors keep their hue and are only deepened toward
+// brown until they reach `minContrast` against the light tile.
+const lightTileColor = "#FFF3E6";
+const lightDeepenColor = "#5C2400";
+const lightShadow = { color: "#5C2400", opacity: ".2" };
+
+function deepenForLightTile(hex, minContrast = 3) {
+  if (contrastRatio(hex, lightTileColor) >= minContrast) return hex.toUpperCase();
+  for (let amount = 0.05; amount < 1; amount += 0.05) {
+    const deepened = mixHex(hex, lightDeepenColor, amount);
+    if (contrastRatio(deepened, lightTileColor) >= minContrast) return deepened;
+  }
+  return lightDeepenColor;
+}
+
+function lightCounterpart(hex, minContrast = 3) {
+  const hsl = rgbToHsl(hexToRgb(hex));
+  if (hsl.l < 0.25) return hslToHex({ ...hsl, l: 1 - hsl.l });
+  if (hsl.l > 0.78) return hslToHex({ ...hsl, l: Math.max(1 - hsl.l, 0.12) });
+  return deepenForLightTile(hex, minContrast);
+}
+
+function toLightSvg(svg, { minContrast = 3 } = {}) {
+  const cache = new Map();
+  return svg
+    .replace(/#[0-9A-Fa-f]{6}\b/g, (hex) => {
+      const key = hex.toUpperCase();
+      if (!cache.has(key)) cache.set(key, lightCounterpart(key, minContrast));
+      return cache.get(key);
+    })
+    .replace(/flood-color="[^"]*" flood-opacity="[^"]*"/g, `flood-color="${lightShadow.color}" flood-opacity="${lightShadow.opacity}"`);
 }
 
 function simpleIconColor(icon, fallback = iconLiftColor) {
@@ -1113,40 +1221,52 @@ function writeFileIcons() {
     if (!iconNames.has(iconName)) throw new Error(`Gallery icon ${iconName} is not generated`);
   }
   const iconDir = path.join(root, "icons/file/svg");
+  const lightIconDir = path.join(root, "icons/file/svg-light");
   const docsIconDir = path.join(root, "docs/assets/icons");
+  const docsLightIconDir = path.join(root, "docs/assets/icons/light");
   const zedIconDir = path.join(root, "zed/gas-plasma-icons/icons");
+  const zedLightIconDir = path.join(root, "zed/gas-plasma-icons/icons/light");
 
   for (const iconName of [...iconNames].sort()) {
     const render = folderRenderers.get(iconName) ?? fileIconRenderers[iconName];
     if (!render) throw new Error(`Missing file icon renderer for ${iconName}`);
     const svg = render();
+    const lightSvg = toLightSvg(svg);
     writeFileSync(path.join(iconDir, `${iconName}.svg`), svg);
+    writeFileSync(path.join(lightIconDir, `${iconName}.svg`), lightSvg);
     writeFileSync(path.join(zedIconDir, `${iconName}.svg`), svg);
+    writeFileSync(path.join(zedLightIconDir, `${iconName}.svg`), lightSvg);
     if (fileTheme.gallery.includes(iconName)) {
       writeFileSync(path.join(docsIconDir, `${iconName}.svg`), svg);
+      writeFileSync(path.join(docsLightIconDir, `${iconName}.svg`), lightSvg);
     }
   }
 
+  // VS Code swaps to the `light` associations whenever a light color theme is active,
+  // so one icon theme follows Light, Dark, and auto-detected color schemes.
+  const associations = (suffix) => ({
+    file: iconDefName(fileTheme.icons.file) + suffix,
+    folder: iconDefName(fileTheme.icons.folder) + suffix,
+    folderExpanded: iconDefName(fileTheme.icons.folderExpanded) + suffix,
+    rootFolder: iconDefName(fileTheme.icons.rootFolder) + suffix,
+    rootFolderExpanded: iconDefName(fileTheme.icons.rootFolderExpanded) + suffix,
+    fileExtensions: mapIconAssociations(fileTheme.fileExtensions, suffix),
+    fileNames: mapIconAssociations(fileTheme.fileNames, suffix),
+    folderNames: mapFolderAssociations(fileTheme.folderNames, false, suffix),
+    folderNamesExpanded: mapFolderAssociations(fileTheme.folderNames, true, suffix),
+    languageIds: mapIconAssociations(fileTheme.languageIds, suffix)
+  });
+  const sortedIconNames = [...iconNames].sort();
   const theme = {
     $schema: "vscode://schemas/icon-theme",
     hidesExplorerArrows: false,
     showLanguageModeIcons: true,
-    iconDefinitions: Object.fromEntries(
-      [...iconNames].sort().map((iconName) => [
-        iconDefName(iconName),
-        { iconPath: `./svg/${iconName}.svg` }
-      ])
-    ),
-    file: iconDefName(fileTheme.icons.file),
-    folder: iconDefName(fileTheme.icons.folder),
-    folderExpanded: iconDefName(fileTheme.icons.folderExpanded),
-    rootFolder: iconDefName(fileTheme.icons.rootFolder),
-    rootFolderExpanded: iconDefName(fileTheme.icons.rootFolderExpanded),
-    fileExtensions: mapIconAssociations(fileTheme.fileExtensions),
-    fileNames: mapIconAssociations(fileTheme.fileNames),
-    folderNames: mapFolderAssociations(fileTheme.folderNames, false),
-    folderNamesExpanded: mapFolderAssociations(fileTheme.folderNames, true),
-    languageIds: mapIconAssociations(fileTheme.languageIds)
+    iconDefinitions: Object.fromEntries([
+      ...sortedIconNames.map((iconName) => [iconDefName(iconName), { iconPath: `./svg/${iconName}.svg` }]),
+      ...sortedIconNames.map((iconName) => [`${iconDefName(iconName)}_light`, { iconPath: `./svg-light/${iconName}.svg` }])
+    ]),
+    ...associations(""),
+    light: associations("_light")
   };
 
   writeFileSync(
@@ -1154,50 +1274,53 @@ function writeFileIcons() {
     `${JSON.stringify(theme, null, 2)}\n`
   );
 
+  const zedIconTheme = (name, appearance, dir) => ({
+    name,
+    appearance,
+    directory_icons: {
+      collapsed: `${dir}/${fileTheme.icons.folder}.svg`,
+      expanded: `${dir}/${fileTheme.icons.folderExpanded}.svg`
+    },
+    named_directory_icons: Object.fromEntries(
+      Object.entries(fileTheme.folderNames).map(([folderName, iconName]) => [
+        folderName,
+        {
+          collapsed: `${dir}/${folderIconName(iconName, false)}.svg`,
+          expanded: `${dir}/${folderIconName(iconName, true)}.svg`
+        }
+      ])
+    ),
+    // Zed looks the whole file name up in stems and suffixes before trying each
+    // dotted suffix, and only then falls back to the part before the first dot.
+    // Dotted names therefore go in by full name; only extensionless names are stems,
+    // so `main.tf` can no longer claim `main.foo` through a `main` stem.
+    file_stems: Object.fromEntries(
+      Object.entries(fileTheme.fileNames).filter(([fileName]) => !fileName.includes("."))
+    ),
+    file_suffixes: {
+      ...fileTheme.fileExtensions,
+      ...Object.fromEntries(
+        Object.entries(fileTheme.fileNames).filter(([fileName]) => fileName.includes("."))
+      )
+    },
+    file_icons: {
+      default: { path: `${dir}/${fileTheme.icons.file}.svg` },
+      ...Object.fromEntries(
+        [...fileIconNames].sort().map((iconName) => [
+          iconName,
+          { path: `${dir}/${iconName}.svg` }
+        ])
+      )
+    }
+  });
+
   const zedTheme = {
     $schema: "https://zed.dev/schema/icon_themes/v0.3.0.json",
     name: fileTheme.label,
     author: authorName,
     themes: [
-      {
-        name: fileTheme.label,
-        appearance: "dark",
-        directory_icons: {
-          collapsed: `./icons/${fileTheme.icons.folder}.svg`,
-          expanded: `./icons/${fileTheme.icons.folderExpanded}.svg`
-        },
-        named_directory_icons: Object.fromEntries(
-          Object.entries(fileTheme.folderNames).map(([folderName, iconName]) => [
-            folderName,
-            {
-              collapsed: `./icons/${folderIconName(iconName, false)}.svg`,
-              expanded: `./icons/${folderIconName(iconName, true)}.svg`
-            }
-          ])
-        ),
-        // Zed looks the whole file name up in stems and suffixes before trying each
-        // dotted suffix, and only then falls back to the part before the first dot.
-        // Dotted names therefore go in by full name; only extensionless names are stems,
-        // so `main.tf` can no longer claim `main.foo` through a `main` stem.
-        file_stems: Object.fromEntries(
-          Object.entries(fileTheme.fileNames).filter(([fileName]) => !fileName.includes("."))
-        ),
-        file_suffixes: {
-          ...fileTheme.fileExtensions,
-          ...Object.fromEntries(
-            Object.entries(fileTheme.fileNames).filter(([fileName]) => fileName.includes("."))
-          )
-        },
-        file_icons: {
-          default: { path: `./icons/${fileTheme.icons.file}.svg` },
-          ...Object.fromEntries(
-            [...fileIconNames].sort().map((iconName) => [
-              iconName,
-              { path: `./icons/${iconName}.svg` }
-            ])
-          )
-        }
-      }
+      zedIconTheme(fileTheme.label, "dark", "./icons"),
+      zedIconTheme(`${fileTheme.label} Light`, "light", "./icons/light")
     ]
   };
 
@@ -1369,9 +1492,9 @@ function writeMockupSvg() {
   };
   const editorLines = [
     codeLine(1, 256, [["const ", "#FF6B3D"], ["theme", "#FFD2A6"], [" = ", "#FFF0DB"], ["{", "#FFF0DB"]]),
-    codeLine(2, 294, [["  name", "#E8C547"], [": ", "#FFF0DB"], ["'Gas Plasma'", "#B5CC18"], [",", "#FFF0DB"]]),
-    codeLine(3, 332, [["  background", "#E8C547"], [": ", "#FFF0DB"], ["'#1A0A00'", "#B5CC18"], [",", "#FFF0DB"]]),
-    codeLine(4, 370, [["  foreground", "#E8C547"], [": ", "#FFF0DB"], ["'#FF8C00'", "#B5CC18"], [",", "#FFF0DB"]]),
+    codeLine(2, 294, [["  name", "#E8C547"], [": ", "#FFF0DB"], ["'__NAME__'", "#B5CC18"], [",", "#FFF0DB"]]),
+    codeLine(3, 332, [["  background", "#E8C547"], [": ", "#FFF0DB"], ["'__BG__'", "#B5CC18"], [",", "#FFF0DB"]]),
+    codeLine(4, 370, [["  foreground", "#E8C547"], [": ", "#FFF0DB"], ["'__FG__'", "#B5CC18"], [",", "#FFF0DB"]]),
     codeLine(5, 408, [["  accents", "#E8C547"], [": [", "#FFF0DB"], ["'plasma'", "#B5CC18"], [", ", "#FFF0DB"], ["'ember'", "#B5CC18"], ["]", "#FFF0DB"]]),
     codeLine(6, 446, [["};", "#FFF0DB"]]),
     codeLine(7, 532, [["export ", "#FF6B3D"], ["default ", "#FF6B3D"], ["theme", "#FFD2A6"], [";", "#FFF0DB"]])
@@ -1419,7 +1542,7 @@ function writeMockupSvg() {
   <rect width="1800" height="1080" fill="url(#stage)"/>
   <rect width="1800" height="1080" fill="url(#grid)"/>
   <path d="M0 844C260 770 434 824 652 760c250-73 374-272 666-256 184 10 328 92 482 54v522H0z" fill="#100600" opacity=".62"/>
-  <text x="88" y="112" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="56" font-weight="900">Gas Plasma</text>
+  <text x="88" y="112" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="56" font-weight="900">__NAME__</text>
   <text x="92" y="154" fill="#E8C547" font-family="SF Mono, Menlo, Consolas, monospace" font-size="24">Apple Terminal  |  iTerm2  |  VS Code  |  Zed</text>
   <rect x="94" y="180" width="418" height="8" rx="4" fill="url(#accent)"/>
 
@@ -1495,7 +1618,7 @@ function writeMockupSvg() {
   ${swatches}
   <g transform="translate(86 920)">
     <rect width="362" height="62" rx="8" fill="#1A0A00" stroke="#CC7A00"/>
-    <text x="28" y="40" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">#1A0A00 / #FF8C00</text>
+    <text x="28" y="40" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">__BG__ / __FG__</text>
   </g>
   <g transform="translate(486 920)">
     <rect width="350" height="62" rx="8" fill="#1A0A00" stroke="#8B9A00"/>
@@ -1507,8 +1630,16 @@ function writeMockupSvg() {
   </g>
 </svg>
 `;
-  writeFileSync(path.join(root, "assets/mockup.svg"), svg);
-  writeFileSync(path.join(root, "docs/assets/mockup.svg"), svg);
+  const fill = (template, variant) => template
+    .replaceAll("__NAME__", variant.name)
+    .replaceAll("__BG__", variant.core.background)
+    .replaceAll("__FG__", variant.core.foreground);
+  const darkSvg = fill(svg, darkVariant);
+  const lightSvg = fill(toLightSvg(svg, { minContrast: 4.5 }), lightVariant);
+  writeFileSync(path.join(root, "assets/mockup.svg"), darkSvg);
+  writeFileSync(path.join(root, "docs/assets/mockup.svg"), darkSvg);
+  writeFileSync(path.join(root, "assets/mockup-light.svg"), lightSvg);
+  writeFileSync(path.join(root, "docs/assets/mockup-light.svg"), lightSvg);
 }
 
 function writeArchitectureSvg() {
@@ -1563,6 +1694,7 @@ function writeArchitectureSvg() {
 `;
   writeFileSync(path.join(root, "assets/architecture.svg"), svg);
   writeFileSync(path.join(root, "docs/assets/architecture.svg"), svg);
+  writeFileSync(path.join(root, "docs/assets/architecture-light.svg"), toLightSvg(svg, { minContrast: 4.5 }));
 }
 
 function renderSvgToPng(svgPath, pngPath, { zoom = 1 } = {}) {
@@ -1589,18 +1721,62 @@ function writeMockupPng() {
   renderSvgToPng(path.join(root, "assets/mockup.svg"), path.join(root, "assets/mockup.png"), { zoom: 2 });
   copyFileSync(path.join(root, "assets/mockup.png"), path.join(root, "docs/assets/mockup.png"));
   copyFileSync(path.join(root, "assets/mockup.png"), path.join(root, "screenshot.png"));
+  renderSvgToPng(path.join(root, "assets/mockup-light.svg"), path.join(root, "assets/mockup-light.png"), { zoom: 2 });
+  copyFileSync(path.join(root, "assets/mockup-light.png"), path.join(root, "docs/assets/mockup-light.png"));
 }
 
 function writeArchitecturePng() {
   renderSvgToPng(path.join(root, "assets/architecture.svg"), path.join(root, "assets/architecture.png"), { zoom: 2 });
   copyFileSync(path.join(root, "assets/architecture.png"), path.join(root, "docs/assets/architecture.png"));
+  renderSvgToPng(path.join(root, "docs/assets/architecture-light.svg"), path.join(root, "docs/assets/architecture-light.png"), { zoom: 2 });
+}
+
+function docsCssVariables(variant) {
+  const { core, ui, syntax, ansi } = variant;
+  const dark = variant.appearance === "dark";
+  return [
+    `color-scheme: ${variant.appearance};`,
+    `--bg: ${ui.page};`,
+    `--surface: ${core.background};`,
+    `--surface-2: ${ui.raised};`,
+    `--surface-3: ${ui.active};`,
+    `--text: ${core.bold};`,
+    `--muted: ${syntax.function};`,
+    `--subtle: ${ui.subtle};`,
+    `--strong: ${ui.strong};`,
+    `--on-accent: ${ui.onAccent};`,
+    `--caption: ${ui.textMuted};`,
+    `--accent: ${core.foreground};`,
+    `--red: ${ui.accent};`,
+    `--green: ${dark ? ansi.bright.green : ansi.normal.green};`,
+    `--yellow: ${dark ? ui.focus : ui.link};`,
+    `--cyan: ${syntax.type};`,
+    `--line: ${ui.border};`,
+    `--well: ${dark ? "#0D0500" : ui.deep};`,
+    `--command-bg: ${dark ? "#100600" : ui.deep};`,
+    `--tile-bg: ${ui.raised}C7;`,
+    `--icon-bg: ${ui.deep}C7;`,
+    `--glow: ${dark ? "rgba(255,69,0,.10)" : "rgba(255,140,0,.12)"};`,
+    `--shadow: ${dark ? "rgba(0,0,0,.45)" : "rgba(92,36,0,.16)"};`
+  ].join("\n      ");
+}
+
+function docsSwatches(variant) {
+  const { core, ansi } = variant;
+  return [core.background, core.foreground, ansi.normal.red, ansi.normal.green, ansi.bright.yellow, ansi.normal.blue, ansi.normal.magenta, ansi.bright.cyan]
+    .map((hex) => {
+      const text = relativeLuminance(hex) > 0.35 ? "#2A1200" : "#FFF0DB";
+      return `<div class="swatch" style="background:${hex};color:${text}">${hex}</div>`;
+    })
+    .join("\n          ");
 }
 
 function writeDocsIndex() {
   const iconGallery = iconManifest.fileTheme.gallery.map((iconName) => {
     const label = iconName.replaceAll("-", " ");
     return `<figure class="icon-sample">
-      <img src="assets/icons/${iconName}.svg" alt="">
+      <img class="only-dark" src="assets/icons/${iconName}.svg" alt="">
+      <img class="only-light" src="assets/icons/light/${iconName}.svg" alt="">
       <figcaption>${xmlEscape(label)}</figcaption>
     </figure>`;
   }).join("\n          ");
@@ -1611,29 +1787,58 @@ function writeDocsIndex() {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Gas Plasma Theme</title>
   <meta name="description" content="${xmlEscape(palette.description)}">
+  <script>
+    try {
+      const saved = localStorage.getItem("gas-plasma-theme");
+      if (saved === "light" || saved === "dark") document.documentElement.dataset.theme = saved;
+    } catch {}
+  </script>
   <style>
     :root {
-      color-scheme: dark;
-      --bg: #0B0300;
-      --surface: ${palette.core.background};
-      --surface-2: #261000;
-      --surface-3: #3A1800;
-      --text: ${palette.core.bold};
-      --muted: #E09530;
-      --accent: ${palette.core.foreground};
-      --red: ${palette.ansi.normal.red};
-      --green: ${palette.ansi.bright.green};
-      --yellow: ${palette.ansi.bright.yellow};
-      --cyan: ${palette.ansi.bright.cyan};
-      --line: #4D2600;
+      ${docsCssVariables(darkVariant)}
+    }
+    :root[data-theme="light"] {
+      ${docsCssVariables(lightVariant)}
+    }
+    @media (prefers-color-scheme: light) {
+      :root:not([data-theme="dark"]) {
+        ${docsCssVariables(lightVariant)}
+      }
+    }
+    :root .only-light { display: none !important; }
+    :root[data-theme="light"] .only-light { display: block !important; }
+    :root[data-theme="light"] .only-dark { display: none !important; }
+    @media (prefers-color-scheme: light) {
+      :root:not([data-theme="dark"]) .only-light { display: block !important; }
+      :root:not([data-theme="dark"]) .only-dark { display: none !important; }
+    }
+    .theme-switch {
+      display: inline-flex;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .theme-switch button {
+      border: 0;
+      padding: 6px 12px;
+      background: transparent;
+      color: var(--muted);
+      font: inherit;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .theme-switch button[aria-pressed="true"] {
+      background: var(--surface-3);
+      color: var(--text);
+      font-weight: 760;
     }
     * { box-sizing: border-box; }
     html { background: var(--bg); }
     body {
       margin: 0;
       background:
-        linear-gradient(135deg, rgba(255,69,0,.10), transparent 32rem),
-        linear-gradient(180deg, var(--bg) 0, var(--surface) 56rem, #0B0300 100%);
+        linear-gradient(135deg, var(--glow), transparent 32rem),
+        linear-gradient(180deg, var(--bg) 0, var(--surface) 56rem, var(--bg) 100%);
       color: var(--text);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
@@ -1685,7 +1890,7 @@ function writeDocsIndex() {
     .lead {
       max-width: 560px;
       margin: 24px 0 0;
-      color: #FFC887;
+      color: var(--subtle);
       font-size: 20px;
       line-height: 1.65;
     }
@@ -1711,22 +1916,22 @@ function writeDocsIndex() {
     .button.primary {
       background: var(--red);
       border-color: var(--red);
-      color: #FFF0DB;
+      color: var(--on-accent);
     }
     .mockup {
       display: block;
       width: 100%;
       border: 1px solid var(--line);
       border-radius: 8px;
-      background: #0D0500;
-      box-shadow: 0 32px 80px rgba(0,0,0,.45);
+      background: var(--well);
+      box-shadow: 0 32px 80px var(--shadow);
     }
     .diagram {
       display: block;
       width: 100%;
       border: 1px solid var(--line);
       border-radius: 8px;
-      background: #0D0500;
+      background: var(--well);
     }
     .band {
       border-top: 1px solid var(--line);
@@ -1739,7 +1944,7 @@ function writeDocsIndex() {
     }
     .tile {
       border: 1px solid var(--line);
-      background: rgba(38,16,0,.78);
+      background: var(--tile-bg);
       border-radius: 8px;
       padding: 22px;
       min-height: 178px;
@@ -1758,7 +1963,7 @@ function writeDocsIndex() {
     }
     p {
       margin: 0;
-      color: #FFC887;
+      color: var(--subtle);
       line-height: 1.65;
     }
     .section-note { margin-bottom: 22px; }
@@ -1767,7 +1972,7 @@ function writeDocsIndex() {
       margin-top: 16px;
       padding: 14px;
       overflow-x: auto;
-      background: #100600;
+      background: var(--command-bg);
       color: var(--green);
       border: 1px solid var(--line);
       border-radius: 8px;
@@ -1788,7 +1993,7 @@ function writeDocsIndex() {
       padding: 16px 10px 12px;
       border: 1px solid var(--line);
       border-radius: 8px;
-      background: rgba(20, 8, 0, .78);
+      background: var(--icon-bg);
     }
     .icon-sample img {
       width: 72px;
@@ -1796,7 +2001,7 @@ function writeDocsIndex() {
       display: block;
     }
     .icon-sample figcaption {
-      color: #FFD2A6;
+      color: var(--caption);
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       font-size: 12px;
       text-align: center;
@@ -1812,11 +2017,11 @@ function writeDocsIndex() {
     .swatch {
       min-height: 84px;
       padding: 12px;
-      color: #FFF0DB;
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       font-size: 13px;
-      text-shadow: 0 1px 8px rgba(0,0,0,.65);
     }
+    .palette-label { margin-top: 26px; }
+    .tile p code { overflow-wrap: anywhere; }
     .footer {
       border-top: 1px solid var(--line);
       color: var(--muted);
@@ -1854,6 +2059,11 @@ function writeDocsIndex() {
       <a href="#palette">Palette</a>
       <a href="https://open-vsx.org/extension/jpfchang/gas-plasma-theme">Open VSX</a>
       <a href="https://github.com/JohnThre/GasPlasma-theme">GitHub</a>
+      <div class="theme-switch" role="group" aria-label="Color scheme">
+        <button type="button" data-theme-choice="light">Light</button>
+        <button type="button" data-theme-choice="dark">Dark</button>
+        <button type="button" data-theme-choice="auto">Auto</button>
+      </div>
     </div>
   </nav>
   <main>
@@ -1867,7 +2077,8 @@ function writeDocsIndex() {
           <a class="button" href="https://open-vsx.org/extension/jpfchang/gas-plasma-theme">Open VSX</a>
         </div>
       </div>
-      <img class="mockup" src="assets/mockup.png" alt="Gas Plasma terminal and editor mockup">
+      <img class="mockup only-dark" src="assets/mockup.png" alt="Gas Plasma terminal and editor mockup">
+      <img class="mockup only-light" src="assets/mockup-light.png" alt="Gas Plasma Light terminal and editor mockup">
     </section>
     <section id="install" class="band">
       <div class="wrap">
@@ -1875,22 +2086,22 @@ function writeDocsIndex() {
         <div class="grid">
           <article class="tile">
             <h3>Apple Terminal</h3>
-            <p>Download <code>GasPlasma.terminal</code> from GitHub Releases and open it in Terminal.</p>
-            <code class="command">open GasPlasma.terminal</code>
+            <p>Download <code>GasPlasma.terminal</code> (dark) or <code>GasPlasma-Light.terminal</code> from GitHub Releases and open it in Terminal. Terminal profiles cannot follow the system appearance, so switch profiles manually.</p>
+            <code class="command">open GasPlasma-Light.terminal</code>
           </article>
           <article class="tile">
             <h3>iTerm2</h3>
-            <p>Import <code>GasPlasma.itermcolors</code> from iTerm2 color presets.</p>
-            <code class="command">GasPlasma.itermcolors</code>
+            <p>Import the dark, light, or auto preset. For auto, enable <em>Use separate colors for light and dark mode</em> first (iTerm2 3.5+).</p>
+            <code class="command">GasPlasma-Auto.itermcolors</code>
           </article>
           <article class="tile">
             <h3>VS Code</h3>
-            <p>Install the published VSIX from Open VSX-compatible editors.</p>
+            <p>Install from Open VSX, then pick <code>Gas Plasma</code> or <code>Gas Plasma Light</code>. File icons switch with the theme; enable <code>window.autoDetectColorScheme</code> to follow the OS.</p>
             <code class="command">jpfchang.gas-plasma-theme</code>
           </article>
           <article class="tile">
             <h3>Zed</h3>
-            <p>Install the color theme and file icon theme from the Zed extensions store after marketplace review.</p>
+            <p>Install the color theme and file icon theme from the Zed extensions store. Both ship dark and light variants; set <code>"mode": "system"</code> to follow the OS.</p>
             <code class="command">Gas Plasma Theme + Icons</code>
           </article>
         </div>
@@ -1909,34 +2120,57 @@ function writeDocsIndex() {
       <div class="wrap">
         <h2>Build Architecture</h2>
         <p class="section-note">The release package is generated from one palette, one icon manifest, upstream icon sources, and deterministic build scripts.</p>
-        <img class="diagram" src="assets/architecture.png" alt="Gas Plasma build architecture diagram">
+        <img class="diagram only-dark" src="assets/architecture.png" alt="Gas Plasma build architecture diagram">
+        <img class="diagram only-light" src="assets/architecture-light.png" alt="Gas Plasma build architecture diagram">
       </div>
     </section>
     <section id="palette" class="band">
       <div class="wrap">
         <h2>Palette</h2>
-        <div class="palette" aria-label="Gas Plasma palette">
-          <div class="swatch" style="background:#1A0A00">#1A0A00</div>
-          <div class="swatch" style="background:#FF8C00">#FF8C00</div>
-          <div class="swatch" style="background:#FF4500">#FF4500</div>
-          <div class="swatch" style="background:#8B9A00">#8B9A00</div>
-          <div class="swatch" style="background:#FFD700">#FFD700</div>
-          <div class="swatch" style="background:#CC7A00">#CC7A00</div>
-          <div class="swatch" style="background:#FF6B6B">#FF6B6B</div>
-          <div class="swatch" style="background:#E8C547">#E8C547</div>
+        <h3 class="palette-label">${xmlEscape(darkVariant.name)}</h3>
+        <div class="palette" aria-label="${xmlEscape(darkVariant.name)} palette">
+          ${docsSwatches(darkVariant)}
+        </div>
+        <h3 class="palette-label">${xmlEscape(lightVariant.name)}</h3>
+        <div class="palette" aria-label="${xmlEscape(lightVariant.name)} palette">
+          ${docsSwatches(lightVariant)}
         </div>
       </div>
     </section>
   </main>
   <footer class="wrap footer">GPL-3.0-or-later · Generated from one shared palette · GitHub Pages</footer>
+  <script>
+    (() => {
+      const root = document.documentElement;
+      const buttons = document.querySelectorAll("[data-theme-choice]");
+      const sync = () => {
+        const current = root.dataset.theme ?? "auto";
+        buttons.forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.themeChoice === current)));
+      };
+      buttons.forEach((button) => button.addEventListener("click", () => {
+        const choice = button.dataset.themeChoice;
+        if (choice === "auto") delete root.dataset.theme;
+        else root.dataset.theme = choice;
+        try {
+          if (choice === "auto") localStorage.removeItem("gas-plasma-theme");
+          else localStorage.setItem("gas-plasma-theme", choice);
+        } catch {}
+        sync();
+      }));
+      sync();
+    })();
+  </script>
 </body>
 </html>
 `;
   writeFileSync(path.join(root, "docs/index.html"), html);
 }
 
-writeItermColors();
-writeVsCodeTheme();
+for (const variant of themeVariants) {
+  writeItermColors(variant);
+  writeVsCodeTheme(variant);
+}
+writeItermAutoColors();
 writeZedTheme();
 writeFileIcons();
 await writeProductIcons();
@@ -1960,6 +2194,8 @@ const built = [
   "assets/architecture.png",
   "assets/mockup.svg",
   "assets/mockup.png",
+  "assets/mockup-light.svg",
+  "assets/mockup-light.png",
   "screenshot.png",
   "docs/index.html"
 ];

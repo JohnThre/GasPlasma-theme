@@ -4,7 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Gas Plasma Theme</title>
-  <meta name="description" content="An orange-dominant dark theme inspired by ionized gas glow.">
+  <meta name="description" content="An orange-dominant theme inspired by ionized gas glow, in dark, light, and auto variants.">
+  <script>
+    try {
+      const saved = localStorage.getItem("gas-plasma-theme");
+      if (saved === "light" || saved === "dark") document.documentElement.dataset.theme = saved;
+    } catch {}
+  </script>
   <style>
     :root {
       color-scheme: dark;
@@ -14,20 +20,109 @@
       --surface-3: #3A1800;
       --text: #FFD2A6;
       --muted: #E09530;
+      --subtle: #FFC887;
+      --strong: #FFF0DB;
+      --on-accent: #1A0A00;
+      --caption: #FFD2A6;
       --accent: #FF8C00;
       --red: #FF4500;
       --green: #B5CC18;
       --yellow: #FFD700;
       --cyan: #E8C547;
       --line: #4D2600;
+      --well: #0D0500;
+      --command-bg: #100600;
+      --tile-bg: #261000C7;
+      --icon-bg: #140800C7;
+      --glow: rgba(255,69,0,.10);
+      --shadow: rgba(0,0,0,.45);
+    }
+    :root[data-theme="light"] {
+      color-scheme: light;
+      --bg: #FFFAF4;
+      --surface: #FFF5EA;
+      --surface-2: #F6E0C4;
+      --surface-3: #F9E2C6;
+      --text: #5C2400;
+      --muted: #A04E00;
+      --subtle: #8A4A12;
+      --strong: #3D1A00;
+      --on-accent: #FFF5EA;
+      --caption: #7A4A22;
+      --accent: #B84A00;
+      --red: #C42B00;
+      --green: #5B6B00;
+      --yellow: #8A6200;
+      --cyan: #8A6200;
+      --line: #E3BE94;
+      --well: #FBEDDC;
+      --command-bg: #FBEDDC;
+      --tile-bg: #F6E0C4C7;
+      --icon-bg: #FBEDDCC7;
+      --glow: rgba(255,140,0,.12);
+      --shadow: rgba(92,36,0,.16);
+    }
+    @media (prefers-color-scheme: light) {
+      :root:not([data-theme="dark"]) {
+        color-scheme: light;
+      --bg: #FFFAF4;
+      --surface: #FFF5EA;
+      --surface-2: #F6E0C4;
+      --surface-3: #F9E2C6;
+      --text: #5C2400;
+      --muted: #A04E00;
+      --subtle: #8A4A12;
+      --strong: #3D1A00;
+      --on-accent: #FFF5EA;
+      --caption: #7A4A22;
+      --accent: #B84A00;
+      --red: #C42B00;
+      --green: #5B6B00;
+      --yellow: #8A6200;
+      --cyan: #8A6200;
+      --line: #E3BE94;
+      --well: #FBEDDC;
+      --command-bg: #FBEDDC;
+      --tile-bg: #F6E0C4C7;
+      --icon-bg: #FBEDDCC7;
+      --glow: rgba(255,140,0,.12);
+      --shadow: rgba(92,36,0,.16);
+      }
+    }
+    :root .only-light { display: none !important; }
+    :root[data-theme="light"] .only-light { display: block !important; }
+    :root[data-theme="light"] .only-dark { display: none !important; }
+    @media (prefers-color-scheme: light) {
+      :root:not([data-theme="dark"]) .only-light { display: block !important; }
+      :root:not([data-theme="dark"]) .only-dark { display: none !important; }
+    }
+    .theme-switch {
+      display: inline-flex;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .theme-switch button {
+      border: 0;
+      padding: 6px 12px;
+      background: transparent;
+      color: var(--muted);
+      font: inherit;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .theme-switch button[aria-pressed="true"] {
+      background: var(--surface-3);
+      color: var(--text);
+      font-weight: 760;
     }
     * { box-sizing: border-box; }
     html { background: var(--bg); }
     body {
       margin: 0;
       background:
-        linear-gradient(135deg, rgba(255,69,0,.10), transparent 32rem),
-        linear-gradient(180deg, var(--bg) 0, var(--surface) 56rem, #0B0300 100%);
+        linear-gradient(135deg, var(--glow), transparent 32rem),
+        linear-gradient(180deg, var(--bg) 0, var(--surface) 56rem, var(--bg) 100%);
       color: var(--text);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
@@ -79,7 +174,7 @@
     .lead {
       max-width: 560px;
       margin: 24px 0 0;
-      color: #FFC887;
+      color: var(--subtle);
       font-size: 20px;
       line-height: 1.65;
     }
@@ -105,22 +200,22 @@
     .button.primary {
       background: var(--red);
       border-color: var(--red);
-      color: #FFF0DB;
+      color: var(--on-accent);
     }
     .mockup {
       display: block;
       width: 100%;
       border: 1px solid var(--line);
       border-radius: 8px;
-      background: #0D0500;
-      box-shadow: 0 32px 80px rgba(0,0,0,.45);
+      background: var(--well);
+      box-shadow: 0 32px 80px var(--shadow);
     }
     .diagram {
       display: block;
       width: 100%;
       border: 1px solid var(--line);
       border-radius: 8px;
-      background: #0D0500;
+      background: var(--well);
     }
     .band {
       border-top: 1px solid var(--line);
@@ -133,7 +228,7 @@
     }
     .tile {
       border: 1px solid var(--line);
-      background: rgba(38,16,0,.78);
+      background: var(--tile-bg);
       border-radius: 8px;
       padding: 22px;
       min-height: 178px;
@@ -152,7 +247,7 @@
     }
     p {
       margin: 0;
-      color: #FFC887;
+      color: var(--subtle);
       line-height: 1.65;
     }
     .section-note { margin-bottom: 22px; }
@@ -161,7 +256,7 @@
       margin-top: 16px;
       padding: 14px;
       overflow-x: auto;
-      background: #100600;
+      background: var(--command-bg);
       color: var(--green);
       border: 1px solid var(--line);
       border-radius: 8px;
@@ -182,7 +277,7 @@
       padding: 16px 10px 12px;
       border: 1px solid var(--line);
       border-radius: 8px;
-      background: rgba(20, 8, 0, .78);
+      background: var(--icon-bg);
     }
     .icon-sample img {
       width: 72px;
@@ -190,7 +285,7 @@
       display: block;
     }
     .icon-sample figcaption {
-      color: #FFD2A6;
+      color: var(--caption);
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       font-size: 12px;
       text-align: center;
@@ -206,11 +301,11 @@
     .swatch {
       min-height: 84px;
       padding: 12px;
-      color: #FFF0DB;
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       font-size: 13px;
-      text-shadow: 0 1px 8px rgba(0,0,0,.65);
     }
+    .palette-label { margin-top: 26px; }
+    .tile p code { overflow-wrap: anywhere; }
     .footer {
       border-top: 1px solid var(--line);
       color: var(--muted);
@@ -248,6 +343,11 @@
       <a href="#palette">Palette</a>
       <a href="https://open-vsx.org/extension/jpfchang/gas-plasma-theme">Open VSX</a>
       <a href="https://github.com/JohnThre/GasPlasma-theme">GitHub</a>
+      <div class="theme-switch" role="group" aria-label="Color scheme">
+        <button type="button" data-theme-choice="light">Light</button>
+        <button type="button" data-theme-choice="dark">Dark</button>
+        <button type="button" data-theme-choice="auto">Auto</button>
+      </div>
     </div>
   </nav>
   <main>
@@ -255,13 +355,14 @@
       <div>
         <img class="hero-logo" src="assets/logo.svg" alt="Gas Plasma logo">
         <h1>Gas Plasma</h1>
-        <p class="lead">An orange-dominant dark theme inspired by ionized gas glow. A single warm, high-contrast palette for Apple Terminal, iTerm2, VS Code, Open VSX-compatible editors, and Zed.</p>
+        <p class="lead">An orange-dominant theme inspired by ionized gas glow, in dark, light, and auto variants. A single warm, high-contrast palette for Apple Terminal, iTerm2, VS Code, Open VSX-compatible editors, and Zed.</p>
         <div class="actions">
           <a class="button primary" href="https://github.com/JohnThre/GasPlasma-theme/releases">Releases</a>
           <a class="button" href="https://open-vsx.org/extension/jpfchang/gas-plasma-theme">Open VSX</a>
         </div>
       </div>
-      <img class="mockup" src="assets/mockup.png" alt="Gas Plasma terminal and editor mockup">
+      <img class="mockup only-dark" src="assets/mockup.png" alt="Gas Plasma terminal and editor mockup">
+      <img class="mockup only-light" src="assets/mockup-light.png" alt="Gas Plasma Light terminal and editor mockup">
     </section>
     <section id="install" class="band">
       <div class="wrap">
@@ -269,22 +370,22 @@
         <div class="grid">
           <article class="tile">
             <h3>Apple Terminal</h3>
-            <p>Download <code>GasPlasma.terminal</code> from GitHub Releases and open it in Terminal.</p>
-            <code class="command">open GasPlasma.terminal</code>
+            <p>Download <code>GasPlasma.terminal</code> (dark) or <code>GasPlasma-Light.terminal</code> from GitHub Releases and open it in Terminal. Terminal profiles cannot follow the system appearance, so switch profiles manually.</p>
+            <code class="command">open GasPlasma-Light.terminal</code>
           </article>
           <article class="tile">
             <h3>iTerm2</h3>
-            <p>Import <code>GasPlasma.itermcolors</code> from iTerm2 color presets.</p>
-            <code class="command">GasPlasma.itermcolors</code>
+            <p>Import the dark, light, or auto preset. For auto, enable <em>Use separate colors for light and dark mode</em> first (iTerm2 3.5+).</p>
+            <code class="command">GasPlasma-Auto.itermcolors</code>
           </article>
           <article class="tile">
             <h3>VS Code</h3>
-            <p>Install the published VSIX from Open VSX-compatible editors.</p>
+            <p>Install from Open VSX, then pick <code>Gas Plasma</code> or <code>Gas Plasma Light</code>. File icons switch with the theme; enable <code>window.autoDetectColorScheme</code> to follow the OS.</p>
             <code class="command">jpfchang.gas-plasma-theme</code>
           </article>
           <article class="tile">
             <h3>Zed</h3>
-            <p>Install the color theme and file icon theme from the Zed extensions store after marketplace review.</p>
+            <p>Install the color theme and file icon theme from the Zed extensions store. Both ship dark and light variants; set <code>"mode": "system"</code> to follow the OS.</p>
             <code class="command">Gas Plasma Theme + Icons</code>
           </article>
         </div>
@@ -296,219 +397,273 @@
         <p class="section-note">File icons are generated from recognizable upstream language and ecosystem logo geometry where available. Product icons are generated from VS Code Codicons to preserve the original editor UI language.</p>
         <div class="icon-strip" aria-label="Gas Plasma file icon samples">
           <figure class="icon-sample">
-      <img src="assets/icons/markdown.svg" alt="">
+      <img class="only-dark" src="assets/icons/markdown.svg" alt="">
+      <img class="only-light" src="assets/icons/light/markdown.svg" alt="">
       <figcaption>markdown</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/json.svg" alt="">
+      <img class="only-dark" src="assets/icons/json.svg" alt="">
+      <img class="only-light" src="assets/icons/light/json.svg" alt="">
       <figcaption>json</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/yaml.svg" alt="">
+      <img class="only-dark" src="assets/icons/yaml.svg" alt="">
+      <img class="only-light" src="assets/icons/light/yaml.svg" alt="">
       <figcaption>yaml</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/npm.svg" alt="">
+      <img class="only-dark" src="assets/icons/npm.svg" alt="">
+      <img class="only-light" src="assets/icons/light/npm.svg" alt="">
       <figcaption>npm</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/git.svg" alt="">
+      <img class="only-dark" src="assets/icons/git.svg" alt="">
+      <img class="only-light" src="assets/icons/light/git.svg" alt="">
       <figcaption>git</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/docker.svg" alt="">
+      <img class="only-dark" src="assets/icons/docker.svg" alt="">
+      <img class="only-light" src="assets/icons/light/docker.svg" alt="">
       <figcaption>docker</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/image.svg" alt="">
+      <img class="only-dark" src="assets/icons/image.svg" alt="">
+      <img class="only-light" src="assets/icons/light/image.svg" alt="">
       <figcaption>image</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/database.svg" alt="">
+      <img class="only-dark" src="assets/icons/database.svg" alt="">
+      <img class="only-light" src="assets/icons/light/database.svg" alt="">
       <figcaption>database</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/cd.svg" alt="">
+      <img class="only-dark" src="assets/icons/cd.svg" alt="">
+      <img class="only-light" src="assets/icons/light/cd.svg" alt="">
       <figcaption>cd</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/terminal-crt.svg" alt="">
+      <img class="only-dark" src="assets/icons/terminal-crt.svg" alt="">
+      <img class="only-light" src="assets/icons/light/terminal-crt.svg" alt="">
       <figcaption>terminal crt</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/c.svg" alt="">
+      <img class="only-dark" src="assets/icons/c.svg" alt="">
+      <img class="only-light" src="assets/icons/light/c.svg" alt="">
       <figcaption>c</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/cpp.svg" alt="">
+      <img class="only-dark" src="assets/icons/cpp.svg" alt="">
+      <img class="only-light" src="assets/icons/light/cpp.svg" alt="">
       <figcaption>cpp</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/python.svg" alt="">
+      <img class="only-dark" src="assets/icons/python.svg" alt="">
+      <img class="only-light" src="assets/icons/light/python.svg" alt="">
       <figcaption>python</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/pascal.svg" alt="">
+      <img class="only-dark" src="assets/icons/pascal.svg" alt="">
+      <img class="only-light" src="assets/icons/light/pascal.svg" alt="">
       <figcaption>pascal</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/vala.svg" alt="">
+      <img class="only-dark" src="assets/icons/vala.svg" alt="">
+      <img class="only-light" src="assets/icons/light/vala.svg" alt="">
       <figcaption>vala</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/csharp.svg" alt="">
+      <img class="only-dark" src="assets/icons/csharp.svg" alt="">
+      <img class="only-light" src="assets/icons/light/csharp.svg" alt="">
       <figcaption>csharp</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/java.svg" alt="">
+      <img class="only-dark" src="assets/icons/java.svg" alt="">
+      <img class="only-light" src="assets/icons/light/java.svg" alt="">
       <figcaption>java</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/php.svg" alt="">
+      <img class="only-dark" src="assets/icons/php.svg" alt="">
+      <img class="only-light" src="assets/icons/light/php.svg" alt="">
       <figcaption>php</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/go.svg" alt="">
+      <img class="only-dark" src="assets/icons/go.svg" alt="">
+      <img class="only-light" src="assets/icons/light/go.svg" alt="">
       <figcaption>go</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/swift.svg" alt="">
+      <img class="only-dark" src="assets/icons/swift.svg" alt="">
+      <img class="only-light" src="assets/icons/light/swift.svg" alt="">
       <figcaption>swift</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/objectivec.svg" alt="">
+      <img class="only-dark" src="assets/icons/objectivec.svg" alt="">
+      <img class="only-light" src="assets/icons/light/objectivec.svg" alt="">
       <figcaption>objectivec</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/powershell.svg" alt="">
+      <img class="only-dark" src="assets/icons/powershell.svg" alt="">
+      <img class="only-light" src="assets/icons/light/powershell.svg" alt="">
       <figcaption>powershell</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/terraform.svg" alt="">
+      <img class="only-dark" src="assets/icons/terraform.svg" alt="">
+      <img class="only-light" src="assets/icons/light/terraform.svg" alt="">
       <figcaption>terraform</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/nix.svg" alt="">
+      <img class="only-dark" src="assets/icons/nix.svg" alt="">
+      <img class="only-light" src="assets/icons/light/nix.svg" alt="">
       <figcaption>nix</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/julia.svg" alt="">
+      <img class="only-dark" src="assets/icons/julia.svg" alt="">
+      <img class="only-light" src="assets/icons/light/julia.svg" alt="">
       <figcaption>julia</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/fortran.svg" alt="">
+      <img class="only-dark" src="assets/icons/fortran.svg" alt="">
+      <img class="only-light" src="assets/icons/light/fortran.svg" alt="">
       <figcaption>fortran</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/javascript.svg" alt="">
+      <img class="only-dark" src="assets/icons/javascript.svg" alt="">
+      <img class="only-light" src="assets/icons/light/javascript.svg" alt="">
       <figcaption>javascript</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/typescript.svg" alt="">
+      <img class="only-dark" src="assets/icons/typescript.svg" alt="">
+      <img class="only-light" src="assets/icons/light/typescript.svg" alt="">
       <figcaption>typescript</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/rust.svg" alt="">
+      <img class="only-dark" src="assets/icons/rust.svg" alt="">
+      <img class="only-light" src="assets/icons/light/rust.svg" alt="">
       <figcaption>rust</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/ruby.svg" alt="">
+      <img class="only-dark" src="assets/icons/ruby.svg" alt="">
+      <img class="only-light" src="assets/icons/light/ruby.svg" alt="">
       <figcaption>ruby</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/graphql.svg" alt="">
+      <img class="only-dark" src="assets/icons/graphql.svg" alt="">
+      <img class="only-light" src="assets/icons/light/graphql.svg" alt="">
       <figcaption>graphql</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/assembly.svg" alt="">
+      <img class="only-dark" src="assets/icons/assembly.svg" alt="">
+      <img class="only-light" src="assets/icons/light/assembly.svg" alt="">
       <figcaption>assembly</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/folder-linux.svg" alt="">
+      <img class="only-dark" src="assets/icons/folder-linux.svg" alt="">
+      <img class="only-light" src="assets/icons/light/folder-linux.svg" alt="">
       <figcaption>folder linux</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/fsf-bull.svg" alt="">
+      <img class="only-dark" src="assets/icons/fsf-bull.svg" alt="">
+      <img class="only-light" src="assets/icons/light/fsf-bull.svg" alt="">
       <figcaption>fsf bull</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/crypto.svg" alt="">
+      <img class="only-dark" src="assets/icons/crypto.svg" alt="">
+      <img class="only-light" src="assets/icons/light/crypto.svg" alt="">
       <figcaption>crypto</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/react.svg" alt="">
+      <img class="only-dark" src="assets/icons/react.svg" alt="">
+      <img class="only-light" src="assets/icons/light/react.svg" alt="">
       <figcaption>react</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/eslint.svg" alt="">
+      <img class="only-dark" src="assets/icons/eslint.svg" alt="">
+      <img class="only-light" src="assets/icons/light/eslint.svg" alt="">
       <figcaption>eslint</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/prettier.svg" alt="">
+      <img class="only-dark" src="assets/icons/prettier.svg" alt="">
+      <img class="only-light" src="assets/icons/light/prettier.svg" alt="">
       <figcaption>prettier</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/vite.svg" alt="">
+      <img class="only-dark" src="assets/icons/vite.svg" alt="">
+      <img class="only-light" src="assets/icons/light/vite.svg" alt="">
       <figcaption>vite</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/notebook.svg" alt="">
+      <img class="only-dark" src="assets/icons/notebook.svg" alt="">
+      <img class="only-light" src="assets/icons/light/notebook.svg" alt="">
       <figcaption>notebook</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/test.svg" alt="">
+      <img class="only-dark" src="assets/icons/test.svg" alt="">
+      <img class="only-light" src="assets/icons/light/test.svg" alt="">
       <figcaption>test</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/binary.svg" alt="">
+      <img class="only-dark" src="assets/icons/binary.svg" alt="">
+      <img class="only-light" src="assets/icons/light/binary.svg" alt="">
       <figcaption>binary</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/spreadsheet.svg" alt="">
+      <img class="only-dark" src="assets/icons/spreadsheet.svg" alt="">
+      <img class="only-light" src="assets/icons/light/spreadsheet.svg" alt="">
       <figcaption>spreadsheet</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/diff.svg" alt="">
+      <img class="only-dark" src="assets/icons/diff.svg" alt="">
+      <img class="only-light" src="assets/icons/light/diff.svg" alt="">
       <figcaption>diff</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/certificate.svg" alt="">
+      <img class="only-dark" src="assets/icons/certificate.svg" alt="">
+      <img class="only-light" src="assets/icons/light/certificate.svg" alt="">
       <figcaption>certificate</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/shader.svg" alt="">
+      <img class="only-dark" src="assets/icons/shader.svg" alt="">
+      <img class="only-light" src="assets/icons/light/shader.svg" alt="">
       <figcaption>shader</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/env.svg" alt="">
+      <img class="only-dark" src="assets/icons/env.svg" alt="">
+      <img class="only-light" src="assets/icons/light/env.svg" alt="">
       <figcaption>env</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/folder.svg" alt="">
+      <img class="only-dark" src="assets/icons/folder.svg" alt="">
+      <img class="only-light" src="assets/icons/light/folder.svg" alt="">
       <figcaption>folder</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/folder-code.svg" alt="">
+      <img class="only-dark" src="assets/icons/folder-code.svg" alt="">
+      <img class="only-light" src="assets/icons/light/folder-code.svg" alt="">
       <figcaption>folder code</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/folder-test.svg" alt="">
+      <img class="only-dark" src="assets/icons/folder-test.svg" alt="">
+      <img class="only-light" src="assets/icons/light/folder-test.svg" alt="">
       <figcaption>folder test</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/folder-githubactions.svg" alt="">
+      <img class="only-dark" src="assets/icons/folder-githubactions.svg" alt="">
+      <img class="only-light" src="assets/icons/light/folder-githubactions.svg" alt="">
       <figcaption>folder githubactions</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/folder-api.svg" alt="">
+      <img class="only-dark" src="assets/icons/folder-api.svg" alt="">
+      <img class="only-light" src="assets/icons/light/folder-api.svg" alt="">
       <figcaption>folder api</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/folder-component.svg" alt="">
+      <img class="only-dark" src="assets/icons/folder-component.svg" alt="">
+      <img class="only-light" src="assets/icons/light/folder-component.svg" alt="">
       <figcaption>folder component</figcaption>
     </figure>
           <figure class="icon-sample">
-      <img src="assets/icons/folder-locale.svg" alt="">
+      <img class="only-dark" src="assets/icons/folder-locale.svg" alt="">
+      <img class="only-light" src="assets/icons/light/folder-locale.svg" alt="">
       <figcaption>folder locale</figcaption>
     </figure>
         </div>
@@ -518,25 +673,59 @@
       <div class="wrap">
         <h2>Build Architecture</h2>
         <p class="section-note">The release package is generated from one palette, one icon manifest, upstream icon sources, and deterministic build scripts.</p>
-        <img class="diagram" src="assets/architecture.png" alt="Gas Plasma build architecture diagram">
+        <img class="diagram only-dark" src="assets/architecture.png" alt="Gas Plasma build architecture diagram">
+        <img class="diagram only-light" src="assets/architecture-light.png" alt="Gas Plasma build architecture diagram">
       </div>
     </section>
     <section id="palette" class="band">
       <div class="wrap">
         <h2>Palette</h2>
+        <h3 class="palette-label">Gas Plasma</h3>
         <div class="palette" aria-label="Gas Plasma palette">
-          <div class="swatch" style="background:#1A0A00">#1A0A00</div>
-          <div class="swatch" style="background:#FF8C00">#FF8C00</div>
-          <div class="swatch" style="background:#FF4500">#FF4500</div>
-          <div class="swatch" style="background:#8B9A00">#8B9A00</div>
-          <div class="swatch" style="background:#FFD700">#FFD700</div>
-          <div class="swatch" style="background:#CC7A00">#CC7A00</div>
-          <div class="swatch" style="background:#FF6B6B">#FF6B6B</div>
-          <div class="swatch" style="background:#E8C547">#E8C547</div>
+          <div class="swatch" style="background:#1A0A00;color:#FFF0DB">#1A0A00</div>
+          <div class="swatch" style="background:#FF8C00;color:#2A1200">#FF8C00</div>
+          <div class="swatch" style="background:#FF4500;color:#FFF0DB">#FF4500</div>
+          <div class="swatch" style="background:#8B9A00;color:#FFF0DB">#8B9A00</div>
+          <div class="swatch" style="background:#FFD700;color:#2A1200">#FFD700</div>
+          <div class="swatch" style="background:#CC7A00;color:#FFF0DB">#CC7A00</div>
+          <div class="swatch" style="background:#FF6B6B;color:#FFF0DB">#FF6B6B</div>
+          <div class="swatch" style="background:#E8C547;color:#2A1200">#E8C547</div>
+        </div>
+        <h3 class="palette-label">Gas Plasma Light</h3>
+        <div class="palette" aria-label="Gas Plasma Light palette">
+          <div class="swatch" style="background:#FFF5EA;color:#2A1200">#FFF5EA</div>
+          <div class="swatch" style="background:#B84A00;color:#FFF0DB">#B84A00</div>
+          <div class="swatch" style="background:#C42B00;color:#FFF0DB">#C42B00</div>
+          <div class="swatch" style="background:#5B6B00;color:#FFF0DB">#5B6B00</div>
+          <div class="swatch" style="background:#B06A00;color:#FFF0DB">#B06A00</div>
+          <div class="swatch" style="background:#A04E00;color:#FFF0DB">#A04E00</div>
+          <div class="swatch" style="background:#B5304A;color:#FFF0DB">#B5304A</div>
+          <div class="swatch" style="background:#A07800;color:#FFF0DB">#A07800</div>
         </div>
       </div>
     </section>
   </main>
   <footer class="wrap footer">GPL-3.0-or-later · Generated from one shared palette · GitHub Pages</footer>
+  <script>
+    (() => {
+      const root = document.documentElement;
+      const buttons = document.querySelectorAll("[data-theme-choice]");
+      const sync = () => {
+        const current = root.dataset.theme ?? "auto";
+        buttons.forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.themeChoice === current)));
+      };
+      buttons.forEach((button) => button.addEventListener("click", () => {
+        const choice = button.dataset.themeChoice;
+        if (choice === "auto") delete root.dataset.theme;
+        else root.dataset.theme = choice;
+        try {
+          if (choice === "auto") localStorage.removeItem("gas-plasma-theme");
+          else localStorage.setItem("gas-plasma-theme", choice);
+        } catch {}
+        sync();
+      }));
+      sync();
+    })();
+  </script>
 </body>
 </html>

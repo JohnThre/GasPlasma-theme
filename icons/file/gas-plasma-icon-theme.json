@@ -719,6 +719,723 @@
     },
     "_gp_zig": {
       "iconPath": "./svg/zig.svg"
+    },
+    "_gp_ada_light": {
+      "iconPath": "./svg-light/ada.svg"
+    },
+    "_gp_angular_light": {
+      "iconPath": "./svg-light/angular.svg"
+    },
+    "_gp_ansible_light": {
+      "iconPath": "./svg-light/ansible.svg"
+    },
+    "_gp_archive_light": {
+      "iconPath": "./svg-light/archive.svg"
+    },
+    "_gp_assembly_light": {
+      "iconPath": "./svg-light/assembly.svg"
+    },
+    "_gp_astro_light": {
+      "iconPath": "./svg-light/astro.svg"
+    },
+    "_gp_audio_light": {
+      "iconPath": "./svg-light/audio.svg"
+    },
+    "_gp_babel_light": {
+      "iconPath": "./svg-light/babel.svg"
+    },
+    "_gp_batch_light": {
+      "iconPath": "./svg-light/batch.svg"
+    },
+    "_gp_bazel_light": {
+      "iconPath": "./svg-light/bazel.svg"
+    },
+    "_gp_binary_light": {
+      "iconPath": "./svg-light/binary.svg"
+    },
+    "_gp_biome_light": {
+      "iconPath": "./svg-light/biome.svg"
+    },
+    "_gp_bun_light": {
+      "iconPath": "./svg-light/bun.svg"
+    },
+    "_gp_c_light": {
+      "iconPath": "./svg-light/c.svg"
+    },
+    "_gp_cd_light": {
+      "iconPath": "./svg-light/cd.svg"
+    },
+    "_gp_certificate_light": {
+      "iconPath": "./svg-light/certificate.svg"
+    },
+    "_gp_clojure_light": {
+      "iconPath": "./svg-light/clojure.svg"
+    },
+    "_gp_cloudflare_light": {
+      "iconPath": "./svg-light/cloudflare.svg"
+    },
+    "_gp_cmake_light": {
+      "iconPath": "./svg-light/cmake.svg"
+    },
+    "_gp_cobol_light": {
+      "iconPath": "./svg-light/cobol.svg"
+    },
+    "_gp_coffeescript_light": {
+      "iconPath": "./svg-light/coffeescript.svg"
+    },
+    "_gp_config_light": {
+      "iconPath": "./svg-light/config.svg"
+    },
+    "_gp_cpp_light": {
+      "iconPath": "./svg-light/cpp.svg"
+    },
+    "_gp_crt_light": {
+      "iconPath": "./svg-light/crt.svg"
+    },
+    "_gp_crypto_light": {
+      "iconPath": "./svg-light/crypto.svg"
+    },
+    "_gp_crystal_light": {
+      "iconPath": "./svg-light/crystal.svg"
+    },
+    "_gp_csharp_light": {
+      "iconPath": "./svg-light/csharp.svg"
+    },
+    "_gp_css_light": {
+      "iconPath": "./svg-light/css.svg"
+    },
+    "_gp_cuda_light": {
+      "iconPath": "./svg-light/cuda.svg"
+    },
+    "_gp_cypress_light": {
+      "iconPath": "./svg-light/cypress.svg"
+    },
+    "_gp_d_light": {
+      "iconPath": "./svg-light/d.svg"
+    },
+    "_gp_dart_light": {
+      "iconPath": "./svg-light/dart.svg"
+    },
+    "_gp_database_light": {
+      "iconPath": "./svg-light/database.svg"
+    },
+    "_gp_deno_light": {
+      "iconPath": "./svg-light/deno.svg"
+    },
+    "_gp_diff_light": {
+      "iconPath": "./svg-light/diff.svg"
+    },
+    "_gp_docker_light": {
+      "iconPath": "./svg-light/docker.svg"
+    },
+    "_gp_document_light": {
+      "iconPath": "./svg-light/document.svg"
+    },
+    "_gp_editorconfig_light": {
+      "iconPath": "./svg-light/editorconfig.svg"
+    },
+    "_gp_ejs_light": {
+      "iconPath": "./svg-light/ejs.svg"
+    },
+    "_gp_elixir_light": {
+      "iconPath": "./svg-light/elixir.svg"
+    },
+    "_gp_elm_light": {
+      "iconPath": "./svg-light/elm.svg"
+    },
+    "_gp_env_light": {
+      "iconPath": "./svg-light/env.svg"
+    },
+    "_gp_erlang_light": {
+      "iconPath": "./svg-light/erlang.svg"
+    },
+    "_gp_eslint_light": {
+      "iconPath": "./svg-light/eslint.svg"
+    },
+    "_gp_floppy_light": {
+      "iconPath": "./svg-light/floppy.svg"
+    },
+    "_gp_folder_light": {
+      "iconPath": "./svg-light/folder.svg"
+    },
+    "_gp_folder_ansible_light": {
+      "iconPath": "./svg-light/folder-ansible.svg"
+    },
+    "_gp_folder_ansible_open_light": {
+      "iconPath": "./svg-light/folder-ansible-open.svg"
+    },
+    "_gp_folder_api_light": {
+      "iconPath": "./svg-light/folder-api.svg"
+    },
+    "_gp_folder_api_open_light": {
+      "iconPath": "./svg-light/folder-api-open.svg"
+    },
+    "_gp_folder_archive_light": {
+      "iconPath": "./svg-light/folder-archive.svg"
+    },
+    "_gp_folder_archive_open_light": {
+      "iconPath": "./svg-light/folder-archive-open.svg"
+    },
+    "_gp_folder_audio_light": {
+      "iconPath": "./svg-light/folder-audio.svg"
+    },
+    "_gp_folder_audio_open_light": {
+      "iconPath": "./svg-light/folder-audio-open.svg"
+    },
+    "_gp_folder_binary_light": {
+      "iconPath": "./svg-light/folder-binary.svg"
+    },
+    "_gp_folder_binary_open_light": {
+      "iconPath": "./svg-light/folder-binary-open.svg"
+    },
+    "_gp_folder_c_light": {
+      "iconPath": "./svg-light/folder-c.svg"
+    },
+    "_gp_folder_c_open_light": {
+      "iconPath": "./svg-light/folder-c-open.svg"
+    },
+    "_gp_folder_code_light": {
+      "iconPath": "./svg-light/folder-code.svg"
+    },
+    "_gp_folder_code_open_light": {
+      "iconPath": "./svg-light/folder-code-open.svg"
+    },
+    "_gp_folder_component_light": {
+      "iconPath": "./svg-light/folder-component.svg"
+    },
+    "_gp_folder_component_open_light": {
+      "iconPath": "./svg-light/folder-component-open.svg"
+    },
+    "_gp_folder_config_light": {
+      "iconPath": "./svg-light/folder-config.svg"
+    },
+    "_gp_folder_config_open_light": {
+      "iconPath": "./svg-light/folder-config-open.svg"
+    },
+    "_gp_folder_crypto_light": {
+      "iconPath": "./svg-light/folder-crypto.svg"
+    },
+    "_gp_folder_crypto_open_light": {
+      "iconPath": "./svg-light/folder-crypto-open.svg"
+    },
+    "_gp_folder_css_light": {
+      "iconPath": "./svg-light/folder-css.svg"
+    },
+    "_gp_folder_css_open_light": {
+      "iconPath": "./svg-light/folder-css-open.svg"
+    },
+    "_gp_folder_cypress_light": {
+      "iconPath": "./svg-light/folder-cypress.svg"
+    },
+    "_gp_folder_cypress_open_light": {
+      "iconPath": "./svg-light/folder-cypress-open.svg"
+    },
+    "_gp_folder_database_light": {
+      "iconPath": "./svg-light/folder-database.svg"
+    },
+    "_gp_folder_database_open_light": {
+      "iconPath": "./svg-light/folder-database-open.svg"
+    },
+    "_gp_folder_docker_light": {
+      "iconPath": "./svg-light/folder-docker.svg"
+    },
+    "_gp_folder_docker_open_light": {
+      "iconPath": "./svg-light/folder-docker-open.svg"
+    },
+    "_gp_folder_font_light": {
+      "iconPath": "./svg-light/folder-font.svg"
+    },
+    "_gp_folder_font_open_light": {
+      "iconPath": "./svg-light/folder-font-open.svg"
+    },
+    "_gp_folder_git_light": {
+      "iconPath": "./svg-light/folder-git.svg"
+    },
+    "_gp_folder_git_open_light": {
+      "iconPath": "./svg-light/folder-git-open.svg"
+    },
+    "_gp_folder_githubactions_light": {
+      "iconPath": "./svg-light/folder-githubactions.svg"
+    },
+    "_gp_folder_githubactions_open_light": {
+      "iconPath": "./svg-light/folder-githubactions-open.svg"
+    },
+    "_gp_folder_helm_light": {
+      "iconPath": "./svg-light/folder-helm.svg"
+    },
+    "_gp_folder_helm_open_light": {
+      "iconPath": "./svg-light/folder-helm-open.svg"
+    },
+    "_gp_folder_image_light": {
+      "iconPath": "./svg-light/folder-image.svg"
+    },
+    "_gp_folder_image_open_light": {
+      "iconPath": "./svg-light/folder-image-open.svg"
+    },
+    "_gp_folder_kubernetes_light": {
+      "iconPath": "./svg-light/folder-kubernetes.svg"
+    },
+    "_gp_folder_kubernetes_open_light": {
+      "iconPath": "./svg-light/folder-kubernetes-open.svg"
+    },
+    "_gp_folder_layout_light": {
+      "iconPath": "./svg-light/folder-layout.svg"
+    },
+    "_gp_folder_layout_open_light": {
+      "iconPath": "./svg-light/folder-layout-open.svg"
+    },
+    "_gp_folder_linux_light": {
+      "iconPath": "./svg-light/folder-linux.svg"
+    },
+    "_gp_folder_linux_open_light": {
+      "iconPath": "./svg-light/folder-linux-open.svg"
+    },
+    "_gp_folder_locale_light": {
+      "iconPath": "./svg-light/folder-locale.svg"
+    },
+    "_gp_folder_locale_open_light": {
+      "iconPath": "./svg-light/folder-locale-open.svg"
+    },
+    "_gp_folder_log_light": {
+      "iconPath": "./svg-light/folder-log.svg"
+    },
+    "_gp_folder_log_open_light": {
+      "iconPath": "./svg-light/folder-log-open.svg"
+    },
+    "_gp_folder_markdown_light": {
+      "iconPath": "./svg-light/folder-markdown.svg"
+    },
+    "_gp_folder_markdown_open_light": {
+      "iconPath": "./svg-light/folder-markdown-open.svg"
+    },
+    "_gp_folder_nextjs_light": {
+      "iconPath": "./svg-light/folder-nextjs.svg"
+    },
+    "_gp_folder_nextjs_open_light": {
+      "iconPath": "./svg-light/folder-nextjs-open.svg"
+    },
+    "_gp_folder_notebook_light": {
+      "iconPath": "./svg-light/folder-notebook.svg"
+    },
+    "_gp_folder_notebook_open_light": {
+      "iconPath": "./svg-light/folder-notebook-open.svg"
+    },
+    "_gp_folder_npm_light": {
+      "iconPath": "./svg-light/folder-npm.svg"
+    },
+    "_gp_folder_npm_open_light": {
+      "iconPath": "./svg-light/folder-npm-open.svg"
+    },
+    "_gp_folder_nuxt_light": {
+      "iconPath": "./svg-light/folder-nuxt.svg"
+    },
+    "_gp_folder_nuxt_open_light": {
+      "iconPath": "./svg-light/folder-nuxt-open.svg"
+    },
+    "_gp_folder_open_light": {
+      "iconPath": "./svg-light/folder-open.svg"
+    },
+    "_gp_folder_package_light": {
+      "iconPath": "./svg-light/folder-package.svg"
+    },
+    "_gp_folder_package_open_light": {
+      "iconPath": "./svg-light/folder-package-open.svg"
+    },
+    "_gp_folder_palette_light": {
+      "iconPath": "./svg-light/folder-palette.svg"
+    },
+    "_gp_folder_palette_open_light": {
+      "iconPath": "./svg-light/folder-palette-open.svg"
+    },
+    "_gp_folder_plugin_light": {
+      "iconPath": "./svg-light/folder-plugin.svg"
+    },
+    "_gp_folder_plugin_open_light": {
+      "iconPath": "./svg-light/folder-plugin-open.svg"
+    },
+    "_gp_folder_prisma_light": {
+      "iconPath": "./svg-light/folder-prisma.svg"
+    },
+    "_gp_folder_prisma_open_light": {
+      "iconPath": "./svg-light/folder-prisma-open.svg"
+    },
+    "_gp_folder_python_light": {
+      "iconPath": "./svg-light/folder-python.svg"
+    },
+    "_gp_folder_python_open_light": {
+      "iconPath": "./svg-light/folder-python-open.svg"
+    },
+    "_gp_folder_rust_light": {
+      "iconPath": "./svg-light/folder-rust.svg"
+    },
+    "_gp_folder_rust_open_light": {
+      "iconPath": "./svg-light/folder-rust-open.svg"
+    },
+    "_gp_folder_shader_light": {
+      "iconPath": "./svg-light/folder-shader.svg"
+    },
+    "_gp_folder_shader_open_light": {
+      "iconPath": "./svg-light/folder-shader-open.svg"
+    },
+    "_gp_folder_storybook_light": {
+      "iconPath": "./svg-light/folder-storybook.svg"
+    },
+    "_gp_folder_storybook_open_light": {
+      "iconPath": "./svg-light/folder-storybook-open.svg"
+    },
+    "_gp_folder_terminal_crt_light": {
+      "iconPath": "./svg-light/folder-terminal-crt.svg"
+    },
+    "_gp_folder_terminal_crt_open_light": {
+      "iconPath": "./svg-light/folder-terminal-crt-open.svg"
+    },
+    "_gp_folder_terraform_light": {
+      "iconPath": "./svg-light/folder-terraform.svg"
+    },
+    "_gp_folder_terraform_open_light": {
+      "iconPath": "./svg-light/folder-terraform-open.svg"
+    },
+    "_gp_folder_test_light": {
+      "iconPath": "./svg-light/folder-test.svg"
+    },
+    "_gp_folder_test_open_light": {
+      "iconPath": "./svg-light/folder-test-open.svg"
+    },
+    "_gp_folder_tool_light": {
+      "iconPath": "./svg-light/folder-tool.svg"
+    },
+    "_gp_folder_tool_open_light": {
+      "iconPath": "./svg-light/folder-tool-open.svg"
+    },
+    "_gp_folder_typescript_light": {
+      "iconPath": "./svg-light/folder-typescript.svg"
+    },
+    "_gp_folder_typescript_open_light": {
+      "iconPath": "./svg-light/folder-typescript-open.svg"
+    },
+    "_gp_font_light": {
+      "iconPath": "./svg-light/font.svg"
+    },
+    "_gp_fortran_light": {
+      "iconPath": "./svg-light/fortran.svg"
+    },
+    "_gp_fsf_bull_light": {
+      "iconPath": "./svg-light/fsf-bull.svg"
+    },
+    "_gp_fsharp_light": {
+      "iconPath": "./svg-light/fsharp.svg"
+    },
+    "_gp_gdscript_light": {
+      "iconPath": "./svg-light/gdscript.svg"
+    },
+    "_gp_git_light": {
+      "iconPath": "./svg-light/git.svg"
+    },
+    "_gp_githubactions_light": {
+      "iconPath": "./svg-light/githubactions.svg"
+    },
+    "_gp_gitlab_light": {
+      "iconPath": "./svg-light/gitlab.svg"
+    },
+    "_gp_gleam_light": {
+      "iconPath": "./svg-light/gleam.svg"
+    },
+    "_gp_go_light": {
+      "iconPath": "./svg-light/go.svg"
+    },
+    "_gp_gradle_light": {
+      "iconPath": "./svg-light/gradle.svg"
+    },
+    "_gp_graphql_light": {
+      "iconPath": "./svg-light/graphql.svg"
+    },
+    "_gp_groovy_light": {
+      "iconPath": "./svg-light/groovy.svg"
+    },
+    "_gp_handlebars_light": {
+      "iconPath": "./svg-light/handlebars.svg"
+    },
+    "_gp_haskell_light": {
+      "iconPath": "./svg-light/haskell.svg"
+    },
+    "_gp_haxe_light": {
+      "iconPath": "./svg-light/haxe.svg"
+    },
+    "_gp_hcl_light": {
+      "iconPath": "./svg-light/hcl.svg"
+    },
+    "_gp_helm_light": {
+      "iconPath": "./svg-light/helm.svg"
+    },
+    "_gp_html_light": {
+      "iconPath": "./svg-light/html.svg"
+    },
+    "_gp_http_light": {
+      "iconPath": "./svg-light/http.svg"
+    },
+    "_gp_image_light": {
+      "iconPath": "./svg-light/image.svg"
+    },
+    "_gp_java_light": {
+      "iconPath": "./svg-light/java.svg"
+    },
+    "_gp_javascript_light": {
+      "iconPath": "./svg-light/javascript.svg"
+    },
+    "_gp_jenkins_light": {
+      "iconPath": "./svg-light/jenkins.svg"
+    },
+    "_gp_jest_light": {
+      "iconPath": "./svg-light/jest.svg"
+    },
+    "_gp_json_light": {
+      "iconPath": "./svg-light/json.svg"
+    },
+    "_gp_julia_light": {
+      "iconPath": "./svg-light/julia.svg"
+    },
+    "_gp_kotlin_light": {
+      "iconPath": "./svg-light/kotlin.svg"
+    },
+    "_gp_latex_light": {
+      "iconPath": "./svg-light/latex.svg"
+    },
+    "_gp_less_light": {
+      "iconPath": "./svg-light/less.svg"
+    },
+    "_gp_lisp_light": {
+      "iconPath": "./svg-light/lisp.svg"
+    },
+    "_gp_lock_light": {
+      "iconPath": "./svg-light/lock.svg"
+    },
+    "_gp_log_light": {
+      "iconPath": "./svg-light/log.svg"
+    },
+    "_gp_lua_light": {
+      "iconPath": "./svg-light/lua.svg"
+    },
+    "_gp_make_light": {
+      "iconPath": "./svg-light/make.svg"
+    },
+    "_gp_markdown_light": {
+      "iconPath": "./svg-light/markdown.svg"
+    },
+    "_gp_matlab_light": {
+      "iconPath": "./svg-light/matlab.svg"
+    },
+    "_gp_maven_light": {
+      "iconPath": "./svg-light/maven.svg"
+    },
+    "_gp_model3d_light": {
+      "iconPath": "./svg-light/model3d.svg"
+    },
+    "_gp_netlify_light": {
+      "iconPath": "./svg-light/netlify.svg"
+    },
+    "_gp_nextjs_light": {
+      "iconPath": "./svg-light/nextjs.svg"
+    },
+    "_gp_nginx_light": {
+      "iconPath": "./svg-light/nginx.svg"
+    },
+    "_gp_nim_light": {
+      "iconPath": "./svg-light/nim.svg"
+    },
+    "_gp_nix_light": {
+      "iconPath": "./svg-light/nix.svg"
+    },
+    "_gp_nodejs_light": {
+      "iconPath": "./svg-light/nodejs.svg"
+    },
+    "_gp_notebook_light": {
+      "iconPath": "./svg-light/notebook.svg"
+    },
+    "_gp_npm_light": {
+      "iconPath": "./svg-light/npm.svg"
+    },
+    "_gp_nuxt_light": {
+      "iconPath": "./svg-light/nuxt.svg"
+    },
+    "_gp_objectivec_light": {
+      "iconPath": "./svg-light/objectivec.svg"
+    },
+    "_gp_objectivecpp_light": {
+      "iconPath": "./svg-light/objectivecpp.svg"
+    },
+    "_gp_ocaml_light": {
+      "iconPath": "./svg-light/ocaml.svg"
+    },
+    "_gp_package_light": {
+      "iconPath": "./svg-light/package.svg"
+    },
+    "_gp_pascal_light": {
+      "iconPath": "./svg-light/pascal.svg"
+    },
+    "_gp_pdf_light": {
+      "iconPath": "./svg-light/pdf.svg"
+    },
+    "_gp_perl_light": {
+      "iconPath": "./svg-light/perl.svg"
+    },
+    "_gp_php_light": {
+      "iconPath": "./svg-light/php.svg"
+    },
+    "_gp_pnpm_light": {
+      "iconPath": "./svg-light/pnpm.svg"
+    },
+    "_gp_poetry_light": {
+      "iconPath": "./svg-light/poetry.svg"
+    },
+    "_gp_postcss_light": {
+      "iconPath": "./svg-light/postcss.svg"
+    },
+    "_gp_powershell_light": {
+      "iconPath": "./svg-light/powershell.svg"
+    },
+    "_gp_prettier_light": {
+      "iconPath": "./svg-light/prettier.svg"
+    },
+    "_gp_prisma_light": {
+      "iconPath": "./svg-light/prisma.svg"
+    },
+    "_gp_proto_light": {
+      "iconPath": "./svg-light/proto.svg"
+    },
+    "_gp_pug_light": {
+      "iconPath": "./svg-light/pug.svg"
+    },
+    "_gp_purescript_light": {
+      "iconPath": "./svg-light/purescript.svg"
+    },
+    "_gp_pytest_light": {
+      "iconPath": "./svg-light/pytest.svg"
+    },
+    "_gp_python_light": {
+      "iconPath": "./svg-light/python.svg"
+    },
+    "_gp_r_light": {
+      "iconPath": "./svg-light/r.svg"
+    },
+    "_gp_racket_light": {
+      "iconPath": "./svg-light/racket.svg"
+    },
+    "_gp_react_light": {
+      "iconPath": "./svg-light/react.svg"
+    },
+    "_gp_reason_light": {
+      "iconPath": "./svg-light/reason.svg"
+    },
+    "_gp_rollup_light": {
+      "iconPath": "./svg-light/rollup.svg"
+    },
+    "_gp_ruby_light": {
+      "iconPath": "./svg-light/ruby.svg"
+    },
+    "_gp_ruff_light": {
+      "iconPath": "./svg-light/ruff.svg"
+    },
+    "_gp_rust_light": {
+      "iconPath": "./svg-light/rust.svg"
+    },
+    "_gp_sass_light": {
+      "iconPath": "./svg-light/sass.svg"
+    },
+    "_gp_scala_light": {
+      "iconPath": "./svg-light/scala.svg"
+    },
+    "_gp_scheme_light": {
+      "iconPath": "./svg-light/scheme.svg"
+    },
+    "_gp_shader_light": {
+      "iconPath": "./svg-light/shader.svg"
+    },
+    "_gp_slides_light": {
+      "iconPath": "./svg-light/slides.svg"
+    },
+    "_gp_smalltalk_light": {
+      "iconPath": "./svg-light/smalltalk.svg"
+    },
+    "_gp_spreadsheet_light": {
+      "iconPath": "./svg-light/spreadsheet.svg"
+    },
+    "_gp_sql_light": {
+      "iconPath": "./svg-light/sql.svg"
+    },
+    "_gp_stylus_light": {
+      "iconPath": "./svg-light/stylus.svg"
+    },
+    "_gp_svelte_light": {
+      "iconPath": "./svg-light/svelte.svg"
+    },
+    "_gp_swift_light": {
+      "iconPath": "./svg-light/swift.svg"
+    },
+    "_gp_tailwind_light": {
+      "iconPath": "./svg-light/tailwind.svg"
+    },
+    "_gp_terminal_crt_light": {
+      "iconPath": "./svg-light/terminal-crt.svg"
+    },
+    "_gp_terraform_light": {
+      "iconPath": "./svg-light/terraform.svg"
+    },
+    "_gp_test_light": {
+      "iconPath": "./svg-light/test.svg"
+    },
+    "_gp_typescript_light": {
+      "iconPath": "./svg-light/typescript.svg"
+    },
+    "_gp_typst_light": {
+      "iconPath": "./svg-light/typst.svg"
+    },
+    "_gp_uv_light": {
+      "iconPath": "./svg-light/uv.svg"
+    },
+    "_gp_vala_light": {
+      "iconPath": "./svg-light/vala.svg"
+    },
+    "_gp_vb_light": {
+      "iconPath": "./svg-light/vb.svg"
+    },
+    "_gp_vercel_light": {
+      "iconPath": "./svg-light/vercel.svg"
+    },
+    "_gp_verilog_light": {
+      "iconPath": "./svg-light/verilog.svg"
+    },
+    "_gp_vhdl_light": {
+      "iconPath": "./svg-light/vhdl.svg"
+    },
+    "_gp_video_light": {
+      "iconPath": "./svg-light/video.svg"
+    },
+    "_gp_vite_light": {
+      "iconPath": "./svg-light/vite.svg"
+    },
+    "_gp_vitest_light": {
+      "iconPath": "./svg-light/vitest.svg"
+    },
+    "_gp_vue_light": {
+      "iconPath": "./svg-light/vue.svg"
+    },
+    "_gp_wasm_light": {
+      "iconPath": "./svg-light/wasm.svg"
+    },
+    "_gp_webpack_light": {
+      "iconPath": "./svg-light/webpack.svg"
+    },
+    "_gp_xml_light": {
+      "iconPath": "./svg-light/xml.svg"
+    },
+    "_gp_yaml_light": {
+      "iconPath": "./svg-light/yaml.svg"
+    },
+    "_gp_yarn_light": {
+      "iconPath": "./svg-light/yarn.svg"
+    },
+    "_gp_zig_light": {
+      "iconPath": "./svg-light/zig.svg"
     }
   },
   "file": "_gp_crt",
@@ -1597,5 +2314,884 @@
     "xml": "_gp_xml",
     "xsl": "_gp_xml",
     "yaml": "_gp_yaml"
+  },
+  "light": {
+    "file": "_gp_crt_light",
+    "folder": "_gp_folder_light",
+    "folderExpanded": "_gp_folder_open_light",
+    "rootFolder": "_gp_folder_light",
+    "rootFolderExpanded": "_gp_folder_open_light",
+    "fileExtensions": {
+      "3ds": "_gp_model3d_light",
+      "7z": "_gp_archive_light",
+      "a": "_gp_binary_light",
+      "aac": "_gp_audio_light",
+      "adb": "_gp_ada_light",
+      "ads": "_gp_ada_light",
+      "ai": "_gp_image_light",
+      "aiff": "_gp_audio_light",
+      "appimage": "_gp_package_light",
+      "asc": "_gp_crypto_light",
+      "asm": "_gp_assembly_light",
+      "astro": "_gp_astro_light",
+      "avi": "_gp_video_light",
+      "avif": "_gp_image_light",
+      "bak": "_gp_floppy_light",
+      "bash": "_gp_terminal_crt_light",
+      "bat": "_gp_batch_light",
+      "bats": "_gp_terminal_crt_light",
+      "bib": "_gp_latex_light",
+      "bin": "_gp_binary_light",
+      "blend": "_gp_model3d_light",
+      "bmp": "_gp_image_light",
+      "br": "_gp_archive_light",
+      "bz2": "_gp_archive_light",
+      "c": "_gp_c_light",
+      "cab": "_gp_archive_light",
+      "cake": "_gp_csharp_light",
+      "cbl": "_gp_cobol_light",
+      "cc": "_gp_cpp_light",
+      "cer": "_gp_certificate_light",
+      "cginc": "_gp_shader_light",
+      "cjs": "_gp_javascript_light",
+      "cl": "_gp_lisp_light",
+      "class": "_gp_binary_light",
+      "clj": "_gp_clojure_light",
+      "cljc": "_gp_clojure_light",
+      "cljs": "_gp_clojure_light",
+      "cmake": "_gp_cmake_light",
+      "cmd": "_gp_batch_light",
+      "cob": "_gp_cobol_light",
+      "coffee": "_gp_coffeescript_light",
+      "comp": "_gp_shader_light",
+      "conf": "_gp_config_light",
+      "cpp": "_gp_cpp_light",
+      "cr": "_gp_crystal_light",
+      "crt": "_gp_certificate_light",
+      "cs": "_gp_csharp_light",
+      "csh": "_gp_terminal_crt_light",
+      "csproj": "_gp_csharp_light",
+      "csr": "_gp_certificate_light",
+      "css": "_gp_css_light",
+      "csv": "_gp_database_light",
+      "csx": "_gp_csharp_light",
+      "cts": "_gp_typescript_light",
+      "cu": "_gp_cuda_light",
+      "cuh": "_gp_cuda_light",
+      "cxx": "_gp_cpp_light",
+      "d": "_gp_d_light",
+      "d.cts": "_gp_typescript_light",
+      "d.mts": "_gp_typescript_light",
+      "d.ts": "_gp_typescript_light",
+      "dart": "_gp_dart_light",
+      "deb": "_gp_package_light",
+      "der": "_gp_certificate_light",
+      "desktop": "_gp_config_light",
+      "dfm": "_gp_pascal_light",
+      "diff": "_gp_diff_light",
+      "dll": "_gp_binary_light",
+      "dmg": "_gp_cd_light",
+      "doc": "_gp_document_light",
+      "docx": "_gp_document_light",
+      "dpr": "_gp_pascal_light",
+      "dylib": "_gp_binary_light",
+      "edn": "_gp_clojure_light",
+      "eex": "_gp_elixir_light",
+      "ejs": "_gp_ejs_light",
+      "el": "_gp_lisp_light",
+      "elf": "_gp_binary_light",
+      "elm": "_gp_elm_light",
+      "env": "_gp_env_light",
+      "eps": "_gp_image_light",
+      "epub": "_gp_document_light",
+      "erl": "_gp_erlang_light",
+      "ex": "_gp_elixir_light",
+      "exe": "_gp_binary_light",
+      "exs": "_gp_elixir_light",
+      "f": "_gp_fortran_light",
+      "f03": "_gp_fortran_light",
+      "f08": "_gp_fortran_light",
+      "f77": "_gp_fortran_light",
+      "f90": "_gp_fortran_light",
+      "f95": "_gp_fortran_light",
+      "fbx": "_gp_model3d_light",
+      "fish": "_gp_terminal_crt_light",
+      "flac": "_gp_audio_light",
+      "flv": "_gp_video_light",
+      "for": "_gp_fortran_light",
+      "frag": "_gp_shader_light",
+      "fs": "_gp_fsharp_light",
+      "fsi": "_gp_fsharp_light",
+      "fsproj": "_gp_fsharp_light",
+      "fsx": "_gp_fsharp_light",
+      "gd": "_gp_gdscript_light",
+      "geojson": "_gp_json_light",
+      "geom": "_gp_shader_light",
+      "gif": "_gp_image_light",
+      "glb": "_gp_model3d_light",
+      "gleam": "_gp_gleam_light",
+      "glsl": "_gp_shader_light",
+      "gltf": "_gp_model3d_light",
+      "go": "_gp_go_light",
+      "gpg": "_gp_certificate_light",
+      "gql": "_gp_graphql_light",
+      "gradle": "_gp_gradle_light",
+      "graphql": "_gp_graphql_light",
+      "groovy": "_gp_groovy_light",
+      "gvy": "_gp_groovy_light",
+      "gz": "_gp_archive_light",
+      "h": "_gp_c_light",
+      "hbs": "_gp_handlebars_light",
+      "hcl": "_gp_hcl_light",
+      "heex": "_gp_elixir_light",
+      "heic": "_gp_image_light",
+      "heif": "_gp_image_light",
+      "hh": "_gp_cpp_light",
+      "hlsl": "_gp_shader_light",
+      "hpp": "_gp_cpp_light",
+      "hrl": "_gp_erlang_light",
+      "hs": "_gp_haskell_light",
+      "htm": "_gp_html_light",
+      "html": "_gp_html_light",
+      "http": "_gp_http_light",
+      "hx": "_gp_haxe_light",
+      "hxx": "_gp_cpp_light",
+      "icns": "_gp_image_light",
+      "ico": "_gp_image_light",
+      "ini": "_gp_config_light",
+      "inl": "_gp_cpp_light",
+      "ipp": "_gp_cpp_light",
+      "ipynb": "_gp_notebook_light",
+      "iso": "_gp_cd_light",
+      "itermcolors": "_gp_terminal_crt_light",
+      "jar": "_gp_java_light",
+      "java": "_gp_java_light",
+      "jl": "_gp_julia_light",
+      "jpeg": "_gp_image_light",
+      "jpg": "_gp_image_light",
+      "js": "_gp_javascript_light",
+      "json": "_gp_json_light",
+      "json5": "_gp_json_light",
+      "jsonc": "_gp_json_light",
+      "jsonl": "_gp_json_light",
+      "jsp": "_gp_java_light",
+      "jsx": "_gp_react_light",
+      "jxl": "_gp_image_light",
+      "key": "_gp_lock_light",
+      "ko": "_gp_binary_light",
+      "ksh": "_gp_terminal_crt_light",
+      "kt": "_gp_kotlin_light",
+      "kts": "_gp_kotlin_light",
+      "leex": "_gp_elixir_light",
+      "less": "_gp_less_light",
+      "lfm": "_gp_pascal_light",
+      "lhs": "_gp_haskell_light",
+      "lib": "_gp_binary_light",
+      "license": "_gp_fsf_bull_light",
+      "lisp": "_gp_lisp_light",
+      "lock": "_gp_package_light",
+      "log": "_gp_log_light",
+      "lpr": "_gp_pascal_light",
+      "lsp": "_gp_lisp_light",
+      "lua": "_gp_lua_light",
+      "lz": "_gp_archive_light",
+      "lz4": "_gp_archive_light",
+      "lzma": "_gp_archive_light",
+      "m": "_gp_objectivec_light",
+      "m4a": "_gp_audio_light",
+      "m4v": "_gp_video_light",
+      "markdown": "_gp_markdown_light",
+      "mat": "_gp_matlab_light",
+      "md": "_gp_markdown_light",
+      "mdx": "_gp_markdown_light",
+      "metal": "_gp_shader_light",
+      "mid": "_gp_audio_light",
+      "midi": "_gp_audio_light",
+      "mjs": "_gp_javascript_light",
+      "mkv": "_gp_video_light",
+      "ml": "_gp_ocaml_light",
+      "mli": "_gp_ocaml_light",
+      "mlx": "_gp_matlab_light",
+      "mm": "_gp_objectivecpp_light",
+      "mod": "_gp_go_light",
+      "mov": "_gp_video_light",
+      "mp3": "_gp_audio_light",
+      "mp4": "_gp_video_light",
+      "mpeg": "_gp_video_light",
+      "mpg": "_gp_video_light",
+      "msi": "_gp_package_light",
+      "mts": "_gp_typescript_light",
+      "ndjson": "_gp_json_light",
+      "nim": "_gp_nim_light",
+      "nims": "_gp_nim_light",
+      "nix": "_gp_nix_light",
+      "nu": "_gp_terminal_crt_light",
+      "numbers": "_gp_spreadsheet_light",
+      "o": "_gp_binary_light",
+      "obj": "_gp_model3d_light",
+      "odp": "_gp_slides_light",
+      "ods": "_gp_spreadsheet_light",
+      "odt": "_gp_document_light",
+      "oga": "_gp_audio_light",
+      "ogg": "_gp_audio_light",
+      "ogv": "_gp_video_light",
+      "opus": "_gp_audio_light",
+      "otf": "_gp_font_light",
+      "p": "_gp_pascal_light",
+      "p12": "_gp_certificate_light",
+      "pages": "_gp_document_light",
+      "pas": "_gp_pascal_light",
+      "patch": "_gp_diff_light",
+      "pcss": "_gp_postcss_light",
+      "pdf": "_gp_pdf_light",
+      "pem": "_gp_certificate_light",
+      "pfx": "_gp_certificate_light",
+      "php": "_gp_php_light",
+      "phtml": "_gp_php_light",
+      "pkg": "_gp_package_light",
+      "pl": "_gp_perl_light",
+      "plist": "_gp_xml_light",
+      "ply": "_gp_model3d_light",
+      "pm": "_gp_perl_light",
+      "png": "_gp_image_light",
+      "postcss": "_gp_postcss_light",
+      "pp": "_gp_pascal_light",
+      "ppt": "_gp_slides_light",
+      "pptx": "_gp_slides_light",
+      "prisma": "_gp_prisma_light",
+      "proto": "_gp_proto_light",
+      "ps1": "_gp_powershell_light",
+      "psd": "_gp_image_light",
+      "psd1": "_gp_powershell_light",
+      "psm1": "_gp_powershell_light",
+      "pub": "_gp_certificate_light",
+      "pug": "_gp_pug_light",
+      "purs": "_gp_purescript_light",
+      "py": "_gp_python_light",
+      "pyc": "_gp_binary_light",
+      "pyi": "_gp_python_light",
+      "pyw": "_gp_python_light",
+      "r": "_gp_r_light",
+      "rar": "_gp_archive_light",
+      "rb": "_gp_ruby_light",
+      "re": "_gp_reason_light",
+      "rei": "_gp_reason_light",
+      "rest": "_gp_http_light",
+      "rkt": "_gp_racket_light",
+      "rktl": "_gp_racket_light",
+      "rmd": "_gp_r_light",
+      "rpm": "_gp_package_light",
+      "rs": "_gp_rust_light",
+      "rst": "_gp_document_light",
+      "rtf": "_gp_document_light",
+      "s": "_gp_assembly_light",
+      "sass": "_gp_sass_light",
+      "sc": "_gp_scala_light",
+      "scala": "_gp_scala_light",
+      "scm": "_gp_scheme_light",
+      "scss": "_gp_sass_light",
+      "service": "_gp_config_light",
+      "sh": "_gp_terminal_crt_light",
+      "sha256": "_gp_lock_light",
+      "shader": "_gp_shader_light",
+      "sig": "_gp_lock_light",
+      "sln": "_gp_config_light",
+      "so": "_gp_binary_light",
+      "sol": "_gp_crypto_light",
+      "spec.js": "_gp_test_light",
+      "spec.jsx": "_gp_test_light",
+      "spec.mjs": "_gp_test_light",
+      "spec.mts": "_gp_test_light",
+      "spec.ts": "_gp_test_light",
+      "spec.tsx": "_gp_test_light",
+      "sql": "_gp_sql_light",
+      "sqlite": "_gp_database_light",
+      "sqlite3": "_gp_database_light",
+      "ss": "_gp_scheme_light",
+      "st": "_gp_smalltalk_light",
+      "stl": "_gp_model3d_light",
+      "styl": "_gp_stylus_light",
+      "sv": "_gp_verilog_light",
+      "svelte": "_gp_svelte_light",
+      "svg": "_gp_image_light",
+      "svh": "_gp_verilog_light",
+      "swift": "_gp_swift_light",
+      "tar": "_gp_archive_light",
+      "tcsh": "_gp_terminal_crt_light",
+      "terminal": "_gp_terminal_crt_light",
+      "tesc": "_gp_shader_light",
+      "tese": "_gp_shader_light",
+      "test.js": "_gp_test_light",
+      "test.jsx": "_gp_test_light",
+      "test.mjs": "_gp_test_light",
+      "test.mts": "_gp_test_light",
+      "test.ts": "_gp_test_light",
+      "test.tsx": "_gp_test_light",
+      "tex": "_gp_latex_light",
+      "tf": "_gp_terraform_light",
+      "tfvars": "_gp_terraform_light",
+      "tgz": "_gp_archive_light",
+      "tif": "_gp_image_light",
+      "tiff": "_gp_image_light",
+      "toml": "_gp_config_light",
+      "ts": "_gp_typescript_light",
+      "tsv": "_gp_spreadsheet_light",
+      "tsx": "_gp_react_light",
+      "ttf": "_gp_font_light",
+      "txt": "_gp_document_light",
+      "typ": "_gp_typst_light",
+      "usdz": "_gp_model3d_light",
+      "v": "_gp_verilog_light",
+      "vala": "_gp_vala_light",
+      "vapi": "_gp_vala_light",
+      "vb": "_gp_vb_light",
+      "vbproj": "_gp_vb_light",
+      "vbs": "_gp_vb_light",
+      "vert": "_gp_shader_light",
+      "vh": "_gp_verilog_light",
+      "vhd": "_gp_vhdl_light",
+      "vhdl": "_gp_vhdl_light",
+      "vsix": "_gp_package_light",
+      "vue": "_gp_vue_light",
+      "war": "_gp_java_light",
+      "wasm": "_gp_wasm_light",
+      "wat": "_gp_wasm_light",
+      "wav": "_gp_audio_light",
+      "webm": "_gp_video_light",
+      "webp": "_gp_image_light",
+      "wgsl": "_gp_shader_light",
+      "wmv": "_gp_video_light",
+      "woff": "_gp_font_light",
+      "woff2": "_gp_font_light",
+      "xcf": "_gp_image_light",
+      "xls": "_gp_spreadsheet_light",
+      "xlsx": "_gp_spreadsheet_light",
+      "xml": "_gp_xml_light",
+      "xsd": "_gp_xml_light",
+      "xsl": "_gp_xml_light",
+      "xslt": "_gp_xml_light",
+      "xz": "_gp_archive_light",
+      "yaml": "_gp_yaml_light",
+      "yml": "_gp_yaml_light",
+      "zig": "_gp_zig_light",
+      "zip": "_gp_archive_light",
+      "zsh": "_gp_terminal_crt_light",
+      "zst": "_gp_archive_light"
+    },
+    "fileNames": {
+      ".babelrc": "_gp_babel_light",
+      ".babelrc.json": "_gp_babel_light",
+      ".bazelrc": "_gp_bazel_light",
+      ".bazelversion": "_gp_bazel_light",
+      ".dockerignore": "_gp_docker_light",
+      ".editorconfig": "_gp_editorconfig_light",
+      ".env": "_gp_env_light",
+      ".env.development": "_gp_env_light",
+      ".env.example": "_gp_env_light",
+      ".env.local": "_gp_env_light",
+      ".env.production": "_gp_env_light",
+      ".env.test": "_gp_env_light",
+      ".eslintignore": "_gp_eslint_light",
+      ".eslintrc": "_gp_eslint_light",
+      ".eslintrc.cjs": "_gp_eslint_light",
+      ".eslintrc.js": "_gp_eslint_light",
+      ".eslintrc.json": "_gp_eslint_light",
+      ".eslintrc.yaml": "_gp_eslint_light",
+      ".eslintrc.yml": "_gp_eslint_light",
+      ".gitattributes": "_gp_git_light",
+      ".gitignore": "_gp_git_light",
+      ".gitkeep": "_gp_git_light",
+      ".gitlab-ci.yml": "_gp_gitlab_light",
+      ".gitmodules": "_gp_git_light",
+      ".mailmap": "_gp_git_light",
+      ".node-version": "_gp_nodejs_light",
+      ".npmignore": "_gp_npm_light",
+      ".npmrc": "_gp_npm_light",
+      ".nvmrc": "_gp_nodejs_light",
+      ".prettierignore": "_gp_prettier_light",
+      ".prettierrc": "_gp_prettier_light",
+      ".prettierrc.cjs": "_gp_prettier_light",
+      ".prettierrc.js": "_gp_prettier_light",
+      ".prettierrc.json": "_gp_prettier_light",
+      ".prettierrc.mjs": "_gp_prettier_light",
+      ".prettierrc.yaml": "_gp_prettier_light",
+      ".prettierrc.yml": "_gp_prettier_light",
+      ".python-version": "_gp_python_light",
+      ".ruff.toml": "_gp_ruff_light",
+      ".rustfmt.toml": "_gp_rust_light",
+      ".tool-versions": "_gp_config_light",
+      ".vscodeignore": "_gp_config_light",
+      ".yarnrc": "_gp_yarn_light",
+      ".yarnrc.yml": "_gp_yarn_light",
+      "action.yaml": "_gp_githubactions_light",
+      "action.yml": "_gp_githubactions_light",
+      "angular.json": "_gp_angular_light",
+      "ansible.cfg": "_gp_ansible_light",
+      "astro.config.mjs": "_gp_astro_light",
+      "astro.config.ts": "_gp_astro_light",
+      "babel.config.cjs": "_gp_babel_light",
+      "babel.config.js": "_gp_babel_light",
+      "babel.config.json": "_gp_babel_light",
+      "biome.json": "_gp_biome_light",
+      "biome.jsonc": "_gp_biome_light",
+      "BUILD.bazel": "_gp_bazel_light",
+      "build.gradle": "_gp_gradle_light",
+      "build.gradle.kts": "_gp_gradle_light",
+      "build.zig": "_gp_zig_light",
+      "build.zig.zon": "_gp_zig_light",
+      "bun.lock": "_gp_bun_light",
+      "bun.lockb": "_gp_bun_light",
+      "bunfig.toml": "_gp_bun_light",
+      "Cargo.lock": "_gp_rust_light",
+      "Cargo.toml": "_gp_rust_light",
+      "CHANGELOG.md": "_gp_markdown_light",
+      "Chart.yaml": "_gp_helm_light",
+      "clippy.toml": "_gp_rust_light",
+      "CMakeLists.txt": "_gp_cmake_light",
+      "CODEOWNERS": "_gp_git_light",
+      "compose.yaml": "_gp_docker_light",
+      "compose.yml": "_gp_docker_light",
+      "composer.json": "_gp_php_light",
+      "composer.lock": "_gp_php_light",
+      "conftest.py": "_gp_pytest_light",
+      "Containerfile": "_gp_docker_light",
+      "COPYING": "_gp_fsf_bull_light",
+      "cypress.config.js": "_gp_cypress_light",
+      "cypress.config.ts": "_gp_cypress_light",
+      "deno.json": "_gp_deno_light",
+      "deno.jsonc": "_gp_deno_light",
+      "deno.lock": "_gp_deno_light",
+      "docker-compose.yaml": "_gp_docker_light",
+      "docker-compose.yml": "_gp_docker_light",
+      "Dockerfile": "_gp_docker_light",
+      "eslint.config.cjs": "_gp_eslint_light",
+      "eslint.config.js": "_gp_eslint_light",
+      "eslint.config.mjs": "_gp_eslint_light",
+      "eslint.config.ts": "_gp_eslint_light",
+      "flake.nix": "_gp_nix_light",
+      "GasPlasma.itermcolors": "_gp_terminal_crt_light",
+      "GasPlasma.terminal": "_gp_terminal_crt_light",
+      "Gemfile": "_gp_ruby_light",
+      "Gemfile.lock": "_gp_ruby_light",
+      "GNUmakefile": "_gp_make_light",
+      "go.mod": "_gp_go_light",
+      "go.sum": "_gp_go_light",
+      "gradle.properties": "_gp_gradle_light",
+      "gradlew": "_gp_gradle_light",
+      "gradlew.bat": "_gp_gradle_light",
+      "Jenkinsfile": "_gp_jenkins_light",
+      "jest.config.cjs": "_gp_jest_light",
+      "jest.config.js": "_gp_jest_light",
+      "jest.config.mjs": "_gp_jest_light",
+      "jest.config.ts": "_gp_jest_light",
+      "jsconfig.json": "_gp_javascript_light",
+      "LICENSE": "_gp_fsf_bull_light",
+      "main.tf": "_gp_terraform_light",
+      "makefile": "_gp_make_light",
+      "Makefile": "_gp_make_light",
+      "mix.exs": "_gp_elixir_light",
+      "mix.lock": "_gp_elixir_light",
+      "MODULE.bazel": "_gp_bazel_light",
+      "netlify.toml": "_gp_netlify_light",
+      "next.config.js": "_gp_nextjs_light",
+      "next.config.mjs": "_gp_nextjs_light",
+      "next.config.ts": "_gp_nextjs_light",
+      "nginx.conf": "_gp_nginx_light",
+      "nuxt.config.js": "_gp_nuxt_light",
+      "nuxt.config.ts": "_gp_nuxt_light",
+      "package-lock.json": "_gp_npm_light",
+      "package.json": "_gp_npm_light",
+      "Package.swift": "_gp_swift_light",
+      "Pipfile": "_gp_python_light",
+      "Pipfile.lock": "_gp_python_light",
+      "pnpm-lock.yaml": "_gp_pnpm_light",
+      "pnpm-workspace.yaml": "_gp_pnpm_light",
+      "Podfile": "_gp_ruby_light",
+      "Podfile.lock": "_gp_ruby_light",
+      "poetry.lock": "_gp_poetry_light",
+      "pom.xml": "_gp_maven_light",
+      "postcss.config.cjs": "_gp_postcss_light",
+      "postcss.config.js": "_gp_postcss_light",
+      "postcss.config.mjs": "_gp_postcss_light",
+      "prettier.config.cjs": "_gp_prettier_light",
+      "prettier.config.js": "_gp_prettier_light",
+      "prettier.config.mjs": "_gp_prettier_light",
+      "Procfile": "_gp_config_light",
+      "Project.toml": "_gp_julia_light",
+      "pyproject.toml": "_gp_python_light",
+      "pytest.ini": "_gp_pytest_light",
+      "Rakefile": "_gp_ruby_light",
+      "README.md": "_gp_markdown_light",
+      "README.open-vsx.md": "_gp_markdown_light",
+      "requirements-dev.txt": "_gp_python_light",
+      "requirements.txt": "_gp_python_light",
+      "rollup.config.js": "_gp_rollup_light",
+      "rollup.config.mjs": "_gp_rollup_light",
+      "rollup.config.ts": "_gp_rollup_light",
+      "ruff.toml": "_gp_ruff_light",
+      "rust-toolchain": "_gp_rust_light",
+      "rust-toolchain.toml": "_gp_rust_light",
+      "rustfmt.toml": "_gp_rust_light",
+      "SECURITY.md": "_gp_lock_light",
+      "settings.gradle": "_gp_gradle_light",
+      "settings.gradle.kts": "_gp_gradle_light",
+      "setup.cfg": "_gp_python_light",
+      "setup.py": "_gp_python_light",
+      "SHA256SUMS": "_gp_lock_light",
+      "SHA256SUMS.asc": "_gp_lock_light",
+      "svelte.config.js": "_gp_svelte_light",
+      "tailwind.config.cjs": "_gp_tailwind_light",
+      "tailwind.config.js": "_gp_tailwind_light",
+      "tailwind.config.mjs": "_gp_tailwind_light",
+      "tailwind.config.ts": "_gp_tailwind_light",
+      "tox.ini": "_gp_python_light",
+      "tsconfig.base.json": "_gp_typescript_light",
+      "tsconfig.build.json": "_gp_typescript_light",
+      "tsconfig.json": "_gp_typescript_light",
+      "tsconfig.node.json": "_gp_typescript_light",
+      "uv.lock": "_gp_uv_light",
+      "vercel.json": "_gp_vercel_light",
+      "vite.config.js": "_gp_vite_light",
+      "vite.config.mjs": "_gp_vite_light",
+      "vite.config.mts": "_gp_vite_light",
+      "vite.config.ts": "_gp_vite_light",
+      "vitest.config.js": "_gp_vitest_light",
+      "vitest.config.mts": "_gp_vitest_light",
+      "vitest.config.ts": "_gp_vitest_light",
+      "vitest.workspace.ts": "_gp_vitest_light",
+      "webpack.config.cjs": "_gp_webpack_light",
+      "webpack.config.js": "_gp_webpack_light",
+      "webpack.config.ts": "_gp_webpack_light",
+      "WORKSPACE": "_gp_bazel_light",
+      "WORKSPACE.bazel": "_gp_bazel_light",
+      "wrangler.json": "_gp_cloudflare_light",
+      "wrangler.jsonc": "_gp_cloudflare_light",
+      "wrangler.toml": "_gp_cloudflare_light",
+      "yarn.lock": "_gp_yarn_light"
+    },
+    "folderNames": {
+      "__mocks__": "_gp_folder_test_light",
+      "__pycache__": "_gp_folder_python_light",
+      "__tests__": "_gp_folder_test_light",
+      ".cache": "_gp_folder_archive_light",
+      ".cargo": "_gp_folder_rust_light",
+      ".config": "_gp_folder_config_light",
+      ".devcontainer": "_gp_folder_docker_light",
+      ".git": "_gp_folder_git_light",
+      ".github": "_gp_folder_githubactions_light",
+      ".husky": "_gp_folder_git_light",
+      ".idea": "_gp_folder_config_light",
+      ".next": "_gp_folder_nextjs_light",
+      ".nuxt": "_gp_folder_nuxt_light",
+      ".pytest_cache": "_gp_folder_python_light",
+      ".storybook": "_gp_folder_storybook_light",
+      ".terraform": "_gp_folder_terraform_light",
+      ".venv": "_gp_folder_python_light",
+      ".vscode": "_gp_folder_config_light",
+      ".zed": "_gp_folder_config_light",
+      "@types": "_gp_folder_typescript_light",
+      "ansible": "_gp_folder_ansible_light",
+      "api": "_gp_folder_api_light",
+      "assets": "_gp_folder_image_light",
+      "audio": "_gp_folder_audio_light",
+      "bin": "_gp_folder_binary_light",
+      "blockchain": "_gp_folder_crypto_light",
+      "build": "_gp_folder_package_light",
+      "charts": "_gp_folder_helm_light",
+      "components": "_gp_folder_component_light",
+      "config": "_gp_folder_config_light",
+      "configs": "_gp_folder_config_light",
+      "controllers": "_gp_folder_api_light",
+      "coverage": "_gp_folder_test_light",
+      "crypto": "_gp_folder_crypto_light",
+      "cypress": "_gp_folder_cypress_light",
+      "data": "_gp_folder_database_light",
+      "database": "_gp_folder_database_light",
+      "db": "_gp_folder_database_light",
+      "dist": "_gp_folder_package_light",
+      "docker": "_gp_folder_docker_light",
+      "docs": "_gp_folder_markdown_light",
+      "e2e": "_gp_folder_test_light",
+      "examples": "_gp_folder_code_light",
+      "extensions": "_gp_folder_plugin_light",
+      "fixtures": "_gp_folder_test_light",
+      "fonts": "_gp_folder_font_light",
+      "helm": "_gp_folder_helm_light",
+      "helpers": "_gp_folder_tool_light",
+      "hooks": "_gp_folder_plugin_light",
+      "i18n": "_gp_folder_locale_light",
+      "icons": "_gp_folder_palette_light",
+      "images": "_gp_folder_image_light",
+      "include": "_gp_folder_c_light",
+      "k8s": "_gp_folder_kubernetes_light",
+      "kubernetes": "_gp_folder_kubernetes_light",
+      "lang": "_gp_folder_locale_light",
+      "layouts": "_gp_folder_layout_light",
+      "lib": "_gp_folder_code_light",
+      "linux": "_gp_folder_linux_light",
+      "locales": "_gp_folder_locale_light",
+      "logs": "_gp_folder_log_light",
+      "media": "_gp_folder_image_light",
+      "middleware": "_gp_folder_api_light",
+      "migrations": "_gp_folder_database_light",
+      "mocks": "_gp_folder_test_light",
+      "models": "_gp_folder_database_light",
+      "node_modules": "_gp_folder_npm_light",
+      "notebooks": "_gp_folder_notebook_light",
+      "out": "_gp_folder_package_light",
+      "packages": "_gp_folder_package_light",
+      "pages": "_gp_folder_layout_light",
+      "plugins": "_gp_folder_plugin_light",
+      "prisma": "_gp_folder_prisma_light",
+      "public": "_gp_folder_image_light",
+      "routes": "_gp_folder_api_light",
+      "scripts": "_gp_folder_terminal_crt_light",
+      "server": "_gp_folder_api_light",
+      "services": "_gp_folder_api_light",
+      "shaders": "_gp_folder_shader_light",
+      "spec": "_gp_folder_test_light",
+      "specs": "_gp_folder_test_light",
+      "src": "_gp_folder_code_light",
+      "static": "_gp_folder_image_light",
+      "store": "_gp_folder_database_light",
+      "styles": "_gp_folder_css_light",
+      "target": "_gp_folder_package_light",
+      "temp": "_gp_folder_archive_light",
+      "templates": "_gp_folder_layout_light",
+      "terraform": "_gp_folder_terraform_light",
+      "test": "_gp_folder_test_light",
+      "tests": "_gp_folder_test_light",
+      "themes": "_gp_folder_palette_light",
+      "tmp": "_gp_folder_archive_light",
+      "tools": "_gp_folder_tool_light",
+      "translations": "_gp_folder_locale_light",
+      "types": "_gp_folder_typescript_light",
+      "typings": "_gp_folder_typescript_light",
+      "utils": "_gp_folder_tool_light",
+      "vendor": "_gp_folder_package_light",
+      "venv": "_gp_folder_python_light",
+      "views": "_gp_folder_layout_light",
+      "wallet": "_gp_folder_crypto_light",
+      "workflows": "_gp_folder_githubactions_light"
+    },
+    "folderNamesExpanded": {
+      "__mocks__": "_gp_folder_test_open_light",
+      "__pycache__": "_gp_folder_python_open_light",
+      "__tests__": "_gp_folder_test_open_light",
+      ".cache": "_gp_folder_archive_open_light",
+      ".cargo": "_gp_folder_rust_open_light",
+      ".config": "_gp_folder_config_open_light",
+      ".devcontainer": "_gp_folder_docker_open_light",
+      ".git": "_gp_folder_git_open_light",
+      ".github": "_gp_folder_githubactions_open_light",
+      ".husky": "_gp_folder_git_open_light",
+      ".idea": "_gp_folder_config_open_light",
+      ".next": "_gp_folder_nextjs_open_light",
+      ".nuxt": "_gp_folder_nuxt_open_light",
+      ".pytest_cache": "_gp_folder_python_open_light",
+      ".storybook": "_gp_folder_storybook_open_light",
+      ".terraform": "_gp_folder_terraform_open_light",
+      ".venv": "_gp_folder_python_open_light",
+      ".vscode": "_gp_folder_config_open_light",
+      ".zed": "_gp_folder_config_open_light",
+      "@types": "_gp_folder_typescript_open_light",
+      "ansible": "_gp_folder_ansible_open_light",
+      "api": "_gp_folder_api_open_light",
+      "assets": "_gp_folder_image_open_light",
+      "audio": "_gp_folder_audio_open_light",
+      "bin": "_gp_folder_binary_open_light",
+      "blockchain": "_gp_folder_crypto_open_light",
+      "build": "_gp_folder_package_open_light",
+      "charts": "_gp_folder_helm_open_light",
+      "components": "_gp_folder_component_open_light",
+      "config": "_gp_folder_config_open_light",
+      "configs": "_gp_folder_config_open_light",
+      "controllers": "_gp_folder_api_open_light",
+      "coverage": "_gp_folder_test_open_light",
+      "crypto": "_gp_folder_crypto_open_light",
+      "cypress": "_gp_folder_cypress_open_light",
+      "data": "_gp_folder_database_open_light",
+      "database": "_gp_folder_database_open_light",
+      "db": "_gp_folder_database_open_light",
+      "dist": "_gp_folder_package_open_light",
+      "docker": "_gp_folder_docker_open_light",
+      "docs": "_gp_folder_markdown_open_light",
+      "e2e": "_gp_folder_test_open_light",
+      "examples": "_gp_folder_code_open_light",
+      "extensions": "_gp_folder_plugin_open_light",
+      "fixtures": "_gp_folder_test_open_light",
+      "fonts": "_gp_folder_font_open_light",
+      "helm": "_gp_folder_helm_open_light",
+      "helpers": "_gp_folder_tool_open_light",
+      "hooks": "_gp_folder_plugin_open_light",
+      "i18n": "_gp_folder_locale_open_light",
+      "icons": "_gp_folder_palette_open_light",
+      "images": "_gp_folder_image_open_light",
+      "include": "_gp_folder_c_open_light",
+      "k8s": "_gp_folder_kubernetes_open_light",
+      "kubernetes": "_gp_folder_kubernetes_open_light",
+      "lang": "_gp_folder_locale_open_light",
+      "layouts": "_gp_folder_layout_open_light",
+      "lib": "_gp_folder_code_open_light",
+      "linux": "_gp_folder_linux_open_light",
+      "locales": "_gp_folder_locale_open_light",
+      "logs": "_gp_folder_log_open_light",
+      "media": "_gp_folder_image_open_light",
+      "middleware": "_gp_folder_api_open_light",
+      "migrations": "_gp_folder_database_open_light",
+      "mocks": "_gp_folder_test_open_light",
+      "models": "_gp_folder_database_open_light",
+      "node_modules": "_gp_folder_npm_open_light",
+      "notebooks": "_gp_folder_notebook_open_light",
+      "out": "_gp_folder_package_open_light",
+      "packages": "_gp_folder_package_open_light",
+      "pages": "_gp_folder_layout_open_light",
+      "plugins": "_gp_folder_plugin_open_light",
+      "prisma": "_gp_folder_prisma_open_light",
+      "public": "_gp_folder_image_open_light",
+      "routes": "_gp_folder_api_open_light",
+      "scripts": "_gp_folder_terminal_crt_open_light",
+      "server": "_gp_folder_api_open_light",
+      "services": "_gp_folder_api_open_light",
+      "shaders": "_gp_folder_shader_open_light",
+      "spec": "_gp_folder_test_open_light",
+      "specs": "_gp_folder_test_open_light",
+      "src": "_gp_folder_code_open_light",
+      "static": "_gp_folder_image_open_light",
+      "store": "_gp_folder_database_open_light",
+      "styles": "_gp_folder_css_open_light",
+      "target": "_gp_folder_package_open_light",
+      "temp": "_gp_folder_archive_open_light",
+      "templates": "_gp_folder_layout_open_light",
+      "terraform": "_gp_folder_terraform_open_light",
+      "test": "_gp_folder_test_open_light",
+      "tests": "_gp_folder_test_open_light",
+      "themes": "_gp_folder_palette_open_light",
+      "tmp": "_gp_folder_archive_open_light",
+      "tools": "_gp_folder_tool_open_light",
+      "translations": "_gp_folder_locale_open_light",
+      "types": "_gp_folder_typescript_open_light",
+      "typings": "_gp_folder_typescript_open_light",
+      "utils": "_gp_folder_tool_open_light",
+      "vendor": "_gp_folder_package_open_light",
+      "venv": "_gp_folder_python_open_light",
+      "views": "_gp_folder_layout_open_light",
+      "wallet": "_gp_folder_crypto_open_light",
+      "workflows": "_gp_folder_githubactions_open_light"
+    },
+    "languageIds": {
+      "ada": "_gp_ada_light",
+      "asm": "_gp_assembly_light",
+      "astro": "_gp_astro_light",
+      "bat": "_gp_batch_light",
+      "bibtex": "_gp_latex_light",
+      "c": "_gp_c_light",
+      "clojure": "_gp_clojure_light",
+      "cobol": "_gp_cobol_light",
+      "coffeescript": "_gp_coffeescript_light",
+      "cpp": "_gp_cpp_light",
+      "crystal": "_gp_crystal_light",
+      "csharp": "_gp_csharp_light",
+      "css": "_gp_css_light",
+      "cuda-cpp": "_gp_cuda_light",
+      "d": "_gp_d_light",
+      "dart": "_gp_dart_light",
+      "diff": "_gp_diff_light",
+      "dockercompose": "_gp_docker_light",
+      "dockerfile": "_gp_docker_light",
+      "dotenv": "_gp_env_light",
+      "editorconfig": "_gp_editorconfig_light",
+      "ejs": "_gp_ejs_light",
+      "elixir": "_gp_elixir_light",
+      "elm": "_gp_elm_light",
+      "erlang": "_gp_erlang_light",
+      "fortran": "_gp_fortran_light",
+      "fsharp": "_gp_fsharp_light",
+      "gdscript": "_gp_gdscript_light",
+      "git-commit": "_gp_git_light",
+      "git-rebase": "_gp_git_light",
+      "github-actions-workflow": "_gp_githubactions_light",
+      "gleam": "_gp_gleam_light",
+      "glsl": "_gp_shader_light",
+      "go": "_gp_go_light",
+      "graphql": "_gp_graphql_light",
+      "groovy": "_gp_groovy_light",
+      "handlebars": "_gp_handlebars_light",
+      "haskell": "_gp_haskell_light",
+      "haxe": "_gp_haxe_light",
+      "hcl": "_gp_hcl_light",
+      "hlsl": "_gp_shader_light",
+      "html": "_gp_html_light",
+      "http": "_gp_http_light",
+      "ignore": "_gp_git_light",
+      "ini": "_gp_config_light",
+      "java": "_gp_java_light",
+      "javascript": "_gp_javascript_light",
+      "javascriptreact": "_gp_react_light",
+      "json": "_gp_json_light",
+      "json5": "_gp_json_light",
+      "jsonc": "_gp_json_light",
+      "jsonl": "_gp_json_light",
+      "julia": "_gp_julia_light",
+      "jupyter": "_gp_notebook_light",
+      "kotlin": "_gp_kotlin_light",
+      "latex": "_gp_latex_light",
+      "less": "_gp_less_light",
+      "lisp": "_gp_lisp_light",
+      "log": "_gp_log_light",
+      "lua": "_gp_lua_light",
+      "makefile": "_gp_make_light",
+      "markdown": "_gp_markdown_light",
+      "matlab": "_gp_matlab_light",
+      "nim": "_gp_nim_light",
+      "nix": "_gp_nix_light",
+      "objective-c": "_gp_objectivec_light",
+      "objective-cpp": "_gp_objectivecpp_light",
+      "ocaml": "_gp_ocaml_light",
+      "pascal": "_gp_pascal_light",
+      "perl": "_gp_perl_light",
+      "php": "_gp_php_light",
+      "postcss": "_gp_postcss_light",
+      "powershell": "_gp_powershell_light",
+      "prisma": "_gp_prisma_light",
+      "properties": "_gp_config_light",
+      "protobuf": "_gp_proto_light",
+      "pug": "_gp_pug_light",
+      "purescript": "_gp_purescript_light",
+      "python": "_gp_python_light",
+      "r": "_gp_r_light",
+      "racket": "_gp_racket_light",
+      "reason": "_gp_reason_light",
+      "restructuredtext": "_gp_document_light",
+      "ruby": "_gp_ruby_light",
+      "rust": "_gp_rust_light",
+      "sass": "_gp_sass_light",
+      "scala": "_gp_scala_light",
+      "scheme": "_gp_scheme_light",
+      "scss": "_gp_sass_light",
+      "shellscript": "_gp_terminal_crt_light",
+      "solidity": "_gp_crypto_light",
+      "sql": "_gp_sql_light",
+      "stylus": "_gp_stylus_light",
+      "svelte": "_gp_svelte_light",
+      "swift": "_gp_swift_light",
+      "systemverilog": "_gp_verilog_light",
+      "terraform": "_gp_terraform_light",
+      "tex": "_gp_latex_light",
+      "toml": "_gp_config_light",
+      "typescript": "_gp_typescript_light",
+      "typescriptreact": "_gp_react_light",
+      "typst": "_gp_typst_light",
+      "vala": "_gp_vala_light",
+      "vb": "_gp_vb_light",
+      "verilog": "_gp_verilog_light",
+      "vhdl": "_gp_vhdl_light",
+      "vue": "_gp_vue_light",
+      "wasm": "_gp_wasm_light",
+      "wgsl": "_gp_shader_light",
+      "xml": "_gp_xml_light",
+      "xsl": "_gp_xml_light",
+      "yaml": "_gp_yaml_light"
+    }
   }
 }

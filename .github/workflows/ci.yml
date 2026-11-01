@@ -33,7 +33,18 @@ jobs:
         run: |
           git diff --exit-code -- \
             GasPlasma.itermcolors \
+            GasPlasma-Light.itermcolors \
+            GasPlasma-Auto.itermcolors \
             themes/gas-plasma-color-theme.json \
+            themes/gas-plasma-light-color-theme.json \
+            icons/file \
+            assets/mockup-light.svg \
+            assets/mockup-light.png \
+            docs/assets/mockup-light.svg \
+            docs/assets/mockup-light.png \
+            docs/assets/architecture-light.svg \
+            docs/assets/architecture-light.png \
+            docs/assets/icons \
             assets/logo.svg \
             assets/logo.png \
             assets/architecture.svg \

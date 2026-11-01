@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96" role="img" aria-label="Gas Plasma Bazel icon">
+  <defs>
+    <linearGradient id="tile" x1="14" y1="10" x2="82" y2="86" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".48" stop-color="#FFF0E9"/>
+      <stop offset="1" stop-color="#FFF9F7"/>
+    </linearGradient>
+    <linearGradient id="ember" x1="20" y1="15" x2="76" y2="83" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#592C00"/>
+      <stop offset=".28" stop-color="#B68600"/>
+      <stop offset=".72" stop-color="#D67200"/>
+      <stop offset="1" stop-color="#FF4500"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="24" y1="24" x2="72" y2="72" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".6" stop-color="#FFF5EF"/>
+      <stop offset="1" stop-color="#FFFBFA"/>
+    </linearGradient>
+    <linearGradient id="darkGlass" x1="24" y1="22" x2="72" y2="72" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".58" stop-color="#FFF5EF"/>
+      <stop offset="1" stop-color="#FFFBFA"/>
+    </linearGradient>
+    <radialGradient id="disc" cx="39%" cy="31%" r="68%">
+      <stop offset="0" stop-color="#3D2400"/>
+      <stop offset=".28" stop-color="#B0852B"/>
+      <stop offset=".56" stop-color="#CE7755"/>
+      <stop offset="1" stop-color="#FFD8B2"/>
+    </radialGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#5C2400" flood-opacity=".2"/>
+    </filter>
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <g filter="url(#shadow)">
+    <path d="m11.7473 23.8198-5.4987-5.4987v-5.5349l5.4987 5.4986v5.535zm-.1036-17.6412-.0001-.0001.1768-.1768L5.9986.1799.1768 6.0018l.0001.0001 5.8217 5.8271 5.6451-5.6504zM0 6.5323v5.5347l5.7486 5.7539v-5.5347l-.1035-.1035.0001-.0001L0 6.5323zm17.6478 5.6504-5.6505-5.6505-5.6452 5.6504 5.6452 5.6453 5.6505-5.6452zm.1036 5.8885v-5.2853l-5.5042 5.4991v5.5351l5.5042-5.4991v-.2498zM24 6.5323l-5.6451 5.6503.0001.0001-.1036.1035v5.5346L24 12.067V6.5323zm-.1769-.5304.0001-.0001L18.0014.18l-5.8273 5.822 5.8273 5.8272 5.8217-5.8273z" transform="translate(12.00 12.00) scale(3)" fill="#43A047" stroke="#FFF9F7" stroke-width="0.52" paint-order="stroke fill" stroke-linejoin="round"/>
+  </g>
+</svg>

@@ -1,43 +1,152 @@
 {
   "name": "Gas Plasma",
   "slug": "gas-plasma",
-  "description": "An orange-dominant dark theme inspired by ionized gas glow.",
-  "core": {
-    "background": "#1A0A00",
-    "foreground": "#FF8C00",
-    "bold": "#FFD2A6",
-    "cursor": "#FF8C00",
-    "cursorText": "#1A0A00",
-    "selection": "#FF8C00",
-    "selectionAlpha": 0.3
-  },
-  "ansi": {
-    "normal": {
-      "black": "#1A0A00",
-      "red": "#FF4500",
-      "green": "#8B9A00",
-      "yellow": "#FFB347",
-      "blue": "#CC7A00",
-      "magenta": "#FF6B6B",
-      "cyan": "#D4A017",
-      "white": "#FFD2A6"
-    },
-    "bright": {
-      "black": "#4D2600",
-      "red": "#FF6B3D",
-      "green": "#B5CC18",
-      "yellow": "#FFD700",
-      "blue": "#E09530",
-      "magenta": "#FF9B7A",
-      "cyan": "#E8C547",
-      "white": "#FFF0DB"
-    }
-  },
+  "description": "An orange-dominant theme inspired by ionized gas glow, in dark, light, and auto variants.",
   "terminal": {
     "fontName": "SFMono-Regular",
     "fontSize": 13,
     "columns": 120,
     "rows": 30,
     "backgroundBlur": 0.4
+  },
+  "variants": {
+    "dark": {
+      "name": "Gas Plasma",
+      "appearance": "dark",
+      "fileSuffix": "",
+      "core": {
+        "background": "#1A0A00",
+        "foreground": "#FF8C00",
+        "bold": "#FFD2A6",
+        "cursor": "#FF8C00",
+        "cursorText": "#1A0A00",
+        "selection": "#FF8C00",
+        "selectionAlpha": 0.3
+      },
+      "ansi": {
+        "normal": {
+          "black": "#1A0A00",
+          "red": "#FF4500",
+          "green": "#8B9A00",
+          "yellow": "#FFB347",
+          "blue": "#CC7A00",
+          "magenta": "#FF6B6B",
+          "cyan": "#D4A017",
+          "white": "#FFD2A6"
+        },
+        "bright": {
+          "black": "#4D2600",
+          "red": "#FF6B3D",
+          "green": "#B5CC18",
+          "yellow": "#FFD700",
+          "blue": "#E09530",
+          "magenta": "#FF9B7A",
+          "cyan": "#E8C547",
+          "white": "#FFF0DB"
+        }
+      },
+      "ui": {
+        "page": "#0B0300",
+        "deep": "#140800",
+        "raised": "#261000",
+        "hover": "#331500",
+        "active": "#3A1800",
+        "border": "#4D2600",
+        "muted": "#9A5000",
+        "guide": "#CC7A00",
+        "strong": "#FFF0DB",
+        "textMuted": "#FFD2A6",
+        "subtle": "#FFC887",
+        "onAccent": "#1A0A00",
+        "accent": "#FF4500",
+        "accentHover": "#FF6B3D",
+        "focus": "#FFD700",
+        "link": "#E8C547",
+        "invalidBackground": "#8A1C00"
+      },
+      "syntax": {
+        "comment": "#D4A017",
+        "string": "#8B9A00",
+        "constant": "#FFD700",
+        "keyword": "#FF4500",
+        "function": "#E09530",
+        "type": "#E8C547",
+        "variable": "#FFD2A6",
+        "property": "#FFD2A6",
+        "namespace": "#FFB347",
+        "tag": "#FF6B3D",
+        "punctuation": "#FFF0DB",
+        "invalid": "#FFF0DB"
+      }
+    },
+    "light": {
+      "name": "Gas Plasma Light",
+      "appearance": "light",
+      "fileSuffix": "-Light",
+      "core": {
+        "background": "#FFF5EA",
+        "foreground": "#B84A00",
+        "bold": "#5C2400",
+        "cursor": "#E06A00",
+        "cursorText": "#FFF5EA",
+        "selection": "#FF8C00",
+        "selectionAlpha": 0.22
+      },
+      "ansi": {
+        "normal": {
+          "black": "#3D1A00",
+          "red": "#C42B00",
+          "green": "#5B6B00",
+          "yellow": "#9C5A00",
+          "blue": "#A04E00",
+          "magenta": "#B5304A",
+          "cyan": "#8A6200",
+          "white": "#B89A80"
+        },
+        "bright": {
+          "black": "#7A4A22",
+          "red": "#D8400A",
+          "green": "#6E8000",
+          "yellow": "#B06A00",
+          "blue": "#B85C00",
+          "magenta": "#C94A60",
+          "cyan": "#A07800",
+          "white": "#E8D2BC"
+        }
+      },
+      "ui": {
+        "page": "#FFFAF4",
+        "deep": "#FBEDDC",
+        "raised": "#F6E0C4",
+        "hover": "#F1D5B2",
+        "active": "#F9E2C6",
+        "border": "#E3BE94",
+        "muted": "#A86A3A",
+        "guide": "#D98A2B",
+        "strong": "#3D1A00",
+        "textMuted": "#7A4A22",
+        "subtle": "#8A4A12",
+        "onAccent": "#FFF5EA",
+        "accent": "#C42B00",
+        "accentHover": "#D8400A",
+        "focus": "#B06A00",
+        "link": "#8A6200",
+        "invalidBackground": "#C42B00"
+      },
+      "syntax": {
+        "comment": "#8C6A1A",
+        "string": "#5B6B00",
+        "constant": "#9A5800",
+        "keyword": "#C42B00",
+        "function": "#A04E00",
+        "type": "#8A6200",
+        "variable": "#5C2400",
+        "property": "#7A3D10",
+        "namespace": "#9C5A00",
+        "tag": "#B33A00",
+        "punctuation": "#6B3A1A",
+        "invalid": "#FFF5EA"
+      }
+    }
   }
 }

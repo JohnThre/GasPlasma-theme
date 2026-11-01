@@ -53,7 +53,11 @@ jobs:
       - name: Collect release artifacts
         run: |
           cp GasPlasma.terminal dist/
+          cp GasPlasma-Light.terminal dist/
           cp GasPlasma.itermcolors dist/
+          cp GasPlasma-Light.itermcolors dist/
+          cp GasPlasma-Auto.itermcolors dist/
+          cp assets/mockup-light.png dist/
           cp assets/logo.png dist/
           cp assets/mockup.png dist/
           cp assets/architecture.png dist/
@@ -70,7 +74,11 @@ jobs:
           generate_release_notes: true
           files: |
             dist/GasPlasma.terminal
+            dist/GasPlasma-Light.terminal
             dist/GasPlasma.itermcolors
+            dist/GasPlasma-Light.itermcolors
+            dist/GasPlasma-Auto.itermcolors
+            dist/mockup-light.png
             dist/jpfchang.gas-plasma-theme-*.vsix
             dist/logo.png
             dist/mockup.png

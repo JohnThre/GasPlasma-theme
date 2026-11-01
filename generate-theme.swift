@@ -1,10 +1,10 @@
 #!/usr/bin/env swift
 //
 // generate-theme.swift
-// Generates the GasPlasma.terminal profile for Apple Terminal.
+// Generates the Apple Terminal profiles for every palette variant.
 //
 // Usage: swift generate-theme.swift
-// Output: GasPlasma.terminal in the current directory
+// Output: GasPlasma.terminal and GasPlasma-Light.terminal in the current directory
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -46,10 +46,15 @@ struct ThemeSpec: Decodable {
         let backgroundBlur: Double
     }
 
-    let name: String
-    let core: Core
-    let ansi: Ansi
+    struct Variant: Decodable {
+        let name: String
+        let fileSuffix: String
+        let core: Core
+        let ansi: Ansi
+    }
+
     let terminal: Terminal
+    let variants: [String: Variant]
 }
 
 struct ColorDef {
@@ -93,71 +98,74 @@ let paletteURL = URL(fileURLWithPath: "src/palette.json")
 let paletteData = try Data(contentsOf: paletteURL)
 let spec = try JSONDecoder().decode(ThemeSpec.self, from: paletteData)
 
-let colors: [String: ColorDef] = [
-    "TextColor": ColorDef(hex: spec.core.foreground),
-    "BackgroundColor": ColorDef(hex: spec.core.background),
-    "TextBoldColor": ColorDef(hex: spec.core.bold),
-    "CursorColor": ColorDef(hex: spec.core.cursor),
-    "CursorTextColor": ColorDef(hex: spec.core.cursorText),
-    "SelectionColor": ColorDef(hex: spec.core.selection, alpha: spec.core.selectionAlpha),
+for key in spec.variants.keys.sorted() {
+    let variant = spec.variants[key]!
+    let colors: [String: ColorDef] = [
+        "TextColor": ColorDef(hex: variant.core.foreground),
+        "BackgroundColor": ColorDef(hex: variant.core.background),
+        "TextBoldColor": ColorDef(hex: variant.core.bold),
+        "CursorColor": ColorDef(hex: variant.core.cursor),
+        "CursorTextColor": ColorDef(hex: variant.core.cursorText),
+        "SelectionColor": ColorDef(hex: variant.core.selection, alpha: variant.core.selectionAlpha),
 
-    "ANSIBlackColor": ColorDef(hex: spec.ansi.normal.black),
-    "ANSIRedColor": ColorDef(hex: spec.ansi.normal.red),
-    "ANSIGreenColor": ColorDef(hex: spec.ansi.normal.green),
-    "ANSIYellowColor": ColorDef(hex: spec.ansi.normal.yellow),
-    "ANSIBlueColor": ColorDef(hex: spec.ansi.normal.blue),
-    "ANSIMagentaColor": ColorDef(hex: spec.ansi.normal.magenta),
-    "ANSICyanColor": ColorDef(hex: spec.ansi.normal.cyan),
-    "ANSIWhiteColor": ColorDef(hex: spec.ansi.normal.white),
+        "ANSIBlackColor": ColorDef(hex: variant.ansi.normal.black),
+        "ANSIRedColor": ColorDef(hex: variant.ansi.normal.red),
+        "ANSIGreenColor": ColorDef(hex: variant.ansi.normal.green),
+        "ANSIYellowColor": ColorDef(hex: variant.ansi.normal.yellow),
+        "ANSIBlueColor": ColorDef(hex: variant.ansi.normal.blue),
+        "ANSIMagentaColor": ColorDef(hex: variant.ansi.normal.magenta),
+        "ANSICyanColor": ColorDef(hex: variant.ansi.normal.cyan),
+        "ANSIWhiteColor": ColorDef(hex: variant.ansi.normal.white),
 
-    "ANSIBrightBlackColor": ColorDef(hex: spec.ansi.bright.black),
-    "ANSIBrightRedColor": ColorDef(hex: spec.ansi.bright.red),
-    "ANSIBrightGreenColor": ColorDef(hex: spec.ansi.bright.green),
-    "ANSIBrightYellowColor": ColorDef(hex: spec.ansi.bright.yellow),
-    "ANSIBrightBlueColor": ColorDef(hex: spec.ansi.bright.blue),
-    "ANSIBrightMagentaColor": ColorDef(hex: spec.ansi.bright.magenta),
-    "ANSIBrightCyanColor": ColorDef(hex: spec.ansi.bright.cyan),
-    "ANSIBrightWhiteColor": ColorDef(hex: spec.ansi.bright.white)
-]
+        "ANSIBrightBlackColor": ColorDef(hex: variant.ansi.bright.black),
+        "ANSIBrightRedColor": ColorDef(hex: variant.ansi.bright.red),
+        "ANSIBrightGreenColor": ColorDef(hex: variant.ansi.bright.green),
+        "ANSIBrightYellowColor": ColorDef(hex: variant.ansi.bright.yellow),
+        "ANSIBrightBlueColor": ColorDef(hex: variant.ansi.bright.blue),
+        "ANSIBrightMagentaColor": ColorDef(hex: variant.ansi.bright.magenta),
+        "ANSIBrightCyanColor": ColorDef(hex: variant.ansi.bright.cyan),
+        "ANSIBrightWhiteColor": ColorDef(hex: variant.ansi.bright.white)
+    ]
 
-var profile: [String: Any] = [:]
+    var profile: [String: Any] = [:]
 
-profile["name"] = spec.name
-profile["type"] = "Window Settings"
-profile["ProfileCurrentVersion"] = "2.09"
+    profile["name"] = variant.name
+    profile["type"] = "Window Settings"
+    profile["ProfileCurrentVersion"] = "2.09"
 
-profile["columnCount"] = spec.terminal.columns
-profile["rowCount"] = spec.terminal.rows
+    profile["columnCount"] = spec.terminal.columns
+    profile["rowCount"] = spec.terminal.rows
 
-profile["Font"] = archiveFont(name: spec.terminal.fontName, size: CGFloat(spec.terminal.fontSize))
-profile["FontAntialias"] = true
-profile["FontWidthSpacing"] = 1.0
-profile["FontHeightSpacing"] = 1.0
+    profile["Font"] = archiveFont(name: spec.terminal.fontName, size: CGFloat(spec.terminal.fontSize))
+    profile["FontAntialias"] = true
+    profile["FontWidthSpacing"] = 1.0
+    profile["FontHeightSpacing"] = 1.0
 
-profile["DisableANSIColor"] = false
-profile["UseBoldFonts"] = true
-profile["UseBrightBold"] = true
+    profile["DisableANSIColor"] = false
+    profile["UseBoldFonts"] = true
+    profile["UseBrightBold"] = true
 
-profile["BackgroundBlur"] = spec.terminal.backgroundBlur
-profile["BackgroundBlurInactive"] = 0
-profile["BackgroundSettingsForInactiveWindows"] = true
+    profile["BackgroundBlur"] = spec.terminal.backgroundBlur
+    profile["BackgroundBlurInactive"] = 0
+    profile["BackgroundSettingsForInactiveWindows"] = true
 
-profile["ShowActiveProcessInTitle"] = true
-profile["ShowRepresentedURLInTitle"] = true
-profile["ShowRepresentedURLPathInTitle"] = true
-profile["ShowWindowSettingsNameInTitle"] = true
+    profile["ShowActiveProcessInTitle"] = true
+    profile["ShowRepresentedURLInTitle"] = true
+    profile["ShowRepresentedURLPathInTitle"] = true
+    profile["ShowWindowSettingsNameInTitle"] = true
 
-profile["ShouldLimitScrollback"] = 0
+    profile["ShouldLimitScrollback"] = 0
 
-for (key, def) in colors {
-    profile[key] = archiveColor(def)
+    for (key, def) in colors {
+        profile[key] = archiveColor(def)
+    }
+
+    let outputPath = "GasPlasma\(variant.fileSuffix).terminal"
+    let data = try PropertyListSerialization.data(
+        fromPropertyList: profile, format: .xml, options: 0
+    )
+    try data.write(to: URL(fileURLWithPath: outputPath))
+
+    print("Generated \(outputPath) (\(data.count) bytes)")
+    print("Install: open \(outputPath)")
 }
-
-let outputPath = "GasPlasma.terminal"
-let data = try PropertyListSerialization.data(
-    fromPropertyList: profile, format: .xml, options: 0
-)
-try data.write(to: URL(fileURLWithPath: outputPath))
-
-print("Generated \(outputPath) (\(data.count) bytes)")
-print("Install: open \(outputPath)")

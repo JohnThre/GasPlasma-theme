@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- Added the `Gas Plasma Light` variant for Apple Terminal, iTerm2, VS Code, and Zed, generated from a new `variants.light` palette (the dark theme keeps the `Gas Plasma` name).
+- Added auto (follow the OS) support: `GasPlasma-Auto.itermcolors` with separate light and dark colors for iTerm2 3.5+, a light/dark Zed theme and icon theme family for `"mode": "system"`, and documented VS Code `window.autoDetectColorScheme` settings.
+- Added light file icons: the VS Code icon theme switches to them automatically under light color themes, and Zed gets a `Gas Plasma Icons Light` icon theme.
+- The documentation site now has a Light / Dark / Auto switch, light icon gallery, and light mockup.
+- `npm run check` now enforces WCAG contrast for editor text colors in every palette variant.
+- Dark theme accessibility: button and badge text is now dark on the orange-red accent (5.5:1, was 3.07:1), and line numbers moved from `#8F4A00` to `#9A5000` (3.2:1, was 2.89:1).
 - Named folders now use folder-shaped icons with an emblem, and show a distinct open icon when expanded in VS Code and Zed.
 - Fixed Zed file name mappings: dotted names such as `main.tf` and `package.json` match by full name instead of claiming every file with the same stem.
 - Expanded file icon coverage to about 350 extensions, 190 file names, and 100 folder names, with new ecosystem logos (ESLint, Prettier, Vite, React, Tailwind CSS, Bun, Deno, pnpm, Yarn, Gradle, Kubernetes, and more) and new generic icons for tests, notebooks, binaries, spreadsheets, slides, diffs, certificates, shaders, 3D models, logs, and environment files.

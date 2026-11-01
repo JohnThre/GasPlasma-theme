@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96" role="img" aria-label="Gas Plasma Gradle icon">
+  <defs>
+    <linearGradient id="tile" x1="14" y1="10" x2="82" y2="86" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".48" stop-color="#FFF0E9"/>
+      <stop offset="1" stop-color="#FFF9F7"/>
+    </linearGradient>
+    <linearGradient id="ember" x1="20" y1="15" x2="76" y2="83" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#592C00"/>
+      <stop offset=".28" stop-color="#B68600"/>
+      <stop offset=".72" stop-color="#D67200"/>
+      <stop offset="1" stop-color="#FF4500"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="24" y1="24" x2="72" y2="72" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".6" stop-color="#FFF5EF"/>
+      <stop offset="1" stop-color="#FFFBFA"/>
+    </linearGradient>
+    <linearGradient id="darkGlass" x1="24" y1="22" x2="72" y2="72" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".58" stop-color="#FFF5EF"/>
+      <stop offset="1" stop-color="#FFFBFA"/>
+    </linearGradient>
+    <radialGradient id="disc" cx="39%" cy="31%" r="68%">
+      <stop offset="0" stop-color="#3D2400"/>
+      <stop offset=".28" stop-color="#B0852B"/>
+      <stop offset=".56" stop-color="#CE7755"/>
+      <stop offset="1" stop-color="#FFD8B2"/>
+    </radialGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#5C2400" flood-opacity=".2"/>
+    </filter>
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <g filter="url(#shadow)">
+    <path d="M22.695 4.297a3.807 3.807 0 0 0-5.29-.09.368.368 0 0 0 0 .533l.46.47a.363.363 0 0 0 .474.032 2.182 2.182 0 0 1 2.86 3.291c-3.023 3.02-7.056-5.447-16.211-1.083a1.24 1.24 0 0 0-.534 1.745l1.571 2.713a1.238 1.238 0 0 0 1.681.461l.037-.02-.029.02.688-.384a16.083 16.083 0 0 0 2.193-1.635.384.384 0 0 1 .499-.016.357.357 0 0 1 .016.534 16.435 16.435 0 0 1-2.316 1.741H8.77l-.696.39a1.958 1.958 0 0 1-.963.25 1.987 1.987 0 0 1-1.726-.989L3.9 9.696C1.06 11.72-.686 15.603.26 20.522a.363.363 0 0 0 .354.296h1.675a.363.363 0 0 0 .37-.331 2.478 2.478 0 0 1 4.915 0 .36.36 0 0 0 .357.317h1.638a.363.363 0 0 0 .357-.317 2.478 2.478 0 0 1 4.914 0 .363.363 0 0 0 .358.317h1.627a.363.363 0 0 0 .363-.357c.037-2.294.656-4.93 2.42-6.25 6.108-4.57 4.502-8.486 3.088-9.9zm-6.229 6.901l-1.165-.584a.73.73 0 1 1 1.165.587z" transform="translate(12.00 12.00) scale(3)" fill="#5C9397" stroke="#FFF9F7" stroke-width="0.52" paint-order="stroke fill" stroke-linejoin="round"/>
+  </g>
+</svg>

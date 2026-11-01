@@ -4,11 +4,14 @@
 [![Pages](https://github.com/JohnThre/GasPlasma-theme/actions/workflows/pages.yml/badge.svg)](https://github.com/JohnThre/GasPlasma-theme/actions/workflows/pages.yml)
 [![Open VSX](https://img.shields.io/open-vsx/v/jpfchang/gas-plasma-theme?label=Open%20VSX)](https://open-vsx.org/extension/jpfchang/gas-plasma-theme)
 
-Gas Plasma is an orange-dominant dark theme for Apple Terminal, iTerm2, VS Code, Open VSX-compatible editors, and Zed.
+Gas Plasma is an orange-dominant theme for Apple Terminal, iTerm2, VS Code, Open VSX-compatible editors, and Zed. It comes in **dark** (`Gas Plasma`), **light** (`Gas Plasma Light`), and **auto** (follow the OS appearance) variants, with matching light and dark file icons.
 
 The project ships one shared palette across terminal profiles, VS Code and Zed color themes, VS Code and Zed file icon themes, a VS Code product icon theme, a generated logo, and a generated documentation site.
 
-![Gas Plasma theme preview](assets/mockup.png)
+<picture>
+  <source media="(prefers-color-scheme: light)" srcset="assets/mockup-light.png">
+  <img alt="Gas Plasma theme preview" src="assets/mockup.png">
+</picture>
 
 ## Contents
 
@@ -24,18 +27,26 @@ The project ships one shared palette across terminal profiles, VS Code and Zed c
 
 ### Apple Terminal
 
-1. Download `GasPlasma.terminal` from this repository or the latest GitHub Release.
-2. Open the file to import the profile into Terminal.
-3. Set "Gas Plasma" as the default profile from **Terminal > Settings > Profiles** if desired.
+1. Download `GasPlasma.terminal` (dark) and/or `GasPlasma-Light.terminal` (light) from this repository or the latest GitHub Release.
+2. Open each file to import the profile into Terminal.
+3. Set "Gas Plasma" or "Gas Plasma Light" as the default profile from **Terminal > Settings > Profiles** if desired.
 
-Manual import: **Terminal > Settings > Profiles > ... > Import...** and select `GasPlasma.terminal`.
+Manual import: **Terminal > Settings > Profiles > ... > Import...** and select the `.terminal` file.
+
+Apple Terminal profiles cannot follow the system appearance on their own, so there is no auto profile; switch between the two profiles manually.
 
 ### iTerm2
 
-1. Download `GasPlasma.itermcolors` from this repository or the latest GitHub Release.
+| Preset | Variant |
+|---|---|
+| `GasPlasma.itermcolors` | Dark |
+| `GasPlasma-Light.itermcolors` | Light |
+| `GasPlasma-Auto.itermcolors` | Auto: dark and light colors that follow the macOS appearance (iTerm2 3.5+) |
+
+1. Download a preset from this repository or the latest GitHub Release.
 2. Open **iTerm2 > Settings > Profiles > Colors**.
-3. Choose **Color Presets... > Import...** and select `GasPlasma.itermcolors`.
-4. Select `GasPlasma` from **Color Presets...**.
+3. For auto, enable **Use separate colors for light and dark mode** first.
+4. Choose **Color Presets... > Import...**, select the file, then select it from **Color Presets...**.
 
 ### VS Code and Open VSX
 
@@ -58,9 +69,30 @@ After installation, enable the companion icon themes from the command palette:
 - **Preferences: File Icon Theme** > `Gas Plasma Icons`
 - **Preferences: Product Icon Theme** > `Gas Plasma Product Icons`
 
+Pick `Gas Plasma` (dark) or `Gas Plasma Light` from **Preferences: Color Theme**. The file icon theme switches to its light icons automatically whenever a light color theme is active, and product icons take their color from the active theme.
+
+For auto, let VS Code follow the OS appearance:
+
+```jsonc
+// settings.json — follow the OS appearance
+"window.autoDetectColorScheme": true,
+"workbench.preferredDarkColorTheme": "Gas Plasma",
+"workbench.preferredLightColorTheme": "Gas Plasma Light",
+"workbench.iconTheme": "gas-plasma-icons"
+```
+
 ### Zed
 
 Install `Gas Plasma Theme` and `Gas Plasma Icons` from the Zed extensions store after the marketplace PR has been reviewed and merged.
+
+Both extensions contain dark and light variants: `Gas Plasma` / `Gas Plasma Light` and `Gas Plasma Icons` / `Gas Plasma Icons Light`. For auto, follow the system appearance in `settings.json`:
+
+```json
+{
+  "theme": { "mode": "system", "dark": "Gas Plasma", "light": "Gas Plasma Light" },
+  "icon_theme": { "mode": "system", "dark": "Gas Plasma Icons", "light": "Gas Plasma Icons Light" }
+}
+```
 
 For local testing, install each generated extension directory as a Zed dev extension:
 
@@ -71,14 +103,16 @@ For local testing, install each generated extension directory as a Zed dev exten
 
 | Asset | Purpose | Source |
 |---|---|---|
-| `GasPlasma.terminal` | Apple Terminal profile | `generate-theme.swift`, `src/palette.json` |
-| `GasPlasma.itermcolors` | iTerm2 color preset | `scripts/build.mjs`, `src/palette.json` |
-| `themes/gas-plasma-color-theme.json` | VS Code color theme | `scripts/build.mjs`, `src/palette.json` |
-| `icons/file/gas-plasma-icon-theme.json` | VS Code file icon theme | `scripts/build.mjs`, `src/icon-manifest.json` |
+| `GasPlasma.terminal`, `GasPlasma-Light.terminal` | Apple Terminal profiles | `generate-theme.swift`, `src/palette.json` |
+| `GasPlasma.itermcolors`, `GasPlasma-Light.itermcolors`, `GasPlasma-Auto.itermcolors` | iTerm2 color presets (dark, light, auto) | `scripts/build.mjs`, `src/palette.json` |
+| `themes/gas-plasma-color-theme.json`, `themes/gas-plasma-light-color-theme.json` | VS Code color themes | `scripts/build.mjs`, `src/palette.json` |
+| `icons/file/gas-plasma-icon-theme.json` | VS Code file icon theme (`svg/` dark, `svg-light/` light) | `scripts/build.mjs`, `src/icon-manifest.json` |
 | `icons/product/gas-plasma-product-icon-theme.json` | VS Code product icon theme | `scripts/build.mjs`, `@vscode/codicons` |
-| `zed/gas-plasma-theme/` | Zed color theme extension | `scripts/build.mjs`, `src/palette.json` |
-| `zed/gas-plasma-icons/` | Zed file icon theme extension | `scripts/build.mjs`, `src/icon-manifest.json` |
+| `zed/gas-plasma-theme/` | Zed color theme extension (dark + light) | `scripts/build.mjs`, `src/palette.json` |
+| `zed/gas-plasma-icons/` | Zed file icon theme extension (dark + light) | `scripts/build.mjs`, `src/icon-manifest.json` |
 | `assets/logo.*`, `assets/mockup.*`, `docs/index.html` | Brand and documentation assets | `scripts/build.mjs` |
+
+`src/palette.json` defines a `variants.dark` and `variants.light` palette (core, ANSI, UI surface, and syntax colors). Light file icons are derived from the dark artwork at build time: warm neutrals are mirrored in lightness and accents are deepened until they keep at least 3:1 contrast on the light tile.
 
 File icons use recognizable upstream language and ecosystem logo geometry where available, with restrained Gas Plasma color treatment for contrast. Product icons are generated from VS Code Codicons to preserve the original editor UI icon language.
 

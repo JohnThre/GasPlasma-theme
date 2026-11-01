@@ -1,10 +1,12 @@
 # Gas Plasma
 
-Gas Plasma is an orange-dominant dark theme for VS Code and Open VSX-compatible editors.
+Gas Plasma is an orange-dominant theme for VS Code and Open VSX-compatible editors, in dark, light, and auto (follow the OS) variants.
 
 It ships a VS Code color theme, a file icon theme, and a product icon theme generated from one shared palette and icon manifest.
 
 ![Gas Plasma preview](assets/mockup.png)
+
+![Gas Plasma Light preview](assets/mockup-light.png)
 
 ## Install
 
@@ -20,14 +22,25 @@ code --install-extension jpfchang.gas-plasma-theme-0.1.0.vsix
 
 ## Included Themes
 
-- `Gas Plasma`
-- `Gas Plasma Icons`
+- `Gas Plasma` (dark)
+- `Gas Plasma Light`
+- `Gas Plasma Icons` (switches to light icons automatically with a light color theme)
 - `Gas Plasma Product Icons`
 
 Enable the icon themes from the command palette:
 
 - `Preferences: File Icon Theme` > `Gas Plasma Icons`
 - `Preferences: Product Icon Theme` > `Gas Plasma Product Icons`
+
+To follow the OS appearance (auto):
+
+```jsonc
+// settings.json — follow the OS appearance
+"window.autoDetectColorScheme": true,
+"workbench.preferredDarkColorTheme": "Gas Plasma",
+"workbench.preferredLightColorTheme": "Gas Plasma Light",
+"workbench.iconTheme": "gas-plasma-icons"
+```
 
 ## Icon System
 
@@ -43,8 +56,8 @@ Named folders (`src`, `tests`, `.github`, `components`, `node_modules`, and abou
 
 The repository release also includes matching terminal profiles:
 
-- `GasPlasma.terminal`
-- `GasPlasma.itermcolors`
+- `GasPlasma.terminal`, `GasPlasma-Light.terminal`
+- `GasPlasma.itermcolors`, `GasPlasma-Light.itermcolors`, `GasPlasma-Auto.itermcolors`
 
 ## Attribution
 
