@@ -37,7 +37,7 @@
   </defs>
   <g filter="url(#shadow)">
     <path d="M48 14l30 17v34L48 82 18 65V31z" fill="url(#tile)" stroke="#FFD2A6" stroke-width="2" stroke-linejoin="round"/>
-    <path d="M18 31l30 16 30-16M48 47v35" fill="none" stroke="#4D2600" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M18 31l30 16 30-16M48 47v35" fill="none" stroke="#FF8C00" stroke-width="3.5" stroke-linejoin="round"/>
     <path d="M33 23l30 16" stroke="#FFF0DB" stroke-width="3" stroke-linecap="round" opacity=".52"/>
   </g>
 </svg>

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { createHash } from "node:crypto";
-import { mkdirSync, readFileSync, rmSync, writeFileSync, copyFileSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { Resvg } from "@resvg/resvg-js";
@@ -446,6 +446,12 @@ function mapIconAssociations(values = {}) {
   );
 }
 
+function mapFolderAssociations(values = {}, open = false) {
+  return Object.fromEntries(
+    Object.entries(values).map(([folderName, emblem]) => [folderName, iconDefName(folderIconName(emblem, open))])
+  );
+}
+
 function fileIconSvg(title, body) {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96" role="img" aria-label="${xmlEscape(title)}">
   <defs>
@@ -495,7 +501,7 @@ function glassTile(inner, accent = "#FF4500") {
     <path d="M57 9v18h18" fill="#321500" stroke="${accent}" stroke-width="2.5" stroke-linejoin="round"/>
     <path d="M26 17h20" stroke="#FFF0DB" stroke-width="3" stroke-linecap="round" opacity=".38"/>
     <path d="M24 77h42" stroke="${accent}" stroke-width="3.5" stroke-linecap="round" opacity=".9"/>
-    ${inner}
+    <!--glyph-->${inner}<!--/glyph-->
   </g>`;
 }
 
@@ -503,9 +509,41 @@ function languageText(label, x, y, size, fill = "#FFD2A6", weight = 900) {
   return `<text x="${x}" y="${y}" text-anchor="middle" font-family="Inter, SF Pro Display, Segoe UI, Arial, sans-serif" font-size="${size}" font-weight="${weight}" fill="${fill}">${xmlEscape(label)}</text>`;
 }
 
-function simpleIconColor(icon, fallback = "#FFD2A6") {
-  if (!icon?.hex || icon.hex === "000000" || icon.hex === "000080") return fallback;
-  return `#${icon.hex}`;
+function relativeLuminance(hex) {
+  const { r, g, b } = hexToRgb(hex);
+  const channel = (value) => {
+    const c = value / 255;
+    return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+  };
+  return (0.2126 * channel(r)) + (0.7152 * channel(g)) + (0.0722 * channel(b));
+}
+
+function mixHex(from, to, amount) {
+  const a = hexToRgb(from);
+  const b = hexToRgb(to);
+  const mix = (x, y) => Math.round(x + ((y - x) * amount)).toString(16).padStart(2, "0");
+  return `#${mix(a.r, b.r)}${mix(a.g, b.g)}${mix(a.b, b.b)}`.toUpperCase();
+}
+
+// Icons sit on near-black (#140800) tiles; lift brand colors that would vanish there
+// toward the theme's peach so every mark keeps at least ~3.5:1 contrast.
+const minIconLuminance = 0.14;
+const iconLiftColor = "#FFD2A6";
+
+function liftForDarkTile(hex, fallback = iconLiftColor) {
+  if (relativeLuminance(hex) >= minIconLuminance) return hex.toUpperCase();
+  const { r, g, b } = hexToRgb(hex);
+  if (Math.max(r, g, b) - Math.min(r, g, b) < 24) return fallback;
+  for (let amount = 0.05; amount < 1; amount += 0.05) {
+    const lifted = mixHex(hex, iconLiftColor, amount);
+    if (relativeLuminance(lifted) >= minIconLuminance) return lifted;
+  }
+  return fallback;
+}
+
+function simpleIconColor(icon, fallback = iconLiftColor) {
+  if (!icon?.hex) return fallback;
+  return liftForDarkTile(`#${icon.hex}`, fallback);
 }
 
 function simpleIconFileSvg(title, icon, options = {}) {
@@ -521,97 +559,84 @@ function simpleIconFileSvg(title, icon, options = {}) {
   </g>`);
 }
 
-function languageBadge(label, accent = "#E8C547", kind = "mono") {
-  const size = label.length === 1 ? 36 : label.length <= 2 ? 31 : label.length <= 3 ? 25 : label.length <= 4 ? 19 : 15;
-  const labelY = label.length <= 4 ? 57 : 56;
-  const centerLabel = languageText(label, 48, labelY, size);
-  const frame = `<rect x="23" y="23" width="50" height="50" rx="12" fill="url(#tile)" stroke="${accent}" stroke-width="4" stroke-linejoin="round"/>`;
-  let inner;
+function badgeLabelSize(label, max = 40) {
+  const sizes = [40, 40, 32, 25, 20, 16];
+  return Math.min(max, sizes[Math.min(label.length, sizes.length - 1)]);
+}
 
+// Framed badges: dark tile, bold label, solid accent band carrying a small kind motif.
+const badgeBandMotifs = {
+  bars: `<path d="M34 69h8M44 69h8M54 69h8" stroke="#140800" stroke-width="3.4" stroke-linecap="round"/>`,
+  split: `<path d="M48 63v12" stroke="#140800" stroke-width="3.4" stroke-linecap="round"/>`,
+  steam: `<path d="M38 72c-2-3 3-4 1-7M48 72c-2-3 3-4 1-7M58 72c-2-3 3-4 1-7" fill="none" stroke="#140800" stroke-width="2.6" stroke-linecap="round"/>`,
+  snake: `<path d="M33 69c5-5 10 5 15 0s10 5 15 0" fill="none" stroke="#140800" stroke-width="3" stroke-linecap="round"/>`,
+  terminal: `<path d="M34 65l5 4-5 4M44 73h10" fill="none" stroke="#140800" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`,
+  wave: `<path d="M31 70c4-6 8-6 11 0s8 6 11 0 8-6 11 0" fill="none" stroke="#140800" stroke-width="3" stroke-linecap="round"/>`,
+  mono: ""
+};
+
+function languageBadge(label, accent = "#E8C547", kind = "mono") {
+  accent = liftForDarkTile(accent);
+  const size = badgeLabelSize(label);
+  const centerLabel = languageText(label, 48, 49 + (size * 0.36), size);
+
+  if (kind in badgeBandMotifs) {
+    const bandLabelSize = badgeLabelSize(label, 30);
+    return `<g filter="url(#shadow)">
+    <rect x="17" y="17" width="62" height="62" rx="14" fill="url(#tile)" stroke="${accent}" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M19 61h58v4c0 7-5 12-12 12H31c-7 0-12-5-12-12z" fill="${accent}"/>
+    <path d="M27 24c11-4 31-4 42 0" fill="none" stroke="#FFF0DB" stroke-width="3" stroke-linecap="round" opacity=".32"/>
+    ${languageText(label, 48, 41 + (bandLabelSize * 0.36), bandLabelSize)}
+    ${badgeBandMotifs[kind]}
+  </g>`;
+  }
+
+  let inner;
   switch (kind) {
     case "hex":
-      inner = `<path d="M48 17l29 17v31L48 82 19 65V34z" fill="url(#tile)" stroke="${accent}" stroke-width="4.5" stroke-linejoin="round"/>
-    ${centerLabel}`;
-      break;
-    case "split":
-      inner = `${frame}
-    <path d="M48 24v48" stroke="${accent}" stroke-width="3" opacity=".34"/>
-    ${centerLabel}`;
-      break;
-    case "snake":
-      inner = `${frame}
-    <path d="M31 38c0-8 6-13 15-13h12" fill="none" stroke="${accent}" stroke-width="6" stroke-linecap="round"/>
-    <path d="M65 62c0 8-6 13-15 13H38" fill="none" stroke="#FFD2A6" stroke-width="5" stroke-linecap="round" opacity=".84"/>
-    ${centerLabel}`;
-      break;
-    case "steam":
-      inner = `${frame}
-    <path d="M37 38c-3-5 5-7 1-12M48 38c-3-5 5-7 1-12M59 38c-3-5 5-7 1-12" fill="none" stroke="${accent}" stroke-width="4" stroke-linecap="round"/>
-    <path d="M32 64h32" stroke="#FFD2A6" stroke-width="4" stroke-linecap="round" opacity=".78"/>
+      inner = `<path d="M48 13l32 18.5v35L48 85 16 66.5v-35z" fill="url(#tile)" stroke="${accent}" stroke-width="5" stroke-linejoin="round"/>
     ${centerLabel}`;
       break;
     case "gear":
-      inner = `<circle cx="48" cy="49" r="25" fill="url(#tile)" stroke="${accent}" stroke-width="4.5"/>
-    <path d="M48 18v8M48 72v8M17 49h8M71 49h8M27 28l6 6M63 64l6 6M69 28l-6 6M33 64l-6 6" stroke="${accent}" stroke-width="3.2" stroke-linecap="round"/>
+      inner = `<circle cx="48" cy="48" r="27" fill="url(#tile)" stroke="${accent}" stroke-width="5"/>
+    <path d="M48 13v8M48 75v8M13 48h8M75 48h8M23 23l6 6M67 67l6 6M73 23l-6 6M29 67l-6 6" stroke="${accent}" stroke-width="4" stroke-linecap="round"/>
     ${centerLabel}`;
       break;
     case "gem":
-      inner = `<path d="M48 18l28 18-28 45-28-45z" fill="url(#tile)" stroke="${accent}" stroke-width="4.5" stroke-linejoin="round"/>
-    <path d="M22 36h52M36 36l12 43 12-43" fill="none" stroke="#FFD2A6" stroke-width="2.7" stroke-linejoin="round" opacity=".34"/>
-    ${centerLabel}`;
+      inner = `<path d="M48 15l31 20-31 47-31-47z" fill="url(#tile)" stroke="${accent}" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M19 35h58" stroke="${accent}" stroke-width="3" opacity=".6"/>
+    ${languageText(label, 48, 54 + (Math.min(size, 25) * 0.36), Math.min(size, 25))}`;
       break;
     case "lambda":
-      inner = `<path d="M36 66l12-37 12 37M43 53h17" fill="none" stroke="${accent}" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity=".62"/>
+      inner = `<rect x="16" y="16" width="64" height="64" rx="32" fill="url(#tile)" stroke="${accent}" stroke-width="5"/>
+    <path d="M35 69l13-38 13 38M43 54h16" fill="none" stroke="${accent}" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity=".42"/>
     ${centerLabel}`;
       break;
     case "orbit":
-      inner = `<circle cx="48" cy="49" r="24" fill="url(#tile)" stroke="${accent}" stroke-width="4.5"/>
-    <path d="M19 51c14-21 43-27 58-11M75 45c-14 22-43 28-58 12" fill="none" stroke="#FFD2A6" stroke-width="3" stroke-linecap="round" opacity=".42"/>
+      inner = `<circle cx="48" cy="48" r="27" fill="url(#tile)" stroke="${accent}" stroke-width="5"/>
+    <path d="M15 51c15-23 47-29 64-12M81 45c-15 24-47 30-64 13" fill="none" stroke="${accent}" stroke-width="3" stroke-linecap="round" opacity=".5"/>
     ${centerLabel}`;
       break;
     case "flame":
-      inner = `<path d="M35 69c-12-18 2-29 8-48 14 9 25 22 21 39-3 12-12 18-22 16 5-5 6-12 2-19-3 6-6 10-9 12z" fill="url(#tile)" stroke="${accent}" stroke-width="4.5" stroke-linejoin="round"/>
+      inner = `<path d="M33 72c-13-19 2-31 9-52 15 10 27 24 23 42-3 13-13 20-24 18 5-6 7-13 2-21-3 7-7 11-10 13z" fill="url(#tile)" stroke="${accent}" stroke-width="5" stroke-linejoin="round"/>
     ${centerLabel}`;
       break;
     case "pill":
-      inner = `<rect x="18" y="31" width="60" height="34" rx="17" fill="url(#tile)" stroke="${accent}" stroke-width="4.5"/>
-    ${centerLabel}`;
-      break;
-    case "wave":
-      inner = `${frame}
-    <path d="M25 63c9-23 22-24 32-3 5 9 10 10 16 1" fill="none" stroke="${accent}" stroke-width="5" stroke-linecap="round" opacity=".72"/>
-    ${centerLabel}`;
-      break;
-    case "terminal":
-      inner = `${frame}
-    <path d="M31 40l8 8-8 8M45 56h18" fill="none" stroke="${accent}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity=".72"/>
-    ${languageText(label, 49, 67, Math.max(14, size - 7))}`;
-      break;
-    case "bars":
-      inner = `${frame}
-    <path d="M30 36h36M30 48h30M30 60h36" stroke="#FFD2A6" stroke-width="4" stroke-linecap="round" opacity=".34"/>
+      inner = `<rect x="12" y="27" width="72" height="42" rx="21" fill="url(#tile)" stroke="${accent}" stroke-width="5"/>
     ${centerLabel}`;
       break;
     case "dart":
-      inner = `<path d="M24 24h31l18 18v30H42L23 53z" fill="url(#tile)" stroke="${accent}" stroke-width="4.5" stroke-linejoin="round"/>
-    <path d="M24 24l20 20h29M42 72V44" fill="none" stroke="#FFD2A6" stroke-width="3" stroke-linejoin="round" opacity=".36"/>
+      inner = `<path d="M20 20h35l21 21v35H40L19 55z" fill="url(#tile)" stroke="${accent}" stroke-width="5" stroke-linejoin="round"/>
     ${centerLabel}`;
       break;
     case "shield":
-      inner = `<path d="M24 18h48l-4 51-20 11-20-11z" fill="url(#tile)" stroke="${accent}" stroke-width="4.5" stroke-linejoin="round"/>
-    <path d="M36 30h27M34 45h25M36 60h20" stroke="#FFD2A6" stroke-width="3" stroke-linecap="round" opacity=".24"/>
+      inner = `<path d="M20 15h56l-5 56-23 12-23-12z" fill="url(#tile)" stroke="${accent}" stroke-width="5" stroke-linejoin="round"/>
     ${centerLabel}`;
       break;
     case "square":
-      inner = `<rect x="20" y="20" width="56" height="56" rx="10" fill="url(#tile)" stroke="${accent}" stroke-width="4.5" stroke-linejoin="round"/>
-    ${centerLabel}`;
-      break;
-    case "mono":
     default:
-      inner = `${frame}
-    <path d="M30 34h36" stroke="${accent}" stroke-width="4" stroke-linecap="round"/>
-    ${centerLabel}
-    <path d="M32 62h32" stroke="${accent}" stroke-width="3" stroke-linecap="round" opacity=".52"/>`;
+      inner = `<rect x="16" y="16" width="64" height="64" rx="12" fill="url(#tile)" stroke="${accent}" stroke-width="5" stroke-linejoin="round"/>
+    ${centerLabel}`;
       break;
   }
 
@@ -675,7 +700,7 @@ const fileIconRenderers = {
     <path d="M38 66h20" stroke="#FF8C00" stroke-width="4" stroke-linecap="round" opacity=".9"/>`, "#FFD2A6")),
   package: () => fileIconSvg("Gas Plasma package icon", `<g filter="url(#shadow)">
     <path d="M48 14l30 17v34L48 82 18 65V31z" fill="url(#tile)" stroke="#FFD2A6" stroke-width="2" stroke-linejoin="round"/>
-    <path d="M18 31l30 16 30-16M48 47v35" fill="none" stroke="#4D2600" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M18 31l30 16 30-16M48 47v35" fill="none" stroke="#FF8C00" stroke-width="3.5" stroke-linejoin="round"/>
     <path d="M33 23l30 16" stroke="#FFF0DB" stroke-width="3" stroke-linecap="round" opacity=".52"/>
   </g>`),
   palette: () => fileIconSvg("Gas Plasma palette icon", glassTile(`<rect x="29" y="28" width="15" height="15" rx="4" fill="#FF4500"/>
@@ -800,6 +825,7 @@ const languageIconSpecs = {
   purescript: ["PS", "#1D222D", "lambda"],
   python: ["PY", "#3776AB", "snake"],
   r: ["R", "#276DC3", "orbit"],
+  racket: ["RKT", "#9F1D20", "lambda"],
   reason: ["RE", "#DD4B39", "lambda"],
   ruby: ["RB", "#CC342D", "gem"],
   rust: ["RS", "#D08743", "gear"],
@@ -828,8 +854,10 @@ const officialLanguageIcons = {
   coffeescript: [simpleIcons.siCoffeescript],
   cpp: [simpleIcons.siCplusplus],
   crystal: [simpleIcons.siCrystal],
-  css: [simpleIcons.siCss, { fill: "#1572B6" }],
+  css: [simpleIcons.siCss, { fill: "#2D8FD8" }],
+  d: [simpleIcons.siD],
   dart: [simpleIcons.siDart],
+  ejs: [simpleIcons.siEjs],
   elixir: [simpleIcons.siElixir],
   elm: [simpleIcons.siElm],
   erlang: [simpleIcons.siErlang],
@@ -848,6 +876,7 @@ const officialLanguageIcons = {
   julia: [simpleIcons.siJulia],
   kotlin: [simpleIcons.siKotlin],
   latex: [simpleIcons.siLatex],
+  lisp: [simpleIcons.siCommonlisp],
   lua: [simpleIcons.siLua, { fill: "#5D6EFF" }],
   make: [simpleIcons.siMake],
   nim: [simpleIcons.siNim],
@@ -861,6 +890,7 @@ const officialLanguageIcons = {
   purescript: [simpleIcons.siPurescript],
   python: [simpleIcons.siPython],
   r: [simpleIcons.siR],
+  racket: [simpleIcons.siRacket],
   reason: [simpleIcons.siReason],
   ruby: [simpleIcons.siRuby],
   rust: [simpleIcons.siRust, { fill: "#D08743" }],
@@ -900,21 +930,194 @@ Object.assign(fileIconRenderers, {
   yaml: () => simpleIconFileSvg("Gas Plasma YAML icon", simpleIcons.siYaml)
 });
 
+// Ecosystem and tooling logos (Simple Icons geometry, colors lifted for the dark tile).
+const ecosystemIcons = {
+  angular: [simpleIcons.siAngular, { fill: "#E23237" }],
+  ansible: [simpleIcons.siAnsible],
+  babel: [simpleIcons.siBabel],
+  bazel: [simpleIcons.siBazel],
+  biome: [simpleIcons.siBiome],
+  bun: [simpleIcons.siBun, { fill: "#FBF0DF" }],
+  cloudflare: [simpleIcons.siCloudflare],
+  cuda: [simpleIcons.siNvidia, { fill: "#76B900" }],
+  cypress: [simpleIcons.siCypress],
+  deno: [simpleIcons.siDeno],
+  editorconfig: [simpleIcons.siEditorconfig],
+  eslint: [simpleIcons.siEslint],
+  githubactions: [simpleIcons.siGithubactions],
+  gitlab: [simpleIcons.siGitlab],
+  gleam: [simpleIcons.siGleam],
+  gradle: [simpleIcons.siGradle, { fill: "#5CB8C9" }],
+  haxe: [simpleIcons.siHaxe],
+  helm: [simpleIcons.siHelm],
+  jenkins: [simpleIcons.siJenkins],
+  jest: [simpleIcons.siJest],
+  jupyter: [simpleIcons.siJupyter],
+  kubernetes: [simpleIcons.siKubernetes],
+  less: [simpleIcons.siLess, { fill: "#5B8BD0" }],
+  maven: [simpleIcons.siApachemaven],
+  netlify: [simpleIcons.siNetlify],
+  nextjs: [simpleIcons.siNextdotjs],
+  nginx: [simpleIcons.siNginx],
+  nodejs: [simpleIcons.siNodedotjs],
+  nuxt: [simpleIcons.siNuxt],
+  pnpm: [simpleIcons.siPnpm],
+  poetry: [simpleIcons.siPoetry],
+  postcss: [simpleIcons.siPostcss],
+  prettier: [simpleIcons.siPrettier],
+  prisma: [simpleIcons.siPrisma, { fill: "#A0AEC0" }],
+  pytest: [simpleIcons.siPytest],
+  react: [simpleIcons.siReact],
+  rollup: [simpleIcons.siRollupdotjs],
+  ruff: [simpleIcons.siRuff],
+  sass: [simpleIcons.siSass],
+  solidity: [simpleIcons.siSolidity],
+  storybook: [simpleIcons.siStorybook],
+  stylus: [simpleIcons.siStylus],
+  tailwind: [simpleIcons.siTailwindcss],
+  typst: [simpleIcons.siTypst],
+  uv: [simpleIcons.siUv],
+  vercel: [simpleIcons.siVercel],
+  vite: [simpleIcons.siVite, { fill: "#BD34FE" }],
+  vitest: [simpleIcons.siVitest, { fill: "#FCC72B" }],
+  webpack: [simpleIcons.siWebpack],
+  xml: [simpleIcons.siXml],
+  yarn: [simpleIcons.siYarn]
+};
+
+for (const [iconName, [icon, options]] of Object.entries(ecosystemIcons)) {
+  fileIconRenderers[iconName] = () => simpleIconFileSvg(`Gas Plasma ${icon.title} icon`, icon, options);
+}
+
+// Generic file kinds drawn in the house glass-tile style.
+Object.assign(fileIconRenderers, {
+  api: () => fileIconSvg("Gas Plasma API icon", glassTile(`<path d="M30 40h32M54 32l8 8-8 8" fill="none" stroke="#FFD2A6" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M66 56H34M42 48l-8 8 8 8" fill="none" stroke="#FF8C00" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>`, "#FF4500")),
+  binary: () => fileIconSvg("Gas Plasma binary icon", glassTile(`<rect x="27" y="28" width="42" height="38" rx="6" fill="#140800" stroke="#4D2600" stroke-width="2"/>
+    <text x="48" y="45" text-anchor="middle" font-family="SF Mono, Menlo, Consolas, monospace" font-size="14" font-weight="800" fill="#FFD2A6">0101</text>
+    <text x="48" y="61" text-anchor="middle" font-family="SF Mono, Menlo, Consolas, monospace" font-size="14" font-weight="800" fill="#FF8C00">1010</text>`, "#FF6B6B")),
+  certificate: () => fileIconSvg("Gas Plasma certificate icon", glassTile(`<rect x="27" y="28" width="42" height="28" rx="4" fill="#FFD2A6" stroke="#4D2600" stroke-width="2"/>
+    <path d="M33 36h22M33 43h16" stroke="#4D2600" stroke-width="3" stroke-linecap="round"/>
+    <path d="M53 58l-4 13 7-4 7 4-4-13" fill="#FF8C00" stroke="#4D2600" stroke-width="2" stroke-linejoin="round"/>
+    <circle cx="56" cy="53" r="8" fill="#FFD700" stroke="#4D2600" stroke-width="2.5"/>`, "#FFD700")),
+  component: () => fileIconSvg("Gas Plasma component icon", glassTile(`<rect x="28" y="28" width="17" height="17" rx="4" fill="#FF8C00"/>
+    <rect x="51" y="28" width="17" height="17" rx="4" fill="#FFD2A6"/>
+    <rect x="28" y="51" width="17" height="17" rx="4" fill="#FFD2A6"/>
+    <rect x="51" y="51" width="17" height="17" rx="4" fill="#FFD700" transform="rotate(45 59.5 59.5)"/>`, "#FF8C00")),
+  diff: () => fileIconSvg("Gas Plasma diff icon", glassTile(`<path d="M30 37h14M37 30v14" stroke="#B5CC18" stroke-width="5" stroke-linecap="round"/>
+    <path d="M52 37h14" stroke="#FFD2A6" stroke-width="4" stroke-linecap="round" opacity=".55"/>
+    <path d="M30 60h14" stroke="#FF6B6B" stroke-width="5" stroke-linecap="round"/>
+    <path d="M52 60h14" stroke="#FFD2A6" stroke-width="4" stroke-linecap="round" opacity=".55"/>`, "#FFD700")),
+  env: () => fileIconSvg("Gas Plasma environment icon", glassTile(`<text x="37" y="61" text-anchor="middle" font-family="SF Mono, Menlo, Consolas, monospace" font-size="30" font-weight="900" fill="#FFD700">$</text>
+    <path d="M51 42h15M51 54h15" stroke="#FFD2A6" stroke-width="4.5" stroke-linecap="round"/>`, "#E8C547")),
+  http: () => fileIconSvg("Gas Plasma HTTP request icon", glassTile(`<circle cx="48" cy="47" r="19" fill="#140800" stroke="#FFD2A6" stroke-width="3.5"/>
+    <path d="M29 47h38M48 28c-7 6-7 32 0 38M48 28c7 6 7 32 0 38" fill="none" stroke="#FF8C00" stroke-width="3"/>`, "#FF8C00")),
+  layout: () => fileIconSvg("Gas Plasma layout icon", glassTile(`<rect x="27" y="28" width="42" height="38" rx="5" fill="#140800" stroke="#FFD2A6" stroke-width="3.5"/>
+    <path d="M27 38h42M41 38v28" stroke="#FFD2A6" stroke-width="3"/>
+    <path d="M48 47h14M48 55h10" stroke="#FF8C00" stroke-width="3.5" stroke-linecap="round"/>`, "#E8C547")),
+  locale: () => fileIconSvg("Gas Plasma locale icon", glassTile(`<circle cx="48" cy="47" r="19" fill="#140800" stroke="#FFD2A6" stroke-width="3.5"/>
+    <ellipse cx="48" cy="47" rx="8" ry="19" fill="none" stroke="#E8C547" stroke-width="3"/>
+    <path d="M31 39h34M31 55h34" stroke="#E8C547" stroke-width="3"/>`, "#E8C547")),
+  log: () => fileIconSvg("Gas Plasma log icon", glassTile(`<rect x="28" y="31" width="6" height="5" rx="1.5" fill="#FF8C00"/>
+    <rect x="28" y="44" width="6" height="5" rx="1.5" fill="#FFD700"/>
+    <rect x="28" y="57" width="6" height="5" rx="1.5" fill="#FF6B6B"/>
+    <path d="M40 33.5h26M40 46.5h20M40 59.5h24" stroke="#FFD2A6" stroke-width="4" stroke-linecap="round"/>`, "#FFD2A6")),
+  model3d: () => fileIconSvg("Gas Plasma 3D model icon", glassTile(`<path d="M48 27l19 11v22L48 71 29 60V38z" fill="#140800" stroke="#FFD2A6" stroke-width="3.5" stroke-linejoin="round"/>
+    <path d="M29 38l19 11 19-11M48 49v22" fill="none" stroke="#FF8C00" stroke-width="3" stroke-linejoin="round"/>`, "#E8C547")),
+  notebook: () => fileIconSvg("Gas Plasma notebook icon", glassTile(`<rect x="31" y="26" width="36" height="44" rx="5" fill="#140800" stroke="#FFD2A6" stroke-width="3.5"/>
+    <path d="M27 34h8M27 46h8M27 58h8" stroke="#FFD2A6" stroke-width="3.5" stroke-linecap="round"/>
+    <rect x="40" y="33" width="20" height="10" rx="2" fill="#FF8C00"/>
+    <rect x="40" y="49" width="20" height="10" rx="2" fill="#E8C547" opacity=".85"/>`, "#F37626")),
+  plugin: () => fileIconSvg("Gas Plasma plugin icon", glassTile(`<path d="M41 27v10M55 27v10" stroke="#FFD2A6" stroke-width="5" stroke-linecap="round"/>
+    <path d="M34 37h28v9c0 8-6 14-14 14s-14-6-14-14z" fill="#140800" stroke="#FFD2A6" stroke-width="3.5" stroke-linejoin="round"/>
+    <path d="M48 60v9" stroke="#FF8C00" stroke-width="5" stroke-linecap="round"/>`, "#FFD700")),
+  shader: () => fileIconSvg("Gas Plasma shader icon", glassTile(`<path d="M48 27l21 38H27z" fill="url(#ember)" stroke="#FFD2A6" stroke-width="3" stroke-linejoin="round"/>
+    <circle cx="48" cy="52" r="6" fill="#140800" opacity=".55"/>`, "#FF6B6B")),
+  slides: () => fileIconSvg("Gas Plasma slides icon", glassTile(`<rect x="26" y="28" width="44" height="30" rx="4" fill="#140800" stroke="#FFD2A6" stroke-width="3.5"/>
+    <path d="M36 51V43M45 51V37M54 51V46" stroke="#FF8C00" stroke-width="5" stroke-linecap="round"/>
+    <path d="M48 58v8M40 68h16" stroke="#FFD2A6" stroke-width="3.5" stroke-linecap="round"/>`, "#FF8C00")),
+  spreadsheet: () => fileIconSvg("Gas Plasma spreadsheet icon", glassTile(`<rect x="27" y="28" width="42" height="38" rx="5" fill="#140800" stroke="#FFD2A6" stroke-width="3.5"/>
+    <path d="M27 38h42" stroke="#B5CC18" stroke-width="6"/>
+    <path d="M27 50h42M41 32v34M55 32v34" stroke="#FFD2A6" stroke-width="2.5" opacity=".7"/>`, "#B5CC18")),
+  test: () => fileIconSvg("Gas Plasma test icon", glassTile(`<path d="M41 27h14M43 27v14L31 62c-2 4 0 7 4 7h26c4 0 6-3 4-7L53 41V27" fill="#140800" stroke="#FFD2A6" stroke-width="3.5" stroke-linejoin="round"/>
+    <path d="M36 55h24l5 8c1 3 0 5-3 5H34c-3 0-4-2-3-5z" fill="#B5CC18"/>
+    <circle cx="45" cy="47" r="2.5" fill="#FF8C00"/>`, "#B5CC18")),
+  tool: () => fileIconSvg("Gas Plasma tool icon", glassTile(`<path d="M62 29a11 11 0 0 0-13 14L31 61a4.5 4.5 0 0 0 6.5 6.5L55.5 49.5A11 11 0 0 0 69 36l-7 7-7-2-2-7z" fill="#FFD2A6" stroke="#4D2600" stroke-width="2.5" stroke-linejoin="round"/>
+    <circle cx="35" cy="63.5" r="2" fill="#FF8C00"/>`, "#E8C547"))
+});
+
+// Named folders: the generic folder silhouette with the mapped icon set into its front panel.
+function folderShape(open) {
+  return open
+    ? `<g filter="url(#shadow)">
+    <path d="M12 29c0-6 4-10 10-10h17l7 8h29c6 0 10 4 10 10v11H12z" fill="#6E2E00" stroke="#FFD2A6" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M11 43h75L76 80H20z" fill="url(#tile)" stroke="#FFD2A6" stroke-width="2" stroke-linejoin="round"/>
+  </g>`
+    : `<g filter="url(#shadow)">
+    <path d="M12 29c0-6 4-10 10-10h17l7 8h29c6 0 10 4 10 10v10H12z" fill="#6E2E00" stroke="#FFD2A6" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M13 36h70L75 80H20z" fill="url(#tile)" stroke="#FFD2A6" stroke-width="2" stroke-linejoin="round"/>
+  </g>`;
+}
+
+function iconEmblem(iconName) {
+  const render = fileIconRenderers[iconName];
+  if (!render) throw new Error(`Missing file icon renderer for folder emblem ${iconName}`);
+  const svg = render();
+  const glyph = /<!--glyph-->([\s\S]*?)<!--\/glyph-->/.exec(svg);
+  if (glyph) return { body: glyph[1], span: 44 };
+  const body = /<\/defs>\n([\s\S]*)<\/svg>\s*$/.exec(svg);
+  if (!body) throw new Error(`Cannot extract folder emblem body for ${iconName}`);
+  return { body: body[1], span: 70 };
+}
+
+function folderIconName(emblem, open) {
+  return `folder-${emblem}${open ? "-open" : ""}`;
+}
+
+function folderIconSvg(emblem, open) {
+  const { body, span } = iconEmblem(emblem);
+  const size = open ? 36 : 40;
+  const [cx, cy] = open ? [48.5, 62] : [48, 58.5];
+  const scale = (size / span).toFixed(4);
+  return fileIconSvg(`Gas Plasma ${emblem} ${open ? "open " : ""}folder icon`, `${folderShape(open)}
+  <g transform="translate(${cx} ${cy}) scale(${scale}) translate(-48 -48)">
+  ${body.trim()}
+  </g>`);
+}
+
 function writeFileIcons() {
   const fileTheme = iconManifest.fileTheme;
-  const iconNames = new Set([
+  const fileIconNames = new Set([
     ...Object.values(fileTheme.icons),
     ...Object.values(fileTheme.fileExtensions),
     ...Object.values(fileTheme.fileNames),
-    ...Object.values(fileTheme.folderNames),
     ...Object.values(fileTheme.languageIds)
   ]);
+  // folderNames values are emblem keys; each yields a closed and an open folder icon.
+  const folderRenderers = new Map();
+  for (const emblem of new Set(Object.values(fileTheme.folderNames))) {
+    for (const open of [false, true]) {
+      folderRenderers.set(folderIconName(emblem, open), () => folderIconSvg(emblem, open));
+    }
+  }
+  const iconNames = new Set([...fileIconNames, ...folderRenderers.keys()]);
+  const definitionNames = new Map();
+  for (const iconName of iconNames) {
+    const definition = iconDefName(iconName);
+    if (definitionNames.has(definition)) {
+      throw new Error(`Icon definition ${definition} is shared by ${definitionNames.get(definition)} and ${iconName}`);
+    }
+    definitionNames.set(definition, iconName);
+  }
+  for (const iconName of fileTheme.gallery) {
+    if (!iconNames.has(iconName)) throw new Error(`Gallery icon ${iconName} is not generated`);
+  }
   const iconDir = path.join(root, "icons/file/svg");
   const docsIconDir = path.join(root, "docs/assets/icons");
   const zedIconDir = path.join(root, "zed/gas-plasma-icons/icons");
 
   for (const iconName of [...iconNames].sort()) {
-    const render = fileIconRenderers[iconName];
+    const render = folderRenderers.get(iconName) ?? fileIconRenderers[iconName];
     if (!render) throw new Error(`Missing file icon renderer for ${iconName}`);
     const svg = render();
     writeFileSync(path.join(iconDir, `${iconName}.svg`), svg);
@@ -941,8 +1144,8 @@ function writeFileIcons() {
     rootFolderExpanded: iconDefName(fileTheme.icons.rootFolderExpanded),
     fileExtensions: mapIconAssociations(fileTheme.fileExtensions),
     fileNames: mapIconAssociations(fileTheme.fileNames),
-    folderNames: mapIconAssociations(fileTheme.folderNames),
-    folderNamesExpanded: mapIconAssociations(fileTheme.folderNames),
+    folderNames: mapFolderAssociations(fileTheme.folderNames, false),
+    folderNamesExpanded: mapFolderAssociations(fileTheme.folderNames, true),
     languageIds: mapIconAssociations(fileTheme.languageIds)
   };
 
@@ -967,22 +1170,28 @@ function writeFileIcons() {
           Object.entries(fileTheme.folderNames).map(([folderName, iconName]) => [
             folderName,
             {
-              collapsed: `./icons/${iconName}.svg`,
-              expanded: `./icons/${iconName}.svg`
+              collapsed: `./icons/${folderIconName(iconName, false)}.svg`,
+              expanded: `./icons/${folderIconName(iconName, true)}.svg`
             }
           ])
         ),
+        // Zed looks the whole file name up in stems and suffixes before trying each
+        // dotted suffix, and only then falls back to the part before the first dot.
+        // Dotted names therefore go in by full name; only extensionless names are stems,
+        // so `main.tf` can no longer claim `main.foo` through a `main` stem.
         file_stems: Object.fromEntries(
-          Object.entries(fileTheme.fileNames).map(([fileName, iconName]) => [
-            path.parse(fileName).name || fileName,
-            iconName
-          ])
+          Object.entries(fileTheme.fileNames).filter(([fileName]) => !fileName.includes("."))
         ),
-        file_suffixes: fileTheme.fileExtensions,
+        file_suffixes: {
+          ...fileTheme.fileExtensions,
+          ...Object.fromEntries(
+            Object.entries(fileTheme.fileNames).filter(([fileName]) => fileName.includes("."))
+          )
+        },
         file_icons: {
           default: { path: `./icons/${fileTheme.icons.file}.svg` },
           ...Object.fromEntries(
-            [...iconNames].sort().map((iconName) => [
+            [...fileIconNames].sort().map((iconName) => [
               iconName,
               { path: `./icons/${iconName}.svg` }
             ])
@@ -1019,13 +1228,39 @@ const productCodiconNames = {
   run: "play",
   search: "search",
   sync: "sync",
-  warning: "warning"
+  warning: "warning",
+  account: "account",
+  add: "add",
+  bell: "bell",
+  breakpoint: "circle-filled",
+  bug: "bug",
+  "chevron-down": "chevron-down",
+  "chevron-right": "chevron-right",
+  cloud: "cloud",
+  copy: "copy",
+  debug: "debug-alt",
+  diff: "diff",
+  edit: "edit",
+  ellipsis: "ellipsis",
+  filter: "filter",
+  history: "history",
+  list: "list-flat",
+  lock: "lock",
+  merge: "git-merge",
+  output: "output",
+  pin: "pinned",
+  refresh: "refresh",
+  split: "split-horizontal",
+  stop: "debug-stop",
+  trash: "trash",
+  tree: "list-tree"
 };
 
 function productGlyphSvg(glyphName) {
   const codiconName = productCodiconNames[glyphName];
   if (!codiconName) throw new Error(`Missing VS Code codicon mapping for ${glyphName}`);
   const svgPath = path.join(root, "node_modules/@vscode/codicons/src/icons", `${codiconName}.svg`);
+  if (!existsSync(svgPath)) throw new Error(`Missing VS Code codicon ${codiconName} for ${glyphName}`);
   const svg = readFileSync(svgPath, "utf8");
   return svg.replace('fill="currentColor"', 'fill="#000"');
 }

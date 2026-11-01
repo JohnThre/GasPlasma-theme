@@ -6,6 +6,12 @@
     "_gp_ada": {
       "iconPath": "./svg/ada.svg"
     },
+    "_gp_angular": {
+      "iconPath": "./svg/angular.svg"
+    },
+    "_gp_ansible": {
+      "iconPath": "./svg/ansible.svg"
+    },
     "_gp_archive": {
       "iconPath": "./svg/archive.svg"
     },
@@ -18,8 +24,23 @@
     "_gp_audio": {
       "iconPath": "./svg/audio.svg"
     },
+    "_gp_babel": {
+      "iconPath": "./svg/babel.svg"
+    },
     "_gp_batch": {
       "iconPath": "./svg/batch.svg"
+    },
+    "_gp_bazel": {
+      "iconPath": "./svg/bazel.svg"
+    },
+    "_gp_binary": {
+      "iconPath": "./svg/binary.svg"
+    },
+    "_gp_biome": {
+      "iconPath": "./svg/biome.svg"
+    },
+    "_gp_bun": {
+      "iconPath": "./svg/bun.svg"
     },
     "_gp_c": {
       "iconPath": "./svg/c.svg"
@@ -27,17 +48,20 @@
     "_gp_cd": {
       "iconPath": "./svg/cd.svg"
     },
+    "_gp_certificate": {
+      "iconPath": "./svg/certificate.svg"
+    },
     "_gp_clojure": {
       "iconPath": "./svg/clojure.svg"
+    },
+    "_gp_cloudflare": {
+      "iconPath": "./svg/cloudflare.svg"
     },
     "_gp_cmake": {
       "iconPath": "./svg/cmake.svg"
     },
     "_gp_cobol": {
       "iconPath": "./svg/cobol.svg"
-    },
-    "_gp_code": {
-      "iconPath": "./svg/code.svg"
     },
     "_gp_coffeescript": {
       "iconPath": "./svg/coffeescript.svg"
@@ -63,6 +87,12 @@
     "_gp_css": {
       "iconPath": "./svg/css.svg"
     },
+    "_gp_cuda": {
+      "iconPath": "./svg/cuda.svg"
+    },
+    "_gp_cypress": {
+      "iconPath": "./svg/cypress.svg"
+    },
     "_gp_d": {
       "iconPath": "./svg/d.svg"
     },
@@ -72,11 +102,20 @@
     "_gp_database": {
       "iconPath": "./svg/database.svg"
     },
+    "_gp_deno": {
+      "iconPath": "./svg/deno.svg"
+    },
+    "_gp_diff": {
+      "iconPath": "./svg/diff.svg"
+    },
     "_gp_docker": {
       "iconPath": "./svg/docker.svg"
     },
     "_gp_document": {
       "iconPath": "./svg/document.svg"
+    },
+    "_gp_editorconfig": {
+      "iconPath": "./svg/editorconfig.svg"
     },
     "_gp_ejs": {
       "iconPath": "./svg/ejs.svg"
@@ -87,8 +126,14 @@
     "_gp_elm": {
       "iconPath": "./svg/elm.svg"
     },
+    "_gp_env": {
+      "iconPath": "./svg/env.svg"
+    },
     "_gp_erlang": {
       "iconPath": "./svg/erlang.svg"
+    },
+    "_gp_eslint": {
+      "iconPath": "./svg/eslint.svg"
     },
     "_gp_floppy": {
       "iconPath": "./svg/floppy.svg"
@@ -96,8 +141,260 @@
     "_gp_folder": {
       "iconPath": "./svg/folder.svg"
     },
+    "_gp_folder_ansible": {
+      "iconPath": "./svg/folder-ansible.svg"
+    },
+    "_gp_folder_ansible_open": {
+      "iconPath": "./svg/folder-ansible-open.svg"
+    },
+    "_gp_folder_api": {
+      "iconPath": "./svg/folder-api.svg"
+    },
+    "_gp_folder_api_open": {
+      "iconPath": "./svg/folder-api-open.svg"
+    },
+    "_gp_folder_archive": {
+      "iconPath": "./svg/folder-archive.svg"
+    },
+    "_gp_folder_archive_open": {
+      "iconPath": "./svg/folder-archive-open.svg"
+    },
+    "_gp_folder_audio": {
+      "iconPath": "./svg/folder-audio.svg"
+    },
+    "_gp_folder_audio_open": {
+      "iconPath": "./svg/folder-audio-open.svg"
+    },
+    "_gp_folder_binary": {
+      "iconPath": "./svg/folder-binary.svg"
+    },
+    "_gp_folder_binary_open": {
+      "iconPath": "./svg/folder-binary-open.svg"
+    },
+    "_gp_folder_c": {
+      "iconPath": "./svg/folder-c.svg"
+    },
+    "_gp_folder_c_open": {
+      "iconPath": "./svg/folder-c-open.svg"
+    },
+    "_gp_folder_code": {
+      "iconPath": "./svg/folder-code.svg"
+    },
+    "_gp_folder_code_open": {
+      "iconPath": "./svg/folder-code-open.svg"
+    },
+    "_gp_folder_component": {
+      "iconPath": "./svg/folder-component.svg"
+    },
+    "_gp_folder_component_open": {
+      "iconPath": "./svg/folder-component-open.svg"
+    },
+    "_gp_folder_config": {
+      "iconPath": "./svg/folder-config.svg"
+    },
+    "_gp_folder_config_open": {
+      "iconPath": "./svg/folder-config-open.svg"
+    },
+    "_gp_folder_crypto": {
+      "iconPath": "./svg/folder-crypto.svg"
+    },
+    "_gp_folder_crypto_open": {
+      "iconPath": "./svg/folder-crypto-open.svg"
+    },
+    "_gp_folder_css": {
+      "iconPath": "./svg/folder-css.svg"
+    },
+    "_gp_folder_css_open": {
+      "iconPath": "./svg/folder-css-open.svg"
+    },
+    "_gp_folder_cypress": {
+      "iconPath": "./svg/folder-cypress.svg"
+    },
+    "_gp_folder_cypress_open": {
+      "iconPath": "./svg/folder-cypress-open.svg"
+    },
+    "_gp_folder_database": {
+      "iconPath": "./svg/folder-database.svg"
+    },
+    "_gp_folder_database_open": {
+      "iconPath": "./svg/folder-database-open.svg"
+    },
+    "_gp_folder_docker": {
+      "iconPath": "./svg/folder-docker.svg"
+    },
+    "_gp_folder_docker_open": {
+      "iconPath": "./svg/folder-docker-open.svg"
+    },
+    "_gp_folder_font": {
+      "iconPath": "./svg/folder-font.svg"
+    },
+    "_gp_folder_font_open": {
+      "iconPath": "./svg/folder-font-open.svg"
+    },
+    "_gp_folder_git": {
+      "iconPath": "./svg/folder-git.svg"
+    },
+    "_gp_folder_git_open": {
+      "iconPath": "./svg/folder-git-open.svg"
+    },
+    "_gp_folder_githubactions": {
+      "iconPath": "./svg/folder-githubactions.svg"
+    },
+    "_gp_folder_githubactions_open": {
+      "iconPath": "./svg/folder-githubactions-open.svg"
+    },
+    "_gp_folder_helm": {
+      "iconPath": "./svg/folder-helm.svg"
+    },
+    "_gp_folder_helm_open": {
+      "iconPath": "./svg/folder-helm-open.svg"
+    },
+    "_gp_folder_image": {
+      "iconPath": "./svg/folder-image.svg"
+    },
+    "_gp_folder_image_open": {
+      "iconPath": "./svg/folder-image-open.svg"
+    },
+    "_gp_folder_kubernetes": {
+      "iconPath": "./svg/folder-kubernetes.svg"
+    },
+    "_gp_folder_kubernetes_open": {
+      "iconPath": "./svg/folder-kubernetes-open.svg"
+    },
+    "_gp_folder_layout": {
+      "iconPath": "./svg/folder-layout.svg"
+    },
+    "_gp_folder_layout_open": {
+      "iconPath": "./svg/folder-layout-open.svg"
+    },
+    "_gp_folder_linux": {
+      "iconPath": "./svg/folder-linux.svg"
+    },
+    "_gp_folder_linux_open": {
+      "iconPath": "./svg/folder-linux-open.svg"
+    },
+    "_gp_folder_locale": {
+      "iconPath": "./svg/folder-locale.svg"
+    },
+    "_gp_folder_locale_open": {
+      "iconPath": "./svg/folder-locale-open.svg"
+    },
+    "_gp_folder_log": {
+      "iconPath": "./svg/folder-log.svg"
+    },
+    "_gp_folder_log_open": {
+      "iconPath": "./svg/folder-log-open.svg"
+    },
+    "_gp_folder_markdown": {
+      "iconPath": "./svg/folder-markdown.svg"
+    },
+    "_gp_folder_markdown_open": {
+      "iconPath": "./svg/folder-markdown-open.svg"
+    },
+    "_gp_folder_nextjs": {
+      "iconPath": "./svg/folder-nextjs.svg"
+    },
+    "_gp_folder_nextjs_open": {
+      "iconPath": "./svg/folder-nextjs-open.svg"
+    },
+    "_gp_folder_notebook": {
+      "iconPath": "./svg/folder-notebook.svg"
+    },
+    "_gp_folder_notebook_open": {
+      "iconPath": "./svg/folder-notebook-open.svg"
+    },
+    "_gp_folder_npm": {
+      "iconPath": "./svg/folder-npm.svg"
+    },
+    "_gp_folder_npm_open": {
+      "iconPath": "./svg/folder-npm-open.svg"
+    },
+    "_gp_folder_nuxt": {
+      "iconPath": "./svg/folder-nuxt.svg"
+    },
+    "_gp_folder_nuxt_open": {
+      "iconPath": "./svg/folder-nuxt-open.svg"
+    },
     "_gp_folder_open": {
       "iconPath": "./svg/folder-open.svg"
+    },
+    "_gp_folder_package": {
+      "iconPath": "./svg/folder-package.svg"
+    },
+    "_gp_folder_package_open": {
+      "iconPath": "./svg/folder-package-open.svg"
+    },
+    "_gp_folder_palette": {
+      "iconPath": "./svg/folder-palette.svg"
+    },
+    "_gp_folder_palette_open": {
+      "iconPath": "./svg/folder-palette-open.svg"
+    },
+    "_gp_folder_plugin": {
+      "iconPath": "./svg/folder-plugin.svg"
+    },
+    "_gp_folder_plugin_open": {
+      "iconPath": "./svg/folder-plugin-open.svg"
+    },
+    "_gp_folder_prisma": {
+      "iconPath": "./svg/folder-prisma.svg"
+    },
+    "_gp_folder_prisma_open": {
+      "iconPath": "./svg/folder-prisma-open.svg"
+    },
+    "_gp_folder_python": {
+      "iconPath": "./svg/folder-python.svg"
+    },
+    "_gp_folder_python_open": {
+      "iconPath": "./svg/folder-python-open.svg"
+    },
+    "_gp_folder_rust": {
+      "iconPath": "./svg/folder-rust.svg"
+    },
+    "_gp_folder_rust_open": {
+      "iconPath": "./svg/folder-rust-open.svg"
+    },
+    "_gp_folder_shader": {
+      "iconPath": "./svg/folder-shader.svg"
+    },
+    "_gp_folder_shader_open": {
+      "iconPath": "./svg/folder-shader-open.svg"
+    },
+    "_gp_folder_storybook": {
+      "iconPath": "./svg/folder-storybook.svg"
+    },
+    "_gp_folder_storybook_open": {
+      "iconPath": "./svg/folder-storybook-open.svg"
+    },
+    "_gp_folder_terminal_crt": {
+      "iconPath": "./svg/folder-terminal-crt.svg"
+    },
+    "_gp_folder_terminal_crt_open": {
+      "iconPath": "./svg/folder-terminal-crt-open.svg"
+    },
+    "_gp_folder_terraform": {
+      "iconPath": "./svg/folder-terraform.svg"
+    },
+    "_gp_folder_terraform_open": {
+      "iconPath": "./svg/folder-terraform-open.svg"
+    },
+    "_gp_folder_test": {
+      "iconPath": "./svg/folder-test.svg"
+    },
+    "_gp_folder_test_open": {
+      "iconPath": "./svg/folder-test-open.svg"
+    },
+    "_gp_folder_tool": {
+      "iconPath": "./svg/folder-tool.svg"
+    },
+    "_gp_folder_tool_open": {
+      "iconPath": "./svg/folder-tool-open.svg"
+    },
+    "_gp_folder_typescript": {
+      "iconPath": "./svg/folder-typescript.svg"
+    },
+    "_gp_folder_typescript_open": {
+      "iconPath": "./svg/folder-typescript-open.svg"
     },
     "_gp_font": {
       "iconPath": "./svg/font.svg"
@@ -117,8 +414,20 @@
     "_gp_git": {
       "iconPath": "./svg/git.svg"
     },
+    "_gp_githubactions": {
+      "iconPath": "./svg/githubactions.svg"
+    },
+    "_gp_gitlab": {
+      "iconPath": "./svg/gitlab.svg"
+    },
+    "_gp_gleam": {
+      "iconPath": "./svg/gleam.svg"
+    },
     "_gp_go": {
       "iconPath": "./svg/go.svg"
+    },
+    "_gp_gradle": {
+      "iconPath": "./svg/gradle.svg"
     },
     "_gp_graphql": {
       "iconPath": "./svg/graphql.svg"
@@ -132,11 +441,20 @@
     "_gp_haskell": {
       "iconPath": "./svg/haskell.svg"
     },
+    "_gp_haxe": {
+      "iconPath": "./svg/haxe.svg"
+    },
     "_gp_hcl": {
       "iconPath": "./svg/hcl.svg"
     },
+    "_gp_helm": {
+      "iconPath": "./svg/helm.svg"
+    },
     "_gp_html": {
       "iconPath": "./svg/html.svg"
+    },
+    "_gp_http": {
+      "iconPath": "./svg/http.svg"
     },
     "_gp_image": {
       "iconPath": "./svg/image.svg"
@@ -146,6 +464,12 @@
     },
     "_gp_javascript": {
       "iconPath": "./svg/javascript.svg"
+    },
+    "_gp_jenkins": {
+      "iconPath": "./svg/jenkins.svg"
+    },
+    "_gp_jest": {
+      "iconPath": "./svg/jest.svg"
     },
     "_gp_json": {
       "iconPath": "./svg/json.svg"
@@ -159,14 +483,17 @@
     "_gp_latex": {
       "iconPath": "./svg/latex.svg"
     },
-    "_gp_linux": {
-      "iconPath": "./svg/linux.svg"
+    "_gp_less": {
+      "iconPath": "./svg/less.svg"
     },
     "_gp_lisp": {
       "iconPath": "./svg/lisp.svg"
     },
     "_gp_lock": {
       "iconPath": "./svg/lock.svg"
+    },
+    "_gp_log": {
+      "iconPath": "./svg/log.svg"
     },
     "_gp_lua": {
       "iconPath": "./svg/lua.svg"
@@ -180,14 +507,38 @@
     "_gp_matlab": {
       "iconPath": "./svg/matlab.svg"
     },
+    "_gp_maven": {
+      "iconPath": "./svg/maven.svg"
+    },
+    "_gp_model3d": {
+      "iconPath": "./svg/model3d.svg"
+    },
+    "_gp_netlify": {
+      "iconPath": "./svg/netlify.svg"
+    },
+    "_gp_nextjs": {
+      "iconPath": "./svg/nextjs.svg"
+    },
+    "_gp_nginx": {
+      "iconPath": "./svg/nginx.svg"
+    },
     "_gp_nim": {
       "iconPath": "./svg/nim.svg"
     },
     "_gp_nix": {
       "iconPath": "./svg/nix.svg"
     },
+    "_gp_nodejs": {
+      "iconPath": "./svg/nodejs.svg"
+    },
+    "_gp_notebook": {
+      "iconPath": "./svg/notebook.svg"
+    },
     "_gp_npm": {
       "iconPath": "./svg/npm.svg"
+    },
+    "_gp_nuxt": {
+      "iconPath": "./svg/nuxt.svg"
     },
     "_gp_objectivec": {
       "iconPath": "./svg/objectivec.svg"
@@ -201,9 +552,6 @@
     "_gp_package": {
       "iconPath": "./svg/package.svg"
     },
-    "_gp_palette": {
-      "iconPath": "./svg/palette.svg"
-    },
     "_gp_pascal": {
       "iconPath": "./svg/pascal.svg"
     },
@@ -216,8 +564,23 @@
     "_gp_php": {
       "iconPath": "./svg/php.svg"
     },
+    "_gp_pnpm": {
+      "iconPath": "./svg/pnpm.svg"
+    },
+    "_gp_poetry": {
+      "iconPath": "./svg/poetry.svg"
+    },
+    "_gp_postcss": {
+      "iconPath": "./svg/postcss.svg"
+    },
     "_gp_powershell": {
       "iconPath": "./svg/powershell.svg"
+    },
+    "_gp_prettier": {
+      "iconPath": "./svg/prettier.svg"
+    },
+    "_gp_prisma": {
+      "iconPath": "./svg/prisma.svg"
     },
     "_gp_proto": {
       "iconPath": "./svg/proto.svg"
@@ -228,20 +591,38 @@
     "_gp_purescript": {
       "iconPath": "./svg/purescript.svg"
     },
+    "_gp_pytest": {
+      "iconPath": "./svg/pytest.svg"
+    },
     "_gp_python": {
       "iconPath": "./svg/python.svg"
     },
     "_gp_r": {
       "iconPath": "./svg/r.svg"
     },
+    "_gp_racket": {
+      "iconPath": "./svg/racket.svg"
+    },
+    "_gp_react": {
+      "iconPath": "./svg/react.svg"
+    },
     "_gp_reason": {
       "iconPath": "./svg/reason.svg"
+    },
+    "_gp_rollup": {
+      "iconPath": "./svg/rollup.svg"
     },
     "_gp_ruby": {
       "iconPath": "./svg/ruby.svg"
     },
+    "_gp_ruff": {
+      "iconPath": "./svg/ruff.svg"
+    },
     "_gp_rust": {
       "iconPath": "./svg/rust.svg"
+    },
+    "_gp_sass": {
+      "iconPath": "./svg/sass.svg"
     },
     "_gp_scala": {
       "iconPath": "./svg/scala.svg"
@@ -249,11 +630,23 @@
     "_gp_scheme": {
       "iconPath": "./svg/scheme.svg"
     },
+    "_gp_shader": {
+      "iconPath": "./svg/shader.svg"
+    },
+    "_gp_slides": {
+      "iconPath": "./svg/slides.svg"
+    },
     "_gp_smalltalk": {
       "iconPath": "./svg/smalltalk.svg"
     },
+    "_gp_spreadsheet": {
+      "iconPath": "./svg/spreadsheet.svg"
+    },
     "_gp_sql": {
       "iconPath": "./svg/sql.svg"
+    },
+    "_gp_stylus": {
+      "iconPath": "./svg/stylus.svg"
     },
     "_gp_svelte": {
       "iconPath": "./svg/svelte.svg"
@@ -261,20 +654,35 @@
     "_gp_swift": {
       "iconPath": "./svg/swift.svg"
     },
+    "_gp_tailwind": {
+      "iconPath": "./svg/tailwind.svg"
+    },
     "_gp_terminal_crt": {
       "iconPath": "./svg/terminal-crt.svg"
     },
     "_gp_terraform": {
       "iconPath": "./svg/terraform.svg"
     },
+    "_gp_test": {
+      "iconPath": "./svg/test.svg"
+    },
     "_gp_typescript": {
       "iconPath": "./svg/typescript.svg"
+    },
+    "_gp_typst": {
+      "iconPath": "./svg/typst.svg"
+    },
+    "_gp_uv": {
+      "iconPath": "./svg/uv.svg"
     },
     "_gp_vala": {
       "iconPath": "./svg/vala.svg"
     },
     "_gp_vb": {
       "iconPath": "./svg/vb.svg"
+    },
+    "_gp_vercel": {
+      "iconPath": "./svg/vercel.svg"
     },
     "_gp_verilog": {
       "iconPath": "./svg/verilog.svg"
@@ -285,17 +693,29 @@
     "_gp_video": {
       "iconPath": "./svg/video.svg"
     },
+    "_gp_vite": {
+      "iconPath": "./svg/vite.svg"
+    },
+    "_gp_vitest": {
+      "iconPath": "./svg/vitest.svg"
+    },
     "_gp_vue": {
       "iconPath": "./svg/vue.svg"
     },
     "_gp_wasm": {
       "iconPath": "./svg/wasm.svg"
     },
-    "_gp_workflow": {
-      "iconPath": "./svg/workflow.svg"
+    "_gp_webpack": {
+      "iconPath": "./svg/webpack.svg"
+    },
+    "_gp_xml": {
+      "iconPath": "./svg/xml.svg"
     },
     "_gp_yaml": {
       "iconPath": "./svg/yaml.svg"
+    },
+    "_gp_yarn": {
+      "iconPath": "./svg/yarn.svg"
     },
     "_gp_zig": {
       "iconPath": "./svg/zig.svg"
@@ -307,22 +727,40 @@
   "rootFolder": "_gp_folder",
   "rootFolderExpanded": "_gp_folder_open",
   "fileExtensions": {
+    "3ds": "_gp_model3d",
+    "7z": "_gp_archive",
+    "a": "_gp_binary",
+    "aac": "_gp_audio",
     "adb": "_gp_ada",
     "ads": "_gp_ada",
+    "ai": "_gp_image",
+    "aiff": "_gp_audio",
+    "appimage": "_gp_package",
     "asc": "_gp_crypto",
     "asm": "_gp_assembly",
     "astro": "_gp_astro",
-    "bash": "_gp_terminal_crt",
+    "avi": "_gp_video",
+    "avif": "_gp_image",
     "bak": "_gp_floppy",
+    "bash": "_gp_terminal_crt",
     "bat": "_gp_batch",
+    "bats": "_gp_terminal_crt",
     "bib": "_gp_latex",
+    "bin": "_gp_binary",
+    "blend": "_gp_model3d",
+    "bmp": "_gp_image",
+    "br": "_gp_archive",
     "bz2": "_gp_archive",
     "c": "_gp_c",
+    "cab": "_gp_archive",
     "cake": "_gp_csharp",
     "cbl": "_gp_cobol",
     "cc": "_gp_cpp",
+    "cer": "_gp_certificate",
+    "cginc": "_gp_shader",
     "cjs": "_gp_javascript",
     "cl": "_gp_lisp",
+    "class": "_gp_binary",
     "clj": "_gp_clojure",
     "cljc": "_gp_clojure",
     "cljs": "_gp_clojure",
@@ -330,29 +768,50 @@
     "cmd": "_gp_batch",
     "cob": "_gp_cobol",
     "coffee": "_gp_coffeescript",
+    "comp": "_gp_shader",
     "conf": "_gp_config",
     "cpp": "_gp_cpp",
     "cr": "_gp_crystal",
+    "crt": "_gp_certificate",
     "cs": "_gp_csharp",
+    "csh": "_gp_terminal_crt",
+    "csproj": "_gp_csharp",
+    "csr": "_gp_certificate",
     "css": "_gp_css",
+    "csv": "_gp_database",
     "csx": "_gp_csharp",
+    "cts": "_gp_typescript",
+    "cu": "_gp_cuda",
+    "cuh": "_gp_cuda",
     "cxx": "_gp_cpp",
     "d": "_gp_d",
+    "d.cts": "_gp_typescript",
+    "d.mts": "_gp_typescript",
+    "d.ts": "_gp_typescript",
     "dart": "_gp_dart",
-    "csv": "_gp_database",
+    "deb": "_gp_package",
+    "der": "_gp_certificate",
     "desktop": "_gp_config",
     "dfm": "_gp_pascal",
+    "diff": "_gp_diff",
+    "dll": "_gp_binary",
     "dmg": "_gp_cd",
     "doc": "_gp_document",
     "docx": "_gp_document",
     "dpr": "_gp_pascal",
-    "ejs": "_gp_ejs",
+    "dylib": "_gp_binary",
     "edn": "_gp_clojure",
+    "eex": "_gp_elixir",
+    "ejs": "_gp_ejs",
     "el": "_gp_lisp",
+    "elf": "_gp_binary",
     "elm": "_gp_elm",
-    "env": "_gp_config",
+    "env": "_gp_env",
+    "eps": "_gp_image",
+    "epub": "_gp_document",
     "erl": "_gp_erlang",
     "ex": "_gp_elixir",
+    "exe": "_gp_binary",
     "exs": "_gp_elixir",
     "f": "_gp_fortran",
     "f03": "_gp_fortran",
@@ -360,65 +819,101 @@
     "f77": "_gp_fortran",
     "f90": "_gp_fortran",
     "f95": "_gp_fortran",
+    "fbx": "_gp_model3d",
     "fish": "_gp_terminal_crt",
     "flac": "_gp_audio",
+    "flv": "_gp_video",
     "for": "_gp_fortran",
+    "frag": "_gp_shader",
     "fs": "_gp_fsharp",
     "fsi": "_gp_fsharp",
+    "fsproj": "_gp_fsharp",
     "fsx": "_gp_fsharp",
     "gd": "_gp_gdscript",
+    "geojson": "_gp_json",
+    "geom": "_gp_shader",
     "gif": "_gp_image",
+    "glb": "_gp_model3d",
+    "gleam": "_gp_gleam",
+    "glsl": "_gp_shader",
+    "gltf": "_gp_model3d",
     "go": "_gp_go",
-    "gz": "_gp_archive",
-    "graphql": "_gp_graphql",
+    "gpg": "_gp_certificate",
     "gql": "_gp_graphql",
-    "gradle": "_gp_java",
+    "gradle": "_gp_gradle",
+    "graphql": "_gp_graphql",
     "groovy": "_gp_groovy",
     "gvy": "_gp_groovy",
+    "gz": "_gp_archive",
     "h": "_gp_c",
     "hbs": "_gp_handlebars",
-    "hh": "_gp_cpp",
     "hcl": "_gp_hcl",
+    "heex": "_gp_elixir",
+    "heic": "_gp_image",
+    "heif": "_gp_image",
+    "hh": "_gp_cpp",
+    "hlsl": "_gp_shader",
     "hpp": "_gp_cpp",
     "hrl": "_gp_erlang",
     "hs": "_gp_haskell",
     "htm": "_gp_html",
     "html": "_gp_html",
+    "http": "_gp_http",
+    "hx": "_gp_haxe",
     "hxx": "_gp_cpp",
     "icns": "_gp_image",
     "ico": "_gp_image",
     "ini": "_gp_config",
     "inl": "_gp_cpp",
     "ipp": "_gp_cpp",
+    "ipynb": "_gp_notebook",
     "iso": "_gp_cd",
     "itermcolors": "_gp_terminal_crt",
+    "jar": "_gp_java",
     "java": "_gp_java",
     "jl": "_gp_julia",
     "jpeg": "_gp_image",
     "jpg": "_gp_image",
     "js": "_gp_javascript",
     "json": "_gp_json",
+    "json5": "_gp_json",
     "jsonc": "_gp_json",
+    "jsonl": "_gp_json",
     "jsp": "_gp_java",
-    "jsx": "_gp_javascript",
+    "jsx": "_gp_react",
+    "jxl": "_gp_image",
     "key": "_gp_lock",
+    "ko": "_gp_binary",
+    "ksh": "_gp_terminal_crt",
     "kt": "_gp_kotlin",
     "kts": "_gp_kotlin",
-    "license": "_gp_fsf_bull",
+    "leex": "_gp_elixir",
+    "less": "_gp_less",
     "lfm": "_gp_pascal",
-    "lisp": "_gp_lisp",
     "lhs": "_gp_haskell",
+    "lib": "_gp_binary",
+    "license": "_gp_fsf_bull",
+    "lisp": "_gp_lisp",
+    "lock": "_gp_package",
+    "log": "_gp_log",
     "lpr": "_gp_pascal",
     "lsp": "_gp_lisp",
-    "lock": "_gp_package",
-    "log": "_gp_terminal_crt",
     "lua": "_gp_lua",
+    "lz": "_gp_archive",
+    "lz4": "_gp_archive",
+    "lzma": "_gp_archive",
     "m": "_gp_objectivec",
-    "mat": "_gp_matlab",
+    "m4a": "_gp_audio",
+    "m4v": "_gp_video",
     "markdown": "_gp_markdown",
+    "mat": "_gp_matlab",
     "md": "_gp_markdown",
     "mdx": "_gp_markdown",
+    "metal": "_gp_shader",
+    "mid": "_gp_audio",
+    "midi": "_gp_audio",
     "mjs": "_gp_javascript",
+    "mkv": "_gp_video",
     "ml": "_gp_ocaml",
     "mli": "_gp_ocaml",
     "mlx": "_gp_matlab",
@@ -427,226 +922,590 @@
     "mov": "_gp_video",
     "mp3": "_gp_audio",
     "mp4": "_gp_video",
+    "mpeg": "_gp_video",
+    "mpg": "_gp_video",
+    "msi": "_gp_package",
+    "mts": "_gp_typescript",
+    "ndjson": "_gp_json",
     "nim": "_gp_nim",
     "nims": "_gp_nim",
     "nix": "_gp_nix",
+    "nu": "_gp_terminal_crt",
+    "numbers": "_gp_spreadsheet",
+    "o": "_gp_binary",
+    "obj": "_gp_model3d",
+    "odp": "_gp_slides",
+    "ods": "_gp_spreadsheet",
+    "odt": "_gp_document",
+    "oga": "_gp_audio",
+    "ogg": "_gp_audio",
+    "ogv": "_gp_video",
+    "opus": "_gp_audio",
     "otf": "_gp_font",
     "p": "_gp_pascal",
+    "p12": "_gp_certificate",
+    "pages": "_gp_document",
     "pas": "_gp_pascal",
+    "patch": "_gp_diff",
+    "pcss": "_gp_postcss",
     "pdf": "_gp_pdf",
-    "pem": "_gp_lock",
+    "pem": "_gp_certificate",
+    "pfx": "_gp_certificate",
     "php": "_gp_php",
     "phtml": "_gp_php",
+    "pkg": "_gp_package",
     "pl": "_gp_perl",
+    "plist": "_gp_xml",
+    "ply": "_gp_model3d",
     "pm": "_gp_perl",
     "png": "_gp_image",
+    "postcss": "_gp_postcss",
     "pp": "_gp_pascal",
+    "ppt": "_gp_slides",
+    "pptx": "_gp_slides",
+    "prisma": "_gp_prisma",
     "proto": "_gp_proto",
     "ps1": "_gp_powershell",
+    "psd": "_gp_image",
     "psd1": "_gp_powershell",
     "psm1": "_gp_powershell",
+    "pub": "_gp_certificate",
     "pug": "_gp_pug",
     "purs": "_gp_purescript",
     "py": "_gp_python",
+    "pyc": "_gp_binary",
     "pyi": "_gp_python",
     "pyw": "_gp_python",
     "r": "_gp_r",
+    "rar": "_gp_archive",
     "rb": "_gp_ruby",
     "re": "_gp_reason",
     "rei": "_gp_reason",
-    "rkt": "_gp_scheme",
+    "rest": "_gp_http",
+    "rkt": "_gp_racket",
+    "rktl": "_gp_racket",
     "rmd": "_gp_r",
-    "rst": "_gp_document",
+    "rpm": "_gp_package",
     "rs": "_gp_rust",
+    "rst": "_gp_document",
+    "rtf": "_gp_document",
     "s": "_gp_assembly",
-    "sass": "_gp_css",
-    "scala": "_gp_scala",
+    "sass": "_gp_sass",
     "sc": "_gp_scala",
+    "scala": "_gp_scala",
     "scm": "_gp_scheme",
-    "scss": "_gp_css",
+    "scss": "_gp_sass",
     "service": "_gp_config",
-    "sha256": "_gp_lock",
     "sh": "_gp_terminal_crt",
+    "sha256": "_gp_lock",
+    "shader": "_gp_shader",
     "sig": "_gp_lock",
+    "sln": "_gp_config",
+    "so": "_gp_binary",
     "sol": "_gp_crypto",
+    "spec.js": "_gp_test",
+    "spec.jsx": "_gp_test",
+    "spec.mjs": "_gp_test",
+    "spec.mts": "_gp_test",
+    "spec.ts": "_gp_test",
+    "spec.tsx": "_gp_test",
     "sql": "_gp_sql",
     "sqlite": "_gp_database",
     "sqlite3": "_gp_database",
     "ss": "_gp_scheme",
     "st": "_gp_smalltalk",
+    "stl": "_gp_model3d",
+    "styl": "_gp_stylus",
+    "sv": "_gp_verilog",
     "svelte": "_gp_svelte",
     "svg": "_gp_image",
+    "svh": "_gp_verilog",
     "swift": "_gp_swift",
     "tar": "_gp_archive",
+    "tcsh": "_gp_terminal_crt",
     "terminal": "_gp_terminal_crt",
+    "tesc": "_gp_shader",
+    "tese": "_gp_shader",
+    "test.js": "_gp_test",
+    "test.jsx": "_gp_test",
+    "test.mjs": "_gp_test",
+    "test.mts": "_gp_test",
+    "test.ts": "_gp_test",
+    "test.tsx": "_gp_test",
     "tex": "_gp_latex",
     "tf": "_gp_terraform",
     "tfvars": "_gp_terraform",
-    "ttf": "_gp_font",
+    "tgz": "_gp_archive",
+    "tif": "_gp_image",
+    "tiff": "_gp_image",
     "toml": "_gp_config",
     "ts": "_gp_typescript",
-    "tsx": "_gp_typescript",
+    "tsv": "_gp_spreadsheet",
+    "tsx": "_gp_react",
+    "ttf": "_gp_font",
     "txt": "_gp_document",
+    "typ": "_gp_typst",
+    "usdz": "_gp_model3d",
+    "v": "_gp_verilog",
     "vala": "_gp_vala",
     "vapi": "_gp_vala",
-    "v": "_gp_verilog",
     "vb": "_gp_vb",
+    "vbproj": "_gp_vb",
     "vbs": "_gp_vb",
+    "vert": "_gp_shader",
     "vh": "_gp_verilog",
     "vhd": "_gp_vhdl",
     "vhdl": "_gp_vhdl",
-    "vue": "_gp_vue",
     "vsix": "_gp_package",
+    "vue": "_gp_vue",
+    "war": "_gp_java",
     "wasm": "_gp_wasm",
     "wat": "_gp_wasm",
     "wav": "_gp_audio",
     "webm": "_gp_video",
     "webp": "_gp_image",
+    "wgsl": "_gp_shader",
+    "wmv": "_gp_video",
     "woff": "_gp_font",
     "woff2": "_gp_font",
-    "xml": "_gp_config",
+    "xcf": "_gp_image",
+    "xls": "_gp_spreadsheet",
+    "xlsx": "_gp_spreadsheet",
+    "xml": "_gp_xml",
+    "xsd": "_gp_xml",
+    "xsl": "_gp_xml",
+    "xslt": "_gp_xml",
     "xz": "_gp_archive",
     "yaml": "_gp_yaml",
     "yml": "_gp_yaml",
     "zig": "_gp_zig",
     "zip": "_gp_archive",
-    "zsh": "_gp_terminal_crt"
+    "zsh": "_gp_terminal_crt",
+    "zst": "_gp_archive"
   },
   "fileNames": {
+    ".babelrc": "_gp_babel",
+    ".babelrc.json": "_gp_babel",
+    ".bazelrc": "_gp_bazel",
+    ".bazelversion": "_gp_bazel",
     ".dockerignore": "_gp_docker",
-    ".env": "_gp_config",
-    ".env.example": "_gp_config",
+    ".editorconfig": "_gp_editorconfig",
+    ".env": "_gp_env",
+    ".env.development": "_gp_env",
+    ".env.example": "_gp_env",
+    ".env.local": "_gp_env",
+    ".env.production": "_gp_env",
+    ".env.test": "_gp_env",
+    ".eslintignore": "_gp_eslint",
+    ".eslintrc": "_gp_eslint",
+    ".eslintrc.cjs": "_gp_eslint",
+    ".eslintrc.js": "_gp_eslint",
+    ".eslintrc.json": "_gp_eslint",
+    ".eslintrc.yaml": "_gp_eslint",
+    ".eslintrc.yml": "_gp_eslint",
     ".gitattributes": "_gp_git",
     ".gitignore": "_gp_git",
+    ".gitkeep": "_gp_git",
+    ".gitlab-ci.yml": "_gp_gitlab",
     ".gitmodules": "_gp_git",
+    ".mailmap": "_gp_git",
+    ".node-version": "_gp_nodejs",
+    ".npmignore": "_gp_npm",
     ".npmrc": "_gp_npm",
+    ".nvmrc": "_gp_nodejs",
+    ".prettierignore": "_gp_prettier",
+    ".prettierrc": "_gp_prettier",
+    ".prettierrc.cjs": "_gp_prettier",
+    ".prettierrc.js": "_gp_prettier",
+    ".prettierrc.json": "_gp_prettier",
+    ".prettierrc.mjs": "_gp_prettier",
+    ".prettierrc.yaml": "_gp_prettier",
+    ".prettierrc.yml": "_gp_prettier",
+    ".python-version": "_gp_python",
+    ".ruff.toml": "_gp_ruff",
+    ".rustfmt.toml": "_gp_rust",
+    ".tool-versions": "_gp_config",
     ".vscodeignore": "_gp_config",
-    "CHANGELOG.md": "_gp_markdown",
-    "CMakeLists.txt": "_gp_cmake",
+    ".yarnrc": "_gp_yarn",
+    ".yarnrc.yml": "_gp_yarn",
+    "action.yaml": "_gp_githubactions",
+    "action.yml": "_gp_githubactions",
+    "angular.json": "_gp_angular",
+    "ansible.cfg": "_gp_ansible",
+    "astro.config.mjs": "_gp_astro",
+    "astro.config.ts": "_gp_astro",
+    "babel.config.cjs": "_gp_babel",
+    "babel.config.js": "_gp_babel",
+    "babel.config.json": "_gp_babel",
+    "biome.json": "_gp_biome",
+    "biome.jsonc": "_gp_biome",
+    "BUILD.bazel": "_gp_bazel",
+    "build.gradle": "_gp_gradle",
+    "build.gradle.kts": "_gp_gradle",
+    "build.zig": "_gp_zig",
+    "build.zig.zon": "_gp_zig",
+    "bun.lock": "_gp_bun",
+    "bun.lockb": "_gp_bun",
+    "bunfig.toml": "_gp_bun",
     "Cargo.lock": "_gp_rust",
     "Cargo.toml": "_gp_rust",
-    "COPYING": "_gp_fsf_bull",
-    "Dockerfile": "_gp_docker",
-    "Gemfile": "_gp_ruby",
-    "Gemfile.lock": "_gp_ruby",
-    "GasPlasma.itermcolors": "_gp_terminal_crt",
-    "GasPlasma.terminal": "_gp_terminal_crt",
-    "LICENSE": "_gp_fsf_bull",
-    "Makefile": "_gp_make",
-    "README.md": "_gp_markdown",
-    "README.open-vsx.md": "_gp_markdown",
-    "SECURITY.md": "_gp_lock",
-    "SHA256SUMS": "_gp_lock",
-    "SHA256SUMS.asc": "_gp_lock",
+    "CHANGELOG.md": "_gp_markdown",
+    "Chart.yaml": "_gp_helm",
+    "clippy.toml": "_gp_rust",
+    "CMakeLists.txt": "_gp_cmake",
+    "CODEOWNERS": "_gp_git",
+    "compose.yaml": "_gp_docker",
+    "compose.yml": "_gp_docker",
     "composer.json": "_gp_php",
     "composer.lock": "_gp_php",
-    "build.gradle": "_gp_groovy",
-    "build.gradle.kts": "_gp_kotlin",
-    "deno.json": "_gp_json",
+    "conftest.py": "_gp_pytest",
+    "Containerfile": "_gp_docker",
+    "COPYING": "_gp_fsf_bull",
+    "cypress.config.js": "_gp_cypress",
+    "cypress.config.ts": "_gp_cypress",
+    "deno.json": "_gp_deno",
+    "deno.jsonc": "_gp_deno",
+    "deno.lock": "_gp_deno",
     "docker-compose.yaml": "_gp_docker",
     "docker-compose.yml": "_gp_docker",
+    "Dockerfile": "_gp_docker",
+    "eslint.config.cjs": "_gp_eslint",
+    "eslint.config.js": "_gp_eslint",
+    "eslint.config.mjs": "_gp_eslint",
+    "eslint.config.ts": "_gp_eslint",
     "flake.nix": "_gp_nix",
+    "GasPlasma.itermcolors": "_gp_terminal_crt",
+    "GasPlasma.terminal": "_gp_terminal_crt",
+    "Gemfile": "_gp_ruby",
+    "Gemfile.lock": "_gp_ruby",
+    "GNUmakefile": "_gp_make",
     "go.mod": "_gp_go",
     "go.sum": "_gp_go",
+    "gradle.properties": "_gp_gradle",
+    "gradlew": "_gp_gradle",
+    "gradlew.bat": "_gp_gradle",
+    "Jenkinsfile": "_gp_jenkins",
+    "jest.config.cjs": "_gp_jest",
+    "jest.config.js": "_gp_jest",
+    "jest.config.mjs": "_gp_jest",
+    "jest.config.ts": "_gp_jest",
+    "jsconfig.json": "_gp_javascript",
+    "LICENSE": "_gp_fsf_bull",
     "main.tf": "_gp_terraform",
+    "makefile": "_gp_make",
+    "Makefile": "_gp_make",
     "mix.exs": "_gp_elixir",
     "mix.lock": "_gp_elixir",
+    "MODULE.bazel": "_gp_bazel",
+    "netlify.toml": "_gp_netlify",
+    "next.config.js": "_gp_nextjs",
+    "next.config.mjs": "_gp_nextjs",
+    "next.config.ts": "_gp_nextjs",
+    "nginx.conf": "_gp_nginx",
+    "nuxt.config.js": "_gp_nuxt",
+    "nuxt.config.ts": "_gp_nuxt",
     "package-lock.json": "_gp_npm",
     "package.json": "_gp_npm",
-    "pom.xml": "_gp_java",
+    "Package.swift": "_gp_swift",
+    "Pipfile": "_gp_python",
+    "Pipfile.lock": "_gp_python",
+    "pnpm-lock.yaml": "_gp_pnpm",
+    "pnpm-workspace.yaml": "_gp_pnpm",
+    "Podfile": "_gp_ruby",
+    "Podfile.lock": "_gp_ruby",
+    "poetry.lock": "_gp_poetry",
+    "pom.xml": "_gp_maven",
+    "postcss.config.cjs": "_gp_postcss",
+    "postcss.config.js": "_gp_postcss",
+    "postcss.config.mjs": "_gp_postcss",
+    "prettier.config.cjs": "_gp_prettier",
+    "prettier.config.js": "_gp_prettier",
+    "prettier.config.mjs": "_gp_prettier",
+    "Procfile": "_gp_config",
     "Project.toml": "_gp_julia",
     "pyproject.toml": "_gp_python",
-    "pnpm-lock.yaml": "_gp_npm",
+    "pytest.ini": "_gp_pytest",
+    "Rakefile": "_gp_ruby",
+    "README.md": "_gp_markdown",
+    "README.open-vsx.md": "_gp_markdown",
+    "requirements-dev.txt": "_gp_python",
     "requirements.txt": "_gp_python",
+    "rollup.config.js": "_gp_rollup",
+    "rollup.config.mjs": "_gp_rollup",
+    "rollup.config.ts": "_gp_rollup",
+    "ruff.toml": "_gp_ruff",
+    "rust-toolchain": "_gp_rust",
+    "rust-toolchain.toml": "_gp_rust",
+    "rustfmt.toml": "_gp_rust",
+    "SECURITY.md": "_gp_lock",
+    "settings.gradle": "_gp_gradle",
+    "settings.gradle.kts": "_gp_gradle",
+    "setup.cfg": "_gp_python",
     "setup.py": "_gp_python",
-    "settings.gradle": "_gp_groovy",
-    "settings.gradle.kts": "_gp_kotlin",
+    "SHA256SUMS": "_gp_lock",
+    "SHA256SUMS.asc": "_gp_lock",
+    "svelte.config.js": "_gp_svelte",
+    "tailwind.config.cjs": "_gp_tailwind",
+    "tailwind.config.js": "_gp_tailwind",
+    "tailwind.config.mjs": "_gp_tailwind",
+    "tailwind.config.ts": "_gp_tailwind",
+    "tox.ini": "_gp_python",
+    "tsconfig.base.json": "_gp_typescript",
+    "tsconfig.build.json": "_gp_typescript",
     "tsconfig.json": "_gp_typescript",
-    "vite.config.js": "_gp_javascript",
-    "vite.config.ts": "_gp_typescript",
-    "webpack.config.js": "_gp_javascript",
-    "yarn.lock": "_gp_npm"
+    "tsconfig.node.json": "_gp_typescript",
+    "uv.lock": "_gp_uv",
+    "vercel.json": "_gp_vercel",
+    "vite.config.js": "_gp_vite",
+    "vite.config.mjs": "_gp_vite",
+    "vite.config.mts": "_gp_vite",
+    "vite.config.ts": "_gp_vite",
+    "vitest.config.js": "_gp_vitest",
+    "vitest.config.mts": "_gp_vitest",
+    "vitest.config.ts": "_gp_vitest",
+    "vitest.workspace.ts": "_gp_vitest",
+    "webpack.config.cjs": "_gp_webpack",
+    "webpack.config.js": "_gp_webpack",
+    "webpack.config.ts": "_gp_webpack",
+    "WORKSPACE": "_gp_bazel",
+    "WORKSPACE.bazel": "_gp_bazel",
+    "wrangler.json": "_gp_cloudflare",
+    "wrangler.jsonc": "_gp_cloudflare",
+    "wrangler.toml": "_gp_cloudflare",
+    "yarn.lock": "_gp_yarn"
   },
   "folderNames": {
-    ".github": "_gp_workflow",
-    ".vscode": "_gp_config",
-    "audio": "_gp_audio",
-    "assets": "_gp_image",
-    "blockchain": "_gp_crypto",
-    "crypto": "_gp_crypto",
-    "dist": "_gp_package",
-    "docker": "_gp_docker",
-    "docs": "_gp_markdown",
-    "examples": "_gp_code",
-    "fonts": "_gp_font",
-    "icons": "_gp_palette",
-    "images": "_gp_image",
-    "lib": "_gp_code",
-    "media": "_gp_image",
-    "node_modules": "_gp_npm",
-    "packages": "_gp_package",
-    "public": "_gp_image",
-    "scripts": "_gp_terminal_crt",
-    "linux": "_gp_linux",
-    "src": "_gp_code",
-    "static": "_gp_image",
-    "styles": "_gp_css",
-    "terraform": "_gp_terraform",
-    ".terraform": "_gp_terraform",
-    "test": "_gp_code",
-    "tests": "_gp_code",
-    "themes": "_gp_palette",
-    "wallet": "_gp_crypto",
-    "workflows": "_gp_workflow"
+    "__mocks__": "_gp_folder_test",
+    "__pycache__": "_gp_folder_python",
+    "__tests__": "_gp_folder_test",
+    ".cache": "_gp_folder_archive",
+    ".cargo": "_gp_folder_rust",
+    ".config": "_gp_folder_config",
+    ".devcontainer": "_gp_folder_docker",
+    ".git": "_gp_folder_git",
+    ".github": "_gp_folder_githubactions",
+    ".husky": "_gp_folder_git",
+    ".idea": "_gp_folder_config",
+    ".next": "_gp_folder_nextjs",
+    ".nuxt": "_gp_folder_nuxt",
+    ".pytest_cache": "_gp_folder_python",
+    ".storybook": "_gp_folder_storybook",
+    ".terraform": "_gp_folder_terraform",
+    ".venv": "_gp_folder_python",
+    ".vscode": "_gp_folder_config",
+    ".zed": "_gp_folder_config",
+    "@types": "_gp_folder_typescript",
+    "ansible": "_gp_folder_ansible",
+    "api": "_gp_folder_api",
+    "assets": "_gp_folder_image",
+    "audio": "_gp_folder_audio",
+    "bin": "_gp_folder_binary",
+    "blockchain": "_gp_folder_crypto",
+    "build": "_gp_folder_package",
+    "charts": "_gp_folder_helm",
+    "components": "_gp_folder_component",
+    "config": "_gp_folder_config",
+    "configs": "_gp_folder_config",
+    "controllers": "_gp_folder_api",
+    "coverage": "_gp_folder_test",
+    "crypto": "_gp_folder_crypto",
+    "cypress": "_gp_folder_cypress",
+    "data": "_gp_folder_database",
+    "database": "_gp_folder_database",
+    "db": "_gp_folder_database",
+    "dist": "_gp_folder_package",
+    "docker": "_gp_folder_docker",
+    "docs": "_gp_folder_markdown",
+    "e2e": "_gp_folder_test",
+    "examples": "_gp_folder_code",
+    "extensions": "_gp_folder_plugin",
+    "fixtures": "_gp_folder_test",
+    "fonts": "_gp_folder_font",
+    "helm": "_gp_folder_helm",
+    "helpers": "_gp_folder_tool",
+    "hooks": "_gp_folder_plugin",
+    "i18n": "_gp_folder_locale",
+    "icons": "_gp_folder_palette",
+    "images": "_gp_folder_image",
+    "include": "_gp_folder_c",
+    "k8s": "_gp_folder_kubernetes",
+    "kubernetes": "_gp_folder_kubernetes",
+    "lang": "_gp_folder_locale",
+    "layouts": "_gp_folder_layout",
+    "lib": "_gp_folder_code",
+    "linux": "_gp_folder_linux",
+    "locales": "_gp_folder_locale",
+    "logs": "_gp_folder_log",
+    "media": "_gp_folder_image",
+    "middleware": "_gp_folder_api",
+    "migrations": "_gp_folder_database",
+    "mocks": "_gp_folder_test",
+    "models": "_gp_folder_database",
+    "node_modules": "_gp_folder_npm",
+    "notebooks": "_gp_folder_notebook",
+    "out": "_gp_folder_package",
+    "packages": "_gp_folder_package",
+    "pages": "_gp_folder_layout",
+    "plugins": "_gp_folder_plugin",
+    "prisma": "_gp_folder_prisma",
+    "public": "_gp_folder_image",
+    "routes": "_gp_folder_api",
+    "scripts": "_gp_folder_terminal_crt",
+    "server": "_gp_folder_api",
+    "services": "_gp_folder_api",
+    "shaders": "_gp_folder_shader",
+    "spec": "_gp_folder_test",
+    "specs": "_gp_folder_test",
+    "src": "_gp_folder_code",
+    "static": "_gp_folder_image",
+    "store": "_gp_folder_database",
+    "styles": "_gp_folder_css",
+    "target": "_gp_folder_package",
+    "temp": "_gp_folder_archive",
+    "templates": "_gp_folder_layout",
+    "terraform": "_gp_folder_terraform",
+    "test": "_gp_folder_test",
+    "tests": "_gp_folder_test",
+    "themes": "_gp_folder_palette",
+    "tmp": "_gp_folder_archive",
+    "tools": "_gp_folder_tool",
+    "translations": "_gp_folder_locale",
+    "types": "_gp_folder_typescript",
+    "typings": "_gp_folder_typescript",
+    "utils": "_gp_folder_tool",
+    "vendor": "_gp_folder_package",
+    "venv": "_gp_folder_python",
+    "views": "_gp_folder_layout",
+    "wallet": "_gp_folder_crypto",
+    "workflows": "_gp_folder_githubactions"
   },
   "folderNamesExpanded": {
-    ".github": "_gp_workflow",
-    ".vscode": "_gp_config",
-    "audio": "_gp_audio",
-    "assets": "_gp_image",
-    "blockchain": "_gp_crypto",
-    "crypto": "_gp_crypto",
-    "dist": "_gp_package",
-    "docker": "_gp_docker",
-    "docs": "_gp_markdown",
-    "examples": "_gp_code",
-    "fonts": "_gp_font",
-    "icons": "_gp_palette",
-    "images": "_gp_image",
-    "lib": "_gp_code",
-    "media": "_gp_image",
-    "node_modules": "_gp_npm",
-    "packages": "_gp_package",
-    "public": "_gp_image",
-    "scripts": "_gp_terminal_crt",
-    "linux": "_gp_linux",
-    "src": "_gp_code",
-    "static": "_gp_image",
-    "styles": "_gp_css",
-    "terraform": "_gp_terraform",
-    ".terraform": "_gp_terraform",
-    "test": "_gp_code",
-    "tests": "_gp_code",
-    "themes": "_gp_palette",
-    "wallet": "_gp_crypto",
-    "workflows": "_gp_workflow"
+    "__mocks__": "_gp_folder_test_open",
+    "__pycache__": "_gp_folder_python_open",
+    "__tests__": "_gp_folder_test_open",
+    ".cache": "_gp_folder_archive_open",
+    ".cargo": "_gp_folder_rust_open",
+    ".config": "_gp_folder_config_open",
+    ".devcontainer": "_gp_folder_docker_open",
+    ".git": "_gp_folder_git_open",
+    ".github": "_gp_folder_githubactions_open",
+    ".husky": "_gp_folder_git_open",
+    ".idea": "_gp_folder_config_open",
+    ".next": "_gp_folder_nextjs_open",
+    ".nuxt": "_gp_folder_nuxt_open",
+    ".pytest_cache": "_gp_folder_python_open",
+    ".storybook": "_gp_folder_storybook_open",
+    ".terraform": "_gp_folder_terraform_open",
+    ".venv": "_gp_folder_python_open",
+    ".vscode": "_gp_folder_config_open",
+    ".zed": "_gp_folder_config_open",
+    "@types": "_gp_folder_typescript_open",
+    "ansible": "_gp_folder_ansible_open",
+    "api": "_gp_folder_api_open",
+    "assets": "_gp_folder_image_open",
+    "audio": "_gp_folder_audio_open",
+    "bin": "_gp_folder_binary_open",
+    "blockchain": "_gp_folder_crypto_open",
+    "build": "_gp_folder_package_open",
+    "charts": "_gp_folder_helm_open",
+    "components": "_gp_folder_component_open",
+    "config": "_gp_folder_config_open",
+    "configs": "_gp_folder_config_open",
+    "controllers": "_gp_folder_api_open",
+    "coverage": "_gp_folder_test_open",
+    "crypto": "_gp_folder_crypto_open",
+    "cypress": "_gp_folder_cypress_open",
+    "data": "_gp_folder_database_open",
+    "database": "_gp_folder_database_open",
+    "db": "_gp_folder_database_open",
+    "dist": "_gp_folder_package_open",
+    "docker": "_gp_folder_docker_open",
+    "docs": "_gp_folder_markdown_open",
+    "e2e": "_gp_folder_test_open",
+    "examples": "_gp_folder_code_open",
+    "extensions": "_gp_folder_plugin_open",
+    "fixtures": "_gp_folder_test_open",
+    "fonts": "_gp_folder_font_open",
+    "helm": "_gp_folder_helm_open",
+    "helpers": "_gp_folder_tool_open",
+    "hooks": "_gp_folder_plugin_open",
+    "i18n": "_gp_folder_locale_open",
+    "icons": "_gp_folder_palette_open",
+    "images": "_gp_folder_image_open",
+    "include": "_gp_folder_c_open",
+    "k8s": "_gp_folder_kubernetes_open",
+    "kubernetes": "_gp_folder_kubernetes_open",
+    "lang": "_gp_folder_locale_open",
+    "layouts": "_gp_folder_layout_open",
+    "lib": "_gp_folder_code_open",
+    "linux": "_gp_folder_linux_open",
+    "locales": "_gp_folder_locale_open",
+    "logs": "_gp_folder_log_open",
+    "media": "_gp_folder_image_open",
+    "middleware": "_gp_folder_api_open",
+    "migrations": "_gp_folder_database_open",
+    "mocks": "_gp_folder_test_open",
+    "models": "_gp_folder_database_open",
+    "node_modules": "_gp_folder_npm_open",
+    "notebooks": "_gp_folder_notebook_open",
+    "out": "_gp_folder_package_open",
+    "packages": "_gp_folder_package_open",
+    "pages": "_gp_folder_layout_open",
+    "plugins": "_gp_folder_plugin_open",
+    "prisma": "_gp_folder_prisma_open",
+    "public": "_gp_folder_image_open",
+    "routes": "_gp_folder_api_open",
+    "scripts": "_gp_folder_terminal_crt_open",
+    "server": "_gp_folder_api_open",
+    "services": "_gp_folder_api_open",
+    "shaders": "_gp_folder_shader_open",
+    "spec": "_gp_folder_test_open",
+    "specs": "_gp_folder_test_open",
+    "src": "_gp_folder_code_open",
+    "static": "_gp_folder_image_open",
+    "store": "_gp_folder_database_open",
+    "styles": "_gp_folder_css_open",
+    "target": "_gp_folder_package_open",
+    "temp": "_gp_folder_archive_open",
+    "templates": "_gp_folder_layout_open",
+    "terraform": "_gp_folder_terraform_open",
+    "test": "_gp_folder_test_open",
+    "tests": "_gp_folder_test_open",
+    "themes": "_gp_folder_palette_open",
+    "tmp": "_gp_folder_archive_open",
+    "tools": "_gp_folder_tool_open",
+    "translations": "_gp_folder_locale_open",
+    "types": "_gp_folder_typescript_open",
+    "typings": "_gp_folder_typescript_open",
+    "utils": "_gp_folder_tool_open",
+    "vendor": "_gp_folder_package_open",
+    "venv": "_gp_folder_python_open",
+    "views": "_gp_folder_layout_open",
+    "wallet": "_gp_folder_crypto_open",
+    "workflows": "_gp_folder_githubactions_open"
   },
   "languageIds": {
     "ada": "_gp_ada",
     "asm": "_gp_assembly",
     "astro": "_gp_astro",
     "bat": "_gp_batch",
+    "bibtex": "_gp_latex",
     "c": "_gp_c",
     "clojure": "_gp_clojure",
-    "coffeescript": "_gp_coffeescript",
     "cobol": "_gp_cobol",
+    "coffeescript": "_gp_coffeescript",
     "cpp": "_gp_cpp",
     "crystal": "_gp_crystal",
     "csharp": "_gp_csharp",
     "css": "_gp_css",
+    "cuda-cpp": "_gp_cuda",
     "d": "_gp_d",
     "dart": "_gp_dart",
+    "diff": "_gp_diff",
+    "dockercompose": "_gp_docker",
     "dockerfile": "_gp_docker",
+    "dotenv": "_gp_env",
+    "editorconfig": "_gp_editorconfig",
     "ejs": "_gp_ejs",
     "elixir": "_gp_elixir",
     "elm": "_gp_elm",
@@ -654,26 +1513,41 @@
     "fortran": "_gp_fortran",
     "fsharp": "_gp_fsharp",
     "gdscript": "_gp_gdscript",
+    "git-commit": "_gp_git",
+    "git-rebase": "_gp_git",
+    "github-actions-workflow": "_gp_githubactions",
+    "gleam": "_gp_gleam",
+    "glsl": "_gp_shader",
     "go": "_gp_go",
     "graphql": "_gp_graphql",
     "groovy": "_gp_groovy",
     "handlebars": "_gp_handlebars",
     "haskell": "_gp_haskell",
+    "haxe": "_gp_haxe",
     "hcl": "_gp_hcl",
+    "hlsl": "_gp_shader",
     "html": "_gp_html",
+    "http": "_gp_http",
+    "ignore": "_gp_git",
+    "ini": "_gp_config",
     "java": "_gp_java",
     "javascript": "_gp_javascript",
-    "javascriptreact": "_gp_javascript",
+    "javascriptreact": "_gp_react",
     "json": "_gp_json",
+    "json5": "_gp_json",
     "jsonc": "_gp_json",
+    "jsonl": "_gp_json",
     "julia": "_gp_julia",
+    "jupyter": "_gp_notebook",
     "kotlin": "_gp_kotlin",
     "latex": "_gp_latex",
+    "less": "_gp_less",
     "lisp": "_gp_lisp",
+    "log": "_gp_log",
     "lua": "_gp_lua",
     "makefile": "_gp_make",
-    "matlab": "_gp_matlab",
     "markdown": "_gp_markdown",
+    "matlab": "_gp_matlab",
     "nim": "_gp_nim",
     "nix": "_gp_nix",
     "objective-c": "_gp_objectivec",
@@ -682,32 +1556,46 @@
     "pascal": "_gp_pascal",
     "perl": "_gp_perl",
     "php": "_gp_php",
+    "postcss": "_gp_postcss",
     "powershell": "_gp_powershell",
+    "prisma": "_gp_prisma",
+    "properties": "_gp_config",
     "protobuf": "_gp_proto",
     "pug": "_gp_pug",
     "purescript": "_gp_purescript",
     "python": "_gp_python",
     "r": "_gp_r",
-    "racket": "_gp_scheme",
+    "racket": "_gp_racket",
     "reason": "_gp_reason",
+    "restructuredtext": "_gp_document",
     "ruby": "_gp_ruby",
     "rust": "_gp_rust",
+    "sass": "_gp_sass",
     "scala": "_gp_scala",
     "scheme": "_gp_scheme",
+    "scss": "_gp_sass",
     "shellscript": "_gp_terminal_crt",
-    "sql": "_gp_sql",
     "solidity": "_gp_crypto",
+    "sql": "_gp_sql",
+    "stylus": "_gp_stylus",
     "svelte": "_gp_svelte",
     "swift": "_gp_swift",
+    "systemverilog": "_gp_verilog",
     "terraform": "_gp_terraform",
+    "tex": "_gp_latex",
+    "toml": "_gp_config",
     "typescript": "_gp_typescript",
-    "typescriptreact": "_gp_typescript",
+    "typescriptreact": "_gp_react",
+    "typst": "_gp_typst",
     "vala": "_gp_vala",
     "vb": "_gp_vb",
     "verilog": "_gp_verilog",
     "vhdl": "_gp_vhdl",
     "vue": "_gp_vue",
     "wasm": "_gp_wasm",
+    "wgsl": "_gp_shader",
+    "xml": "_gp_xml",
+    "xsl": "_gp_xml",
     "yaml": "_gp_yaml"
   }
 }

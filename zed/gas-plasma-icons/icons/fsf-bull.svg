@@ -40,8 +40,8 @@
     <path d="M57 9v18h18" fill="#321500" stroke="#FFD2A6" stroke-width="2.5" stroke-linejoin="round"/>
     <path d="M26 17h20" stroke="#FFF0DB" stroke-width="3" stroke-linecap="round" opacity=".38"/>
     <path d="M24 77h42" stroke="#FFD2A6" stroke-width="3.5" stroke-linecap="round" opacity=".9"/>
-    <path d="M36 39C27 28 18 28 13 38c8-2 15 2 20 9M60 39c9-11 18-11 23-1-8-2-15 2-20 9" fill="none" stroke="#FFD2A6" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <!--glyph--><path d="M36 39C27 28 18 28 13 38c8-2 15 2 20 9M60 39c9-11 18-11 23-1-8-2-15 2-20 9" fill="none" stroke="#FFD2A6" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
     <path d="M34 44c0-12 6-20 14-20s14 8 14 20c0 10-6 18-14 24-8-6-14-14-14-24z" fill="#140800" stroke="#FFD2A6" stroke-width="4" stroke-linejoin="round"/>
-    <path d="M40 48h16M42 58h12" stroke="#FF8C00" stroke-width="4" stroke-linecap="round"/>
+    <path d="M40 48h16M42 58h12" stroke="#FF8C00" stroke-width="4" stroke-linecap="round"/><!--/glyph-->
   </g>
 </svg>

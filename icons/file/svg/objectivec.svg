@@ -36,7 +36,7 @@
     </filter>
   </defs>
   <g filter="url(#shadow)">
-    <path d="M48 17l29 17v31L48 82 19 65V34z" fill="url(#tile)" stroke="#438EFF" stroke-width="4.5" stroke-linejoin="round"/>
-    <text x="48" y="57" text-anchor="middle" font-family="Inter, SF Pro Display, Segoe UI, Arial, sans-serif" font-size="31" font-weight="900" fill="#FFD2A6">OC</text>
+    <path d="M48 13l32 18.5v35L48 85 16 66.5v-35z" fill="url(#tile)" stroke="#438EFF" stroke-width="5" stroke-linejoin="round"/>
+    <text x="48" y="60.519999999999996" text-anchor="middle" font-family="Inter, SF Pro Display, Segoe UI, Arial, sans-serif" font-size="32" font-weight="900" fill="#FFD2A6">OC</text>
   </g>
 </svg>

@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased
+
+- Named folders now use folder-shaped icons with an emblem, and show a distinct open icon when expanded in VS Code and Zed.
+- Fixed Zed file name mappings: dotted names such as `main.tf` and `package.json` match by full name instead of claiming every file with the same stem.
+- Expanded file icon coverage to about 350 extensions, 190 file names, and 100 folder names, with new ecosystem logos (ESLint, Prettier, Vite, React, Tailwind CSS, Bun, Deno, pnpm, Yarn, Gradle, Kubernetes, and more) and new generic icons for tests, notebooks, binaries, spreadsheets, slides, diffs, certificates, shaders, 3D models, logs, and environment files.
+- Replaced text badges with upstream logos for D, EJS, Common Lisp, and Racket, and redesigned the remaining language badges with larger labels and a solid accent band.
+- Brand colors that are too dark for the near-black icon tiles are now lifted toward the theme's peach for contrast.
+- Expanded the product icon theme to 41 Codicon glyphs covering accounts, notifications, debugging, diff, history, filtering, and common editor actions.
+
 ## 0.1.1
 
 - Added Zed color theme and file icon theme extension outputs.

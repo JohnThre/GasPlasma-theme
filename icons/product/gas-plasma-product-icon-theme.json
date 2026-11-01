@@ -14,12 +14,36 @@
     }
   ],
   "iconDefinitions": {
+    "account": {
+      "fontCharacter": "\\EA10",
+      "fontId": "gas-plasma-product-icons"
+    },
     "accounts-view-bar-icon": {
-      "fontCharacter": "\\EA03",
+      "fontCharacter": "\\EA10",
+      "fontId": "gas-plasma-product-icons"
+    },
+    "add": {
+      "fontCharacter": "\\EA11",
+      "fontId": "gas-plasma-product-icons"
+    },
+    "bell": {
+      "fontCharacter": "\\EA12",
+      "fontId": "gas-plasma-product-icons"
+    },
+    "bug": {
+      "fontCharacter": "\\EA14",
       "fontId": "gas-plasma-product-icons"
     },
     "check": {
       "fontCharacter": "\\EA01",
+      "fontId": "gas-plasma-product-icons"
+    },
+    "chevron-down": {
+      "fontCharacter": "\\EA15",
+      "fontId": "gas-plasma-product-icons"
+    },
+    "chevron-right": {
+      "fontCharacter": "\\EA16",
       "fontId": "gas-plasma-product-icons"
     },
     "chrome-close": {
@@ -30,12 +54,60 @@
       "fontCharacter": "\\EA02",
       "fontId": "gas-plasma-product-icons"
     },
+    "cloud": {
+      "fontCharacter": "\\EA17",
+      "fontId": "gas-plasma-product-icons"
+    },
+    "copy": {
+      "fontCharacter": "\\EA18",
+      "fontId": "gas-plasma-product-icons"
+    },
     "debug-alt": {
+      "fontCharacter": "\\EA19",
+      "fontId": "gas-plasma-product-icons"
+    },
+    "debug-breakpoint": {
+      "fontCharacter": "\\EA13",
+      "fontId": "gas-plasma-product-icons"
+    },
+    "debug-breakpoint-unverified": {
+      "fontCharacter": "\\EA13",
+      "fontId": "gas-plasma-product-icons"
+    },
+    "debug-console-view-icon": {
+      "fontCharacter": "\\EA27",
+      "fontId": "gas-plasma-product-icons"
+    },
+    "debug-continue": {
       "fontCharacter": "\\EA0C",
+      "fontId": "gas-plasma-product-icons"
+    },
+    "debug-start": {
+      "fontCharacter": "\\EA0C",
+      "fontId": "gas-plasma-product-icons"
+    },
+    "debug-stop": {
+      "fontCharacter": "\\EA24",
       "fontId": "gas-plasma-product-icons"
     },
     "debug-view-icon": {
       "fontCharacter": "\\EA0C",
+      "fontId": "gas-plasma-product-icons"
+    },
+    "diff": {
+      "fontCharacter": "\\EA1A",
+      "fontId": "gas-plasma-product-icons"
+    },
+    "edit": {
+      "fontCharacter": "\\EA1B",
+      "fontId": "gas-plasma-product-icons"
+    },
+    "editor-layout": {
+      "fontCharacter": "\\EA23",
+      "fontId": "gas-plasma-product-icons"
+    },
+    "ellipsis": {
+      "fontCharacter": "\\EA1C",
       "fontId": "gas-plasma-product-icons"
     },
     "error": {
@@ -58,6 +130,10 @@
       "fontCharacter": "\\EA05",
       "fontId": "gas-plasma-product-icons"
     },
+    "filter": {
+      "fontCharacter": "\\EA1D",
+      "fontId": "gas-plasma-product-icons"
+    },
     "folder": {
       "fontCharacter": "\\EA07",
       "fontId": "gas-plasma-product-icons"
@@ -74,8 +150,36 @@
       "fontCharacter": "\\EA00",
       "fontId": "gas-plasma-product-icons"
     },
+    "git-compare": {
+      "fontCharacter": "\\EA1A",
+      "fontId": "gas-plasma-product-icons"
+    },
+    "git-merge": {
+      "fontCharacter": "\\EA28",
+      "fontId": "gas-plasma-product-icons"
+    },
+    "history": {
+      "fontCharacter": "\\EA1E",
+      "fontId": "gas-plasma-product-icons"
+    },
     "info": {
       "fontCharacter": "\\EA0A",
+      "fontId": "gas-plasma-product-icons"
+    },
+    "list-flat": {
+      "fontCharacter": "\\EA1F",
+      "fontId": "gas-plasma-product-icons"
+    },
+    "list-tree": {
+      "fontCharacter": "\\EA26",
+      "fontId": "gas-plasma-product-icons"
+    },
+    "lock": {
+      "fontCharacter": "\\EA20",
+      "fontId": "gas-plasma-product-icons"
+    },
+    "manage": {
+      "fontCharacter": "\\EA09",
       "fontId": "gas-plasma-product-icons"
     },
     "new-file": {
@@ -86,12 +190,36 @@
       "fontCharacter": "\\EA07",
       "fontId": "gas-plasma-product-icons"
     },
+    "notifications-view-icon": {
+      "fontCharacter": "\\EA12",
+      "fontId": "gas-plasma-product-icons"
+    },
+    "output": {
+      "fontCharacter": "\\EA27",
+      "fontId": "gas-plasma-product-icons"
+    },
+    "output-view-icon": {
+      "fontCharacter": "\\EA27",
+      "fontId": "gas-plasma-product-icons"
+    },
     "pass": {
       "fontCharacter": "\\EA01",
       "fontId": "gas-plasma-product-icons"
     },
+    "pinned": {
+      "fontCharacter": "\\EA21",
+      "fontId": "gas-plasma-product-icons"
+    },
     "play": {
       "fontCharacter": "\\EA0C",
+      "fontId": "gas-plasma-product-icons"
+    },
+    "problems-view-icon": {
+      "fontCharacter": "\\EA0F",
+      "fontId": "gas-plasma-product-icons"
+    },
+    "refresh": {
+      "fontCharacter": "\\EA22",
       "fontId": "gas-plasma-product-icons"
     },
     "repo": {
@@ -100,6 +228,10 @@
     },
     "run": {
       "fontCharacter": "\\EA0C",
+      "fontId": "gas-plasma-product-icons"
+    },
+    "run-view-icon": {
+      "fontCharacter": "\\EA19",
       "fontId": "gas-plasma-product-icons"
     },
     "save": {
@@ -114,6 +246,14 @@
       "fontCharacter": "\\EA0D",
       "fontId": "gas-plasma-product-icons"
     },
+    "search-filter": {
+      "fontCharacter": "\\EA1D",
+      "fontId": "gas-plasma-product-icons"
+    },
+    "search-refresh": {
+      "fontCharacter": "\\EA22",
+      "fontId": "gas-plasma-product-icons"
+    },
     "search-view-icon": {
       "fontCharacter": "\\EA0D",
       "fontId": "gas-plasma-product-icons"
@@ -122,12 +262,44 @@
       "fontCharacter": "\\EA09",
       "fontId": "gas-plasma-product-icons"
     },
+    "settings-view-bar-icon": {
+      "fontCharacter": "\\EA09",
+      "fontId": "gas-plasma-product-icons"
+    },
+    "split-horizontal": {
+      "fontCharacter": "\\EA23",
+      "fontId": "gas-plasma-product-icons"
+    },
     "sync": {
       "fontCharacter": "\\EA0E",
       "fontId": "gas-plasma-product-icons"
     },
     "terminal": {
       "fontCharacter": "\\EA03",
+      "fontId": "gas-plasma-product-icons"
+    },
+    "terminal-view-icon": {
+      "fontCharacter": "\\EA03",
+      "fontId": "gas-plasma-product-icons"
+    },
+    "timeline-view-icon": {
+      "fontCharacter": "\\EA1E",
+      "fontId": "gas-plasma-product-icons"
+    },
+    "toolbar-more": {
+      "fontCharacter": "\\EA1C",
+      "fontId": "gas-plasma-product-icons"
+    },
+    "trash": {
+      "fontCharacter": "\\EA25",
+      "fontId": "gas-plasma-product-icons"
+    },
+    "tree-item-expanded": {
+      "fontCharacter": "\\EA15",
+      "fontId": "gas-plasma-product-icons"
+    },
+    "views-sub-menu": {
+      "fontCharacter": "\\EA1C",
       "fontId": "gas-plasma-product-icons"
     },
     "warning": {

@@ -84,8 +84,22 @@ if (zedTheme.themes?.[0]?.style?.syntax?.keyword?.color !== palette.ansi?.normal
 if (fileIconTheme.file !== "_gp_crt") errors.push("File icon theme must use CRT as the default file icon");
 if (fileIconTheme.folder !== "_gp_folder") errors.push("File icon theme must define generated folder icons");
 if (!fileIconTheme.fileExtensions?.json) errors.push("File icon theme must include extension mappings");
-if (Object.keys(fileIconTheme.iconDefinitions ?? {}).length < 95) {
+if (Object.keys(fileIconTheme.iconDefinitions ?? {}).length < 230) {
   errors.push("File icon theme must include broad icon coverage");
+}
+if (fileIconTheme.folderNames?.src !== "_gp_folder_code") {
+  errors.push("File icon theme must map named folders to folder-shaped icons");
+}
+if (fileIconTheme.folderNamesExpanded?.src !== "_gp_folder_code_open") {
+  errors.push("File icon theme must map expanded named folders to open folder icons");
+}
+for (const [folderName, definition] of Object.entries(fileIconTheme.folderNames ?? {})) {
+  if (!definition.startsWith("_gp_folder_")) {
+    errors.push(`Folder ${folderName} must use a folder-shaped icon`);
+  }
+  if (fileIconTheme.folderNamesExpanded?.[folderName] !== `${definition}_open`) {
+    errors.push(`Folder ${folderName} must have a matching open folder icon`);
+  }
 }
 if (zedIconTheme.$schema !== "https://zed.dev/schema/icon_themes/v0.3.0.json") {
   errors.push("Zed icon theme must use the v0.3.0 icon theme schema");
@@ -99,6 +113,28 @@ if (zedIconTheme.themes?.[0]?.directory_icons?.collapsed !== "./icons/folder.svg
 if (zedIconTheme.themes?.[0]?.file_suffixes?.json !== "json") {
   errors.push("Zed icon theme must include suffix mappings");
 }
+const zedNamedDirectories = zedIconTheme.themes?.[0]?.named_directory_icons ?? {};
+if (zedNamedDirectories.src?.collapsed !== "./icons/folder-code.svg"
+  || zedNamedDirectories.src?.expanded !== "./icons/folder-code-open.svg") {
+  errors.push("Zed icon theme must use distinct collapsed and expanded named folder icons");
+}
+for (const stem of Object.keys(zedIconTheme.themes?.[0]?.file_stems ?? {})) {
+  if (stem.includes(".")) {
+    errors.push(`Zed file stem ${stem} must be an extensionless file name; dotted names belong in file_suffixes`);
+  }
+}
+for (const [fileName, expectedIcon] of Object.entries({
+  "main.tf": "terraform",
+  "package.json": "npm",
+  ".gitignore": "git"
+})) {
+  if (zedIconTheme.themes?.[0]?.file_suffixes?.[fileName] !== expectedIcon) {
+    errors.push(`Zed icon theme must map the full file name ${fileName} to ${expectedIcon}`);
+  }
+}
+if (zedIconTheme.themes?.[0]?.file_stems?.Dockerfile !== "docker") {
+  errors.push("Zed icon theme must map the Dockerfile stem");
+}
 if (zedIconTheme.themes?.[0]?.file_icons?.default?.path !== "./icons/crt.svg") {
   errors.push("Zed icon theme must include the CRT default file icon");
 }
@@ -110,6 +146,18 @@ if (!productIconTheme.fonts?.[0]?.src?.[0]?.path?.endsWith(".woff")) {
 }
 if (!productIconTheme.iconDefinitions?.["explorer-view-icon"]) {
   errors.push("Product icon theme must include core VS Code icon definitions");
+}
+if (Object.keys(iconManifest.productTheme?.glyphs ?? {}).length < 40) {
+  errors.push("Product icon theme must include broad glyph coverage");
+}
+for (const [iconId, glyphName] of Object.entries(iconManifest.productTheme?.iconDefinitions ?? {})) {
+  if (!iconManifest.productTheme?.glyphs?.[glyphName]) {
+    errors.push(`Product icon ${iconId} references unknown glyph ${glyphName}`);
+  }
+}
+if (productIconTheme.iconDefinitions?.["accounts-view-bar-icon"]?.fontCharacter
+  !== `\\${iconManifest.productTheme?.glyphs?.account}`) {
+  errors.push("Product icon theme must map the accounts view to the account glyph");
 }
 
 for (const [extension, expectedIcon] of Object.entries({
@@ -189,7 +237,15 @@ for (const [extension, expectedIcon] of Object.entries({
   toml: "_gp_config",
   svg: "_gp_image",
   png: "_gp_image",
-  zip: "_gp_archive"
+  zip: "_gp_archive",
+  ipynb: "_gp_notebook",
+  "test.ts": "_gp_test",
+  "d.ts": "_gp_typescript",
+  tsx: "_gp_react",
+  exe: "_gp_binary",
+  xlsx: "_gp_spreadsheet",
+  patch: "_gp_diff",
+  glsl: "_gp_shader"
 })) {
   if (fileIconTheme.fileExtensions?.[extension] !== expectedIcon) {
     errors.push(`File icon theme must map .${extension} to ${expectedIcon}`);
@@ -200,7 +256,11 @@ for (const [fileName, expectedIcon] of Object.entries({
   "package.json": "_gp_npm",
   "Dockerfile": "_gp_docker",
   ".gitignore": "_gp_git",
-  "CMakeLists.txt": "_gp_cmake"
+  "CMakeLists.txt": "_gp_cmake",
+  ".eslintrc.json": "_gp_eslint",
+  ".prettierrc": "_gp_prettier",
+  "vite.config.ts": "_gp_vite",
+  ".env": "_gp_env"
 })) {
   if (fileIconTheme.fileNames?.[fileName] !== expectedIcon) {
     errors.push(`File icon theme must map ${fileName} to ${expectedIcon}`);

@@ -82,7 +82,11 @@ For local testing, install each generated extension directory as a Zed dev exten
 
 File icons use recognizable upstream language and ecosystem logo geometry where available, with restrained Gas Plasma color treatment for contrast. Product icons are generated from VS Code Codicons to preserve the original editor UI icon language.
 
-Language coverage includes C, C++, Objective-C, Pascal, Python, Vala, C#, Java, PHP, Go, Swift, JavaScript, TypeScript, HTML, CSS, Rust, Ruby, Dart, Kotlin, Scala, Lua, R, Zig, Perl, Haskell, Elixir, Erlang, Clojure, F#, SQL, Vue, Svelte, PowerShell, Terraform/HCL, Nix, Julia, Fortran, Ada, COBOL, assembly, Groovy, Crystal, Nim, OCaml, Reason, Elm, MATLAB, VB, Verilog/VHDL, LaTeX, GraphQL, WASM, Astro, Pug, Handlebars, and EJS.
+Language coverage includes C, C++, Objective-C, Pascal, Python, Vala, C#, Java, PHP, Go, Swift, JavaScript, TypeScript, HTML, CSS, Rust, Ruby, Dart, Kotlin, Scala, Lua, R, Zig, Perl, Haskell, Elixir, Erlang, Clojure, F#, SQL, Vue, Svelte, PowerShell, Terraform/HCL, Nix, Julia, Fortran, Ada, COBOL, assembly, Groovy, Crystal, Nim, OCaml, Reason, Elm, MATLAB, VB, Verilog/VHDL, LaTeX, GraphQL, WASM, Astro, Pug, Handlebars, EJS, Racket, Gleam, Haxe, Prisma, Solidity, CUDA, Typst, React, Sass, Less, Stylus, and PostCSS.
+
+Tooling coverage includes ESLint, Prettier, EditorConfig, Babel, Vite, Vitest, Jest, webpack, Rollup, Biome, Tailwind CSS, Node.js, Bun, Deno, pnpm, Yarn, Poetry, uv, Ruff, pytest, Gradle, Maven, Bazel, Kubernetes, Helm, Ansible, GitHub Actions, GitLab CI, Jenkins, NGINX, Netlify, Vercel, and Cloudflare Wrangler, plus generic icons for tests, notebooks, binaries, spreadsheets, slides, diffs, certificates, shaders, 3D models, logs, and environment files.
+
+Named folders (`src`, `tests`, `.github`, `components`, `node_modules`, and about 100 more) use folder-shaped icons with an emblem and a distinct open state.
 
 ## Architecture
 
