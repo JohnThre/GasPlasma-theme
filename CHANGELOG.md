@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.3.0
 
 - Added the color-blind-friendly `Gas Plasma Color Blind` and `Gas Plasma Color Blind Light` variants for Apple Terminal, iTerm2 (including `GasPlasma-ColorBlind-Auto.itermcolors`), VS Code, and Zed. Status colors use an orange/blue contrast instead of red/green.
 - Added `semantic` status colors to every palette variant. VS Code themes now define git decorations, gutter and diff, merge, diagnostics, problems, and test result colors instead of falling back to VS Code's default red/green. Zed themes set `version_control.*` colors too.
@@ -8,6 +8,7 @@
 - `npm run check` simulates protanopia, deuteranopia, and tritanopia and fails when key status pairs become indistinguishable. It also requires 3:1 contrast for status colors.
 - Redrew the preview mockups from the palette: real Gas Plasma file icons, git gutter, diagnostics, test results, and the full ANSI ramp, with a new color-blind mockup.
 - Added real iTerm2 and Zed screenshots, captured with `npm run screenshots`.
+- Updated `@vscode/vsce` to 3.9.2, `ovsx` to 1.0.2, `simple-icons` to 16.36, and the `actions/checkout` and `actions/setup-node` workflow actions to v7.
 
 ## 0.2.0
 
