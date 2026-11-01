@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Added Liberapay, Ko-fi, and IssueHunt donation links to the README, the Open VSX listing, a new `.github/FUNDING.yml` for the GitHub Sponsor button, and a `sponsor` URL in `package.json` for the VS Code and Open VSX extension pages.
+
 ## 0.3.0
 
 - Added the color-blind-friendly `Gas Plasma Color Blind` and `Gas Plasma Color Blind Light` variants for Apple Terminal, iTerm2 (including `GasPlasma-ColorBlind-Auto.itermcolors`), VS Code, and Zed. Status colors use an orange/blue contrast instead of red/green.
