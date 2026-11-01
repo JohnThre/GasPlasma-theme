@@ -177,8 +177,10 @@ jobs:
           VERSION="${GITHUB_REF_NAME#v}"
           BRANCH="gas-plasma-${GITHUB_REF_NAME}"
           FORK_OWNER="${ZED_EXTENSIONS_FORK%%/*}"
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # Zed's CLA bot requires every commit author to have signed the CLA; a bot
+          # account cannot, so author the marketplace commit as the maintainer.
+          git config user.name "Pengfan Chang"
+          git config user.email "developer@jpfchang.org"
           git add .gitmodules extensions.toml extensions/gas-plasma-theme extensions/gas-plasma-icons
           if git diff --cached --quiet; then
             echo "No Zed marketplace changes to publish."
