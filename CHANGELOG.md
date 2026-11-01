@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.2.0
 
 - Added the `Gas Plasma Light` variant for Apple Terminal, iTerm2, VS Code, and Zed, generated from a new `variants.light` palette (the dark theme keeps the `Gas Plasma` name).
 - Added auto (follow the OS) support: `GasPlasma-Auto.itermcolors` with separate light and dark colors for iTerm2 3.5+, a light/dark Zed theme and icon theme family for `"mode": "system"`, and documented VS Code `window.autoDetectColorScheme` settings.
