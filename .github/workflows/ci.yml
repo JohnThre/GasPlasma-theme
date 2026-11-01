@@ -35,8 +35,17 @@ jobs:
             GasPlasma.itermcolors \
             GasPlasma-Light.itermcolors \
             GasPlasma-Auto.itermcolors \
+            GasPlasma-ColorBlind.itermcolors \
+            GasPlasma-ColorBlind-Light.itermcolors \
+            GasPlasma-ColorBlind-Auto.itermcolors \
             themes/gas-plasma-color-theme.json \
             themes/gas-plasma-light-color-theme.json \
+            themes/gas-plasma-colorblind-color-theme.json \
+            themes/gas-plasma-colorblind-light-color-theme.json \
+            assets/mockup-colorblind.svg \
+            assets/mockup-colorblind.png \
+            docs/assets/mockup-colorblind.svg \
+            docs/assets/mockup-colorblind.png \
             icons/file \
             assets/mockup-light.svg \
             assets/mockup-light.png \
@@ -45,6 +54,7 @@ jobs:
             docs/assets/architecture-light.svg \
             docs/assets/architecture-light.png \
             docs/assets/icons \
+            docs/assets/screenshots \
             assets/logo.svg \
             assets/logo.png \
             assets/architecture.svg \

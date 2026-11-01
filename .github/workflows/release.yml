@@ -57,6 +57,12 @@ jobs:
           cp GasPlasma.itermcolors dist/
           cp GasPlasma-Light.itermcolors dist/
           cp GasPlasma-Auto.itermcolors dist/
+          cp GasPlasma-ColorBlind.terminal dist/
+          cp GasPlasma-ColorBlind-Light.terminal dist/
+          cp GasPlasma-ColorBlind.itermcolors dist/
+          cp GasPlasma-ColorBlind-Light.itermcolors dist/
+          cp GasPlasma-ColorBlind-Auto.itermcolors dist/
+          cp assets/mockup-colorblind.png dist/
           cp assets/mockup-light.png dist/
           cp assets/logo.png dist/
           cp assets/mockup.png dist/
@@ -78,6 +84,12 @@ jobs:
             dist/GasPlasma.itermcolors
             dist/GasPlasma-Light.itermcolors
             dist/GasPlasma-Auto.itermcolors
+            dist/GasPlasma-ColorBlind.terminal
+            dist/GasPlasma-ColorBlind-Light.terminal
+            dist/GasPlasma-ColorBlind.itermcolors
+            dist/GasPlasma-ColorBlind-Light.itermcolors
+            dist/GasPlasma-ColorBlind-Auto.itermcolors
+            dist/mockup-colorblind.png
             dist/mockup-light.png
             dist/jpfchang.gas-plasma-theme-*.vsix
             dist/logo.png

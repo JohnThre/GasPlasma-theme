@@ -2,6 +2,7 @@
 import { readFileSync, existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { contrastRatio, cvdDeltaE } from "./lib/color.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const errors = [];
@@ -59,18 +60,47 @@ if (pkg.contributes?.productIconThemes?.[0]?.id !== "gas-plasma-product-icons") 
   errors.push("package.json must contribute the Gas Plasma product icon theme");
 }
 
-function relativeLuminance(hex) {
-  const value = Number.parseInt(hex.slice(1), 16);
-  const channel = (shift) => {
-    const c = ((value >> shift) & 0xff) / 255;
-    return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
-  };
-  return (0.2126 * channel(16)) + (0.7152 * channel(8)) + (0.0722 * channel(0));
-}
+const semanticKeys = ["added", "modified", "deleted", "renamed", "conflict", "ignored", "error", "warning", "info", "hint", "success"];
+const visionTypes = ["protanopia", "deuteranopia", "tritanopia"];
 
-function contrastRatio(a, b) {
-  const [hi, lo] = [relativeLuminance(a), relativeLuminance(b)].sort((x, y) => y - x);
-  return (hi + 0.05) / (lo + 0.05);
+// Status pairs that must stay distinguishable with color vision deficiency. Distances are
+// OKLab ΔE after simulating each dichromacy (Machado et al. 2009, severity 1.0); ~0.1 is
+// clearly visible side by side, ~0.02 looks identical.
+function checkColorVision(variantKey, variant) {
+  const s = variant.semantic ?? {};
+  const { normal = {}, bright = {} } = variant.ansi ?? {};
+  const colorBlindSafe = variantKey.startsWith("colorblind");
+  const pairs = colorBlindSafe
+    ? [
+        ["semantic.added", s.added, "semantic.deleted", s.deleted, 0.12],
+        ["semantic.success", s.success, "semantic.error", s.error, 0.12],
+        ["semantic.error", s.error, "semantic.warning", s.warning, 0.12],
+        ["semantic.warning", s.warning, "semantic.success", s.success, 0.12],
+        ["semantic.modified", s.modified, "semantic.added", s.added, 0.12],
+        ["semantic.modified", s.modified, "semantic.deleted", s.deleted, 0.12],
+        ["semantic.conflict", s.conflict, "semantic.deleted", s.deleted, 0.05],
+        ["semantic.conflict", s.conflict, "semantic.added", s.added, 0.05],
+        ["ansi.normal.red", normal.red, "ansi.normal.green", normal.green, 0.12],
+        ["ansi.bright.red", bright.red, "ansi.bright.green", bright.green, 0.12],
+        ["syntax.string", variant.syntax?.string, "syntax.keyword", variant.syntax?.keyword, 0.12]
+      ]
+    : [
+        // The original palettes keep their red/green look, but brightness must separate
+        // the most important pairs for red-green deficiencies.
+        ["semantic.added", s.added, "semantic.deleted", s.deleted, 0.1],
+        ["semantic.success", s.success, "semantic.error", s.error, 0.1],
+        ["semantic.error", s.error, "semantic.warning", s.warning, 0.1]
+      ];
+  const types = colorBlindSafe ? visionTypes : ["protanopia", "deuteranopia"];
+  for (const [nameA, a, nameB, b, minimum] of pairs) {
+    if (!a || !b) continue;
+    for (const type of types) {
+      const distance = cvdDeltaE(a, b, type);
+      if (distance < minimum) {
+        errors.push(`${variantKey} ${nameA} ${a} and ${nameB} ${b} are too similar with ${type} (ΔE ${distance.toFixed(3)}; needs ${minimum})`);
+      }
+    }
+  }
 }
 
 const darkPalette = palette.variants?.dark ?? {};
@@ -79,13 +109,24 @@ if (darkPalette.name !== palette.name) errors.push("Dark palette variant must ke
 if (darkPalette.appearance !== "dark" || lightPalette.appearance !== "light") {
   errors.push("Palette must define dark and light variants");
 }
+const colorBlindPalette = palette.variants?.colorblind ?? {};
+const colorBlindLightPalette = palette.variants?.colorblindLight ?? {};
+if (colorBlindPalette.appearance !== "dark" || colorBlindPalette.name !== "Gas Plasma Color Blind"
+  || colorBlindPalette.fileSuffix !== "-ColorBlind") {
+  errors.push("Palette must define the dark Gas Plasma Color Blind variant");
+}
+if (colorBlindLightPalette.appearance !== "light" || colorBlindLightPalette.name !== "Gas Plasma Color Blind Light"
+  || colorBlindLightPalette.fileSuffix !== "-ColorBlind-Light") {
+  errors.push("Palette must define the light Gas Plasma Color Blind Light variant");
+}
 for (const [variantKey, variant] of Object.entries(palette.variants ?? {})) {
   const colors = [
     ...Object.entries(variant.core ?? {}).filter(([key]) => key !== "selectionAlpha"),
     ...Object.entries(variant.ansi?.normal ?? {}),
     ...Object.entries(variant.ansi?.bright ?? {}),
     ...Object.entries(variant.ui ?? {}),
-    ...Object.entries(variant.syntax ?? {})
+    ...Object.entries(variant.syntax ?? {}),
+    ...Object.entries(variant.semantic ?? {})
   ];
   for (const [key, hex] of colors) {
     if (!/^#[0-9A-Fa-f]{6}$/.test(hex ?? "")) errors.push(`Invalid ${variantKey} palette color ${key}: ${hex}`);
@@ -109,6 +150,17 @@ for (const [variantKey, variant] of Object.entries(palette.variants ?? {})) {
   if (accentRatio < 4.5) errors.push(`${variantKey} ui.onAccent has ${accentRatio.toFixed(2)}:1 contrast on ui.accent; needs 4.5:1`);
   const mutedRatio = contrastRatio(variant.ui?.muted, background);
   if (mutedRatio < 3) errors.push(`${variantKey} ui.muted has ${mutedRatio.toFixed(2)}:1 contrast; needs 3:1`);
+  for (const key of semanticKeys) {
+    const hex = variant.semantic?.[key];
+    if (!hex) {
+      errors.push(`${variantKey} palette must define semantic.${key}`);
+      continue;
+    }
+    // Git decorations and diagnostics are UI indicators: WCAG 1.4.11 non-text contrast.
+    const ratio = contrastRatio(hex, background);
+    if (ratio < 3) errors.push(`${variantKey} semantic.${key} ${hex} has ${ratio.toFixed(2)}:1 contrast on ${background}; needs 3:1`);
+  }
+  checkColorVision(variantKey, variant);
 }
 
 if (theme.name !== palette.name) errors.push("VS Code theme name must match palette name");
@@ -141,7 +193,64 @@ if (zedLight?.style?.background !== lightPalette.core?.background
   || zedLight?.style?.syntax?.keyword?.color !== lightPalette.syntax?.keyword) {
   errors.push("Zed light theme colors must come from the light palette");
 }
-if (fileIconTheme.file !== "_gp_crt") errors.push("File icon theme must use CRT as the default file icon");
+const contributedThemes = pkg.contributes?.themes ?? [];
+for (const [variantKey, variant] of Object.entries(palette.variants ?? {})) {
+  const themePath = `themes/gas-plasma${(variant.fileSuffix ?? "").toLowerCase()}-color-theme.json`;
+  const contribution = contributedThemes.find((entry) => entry.path === `./${themePath}`);
+  if (contribution?.label !== variant.name
+    || contribution?.uiTheme !== (variant.appearance === "light" ? "vs" : "vs-dark")) {
+    errors.push(`package.json must contribute ${themePath} as "${variant.name}" with the ${variant.appearance} uiTheme`);
+  }
+  const vscodeTheme = readJson(themePath);
+  if (vscodeTheme.name !== variant.name || vscodeTheme.type !== variant.appearance) {
+    errors.push(`${themePath} must be the ${variant.appearance} theme "${variant.name}"`);
+  }
+  for (const [key, semanticKey] of Object.entries({
+    "gitDecoration.addedResourceForeground": "added",
+    "gitDecoration.modifiedResourceForeground": "modified",
+    "gitDecoration.deletedResourceForeground": "deleted",
+    "gitDecoration.conflictingResourceForeground": "conflict",
+    "editorGutter.addedBackground": "added",
+    "editorGutter.deletedBackground": "deleted",
+    "editorError.foreground": "error",
+    "editorWarning.foreground": "warning",
+    "testing.iconPassed": "success"
+  })) {
+    if (vscodeTheme.colors?.[key] !== variant.semantic?.[semanticKey]) {
+      errors.push(`${themePath} ${key} must come from ${variantKey} semantic.${semanticKey}`);
+    }
+  }
+  if (vscodeTheme.colors?.["terminal.ansiGreen"] !== variant.ansi?.normal?.green) {
+    errors.push(`${themePath} terminal ANSI colors must come from the ${variantKey} palette`);
+  }
+  const zedVariant = zedTheme.themes?.find((entry) => entry.name === variant.name);
+  if (zedVariant?.appearance !== variant.appearance) {
+    errors.push(`Zed theme family must include "${variant.name}" as a ${variant.appearance} theme`);
+  }
+  for (const [key, semanticKey] of Object.entries({
+    error: "error",
+    warning: "warning",
+    success: "success",
+    created: "added",
+    deleted: "deleted",
+    modified: "modified",
+    conflict: "conflict",
+    "version_control.added": "added",
+    "version_control.deleted": "deleted",
+    "version_control.modified": "modified"
+  })) {
+    if (zedVariant?.style?.[key] !== variant.semantic?.[semanticKey]) {
+      errors.push(`Zed "${variant.name}" ${key} must come from ${variantKey} semantic.${semanticKey}`);
+    }
+  }
+  if (zedVariant?.style?.syntax?.string?.color !== variant.syntax?.string) {
+    errors.push(`Zed "${variant.name}" syntax colors must come from the ${variantKey} palette`);
+  }
+  requireFile(`GasPlasma${variant.fileSuffix}.itermcolors`);
+  requireFile(`GasPlasma${variant.fileSuffix}.terminal`);
+}
+
+if (fileIconTheme.file !== "_gp_crt")errors.push("File icon theme must use CRT as the default file icon");
 if (fileIconTheme.folder !== "_gp_folder") errors.push("File icon theme must define generated folder icons");
 if (!fileIconTheme.fileExtensions?.json) errors.push("File icon theme must include extension mappings");
 if (Object.keys(fileIconTheme.iconDefinitions ?? {}).length < 230) {
@@ -381,9 +490,11 @@ for (const iconName of iconManifest.fileTheme?.gallery ?? []) {
   requireFile(path.join("docs/assets/icons/light", `${iconName}.svg`));
 }
 
-const autoPreset = readText("GasPlasma-Auto.itermcolors");
-for (const key of ["Background Color (Dark)", "Background Color (Light)", "Ansi 15 Color (Light)", "Background Color"]) {
-  if (!autoPreset.includes(`<key>${key}</key>`)) errors.push(`GasPlasma-Auto.itermcolors must define ${key}`);
+for (const autoFile of ["GasPlasma-Auto.itermcolors", "GasPlasma-ColorBlind-Auto.itermcolors"]) {
+  const autoPreset = readText(autoFile);
+  for (const key of ["Background Color (Dark)", "Background Color (Light)", "Ansi 15 Color (Light)", "Background Color"]) {
+    if (!autoPreset.includes(`<key>${key}</key>`)) errors.push(`${autoFile} must define ${key}`);
+  }
 }
 
 [
@@ -395,7 +506,10 @@ for (const key of ["Background Color (Dark)", "Background Color (Light)", "Ansi 
   "themes/gas-plasma-light-color-theme.json",
   "assets/mockup-light.svg",
   "assets/mockup-light.png",
+  "assets/mockup-colorblind.svg",
+  "assets/mockup-colorblind.png",
   "docs/assets/mockup-light.png",
+  "docs/assets/mockup-colorblind.png",
   "docs/assets/architecture-light.png",
   "icons/file/gas-plasma-icon-theme.json",
   "icons/product/gas-plasma-product-icon-theme.json",
@@ -424,7 +538,7 @@ for (const key of ["Background Color (Dark)", "Background Color (Light)", "Ansi 
 ].forEach(requireFile);
 
 const readme = readFileSync(path.join(root, "README.md"), "utf8");
-for (const required of ["iTerm2", "Open VSX", "Zed", "jpfchang.gas-plasma-theme", "GasPlasma.itermcolors", "Gas Plasma Icons", "Gas Plasma Product Icons", "Gas Plasma Light", "GasPlasma-Auto.itermcolors", "autoDetectColorScheme"]) {
+for (const required of ["iTerm2", "Open VSX", "Zed", "jpfchang.gas-plasma-theme", "GasPlasma.itermcolors", "Gas Plasma Icons", "Gas Plasma Product Icons", "Gas Plasma Light", "GasPlasma-Auto.itermcolors", "autoDetectColorScheme", "Gas Plasma Color Blind", "GasPlasma-ColorBlind-Auto.itermcolors"]) {
   if (!readme.includes(required)) errors.push(`README.md must mention ${required}`);
 }
 

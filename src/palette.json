@@ -1,7 +1,7 @@
 {
   "name": "Gas Plasma",
   "slug": "gas-plasma",
-  "description": "An orange-dominant theme inspired by ionized gas glow, in dark, light, and auto variants.",
+  "description": "An orange-dominant theme inspired by ionized gas glow, in dark, light, auto, and color-blind-friendly variants.",
   "terminal": {
     "fontName": "SFMono-Regular",
     "fontSize": 13,
@@ -77,6 +77,19 @@
         "tag": "#FF6B3D",
         "punctuation": "#FFF0DB",
         "invalid": "#FFF0DB"
+      },
+      "semantic": {
+        "added": "#B5CC18",
+        "modified": "#FFD700",
+        "deleted": "#FF4500",
+        "renamed": "#E8C547",
+        "conflict": "#FF6B6B",
+        "ignored": "#9A5000",
+        "error": "#FF4500",
+        "warning": "#FFD700",
+        "info": "#D4A017",
+        "hint": "#E8C547",
+        "success": "#B5CC18"
       }
     },
     "light": {
@@ -146,6 +159,183 @@
         "tag": "#B33A00",
         "punctuation": "#6B3A1A",
         "invalid": "#FFF5EA"
+      },
+      "semantic": {
+        "added": "#7A8C00",
+        "modified": "#B06A00",
+        "deleted": "#9E2000",
+        "renamed": "#A07800",
+        "conflict": "#B5304A",
+        "ignored": "#A86A3A",
+        "error": "#9E2000",
+        "warning": "#B06A00",
+        "info": "#8A6200",
+        "hint": "#A07800",
+        "success": "#7A8C00"
+      }
+    },
+    "colorblind": {
+      "name": "Gas Plasma Color Blind",
+      "appearance": "dark",
+      "fileSuffix": "-ColorBlind",
+      "core": {
+        "background": "#1A0A00",
+        "foreground": "#FF8C00",
+        "bold": "#FFD2A6",
+        "cursor": "#FF8C00",
+        "cursorText": "#1A0A00",
+        "selection": "#FF8C00",
+        "selectionAlpha": 0.3
+      },
+      "ansi": {
+        "normal": {
+          "black": "#1A0A00",
+          "red": "#FF5A1F",
+          "green": "#3DA5E0",
+          "yellow": "#FFB347",
+          "blue": "#6F8FF0",
+          "magenta": "#E07FB0",
+          "cyan": "#7FCFF5",
+          "white": "#FFD2A6"
+        },
+        "bright": {
+          "black": "#4D2600",
+          "red": "#FF7A45",
+          "green": "#7CC4F0",
+          "yellow": "#FFD700",
+          "blue": "#93ABFF",
+          "magenta": "#F5A3CB",
+          "cyan": "#A8E0FF",
+          "white": "#FFF0DB"
+        }
+      },
+      "ui": {
+        "page": "#0B0300",
+        "deep": "#140800",
+        "raised": "#261000",
+        "hover": "#331500",
+        "active": "#3A1800",
+        "border": "#4D2600",
+        "muted": "#9A5000",
+        "guide": "#CC7A00",
+        "strong": "#FFF0DB",
+        "textMuted": "#FFD2A6",
+        "subtle": "#FFC887",
+        "onAccent": "#1A0A00",
+        "accent": "#FF4500",
+        "accentHover": "#FF6B3D",
+        "focus": "#FFD700",
+        "link": "#E8C547",
+        "invalidBackground": "#8A1C00"
+      },
+      "syntax": {
+        "comment": "#D4A017",
+        "string": "#6CB8F0",
+        "constant": "#FFD700",
+        "keyword": "#FF4500",
+        "function": "#E09530",
+        "type": "#E8C547",
+        "variable": "#FFD2A6",
+        "property": "#FFD2A6",
+        "namespace": "#FFB347",
+        "tag": "#FF6B3D",
+        "punctuation": "#FFF0DB",
+        "invalid": "#FFF0DB"
+      },
+      "semantic": {
+        "added": "#3DA5E0",
+        "modified": "#FFD700",
+        "deleted": "#FF5A1F",
+        "renamed": "#A8E0FF",
+        "conflict": "#E07FB0",
+        "ignored": "#9A5000",
+        "error": "#FF5A1F",
+        "warning": "#FFD700",
+        "info": "#3DA5E0",
+        "hint": "#A8E0FF",
+        "success": "#3DA5E0"
+      }
+    },
+    "colorblindLight": {
+      "name": "Gas Plasma Color Blind Light",
+      "appearance": "light",
+      "fileSuffix": "-ColorBlind-Light",
+      "core": {
+        "background": "#FFF5EA",
+        "foreground": "#B84A00",
+        "bold": "#5C2400",
+        "cursor": "#E06A00",
+        "cursorText": "#FFF5EA",
+        "selection": "#FF8C00",
+        "selectionAlpha": 0.22
+      },
+      "ansi": {
+        "normal": {
+          "black": "#3D1A00",
+          "red": "#C42B00",
+          "green": "#0068A8",
+          "yellow": "#9C5A00",
+          "blue": "#3B4FB0",
+          "magenta": "#A3366F",
+          "cyan": "#1A7090",
+          "white": "#B89A80"
+        },
+        "bright": {
+          "black": "#7A4A22",
+          "red": "#D8400A",
+          "green": "#0072B2",
+          "yellow": "#B06A00",
+          "blue": "#4A62C8",
+          "magenta": "#B5477F",
+          "cyan": "#2385A8",
+          "white": "#E8D2BC"
+        }
+      },
+      "ui": {
+        "page": "#FFFAF4",
+        "deep": "#FBEDDC",
+        "raised": "#F6E0C4",
+        "hover": "#F1D5B2",
+        "active": "#F9E2C6",
+        "border": "#E3BE94",
+        "muted": "#A86A3A",
+        "guide": "#D98A2B",
+        "strong": "#3D1A00",
+        "textMuted": "#7A4A22",
+        "subtle": "#8A4A12",
+        "onAccent": "#FFF5EA",
+        "accent": "#C42B00",
+        "accentHover": "#D8400A",
+        "focus": "#B06A00",
+        "link": "#8A6200",
+        "invalidBackground": "#C42B00"
+      },
+      "syntax": {
+        "comment": "#8C6A1A",
+        "string": "#0068A8",
+        "constant": "#9A5800",
+        "keyword": "#C42B00",
+        "function": "#A04E00",
+        "type": "#8A6200",
+        "variable": "#5C2400",
+        "property": "#7A3D10",
+        "namespace": "#9C5A00",
+        "tag": "#B33A00",
+        "punctuation": "#6B3A1A",
+        "invalid": "#FFF5EA"
+      },
+      "semantic": {
+        "added": "#0068A8",
+        "modified": "#B57A00",
+        "deleted": "#A8200A",
+        "renamed": "#1A7090",
+        "conflict": "#A3366F",
+        "ignored": "#A86A3A",
+        "error": "#A8200A",
+        "warning": "#B57A00",
+        "info": "#0068A8",
+        "hint": "#1A7090",
+        "success": "#0068A8"
       }
     }
   }

@@ -1,148 +1,711 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1080" viewBox="0 0 1800 1080" role="img" aria-labelledby="title desc">
-  <title id="title">Gas Plasma theme mockup</title>
-  <desc id="desc">A polished design mockup showing Gas Plasma in Terminal, iTerm2, VS Code, and Zed.</desc>
+  <title id="title">Gas Plasma Light theme mockup</title>
+  <desc id="desc">Gas Plasma Light in a terminal showing git status, test results, and the ANSI palette, next to an editor with the Gas Plasma file icons, git gutter, and diagnostics.</desc>
   <defs>
     <linearGradient id="stage" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#FFF7F4"/>
-      <stop offset=".48" stop-color="#FFEFE5"/>
-      <stop offset="1" stop-color="#FFE9D9"/>
+      <stop offset="0" stop-color="#FFFAF4"/>
+      <stop offset=".5" stop-color="#FFF5EA"/>
+      <stop offset="1" stop-color="#F6E0C4"/>
     </linearGradient>
-    <linearGradient id="window" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#FFECE1"/>
-      <stop offset="1" stop-color="#FFF5F0"/>
+    <linearGradient id="accentBar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#C42B00"/>
+      <stop offset=".5" stop-color="#B06A00"/>
+      <stop offset="1" stop-color="#8A6200"/>
     </linearGradient>
-    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#CE3B00"/>
-      <stop offset=".5" stop-color="#956300"/>
-      <stop offset="1" stop-color="#94641C"/>
-    </linearGradient>
-    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
-      <feDropShadow dx="0" dy="28" stdDeviation="28" flood-color="#5C2400" flood-opacity=".2"/>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="24" stdDeviation="24" flood-color="#5C2400" flood-opacity=".2"/>
     </filter>
     <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse">
-      <path d="M42 0H0v42" fill="none" stroke="#FFDDC5" stroke-width="1" opacity=".3"/>
+      <path d="M42 0H0v42" fill="none" stroke="#E3BE94" stroke-width="1" opacity=".22"/>
     </pattern>
   </defs>
   <rect width="1800" height="1080" fill="url(#stage)"/>
   <rect width="1800" height="1080" fill="url(#grid)"/>
-  <path d="M0 844C260 770 434 824 652 760c250-73 374-272 666-256 184 10 328 92 482 54v522H0z" fill="#FFF5EF" opacity=".62"/>
-  <text x="88" y="112" fill="#592C00" font-family="SF Mono, Menlo, Consolas, monospace" font-size="56" font-weight="900">Gas Plasma Light</text>
-  <text x="92" y="154" fill="#94641C" font-family="SF Mono, Menlo, Consolas, monospace" font-size="24">Apple Terminal  |  iTerm2  |  VS Code  |  Zed</text>
-  <rect x="94" y="180" width="418" height="8" rx="4" fill="url(#accent)"/>
-
-  <g filter="url(#shadow)">
-    <rect x="88" y="248" width="572" height="456" rx="18" fill="url(#window)" stroke="#FFD8B2" stroke-width="2"/>
-    <rect x="88" y="248" width="572" height="58" rx="18" fill="#FFE9D9"/>
-    <path d="M88 288h572" stroke="#FFD8B2"/>
-    <circle cx="128" cy="261" r="10" fill="#CE3B00"/>
-    <circle cx="160" cy="261" r="10" fill="#9D5D1C"/>
-    <circle cx="192" cy="261" r="10" fill="#7B7100"/>
-    <text x="230" y="270" fill="#592C00" font-family="SF Mono, Menlo, Consolas, monospace" font-size="19">GasPlasma.terminal</text>
-    <text x="126" y="354" fill="#AE5800" font-family="SF Mono, Menlo, Consolas, monospace" font-size="24">$ npm run build</text>
-    <text x="126" y="398" fill="#956300" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">generated GasPlasma.itermcolors</text>
-    <text x="126" y="438" fill="#94641C" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">generated VS Code theme</text>
-    <text x="126" y="478" fill="#80670A" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">generated icon themes</text>
-    <text x="126" y="542" fill="#AE5800" font-family="SF Mono, Menlo, Consolas, monospace" font-size="24">$ npm run package</text>
-    <text x="126" y="584" fill="#A55A37" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">jpfchang.gas-plasma-theme.vsix</text>
-    <rect x="126" y="638" width="14" height="30" fill="#AE5800"/>
+  <text x="88" y="104" font-family="SF Mono, Menlo, Consolas, monospace" font-size="52" font-weight="900" xml:space="preserve"><tspan fill="#3D1A00">Gas Plasma Light</tspan></text>
+  <text x="92" y="148" font-family="SF Mono, Menlo, Consolas, monospace" font-size="23" xml:space="preserve"><tspan fill="#8A6200">Apple Terminal  |  iTerm2  |  VS Code  |  Zed</tspan></text>
+  <rect x="94" y="172" width="418" height="8" rx="4" fill="url(#accentBar)"/>
+  <g transform="translate(1628 72)">
+    <rect width="84" height="40" rx="20" fill="#F6E0C4" stroke="#C42B00" stroke-width="2"/>
+    <text x="12" y="27" font-family="SF Mono, Menlo, Consolas, monospace" font-size="20" xml:space="preserve"><tspan fill="#3D1A00">Light</tspan></text>
   </g>
 
   <g filter="url(#shadow)">
-    <rect x="734" y="148" width="978" height="746" rx="18" fill="#FFF3ED" stroke="#FFD8B2" stroke-width="2"/>
-    <rect x="734" y="148" width="978" height="60" rx="18" fill="#FFE9D9"/>
-    <path d="M734 190h978" stroke="#FFD8B2"/>
-    <text x="774" y="185" fill="#3D2400" font-family="SF Mono, Menlo, Consolas, monospace" font-size="19">gas-plasma-color-theme.json</text>
-    <rect x="734" y="208" width="238" height="686" fill="#FFF7F2"/>
-    <g font-family="SF Mono, Menlo, Consolas, monospace" font-size="20">
-      <g transform="translate(774 248)">
-        <rect width="24" height="20" rx="4" fill="#AE5800" stroke="#592C00"/>
-        <path d="M3 4h7l3 4h8" stroke="#3D2400" stroke-width="2" opacity=".55"/>
-        <text x="36" y="18" fill="#956300">src</text>
-      </g>
-      <g transform="translate(774 288)">
-        <rect width="24" height="24" rx="5" fill="#FFF3EB" stroke="#94641C"/>
-        <rect x="5" y="5" width="6" height="6" rx="2" fill="#CE3B00"/>
-        <rect x="13" y="5" width="6" height="6" rx="2" fill="#956300"/>
-        <rect x="5" y="13" width="6" height="6" rx="2" fill="#7B7100"/>
-        <rect x="13" y="13" width="6" height="6" rx="2" fill="#94641C"/>
-        <text x="36" y="20" fill="#94641C">themes</text>
-      </g>
-      <g transform="translate(774 328)">
-        <circle cx="12" cy="12" r="11" fill="#94641C" stroke="#592C00"/>
-        <circle cx="12" cy="12" r="4" fill="#FFF3EB" stroke="#3D2400"/>
-        <text x="36" y="20" fill="#AE5800">assets</text>
-      </g>
-      <g transform="translate(774 368)">
-        <path d="M5 1h12l7 7v22H5z" fill="#592C00" stroke="#AE5800"/>
-        <path d="M17 1v8h7" fill="#FFD8B2"/>
-        <text x="36" y="20" fill="#592C00">README.md</text>
-      </g>
-      <g transform="translate(774 408)">
-        <circle cx="13" cy="17" r="12" fill="#FFF3EB" stroke="#592C00"/>
-        <path d="M8 21c1-10 3-15 6-15s5 5 6 15c-2 4-4 6-6 6s-4-2-6-6z" fill="#592C00"/>
-        <path d="M11 16h6" stroke="#AE5800" stroke-width="3" stroke-linecap="round"/>
-        <text x="36" y="24" fill="#3D2400">linux</text>
-      </g>
-      <g transform="translate(774 448)">
-        <circle cx="10" cy="14" r="9" fill="#FFF3EB" stroke="#956300" stroke-width="3"/>
-        <circle cx="18" cy="14" r="9" fill="none" stroke="#592C00" stroke-width="3"/>
-        <path d="M8 14h15" stroke="#AE5800" stroke-width="3" stroke-linecap="round"/>
-        <text x="36" y="22" fill="#956300">crypto</text>
-      </g>
+    <rect x="88" y="232" width="604" height="600" rx="16" fill="#FFF5EA" stroke="#E3BE94" stroke-width="2"/>
+  </g>
+  <path d="M88 284V248a16 16 0 0 1 16-16h572a16 16 0 0 1 16 16V284z" fill="#F6E0C4"/>
+  <path d="M88 284h604" stroke="#E3BE94"/>
+  <circle cx="116" cy="258" r="8" fill="#FF5F57"/>
+  <circle cx="142" cy="258" r="8" fill="#FEBC2E"/>
+  <circle cx="168" cy="258" r="8" fill="#28C840"/>
+  <text x="390" y="265" font-family="SF Mono, Menlo, Consolas, monospace" font-size="18" text-anchor="middle" xml:space="preserve"><tspan fill="#7A4A22">iTerm2 - zsh</tspan></text>
+  <rect x="116" y="520" width="79.6" height="30" rx="4" fill="#5B6B00"/>
+    <rect x="116" y="554" width="79.6" height="30" rx="4" fill="#9C5A00"/>
+    <rect x="116" y="588" width="79.6" height="30" rx="4" fill="#C42B00"/>
+  <text x="118" y="328" font-family="SF Mono, Menlo, Consolas, monospace" font-size="21" xml:space="preserve"><tspan fill="#A04E00">~/gas-plasma</tspan><tspan fill="#B5304A"> main</tspan><tspan fill="#3D1A00"> $ </tspan><tspan fill="#B84A00">git status --short</tspan></text>
+  <text x="118" y="362" font-family="SF Mono, Menlo, Consolas, monospace" font-size="21" xml:space="preserve"><tspan fill="#5B6B00" font-weight="700">A </tspan><tspan fill="#B84A00"> src/palette.json</tspan></text>
+  <text x="118" y="394" font-family="SF Mono, Menlo, Consolas, monospace" font-size="21" xml:space="preserve"><tspan fill="#C42B00" font-weight="700"> M</tspan><tspan fill="#B84A00"> src/theme.ts</tspan></text>
+  <text x="118" y="426" font-family="SF Mono, Menlo, Consolas, monospace" font-size="21" xml:space="preserve"><tspan fill="#C42B00" font-weight="700"> D</tspan><tspan fill="#B84A00"> legacy/old-theme.ts</tspan></text>
+  <text x="118" y="458" font-family="SF Mono, Menlo, Consolas, monospace" font-size="21" xml:space="preserve"><tspan fill="#C42B00" font-weight="700">??</tspan><tspan fill="#B84A00"> docs/notes.md</tspan></text>
+  <text x="118" y="508" font-family="SF Mono, Menlo, Consolas, monospace" font-size="21" xml:space="preserve"><tspan fill="#A04E00">~/gas-plasma</tspan><tspan fill="#B5304A"> main</tspan><tspan fill="#3D1A00"> $ </tspan><tspan fill="#B84A00">npm test</tspan></text>
+  <text x="118" y="542" font-family="SF Mono, Menlo, Consolas, monospace" font-size="21" xml:space="preserve"><tspan fill="#FFF5EA"> PASS </tspan><tspan fill="#B84A00">  palette contrast</tspan></text>
+  <text x="118" y="576" font-family="SF Mono, Menlo, Consolas, monospace" font-size="21" xml:space="preserve"><tspan fill="#FFF5EA"> SKIP </tspan><tspan fill="#B84A00">  zed snapshot</tspan></text>
+  <text x="118" y="610" font-family="SF Mono, Menlo, Consolas, monospace" font-size="21" xml:space="preserve"><tspan fill="#FFF5EA"> FAIL </tspan><tspan fill="#B84A00">  icons: 1 missing</tspan></text>
+  <text x="118" y="660" font-family="SF Mono, Menlo, Consolas, monospace" font-size="21" xml:space="preserve"><tspan fill="#A04E00">~/gas-plasma</tspan><tspan fill="#B5304A"> main</tspan><tspan fill="#3D1A00"> $ </tspan><tspan fill="#B84A00"></tspan></text>
+  <rect x="370" y="640" width="12.6" height="28" fill="#E06A00"/>
+  <text x="118" y="698" font-family="SF Mono, Menlo, Consolas, monospace" font-size="15" xml:space="preserve"><tspan fill="#7A4A22">ANSI 0-7 / 8-15</tspan></text>
+  <rect x="118" y="710" width="60" height="40" rx="6" fill="#3D1A00" stroke="#E3BE94"/><rect x="186" y="710" width="60" height="40" rx="6" fill="#C42B00" stroke="#E3BE94"/><rect x="254" y="710" width="60" height="40" rx="6" fill="#5B6B00" stroke="#E3BE94"/><rect x="322" y="710" width="60" height="40" rx="6" fill="#9C5A00" stroke="#E3BE94"/><rect x="390" y="710" width="60" height="40" rx="6" fill="#A04E00" stroke="#E3BE94"/><rect x="458" y="710" width="60" height="40" rx="6" fill="#B5304A" stroke="#E3BE94"/><rect x="526" y="710" width="60" height="40" rx="6" fill="#8A6200" stroke="#E3BE94"/><rect x="594" y="710" width="60" height="40" rx="6" fill="#B89A80" stroke="#E3BE94"/>
+    <rect x="118" y="760" width="60" height="40" rx="6" fill="#7A4A22" stroke="#E3BE94"/><rect x="186" y="760" width="60" height="40" rx="6" fill="#D8400A" stroke="#E3BE94"/><rect x="254" y="760" width="60" height="40" rx="6" fill="#6E8000" stroke="#E3BE94"/><rect x="322" y="760" width="60" height="40" rx="6" fill="#B06A00" stroke="#E3BE94"/><rect x="390" y="760" width="60" height="40" rx="6" fill="#B85C00" stroke="#E3BE94"/><rect x="458" y="760" width="60" height="40" rx="6" fill="#C94A60" stroke="#E3BE94"/><rect x="526" y="760" width="60" height="40" rx="6" fill="#A07800" stroke="#E3BE94"/><rect x="594" y="760" width="60" height="40" rx="6" fill="#E8D2BC" stroke="#E3BE94"/>
+
+  <g filter="url(#shadow)">
+    <rect x="744" y="148" width="968" height="704" rx="16" fill="#FFF5EA" stroke="#E3BE94" stroke-width="2"/>
+  </g>
+  <path d="M744 200V164a16 16 0 0 1 16-16h936a16 16 0 0 1 16 16V200z" fill="#F6E0C4"/>
+  <path d="M744 200h968" stroke="#E3BE94"/>
+  <rect x="744" y="200" width="262" height="606" fill="#FBEDDC"/>
+  <path d="M1006 200v606" stroke="#E3BE94"/>
+  <text x="766" y="232" font-family="SF Mono, Menlo, Consolas, monospace" font-size="15" font-weight="700" xml:space="preserve"><tspan fill="#7A4A22">GAS-PLASMA</tspan></text>
+  <rect x="1006" y="156" width="170" height="44" fill="#FFF5EA"/>
+  <path d="M1006 198h170" stroke="#C42B00" stroke-width="3"/>
+  <svg x="1020" y="164" width="26" height="26" viewBox="0 0 96 96">
+  <defs>
+    <linearGradient id="i24-tile" x1="14" y1="10" x2="82" y2="86" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".48" stop-color="#FFF0E9"/>
+      <stop offset="1" stop-color="#FFF9F7"/>
+    </linearGradient>
+    <linearGradient id="i24-ember" x1="20" y1="15" x2="76" y2="83" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#592C00"/>
+      <stop offset=".28" stop-color="#B68600"/>
+      <stop offset=".72" stop-color="#D67200"/>
+      <stop offset="1" stop-color="#FF4500"/>
+    </linearGradient>
+    <linearGradient id="i24-panel" x1="24" y1="24" x2="72" y2="72" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".6" stop-color="#FFF5EF"/>
+      <stop offset="1" stop-color="#FFFBFA"/>
+    </linearGradient>
+    <linearGradient id="i24-darkGlass" x1="24" y1="22" x2="72" y2="72" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".58" stop-color="#FFF5EF"/>
+      <stop offset="1" stop-color="#FFFBFA"/>
+    </linearGradient>
+    <radialGradient id="i24-disc" cx="39%" cy="31%" r="68%">
+      <stop offset="0" stop-color="#3D2400"/>
+      <stop offset=".28" stop-color="#B0852B"/>
+      <stop offset=".56" stop-color="#CE7755"/>
+      <stop offset="1" stop-color="#FFD8B2"/>
+    </radialGradient>
+    <filter id="i24-shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#5C2400" flood-opacity=".2"/>
+    </filter>
+    <filter id="i24-softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <g filter="url(#i24-shadow)">
+    <path d="M1.125 0C.502 0 0 .502 0 1.125v21.75C0 23.498.502 24 1.125 24h21.75c.623 0 1.125-.502 1.125-1.125V1.125C24 .502 23.498 0 22.875 0zm17.363 9.75c.612 0 1.154.037 1.627.111a6.38 6.38 0 0 1 1.306.34v2.458a3.95 3.95 0 0 0-.643-.361 5.093 5.093 0 0 0-.717-.26 5.453 5.453 0 0 0-1.426-.2c-.3 0-.573.028-.819.086a2.1 2.1 0 0 0-.623.242c-.17.104-.3.229-.393.374a.888.888 0 0 0-.14.49c0 .196.053.373.156.529.104.156.252.304.443.444s.423.276.696.41c.273.135.582.274.926.416.47.197.892.407 1.266.628.374.222.695.473.963.753.268.279.472.598.614.957.142.359.214.776.214 1.253 0 .657-.125 1.21-.373 1.656a3.033 3.033 0 0 1-1.012 1.085 4.38 4.38 0 0 1-1.487.596c-.566.12-1.163.18-1.79.18a9.916 9.916 0 0 1-1.84-.164 5.544 5.544 0 0 1-1.512-.493v-2.63a5.033 5.033 0 0 0 3.237 1.2c.333 0 .624-.03.872-.09.249-.06.456-.144.623-.25.166-.108.29-.234.373-.38a1.023 1.023 0 0 0-.074-1.089 2.12 2.12 0 0 0-.537-.5 5.597 5.597 0 0 0-.807-.444 27.72 27.72 0 0 0-1.007-.436c-.918-.383-1.602-.852-2.053-1.405-.45-.553-.676-1.222-.676-2.005 0-.614.123-1.141.369-1.582.246-.441.58-.804 1.004-1.089a4.494 4.494 0 0 1 1.47-.629 7.536 7.536 0 0 1 1.77-.201zm-15.113.188h9.563v2.166H9.506v9.646H6.789v-9.646H3.375z" transform="translate(12.00 12.00) scale(3)" fill="#3178C6" stroke="#FFF9F7" stroke-width="0.52" paint-order="stroke fill" stroke-linejoin="round"/>
+  </g>
+</svg>
+  <text x="1054" y="185" font-family="SF Mono, Menlo, Consolas, monospace" font-size="18" xml:space="preserve"><tspan fill="#3D1A00">theme.ts</tspan></text>
+  <circle cx="1156" cy="178" r="5" fill="#B06A00"/>
+  <text x="1196" y="185" font-family="SF Mono, Menlo, Consolas, monospace" font-size="18" xml:space="preserve"><tspan fill="#7A4A22">palette.json</tspan></text>
+  <text x="1688" y="185" font-family="SF Mono, Menlo, Consolas, monospace" font-size="18" text-anchor="end" xml:space="preserve"><tspan fill="#A86A3A">Zed</tspan></text>
+      
+      <svg x="766" y="250" width="28" height="28" viewBox="0 0 96 96">
+  <defs>
+    <linearGradient id="i13-tile" x1="14" y1="10" x2="82" y2="86" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".48" stop-color="#FFF0E9"/>
+      <stop offset="1" stop-color="#FFF9F7"/>
+    </linearGradient>
+    <linearGradient id="i13-ember" x1="20" y1="15" x2="76" y2="83" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#592C00"/>
+      <stop offset=".28" stop-color="#B68600"/>
+      <stop offset=".72" stop-color="#D67200"/>
+      <stop offset="1" stop-color="#FF4500"/>
+    </linearGradient>
+    <linearGradient id="i13-panel" x1="24" y1="24" x2="72" y2="72" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".6" stop-color="#FFF5EF"/>
+      <stop offset="1" stop-color="#FFFBFA"/>
+    </linearGradient>
+    <linearGradient id="i13-darkGlass" x1="24" y1="22" x2="72" y2="72" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".58" stop-color="#FFF5EF"/>
+      <stop offset="1" stop-color="#FFFBFA"/>
+    </linearGradient>
+    <radialGradient id="i13-disc" cx="39%" cy="31%" r="68%">
+      <stop offset="0" stop-color="#3D2400"/>
+      <stop offset=".28" stop-color="#B0852B"/>
+      <stop offset=".56" stop-color="#CE7755"/>
+      <stop offset="1" stop-color="#FFD8B2"/>
+    </radialGradient>
+    <filter id="i13-shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#5C2400" flood-opacity=".2"/>
+    </filter>
+    <filter id="i13-softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <g filter="url(#i13-shadow)">
+    <path d="M12 29c0-6 4-10 10-10h17l7 8h29c6 0 10 4 10 10v11H12z" fill="#FFBF91" stroke="#592C00" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M11 43h75L76 80H20z" fill="url(#i13-tile)" stroke="#592C00" stroke-width="2" stroke-linejoin="round"/>
+  </g>
+  <g transform="translate(48.5 62) scale(0.8182) translate(-48 -48)">
+  <rect x="26" y="27" width="44" height="38" rx="8" fill="url(#i13-darkGlass)" stroke="#FFD8B2" stroke-width="2"/>
+    <path d="M41 38l-8 8 8 8M55 38l8 8-8 8" fill="none" stroke="#592C00" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M50 36l-5 22" stroke="#B0852B" stroke-width="4" stroke-linecap="round"/>
+  </g>
+</svg>
+      <text x="804" y="273" font-family="SF Mono, Menlo, Consolas, monospace" font-size="19" xml:space="preserve"><tspan fill="#3D1A00">src</tspan></text>
+      
+      <rect x="744" y="284" width="262" height="36" fill="#E3BE94"/>
+      <svg x="788" y="288" width="28" height="28" viewBox="0 0 96 96">
+  <defs>
+    <linearGradient id="i14-tile" x1="14" y1="10" x2="82" y2="86" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".48" stop-color="#FFF0E9"/>
+      <stop offset="1" stop-color="#FFF9F7"/>
+    </linearGradient>
+    <linearGradient id="i14-ember" x1="20" y1="15" x2="76" y2="83" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#592C00"/>
+      <stop offset=".28" stop-color="#B68600"/>
+      <stop offset=".72" stop-color="#D67200"/>
+      <stop offset="1" stop-color="#FF4500"/>
+    </linearGradient>
+    <linearGradient id="i14-panel" x1="24" y1="24" x2="72" y2="72" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".6" stop-color="#FFF5EF"/>
+      <stop offset="1" stop-color="#FFFBFA"/>
+    </linearGradient>
+    <linearGradient id="i14-darkGlass" x1="24" y1="22" x2="72" y2="72" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".58" stop-color="#FFF5EF"/>
+      <stop offset="1" stop-color="#FFFBFA"/>
+    </linearGradient>
+    <radialGradient id="i14-disc" cx="39%" cy="31%" r="68%">
+      <stop offset="0" stop-color="#3D2400"/>
+      <stop offset=".28" stop-color="#B0852B"/>
+      <stop offset=".56" stop-color="#CE7755"/>
+      <stop offset="1" stop-color="#FFD8B2"/>
+    </radialGradient>
+    <filter id="i14-shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#5C2400" flood-opacity=".2"/>
+    </filter>
+    <filter id="i14-softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <g filter="url(#i14-shadow)">
+    <path d="M1.125 0C.502 0 0 .502 0 1.125v21.75C0 23.498.502 24 1.125 24h21.75c.623 0 1.125-.502 1.125-1.125V1.125C24 .502 23.498 0 22.875 0zm17.363 9.75c.612 0 1.154.037 1.627.111a6.38 6.38 0 0 1 1.306.34v2.458a3.95 3.95 0 0 0-.643-.361 5.093 5.093 0 0 0-.717-.26 5.453 5.453 0 0 0-1.426-.2c-.3 0-.573.028-.819.086a2.1 2.1 0 0 0-.623.242c-.17.104-.3.229-.393.374a.888.888 0 0 0-.14.49c0 .196.053.373.156.529.104.156.252.304.443.444s.423.276.696.41c.273.135.582.274.926.416.47.197.892.407 1.266.628.374.222.695.473.963.753.268.279.472.598.614.957.142.359.214.776.214 1.253 0 .657-.125 1.21-.373 1.656a3.033 3.033 0 0 1-1.012 1.085 4.38 4.38 0 0 1-1.487.596c-.566.12-1.163.18-1.79.18a9.916 9.916 0 0 1-1.84-.164 5.544 5.544 0 0 1-1.512-.493v-2.63a5.033 5.033 0 0 0 3.237 1.2c.333 0 .624-.03.872-.09.249-.06.456-.144.623-.25.166-.108.29-.234.373-.38a1.023 1.023 0 0 0-.074-1.089 2.12 2.12 0 0 0-.537-.5 5.597 5.597 0 0 0-.807-.444 27.72 27.72 0 0 0-1.007-.436c-.918-.383-1.602-.852-2.053-1.405-.45-.553-.676-1.222-.676-2.005 0-.614.123-1.141.369-1.582.246-.441.58-.804 1.004-1.089a4.494 4.494 0 0 1 1.47-.629 7.536 7.536 0 0 1 1.77-.201zm-15.113.188h9.563v2.166H9.506v9.646H6.789v-9.646H3.375z" transform="translate(12.00 12.00) scale(3)" fill="#3178C6" stroke="#FFF9F7" stroke-width="0.52" paint-order="stroke fill" stroke-linejoin="round"/>
+  </g>
+</svg>
+      <text x="826" y="311" font-family="SF Mono, Menlo, Consolas, monospace" font-size="19" xml:space="preserve"><tspan fill="#B06A00">theme.ts</tspan></text>
+      <text x="988" y="311" font-family="SF Mono, Menlo, Consolas, monospace" font-size="18" font-weight="700" text-anchor="end" xml:space="preserve"><tspan fill="#B06A00">M</tspan></text>
+      
+      <svg x="788" y="326" width="28" height="28" viewBox="0 0 96 96">
+  <defs>
+    <linearGradient id="i15-tile" x1="14" y1="10" x2="82" y2="86" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".48" stop-color="#FFF0E9"/>
+      <stop offset="1" stop-color="#FFF9F7"/>
+    </linearGradient>
+    <linearGradient id="i15-ember" x1="20" y1="15" x2="76" y2="83" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#592C00"/>
+      <stop offset=".28" stop-color="#B68600"/>
+      <stop offset=".72" stop-color="#D67200"/>
+      <stop offset="1" stop-color="#FF4500"/>
+    </linearGradient>
+    <linearGradient id="i15-panel" x1="24" y1="24" x2="72" y2="72" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".6" stop-color="#FFF5EF"/>
+      <stop offset="1" stop-color="#FFFBFA"/>
+    </linearGradient>
+    <linearGradient id="i15-darkGlass" x1="24" y1="22" x2="72" y2="72" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".58" stop-color="#FFF5EF"/>
+      <stop offset="1" stop-color="#FFFBFA"/>
+    </linearGradient>
+    <radialGradient id="i15-disc" cx="39%" cy="31%" r="68%">
+      <stop offset="0" stop-color="#3D2400"/>
+      <stop offset=".28" stop-color="#B0852B"/>
+      <stop offset=".56" stop-color="#CE7755"/>
+      <stop offset="1" stop-color="#FFD8B2"/>
+    </radialGradient>
+    <filter id="i15-shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#5C2400" flood-opacity=".2"/>
+    </filter>
+    <filter id="i15-softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <g filter="url(#i15-shadow)">
+    <path d="M12.043 23.968c.479-.004.953-.029 1.426-.094a11.805 11.805 0 003.146-.863 12.404 12.404 0 003.793-2.542 11.977 11.977 0 002.44-3.427 11.794 11.794 0 001.02-3.476c.149-1.16.135-2.346-.045-3.499a11.96 11.96 0 00-.793-2.788 11.197 11.197 0 00-.854-1.617c-1.168-1.837-2.861-3.314-4.81-4.3a12.835 12.835 0 00-2.172-.87h-.005c.119.063.24.132.345.201.12.074.239.146.351.225a8.93 8.93 0 011.559 1.33c1.063 1.145 1.797 2.548 2.218 4.041.284.982.434 1.998.495 3.017.044.743.044 1.491-.047 2.229-.149 1.27-.554 2.51-1.228 3.596a7.475 7.475 0 01-1.903 2.084c-1.244.928-2.877 1.482-4.436 1.114a3.916 3.916 0 01-.748-.258 4.692 4.692 0 01-.779-.45 6.08 6.08 0 01-1.244-1.105 6.507 6.507 0 01-1.049-1.747 7.366 7.366 0 01-.494-2.54c-.03-1.273.225-2.553.854-3.67a6.43 6.43 0 011.663-1.918c.225-.178.464-.333.704-.479l.016-.007a5.121 5.121 0 00-1.441-.12 4.963 4.963 0 00-1.228.24c-.359.12-.704.27-1.019.45a6.146 6.146 0 00-.733.494c-.211.18-.42.36-.615.555-1.123 1.153-1.768 2.682-2.022 4.256-.15.973-.15 1.96-.091 2.95.105 1.395.391 2.787.945 4.062a8.518 8.518 0 001.348 2.173 8.14 8.14 0 003.132 2.23 7.934 7.934 0 002.113.54c.074.015.149.015.209.015zm-2.934-.398a4.102 4.102 0 01-.45-.228 8.5 8.5 0 01-2.038-1.534c-1.094-1.137-1.827-2.566-2.247-4.08a15.184 15.184 0 01-.495-3.172 12.14 12.14 0 01.046-2.082c.135-1.257.495-2.501 1.124-3.58a6.889 6.889 0 011.783-2.053 6.23 6.23 0 011.633-.9 5.363 5.363 0 013.522-.045c.029 0 .029 0 .045.03.015.015.045.015.06.03.045.016.104.045.165.074.239.12.479.271.704.42a6.294 6.294 0 012.097 2.502c.42.914.615 1.934.631 2.938.014 1.079-.18 2.157-.645 3.146a6.42 6.42 0 01-2.638 2.832c.09.03.18.045.271.075.225.044.449.074.688.074 1.468.045 2.892-.66 3.94-1.647.195-.18.375-.375.54-.585.225-.27.435-.54.614-.823.239-.375.435-.75.614-1.154a8.112 8.112 0 00.509-1.664c.196-1.004.211-2.022.149-3.026-.135-2.022-.673-4.045-1.842-5.724a9.054 9.054 0 00-.555-.719 9.868 9.868 0 00-1.063-1.034 8.477 8.477 0 00-1.363-.915 9.927 9.927 0 00-1.692-.598l-.3-.06c-.209-.03-.42-.044-.634-.06a8.453 8.453 0 00-1.015.016c-.704.045-1.412.16-2.112.337C5.799 1.227 2.863 3.566 1.3 6.67A11.834 11.834 0 00.238 9.801a11.81 11.81 0 00-.104 3.775c.12 1.02.374 2.023.778 2.977.227.57.511 1.124.825 1.648 1.094 1.783 2.683 3.236 4.51 4.24.688.39 1.408.69 2.157.944.226.074.45.15.689.21z" transform="translate(12.00 12.00) scale(3)" fill="#B68600" stroke="#FFF9F7" stroke-width="0.52" paint-order="stroke fill" stroke-linejoin="round"/>
+  </g>
+</svg>
+      <text x="826" y="349" font-family="SF Mono, Menlo, Consolas, monospace" font-size="19" xml:space="preserve"><tspan fill="#7A8C00">palette.json</tspan></text>
+      <text x="988" y="349" font-family="SF Mono, Menlo, Consolas, monospace" font-size="18" font-weight="700" text-anchor="end" xml:space="preserve"><tspan fill="#7A8C00">A</tspan></text>
+      
+      <svg x="788" y="364" width="28" height="28" viewBox="0 0 96 96">
+  <defs>
+    <linearGradient id="i16-tile" x1="14" y1="10" x2="82" y2="86" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".48" stop-color="#FFF0E9"/>
+      <stop offset="1" stop-color="#FFF9F7"/>
+    </linearGradient>
+    <linearGradient id="i16-ember" x1="20" y1="15" x2="76" y2="83" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#592C00"/>
+      <stop offset=".28" stop-color="#B68600"/>
+      <stop offset=".72" stop-color="#D67200"/>
+      <stop offset="1" stop-color="#FF4500"/>
+    </linearGradient>
+    <linearGradient id="i16-panel" x1="24" y1="24" x2="72" y2="72" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".6" stop-color="#FFF5EF"/>
+      <stop offset="1" stop-color="#FFFBFA"/>
+    </linearGradient>
+    <linearGradient id="i16-darkGlass" x1="24" y1="22" x2="72" y2="72" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".58" stop-color="#FFF5EF"/>
+      <stop offset="1" stop-color="#FFFBFA"/>
+    </linearGradient>
+    <radialGradient id="i16-disc" cx="39%" cy="31%" r="68%">
+      <stop offset="0" stop-color="#3D2400"/>
+      <stop offset=".28" stop-color="#B0852B"/>
+      <stop offset=".56" stop-color="#CE7755"/>
+      <stop offset="1" stop-color="#FFD8B2"/>
+    </radialGradient>
+    <filter id="i16-shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#5C2400" flood-opacity=".2"/>
+    </filter>
+    <filter id="i16-softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <g filter="url(#i16-shadow)">
+    <path d="M23.8346 11.7033l-1.0073-.6236a13.7268 13.7268 0 00-.0283-.2936l.8656-.8069a.3483.3483 0 00-.1154-.578l-1.1066-.414a8.4958 8.4958 0 00-.087-.2856l.6904-.9587a.3462.3462 0 00-.2257-.5446l-1.1663-.1894a9.3574 9.3574 0 00-.1407-.2622l.49-1.0761a.3437.3437 0 00-.0274-.3361.3486.3486 0 00-.3006-.154l-1.1845.0416a6.7444 6.7444 0 00-.1873-.2268l.2723-1.153a.3472.3472 0 00-.417-.4172l-1.1532.2724a14.0183 14.0183 0 00-.2278-.1873l.0415-1.1845a.3442.3442 0 00-.49-.328l-1.076.491c-.0872-.0476-.1742-.0952-.2623-.1407l-.1903-1.1673A.3483.3483 0 0016.256.955l-.9597.6905a8.4867 8.4867 0 00-.2855-.086l-.414-1.1066a.3483.3483 0 00-.5781-.1154l-.8069.8666a9.2936 9.2936 0 00-.2936-.0284L12.2946.1683a.3462.3462 0 00-.5892 0l-.6236 1.0073a13.7383 13.7383 0 00-.2936.0284L9.9803.3374a.3462.3462 0 00-.578.1154l-.4141 1.1065c-.0962.0274-.1903.0567-.2855.086L7.744.955a.3483.3483 0 00-.5447.2258L7.009 2.348a9.3574 9.3574 0 00-.2622.1407l-1.0762-.491a.3462.3462 0 00-.49.328l.0416 1.1845a7.9826 7.9826 0 00-.2278.1873L3.8413 3.425a.3472.3472 0 00-.4171.4171l.2713 1.1531c-.0628.075-.1255.1509-.1863.2268l-1.1845-.0415a.3462.3462 0 00-.328.49l.491 1.0761a9.167 9.167 0 00-.1407.2622l-1.1662.1894a.3483.3483 0 00-.2258.5446l.6904.9587a13.303 13.303 0 00-.087.2855l-1.1065.414a.3483.3483 0 00-.1155.5781l.8656.807a9.2936 9.2936 0 00-.0283.2935l-1.0073.6236a.3442.3442 0 000 .5892l1.0073.6236c.008.0982.0182.1964.0283.2936l-.8656.8079a.3462.3462 0 00.1155.578l1.1065.4141c.0273.0962.0567.1914.087.2855l-.6904.9587a.3452.3452 0 00.2268.5447l1.1662.1893c.0456.088.0922.1751.1408.2622l-.491 1.0762a.3462.3462 0 00.328.49l1.1834-.0415c.0618.0769.1235.1528.1873.2277l-.2713 1.1541a.3462.3462 0 00.4171.4161l1.153-.2713c.075.0638.151.1255.2279.1863l-.0415 1.1845a.3442.3442 0 00.49.327l1.0761-.49c.087.0486.1741.0951.2622.1407l.1903 1.1662a.3483.3483 0 00.5447.2268l.9587-.6904a9.299 9.299 0 00.2855.087l.414 1.1066a.3452.3452 0 00.5781.1154l.8079-.8656c.0972.0111.1954.0203.2936.0294l.6236 1.0073a.3472.3472 0 00.5892 0l.6236-1.0073c.0982-.0091.1964-.0183.2936-.0294l.8069.8656a.3483.3483 0 00.578-.1154l.4141-1.1066a8.4626 8.4626 0 00.2855-.087l.9587.6904a.3452.3452 0 00.5447-.2268l.1903-1.1662c.088-.0456.1751-.0931.2622-.1407l1.0762.49a.3472.3472 0 00.49-.327l-.0415-1.1845a6.7267 6.7267 0 00.2267-.1863l1.1531.2713a.3472.3472 0 00.4171-.416l-.2713-1.1542c.0628-.0749.1255-.1508.1863-.2278l1.1845.0415a.3442.3442 0 00.328-.49l-.49-1.076c.0475-.0872.0951-.1742.1407-.2623l1.1662-.1893a.3483.3483 0 00.2258-.5447l-.6904-.9587.087-.2855 1.1066-.414a.3462.3462 0 00.1154-.5781l-.8656-.8079c.0101-.0972.0202-.1954.0283-.2936l1.0073-.6236a.3442.3442 0 000-.5892zm-6.7413 8.3551a.7138.7138 0 01.2986-1.396.714.714 0 11-.2997 1.396zm-.3422-2.3142a.649.649 0 00-.7715.5l-.3573 1.6685c-1.1035.501-2.3285.7795-3.6193.7795a8.7368 8.7368 0 01-3.6951-.814l-.3574-1.6684a.648.648 0 00-.7714-.499l-1.473.3158a8.7216 8.7216 0 01-.7613-.898h7.1676c.081 0 .1356-.0141.1356-.088v-2.536c0-.074-.0536-.0881-.1356-.0881h-2.0966v-1.6077h2.2677c.2065 0 1.1065.0587 1.394 1.2088.0901.3533.2875 1.5044.4232 1.8729.1346.413.6833 1.2381 1.2685 1.2381h3.5716a.7492.7492 0 00.1296-.0131 8.7874 8.7874 0 01-.8119.9526zM6.8369 20.024a.714.714 0 11-.2997-1.396.714.714 0 01.2997 1.396zM4.1177 8.9972a.7137.7137 0 11-1.304.5791.7137.7137 0 011.304-.579zm-.8352 1.9813l1.5347-.6824a.65.65 0 00.33-.8585l-.3158-.7147h1.2432v5.6025H3.5669a8.7753 8.7753 0 01-.2834-3.348zm6.7343-.5437V8.7836h2.9601c.153 0 1.0792.1772 1.0792.8697 0 .575-.7107.7815-1.2948.7815zm10.7574 1.4862c0 .2187-.008.4363-.0243.651h-.9c-.09 0-.1265.0586-.1265.1477v.413c0 .973-.5487 1.1846-1.0296 1.2382-.4576.0517-.9648-.1913-1.0275-.4717-.2704-1.5186-.7198-1.8436-1.4305-2.4034.8817-.5599 1.799-1.386 1.799-2.4915 0-1.1936-.819-1.9458-1.3769-2.3153-.7825-.5163-1.6491-.6195-1.883-.6195H5.4682a8.7651 8.7651 0 014.907-2.7699l1.0974 1.151a.648.648 0 00.9182.0213l1.227-1.1743a8.7753 8.7753 0 016.0044 4.2762l-.8403 1.8982a.652.652 0 00.33.8585l1.6178.7188c.0283.2875.0425.577.0425.8717zm-9.3006-9.5993a.7128.7128 0 11.984 1.0316.7137.7137 0 01-.984-1.0316zm8.3389 6.71a.7107.7107 0 01.9395-.3625.7137.7137 0 11-.9405.3635z" transform="translate(12.00 12.00) scale(3)" fill="#C47D3C" stroke="#FFF9F7" stroke-width="0.52" paint-order="stroke fill" stroke-linejoin="round"/>
+  </g>
+</svg>
+      <text x="826" y="387" font-family="SF Mono, Menlo, Consolas, monospace" font-size="19" xml:space="preserve"><tspan fill="#B84A00">glow.rs</tspan></text>
+      
+      
+      <svg x="766" y="402" width="28" height="28" viewBox="0 0 96 96">
+  <defs>
+    <linearGradient id="i17-tile" x1="14" y1="10" x2="82" y2="86" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".48" stop-color="#FFF0E9"/>
+      <stop offset="1" stop-color="#FFF9F7"/>
+    </linearGradient>
+    <linearGradient id="i17-ember" x1="20" y1="15" x2="76" y2="83" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#592C00"/>
+      <stop offset=".28" stop-color="#B68600"/>
+      <stop offset=".72" stop-color="#D67200"/>
+      <stop offset="1" stop-color="#FF4500"/>
+    </linearGradient>
+    <linearGradient id="i17-panel" x1="24" y1="24" x2="72" y2="72" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".6" stop-color="#FFF5EF"/>
+      <stop offset="1" stop-color="#FFFBFA"/>
+    </linearGradient>
+    <linearGradient id="i17-darkGlass" x1="24" y1="22" x2="72" y2="72" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".58" stop-color="#FFF5EF"/>
+      <stop offset="1" stop-color="#FFFBFA"/>
+    </linearGradient>
+    <radialGradient id="i17-disc" cx="39%" cy="31%" r="68%">
+      <stop offset="0" stop-color="#3D2400"/>
+      <stop offset=".28" stop-color="#B0852B"/>
+      <stop offset=".56" stop-color="#CE7755"/>
+      <stop offset="1" stop-color="#FFD8B2"/>
+    </radialGradient>
+    <filter id="i17-shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#5C2400" flood-opacity=".2"/>
+    </filter>
+    <filter id="i17-softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <g filter="url(#i17-shadow)">
+    <path d="M12 29c0-6 4-10 10-10h17l7 8h29c6 0 10 4 10 10v10H12z" fill="#FFBF91" stroke="#592C00" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M13 36h70L75 80H20z" fill="url(#i17-tile)" stroke="#592C00" stroke-width="2" stroke-linejoin="round"/>
+  </g>
+  <g transform="translate(48 58.5) scale(0.9091) translate(-48 -48)">
+  <path d="M41 27h14M43 27v14L31 62c-2 4 0 7 4 7h26c4 0 6-3 4-7L53 41V27" fill="#FFF3EB" stroke="#592C00" stroke-width="3.5" stroke-linejoin="round"/>
+    <path d="M36 55h24l5 8c1 3 0 5-3 5H34c-3 0-4-2-3-5z" fill="#969110"/>
+    <circle cx="45" cy="47" r="2.5" fill="#D67200"/>
+  </g>
+</svg>
+      <text x="804" y="425" font-family="SF Mono, Menlo, Consolas, monospace" font-size="19" xml:space="preserve"><tspan fill="#3D1A00">tests</tspan></text>
+      
+      
+      <svg x="766" y="440" width="28" height="28" viewBox="0 0 96 96">
+  <defs>
+    <linearGradient id="i18-tile" x1="14" y1="10" x2="82" y2="86" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".48" stop-color="#FFF0E9"/>
+      <stop offset="1" stop-color="#FFF9F7"/>
+    </linearGradient>
+    <linearGradient id="i18-ember" x1="20" y1="15" x2="76" y2="83" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#592C00"/>
+      <stop offset=".28" stop-color="#B68600"/>
+      <stop offset=".72" stop-color="#D67200"/>
+      <stop offset="1" stop-color="#FF4500"/>
+    </linearGradient>
+    <linearGradient id="i18-panel" x1="24" y1="24" x2="72" y2="72" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".6" stop-color="#FFF5EF"/>
+      <stop offset="1" stop-color="#FFFBFA"/>
+    </linearGradient>
+    <linearGradient id="i18-darkGlass" x1="24" y1="22" x2="72" y2="72" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".58" stop-color="#FFF5EF"/>
+      <stop offset="1" stop-color="#FFFBFA"/>
+    </linearGradient>
+    <radialGradient id="i18-disc" cx="39%" cy="31%" r="68%">
+      <stop offset="0" stop-color="#3D2400"/>
+      <stop offset=".28" stop-color="#B0852B"/>
+      <stop offset=".56" stop-color="#CE7755"/>
+      <stop offset="1" stop-color="#FFD8B2"/>
+    </radialGradient>
+    <filter id="i18-shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#5C2400" flood-opacity=".2"/>
+    </filter>
+    <filter id="i18-softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <g filter="url(#i18-shadow)">
+    <path d="M12 29c0-6 4-10 10-10h17l7 8h29c6 0 10 4 10 10v10H12z" fill="#FFBF91" stroke="#592C00" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M13 36h70L75 80H20z" fill="url(#i18-tile)" stroke="#592C00" stroke-width="2" stroke-linejoin="round"/>
+  </g>
+  <g transform="translate(48 58.5) scale(0.5714) translate(-48 -48)">
+  <g filter="url(#i18-shadow)">
+    <path d="M22.27 19.385H1.73A1.73 1.73 0 010 17.655V6.345a1.73 1.73 0 011.73-1.73h20.54A1.73 1.73 0 0124 6.345v11.308a1.73 1.73 0 01-1.73 1.731zM5.769 15.923v-4.5l2.308 2.885 2.307-2.885v4.5h2.308V8.078h-2.308l-2.307 2.885-2.308-2.885H3.46v7.847zM21.232 12h-2.309V8.077h-2.307V12h-2.308l3.461 4.039z" transform="translate(12.00 12.00) scale(3)" fill="#592C00" stroke="#FFF9F7" stroke-width="0.52" paint-order="stroke fill" stroke-linejoin="round"/>
+  </g>
+  </g>
+</svg>
+      <text x="804" y="463" font-family="SF Mono, Menlo, Consolas, monospace" font-size="19" xml:space="preserve"><tspan fill="#7A8C00">docs</tspan></text>
+      <text x="988" y="463" font-family="SF Mono, Menlo, Consolas, monospace" font-size="18" font-weight="700" text-anchor="end" xml:space="preserve"><tspan fill="#7A8C00">U</tspan></text>
+      
+      <svg x="766" y="478" width="28" height="28" viewBox="0 0 96 96">
+  <defs>
+    <linearGradient id="i19-tile" x1="14" y1="10" x2="82" y2="86" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".48" stop-color="#FFF0E9"/>
+      <stop offset="1" stop-color="#FFF9F7"/>
+    </linearGradient>
+    <linearGradient id="i19-ember" x1="20" y1="15" x2="76" y2="83" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#592C00"/>
+      <stop offset=".28" stop-color="#B68600"/>
+      <stop offset=".72" stop-color="#D67200"/>
+      <stop offset="1" stop-color="#FF4500"/>
+    </linearGradient>
+    <linearGradient id="i19-panel" x1="24" y1="24" x2="72" y2="72" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".6" stop-color="#FFF5EF"/>
+      <stop offset="1" stop-color="#FFFBFA"/>
+    </linearGradient>
+    <linearGradient id="i19-darkGlass" x1="24" y1="22" x2="72" y2="72" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".58" stop-color="#FFF5EF"/>
+      <stop offset="1" stop-color="#FFFBFA"/>
+    </linearGradient>
+    <radialGradient id="i19-disc" cx="39%" cy="31%" r="68%">
+      <stop offset="0" stop-color="#3D2400"/>
+      <stop offset=".28" stop-color="#B0852B"/>
+      <stop offset=".56" stop-color="#CE7755"/>
+      <stop offset="1" stop-color="#FFD8B2"/>
+    </radialGradient>
+    <filter id="i19-shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#5C2400" flood-opacity=".2"/>
+    </filter>
+    <filter id="i19-softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <g filter="url(#i19-shadow)">
+    <path d="M13.983 11.078h2.119a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.119a.185.185 0 00-.185.185v1.888c0 .102.083.185.185.185m-2.954-5.43h2.118a.186.186 0 00.186-.186V3.574a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m0 2.716h2.118a.187.187 0 00.186-.186V6.29a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.887c0 .102.082.185.185.186m-2.93 0h2.12a.186.186 0 00.184-.186V6.29a.185.185 0 00-.185-.185H8.1a.185.185 0 00-.185.185v1.887c0 .102.083.185.185.186m-2.964 0h2.119a.186.186 0 00.185-.186V6.29a.185.185 0 00-.185-.185H5.136a.186.186 0 00-.186.185v1.887c0 .102.084.185.186.186m5.893 2.715h2.118a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m-2.93 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.185v1.888c0 .102.083.185.185.185m-2.964 0h2.119a.185.185 0 00.185-.185V9.006a.185.185 0 00-.184-.186h-2.12a.186.186 0 00-.186.186v1.887c0 .102.084.185.186.185m-2.92 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.185v1.888c0 .102.082.185.185.185M23.763 9.89c-.065-.051-.672-.51-1.954-.51-.338.001-.676.03-1.01.087-.248-1.7-1.653-2.53-1.716-2.566l-.344-.199-.226.327c-.284.438-.49.922-.612 1.43-.23.97-.09 1.882.403 2.661-.595.332-1.55.413-1.744.42H.751a.751.751 0 00-.75.748 11.376 11.376 0 00.692 4.062c.545 1.428 1.355 2.48 2.41 3.124 1.18.723 3.1 1.137 5.275 1.137.983.003 1.963-.086 2.93-.266a12.248 12.248 0 003.823-1.389c.98-.567 1.86-1.288 2.61-2.136 1.252-1.418 1.998-2.997 2.553-4.4h.221c1.372 0 2.215-.549 2.68-1.009.309-.293.55-.65.707-1.046l.098-.288Z" transform="translate(12.00 12.00) scale(3)" fill="#2790E1" stroke="#FFF9F7" stroke-width="0.52" paint-order="stroke fill" stroke-linejoin="round"/>
+  </g>
+</svg>
+      <text x="804" y="501" font-family="SF Mono, Menlo, Consolas, monospace" font-size="19" xml:space="preserve"><tspan fill="#B84A00">Dockerfile</tspan></text>
+      
+      
+      <svg x="766" y="516" width="28" height="28" viewBox="0 0 96 96">
+  <defs>
+    <linearGradient id="i20-tile" x1="14" y1="10" x2="82" y2="86" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".48" stop-color="#FFF0E9"/>
+      <stop offset="1" stop-color="#FFF9F7"/>
+    </linearGradient>
+    <linearGradient id="i20-ember" x1="20" y1="15" x2="76" y2="83" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#592C00"/>
+      <stop offset=".28" stop-color="#B68600"/>
+      <stop offset=".72" stop-color="#D67200"/>
+      <stop offset="1" stop-color="#FF4500"/>
+    </linearGradient>
+    <linearGradient id="i20-panel" x1="24" y1="24" x2="72" y2="72" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".6" stop-color="#FFF5EF"/>
+      <stop offset="1" stop-color="#FFFBFA"/>
+    </linearGradient>
+    <linearGradient id="i20-darkGlass" x1="24" y1="22" x2="72" y2="72" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".58" stop-color="#FFF5EF"/>
+      <stop offset="1" stop-color="#FFFBFA"/>
+    </linearGradient>
+    <radialGradient id="i20-disc" cx="39%" cy="31%" r="68%">
+      <stop offset="0" stop-color="#3D2400"/>
+      <stop offset=".28" stop-color="#B0852B"/>
+      <stop offset=".56" stop-color="#CE7755"/>
+      <stop offset="1" stop-color="#FFD8B2"/>
+    </radialGradient>
+    <filter id="i20-shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#5C2400" flood-opacity=".2"/>
+    </filter>
+    <filter id="i20-softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <g filter="url(#i20-shadow)">
+    <path d="M1.763 0C.786 0 0 .786 0 1.763v20.474C0 23.214.786 24 1.763 24h20.474c.977 0 1.763-.786 1.763-1.763V1.763C24 .786 23.214 0 22.237 0zM5.13 5.323l13.837.019-.009 13.836h-3.464l.01-10.382h-3.456L12.04 19.17H5.113z" transform="translate(12.00 12.00) scale(3)" fill="#CB3837" stroke="#FFF9F7" stroke-width="0.52" paint-order="stroke fill" stroke-linejoin="round"/>
+  </g>
+</svg>
+      <text x="804" y="539" font-family="SF Mono, Menlo, Consolas, monospace" font-size="19" xml:space="preserve"><tspan fill="#B06A00">package.json</tspan></text>
+      <text x="988" y="539" font-family="SF Mono, Menlo, Consolas, monospace" font-size="18" font-weight="700" text-anchor="end" xml:space="preserve"><tspan fill="#B06A00">M</tspan></text>
+      
+      <svg x="766" y="554" width="28" height="28" viewBox="0 0 96 96">
+  <defs>
+    <linearGradient id="i21-tile" x1="14" y1="10" x2="82" y2="86" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".48" stop-color="#FFF0E9"/>
+      <stop offset="1" stop-color="#FFF9F7"/>
+    </linearGradient>
+    <linearGradient id="i21-ember" x1="20" y1="15" x2="76" y2="83" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#592C00"/>
+      <stop offset=".28" stop-color="#B68600"/>
+      <stop offset=".72" stop-color="#D67200"/>
+      <stop offset="1" stop-color="#FF4500"/>
+    </linearGradient>
+    <linearGradient id="i21-panel" x1="24" y1="24" x2="72" y2="72" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".6" stop-color="#FFF5EF"/>
+      <stop offset="1" stop-color="#FFFBFA"/>
+    </linearGradient>
+    <linearGradient id="i21-darkGlass" x1="24" y1="22" x2="72" y2="72" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".58" stop-color="#FFF5EF"/>
+      <stop offset="1" stop-color="#FFFBFA"/>
+    </linearGradient>
+    <radialGradient id="i21-disc" cx="39%" cy="31%" r="68%">
+      <stop offset="0" stop-color="#3D2400"/>
+      <stop offset=".28" stop-color="#B0852B"/>
+      <stop offset=".56" stop-color="#CE7755"/>
+      <stop offset="1" stop-color="#FFD8B2"/>
+    </radialGradient>
+    <filter id="i21-shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#5C2400" flood-opacity=".2"/>
+    </filter>
+    <filter id="i21-softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <g filter="url(#i21-shadow)">
+    <path d="M22.27 19.385H1.73A1.73 1.73 0 010 17.655V6.345a1.73 1.73 0 011.73-1.73h20.54A1.73 1.73 0 0124 6.345v11.308a1.73 1.73 0 01-1.73 1.731zM5.769 15.923v-4.5l2.308 2.885 2.307-2.885v4.5h2.308V8.078h-2.308l-2.307 2.885-2.308-2.885H3.46v7.847zM21.232 12h-2.309V8.077h-2.307V12h-2.308l3.461 4.039z" transform="translate(12.00 12.00) scale(3)" fill="#592C00" stroke="#FFF9F7" stroke-width="0.52" paint-order="stroke fill" stroke-linejoin="round"/>
+  </g>
+</svg>
+      <text x="804" y="577" font-family="SF Mono, Menlo, Consolas, monospace" font-size="19" xml:space="preserve"><tspan fill="#B84A00">README.md</tspan></text>
+      
+      
+      <svg x="766" y="592" width="28" height="28" viewBox="0 0 96 96">
+  <defs>
+    <linearGradient id="i22-tile" x1="14" y1="10" x2="82" y2="86" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".48" stop-color="#FFF0E9"/>
+      <stop offset="1" stop-color="#FFF9F7"/>
+    </linearGradient>
+    <linearGradient id="i22-ember" x1="20" y1="15" x2="76" y2="83" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#592C00"/>
+      <stop offset=".28" stop-color="#B68600"/>
+      <stop offset=".72" stop-color="#D67200"/>
+      <stop offset="1" stop-color="#FF4500"/>
+    </linearGradient>
+    <linearGradient id="i22-panel" x1="24" y1="24" x2="72" y2="72" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".6" stop-color="#FFF5EF"/>
+      <stop offset="1" stop-color="#FFFBFA"/>
+    </linearGradient>
+    <linearGradient id="i22-darkGlass" x1="24" y1="22" x2="72" y2="72" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".58" stop-color="#FFF5EF"/>
+      <stop offset="1" stop-color="#FFFBFA"/>
+    </linearGradient>
+    <radialGradient id="i22-disc" cx="39%" cy="31%" r="68%">
+      <stop offset="0" stop-color="#3D2400"/>
+      <stop offset=".28" stop-color="#B0852B"/>
+      <stop offset=".56" stop-color="#CE7755"/>
+      <stop offset="1" stop-color="#FFD8B2"/>
+    </radialGradient>
+    <filter id="i22-shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#5C2400" flood-opacity=".2"/>
+    </filter>
+    <filter id="i22-softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <g filter="url(#i22-shadow)">
+    <path d="M13.09 23.549a1.54 1.54 0 0 1-2.18 0L.451 13.089a1.54 1.54 0 0 1 0-2.179l7.191-7.19 2.733 2.733a1.85 1.85 0 0 0 .964 2.326v6.66a1.849 1.849 0 1 0 1.54 0V8.957l2.508 2.508a1.85 1.85 0 1 0 1.09-1.09l-2.634-2.634a1.85 1.85 0 0 0-2.378-2.377L8.73 2.63 10.91.451a1.54 1.54 0 0 1 2.179 0l10.459 10.46a1.54 1.54 0 0 1 0 2.179z" transform="translate(12.00 12.00) scale(3)" fill="#F03C2E" stroke="#FFF9F7" stroke-width="0.52" paint-order="stroke fill" stroke-linejoin="round"/>
+  </g>
+</svg>
+      <text x="804" y="615" font-family="SF Mono, Menlo, Consolas, monospace" font-size="19" xml:space="preserve"><tspan fill="#B84A00">.gitignore</tspan></text>
+      
+      
+      <svg x="766" y="630" width="28" height="28" viewBox="0 0 96 96">
+  <defs>
+    <linearGradient id="i23-tile" x1="14" y1="10" x2="82" y2="86" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".48" stop-color="#FFF0E9"/>
+      <stop offset="1" stop-color="#FFF9F7"/>
+    </linearGradient>
+    <linearGradient id="i23-ember" x1="20" y1="15" x2="76" y2="83" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#592C00"/>
+      <stop offset=".28" stop-color="#B68600"/>
+      <stop offset=".72" stop-color="#D67200"/>
+      <stop offset="1" stop-color="#FF4500"/>
+    </linearGradient>
+    <linearGradient id="i23-panel" x1="24" y1="24" x2="72" y2="72" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".6" stop-color="#FFF5EF"/>
+      <stop offset="1" stop-color="#FFFBFA"/>
+    </linearGradient>
+    <linearGradient id="i23-darkGlass" x1="24" y1="22" x2="72" y2="72" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7D5"/>
+      <stop offset=".58" stop-color="#FFF5EF"/>
+      <stop offset="1" stop-color="#FFFBFA"/>
+    </linearGradient>
+    <radialGradient id="i23-disc" cx="39%" cy="31%" r="68%">
+      <stop offset="0" stop-color="#3D2400"/>
+      <stop offset=".28" stop-color="#B0852B"/>
+      <stop offset=".56" stop-color="#CE7755"/>
+      <stop offset="1" stop-color="#FFD8B2"/>
+    </radialGradient>
+    <filter id="i23-shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#5C2400" flood-opacity=".2"/>
+    </filter>
+    <filter id="i23-softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <g filter="url(#i23-shadow)">
+    <path d="M12 29c0-6 4-10 10-10h17l7 8h29c6 0 10 4 10 10v10H12z" fill="#FFBF91" stroke="#592C00" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M13 36h70L75 80H20z" fill="url(#i23-tile)" stroke="#592C00" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M22 41c14-5 34-5 51 1" fill="none" stroke="#3D2400" stroke-width="3" stroke-linecap="round" opacity=".5"/>
+  </g>
+</svg>
+      <text x="804" y="653" font-family="SF Mono, Menlo, Consolas, monospace" font-size="19" xml:space="preserve"><tspan fill="#A86A3A">dist</tspan></text>
+      
+    <text x="1074" y="266" font-family="SF Mono, Menlo, Consolas, monospace" font-size="19" text-anchor="end" xml:space="preserve"><tspan fill="#A86A3A">1</tspan></text>
+    <text x="1098" y="266" font-family="SF Mono, Menlo, Consolas, monospace" font-size="21" xml:space="preserve"><tspan fill="#C42B00">import </tspan><tspan fill="#6B3A1A">{ </tspan><tspan fill="#5C2400">palette</tspan><tspan fill="#6B3A1A"> } </tspan><tspan fill="#C42B00">from </tspan><tspan fill="#5B6B00">&quot;./palette.json&quot;</tspan><tspan fill="#6B3A1A">;</tspan></text>
+    <text x="1074" y="302" font-family="SF Mono, Menlo, Consolas, monospace" font-size="19" text-anchor="end" xml:space="preserve"><tspan fill="#A86A3A">2</tspan></text>
+    <text x="1074" y="338" font-family="SF Mono, Menlo, Consolas, monospace" font-size="19" text-anchor="end" xml:space="preserve"><tspan fill="#A86A3A">3</tspan></text>
+    <text x="1098" y="338" font-family="SF Mono, Menlo, Consolas, monospace" font-size="21" xml:space="preserve"><tspan fill="#C42B00">export </tspan><tspan fill="#C42B00">interface </tspan><tspan fill="#8A6200">Variant</tspan><tspan fill="#6B3A1A"> {</tspan></text>
+    <text x="1074" y="374" font-family="SF Mono, Menlo, Consolas, monospace" font-size="19" text-anchor="end" xml:space="preserve"><tspan fill="#A86A3A">4</tspan></text>
+    <text x="1098" y="374" font-family="SF Mono, Menlo, Consolas, monospace" font-size="21" xml:space="preserve"><tspan fill="#7A3D10">  name</tspan><tspan fill="#6B3A1A">: </tspan><tspan fill="#8A6200">string</tspan><tspan fill="#6B3A1A">;</tspan></text>
+    <rect x="1014" y="387" width="5" height="32" rx="1" fill="#B06A00"/>
+    <text x="1074" y="410" font-family="SF Mono, Menlo, Consolas, monospace" font-size="19" text-anchor="end" xml:space="preserve"><tspan fill="#A86A3A">5</tspan></text>
+    <text x="1098" y="410" font-family="SF Mono, Menlo, Consolas, monospace" font-size="21" xml:space="preserve"><tspan fill="#7A3D10">  appearance</tspan><tspan fill="#6B3A1A">: </tspan><tspan fill="#5B6B00">&quot;dark&quot;</tspan><tspan fill="#6B3A1A"> | </tspan><tspan fill="#5B6B00">&quot;light&quot;</tspan><tspan fill="#6B3A1A">;</tspan></text>
+    <text x="1074" y="446" font-family="SF Mono, Menlo, Consolas, monospace" font-size="19" text-anchor="end" xml:space="preserve"><tspan fill="#A86A3A">6</tspan></text>
+    <text x="1098" y="446" font-family="SF Mono, Menlo, Consolas, monospace" font-size="21" xml:space="preserve"><tspan fill="#6B3A1A">}</tspan></text>
+    <text x="1074" y="482" font-family="SF Mono, Menlo, Consolas, monospace" font-size="19" text-anchor="end" xml:space="preserve"><tspan fill="#A86A3A">7</tspan></text>
+    <rect x="1014" y="495" width="5" height="32" rx="1" fill="#7A8C00"/>
+    <text x="1074" y="518" font-family="SF Mono, Menlo, Consolas, monospace" font-size="19" text-anchor="end" xml:space="preserve"><tspan fill="#A86A3A">8</tspan></text>
+    <text x="1098" y="518" font-family="SF Mono, Menlo, Consolas, monospace" font-size="21" xml:space="preserve"><tspan fill="#8C6A1A" font-style="italic">// </tspan><tspan fill="#8C6A1A" font-style="italic">Ember accent for each variant</tspan></text>
+    <rect x="1014" y="531" width="5" height="32" rx="1" fill="#7A8C00"/>
+    <text x="1074" y="554" font-family="SF Mono, Menlo, Consolas, monospace" font-size="19" text-anchor="end" xml:space="preserve"><tspan fill="#A86A3A">9</tspan></text>
+    <text x="1098" y="554" font-family="SF Mono, Menlo, Consolas, monospace" font-size="21" xml:space="preserve"><tspan fill="#C42B00">export </tspan><tspan fill="#C42B00">function </tspan><tspan fill="#A04E00">accent</tspan><tspan fill="#6B3A1A">(</tspan><tspan fill="#5C2400">v</tspan><tspan fill="#6B3A1A">: </tspan><tspan fill="#8A6200">Variant</tspan><tspan fill="#6B3A1A">) {</tspan></text>
+    <rect x="1014" y="567" width="5" height="32" rx="1" fill="#7A8C00"/>
+    <text x="1074" y="590" font-family="SF Mono, Menlo, Consolas, monospace" font-size="19" text-anchor="end" xml:space="preserve"><tspan fill="#A86A3A">10</tspan></text>
+    <text x="1098" y="590" font-family="SF Mono, Menlo, Consolas, monospace" font-size="21" xml:space="preserve"><tspan fill="#C42B00">  const </tspan><tspan fill="#5C2400">glow</tspan><tspan fill="#6B3A1A"> = </tspan><tspan fill="#9A5800">0.42</tspan><tspan fill="#6B3A1A">;</tspan></text>
+    <path d="M1198.8 596L1203.8 593L1208.8 596L1213.8 593L1218.8 596L1223.8 593L1228.8 596L1233.8 593L1238.8 596L1243.8 593L1248.8 596" fill="none" stroke="#B06A00" stroke-width="2" stroke-linejoin="round"/>
+    <rect x="1006" y="601" width="706" height="36" fill="#F9E2C6"/>
+    <rect x="1014" y="603" width="5" height="32" rx="1" fill="#7A8C00"/>
+    <text x="1074" y="626" font-family="SF Mono, Menlo, Consolas, monospace" font-size="19" text-anchor="end" xml:space="preserve"><tspan fill="#B06A00">11</tspan></text>
+    <text x="1098" y="626" font-family="SF Mono, Menlo, Consolas, monospace" font-size="21" xml:space="preserve"><tspan fill="#C42B00">  return </tspan><tspan fill="#5C2400">palette</tspan><tspan fill="#6B3A1A">.</tspan><tspan fill="#7A3D10">variants</tspan><tspan fill="#6B3A1A">[</tspan><tspan fill="#5C2400">v</tspan><tspan fill="#6B3A1A">.</tspan><tspan fill="#7A3D10">nam</tspan><tspan fill="#6B3A1A">].</tspan><tspan fill="#7A3D10">accent</tspan><tspan fill="#6B3A1A">;</tspan></text>
+    <path d="M1438.2 632L1443.2 629L1448.2 632L1453.2 629L1458.2 632L1463.2 629L1468.2 632L1473.2 629" fill="none" stroke="#9E2000" stroke-width="2" stroke-linejoin="round"/>
+    <rect x="1014" y="639" width="5" height="32" rx="1" fill="#7A8C00"/>
+    <path d="M1012 666l9 7-9 7z" fill="#9E2000"/>
+    <text x="1074" y="662" font-family="SF Mono, Menlo, Consolas, monospace" font-size="19" text-anchor="end" xml:space="preserve"><tspan fill="#A86A3A">12</tspan></text>
+    <text x="1098" y="662" font-family="SF Mono, Menlo, Consolas, monospace" font-size="21" xml:space="preserve"><tspan fill="#6B3A1A">}</tspan></text>
+    <g filter="url(#shadow)">
+      <rect x="1173.6" y="644" width="452" height="84" rx="10" fill="#F6E0C4" stroke="#9E2000" stroke-width="2"/>
     </g>
-    <rect x="972" y="208" width="740" height="506" fill="#FFEFE5"/>
-    <text x="1008" y="256" font-family="SF Mono, Menlo, Consolas, monospace" font-size="25"><tspan fill="#8F4A00"> 1</tspan><tspan dx="42"><tspan fill="#B64B22">const </tspan><tspan fill="#592C00">theme</tspan><tspan fill="#3D2400"> = </tspan><tspan fill="#3D2400">{</tspan></tspan></text>
-  <text x="1008" y="294" font-family="SF Mono, Menlo, Consolas, monospace" font-size="25"><tspan fill="#8F4A00"> 2</tspan><tspan dx="42"><tspan fill="#94641C">  name</tspan><tspan fill="#3D2400">: </tspan><tspan fill="#80670A">'Gas Plasma Light'</tspan><tspan fill="#3D2400">,</tspan></tspan></text>
-  <text x="1008" y="332" font-family="SF Mono, Menlo, Consolas, monospace" font-size="25"><tspan fill="#8F4A00"> 3</tspan><tspan dx="42"><tspan fill="#94641C">  background</tspan><tspan fill="#3D2400">: </tspan><tspan fill="#80670A">'#FFF5EA'</tspan><tspan fill="#3D2400">,</tspan></tspan></text>
-  <text x="1008" y="370" font-family="SF Mono, Menlo, Consolas, monospace" font-size="25"><tspan fill="#8F4A00"> 4</tspan><tspan dx="42"><tspan fill="#94641C">  foreground</tspan><tspan fill="#3D2400">: </tspan><tspan fill="#80670A">'#B84A00'</tspan><tspan fill="#3D2400">,</tspan></tspan></text>
-  <text x="1008" y="408" font-family="SF Mono, Menlo, Consolas, monospace" font-size="25"><tspan fill="#8F4A00"> 5</tspan><tspan dx="42"><tspan fill="#94641C">  accents</tspan><tspan fill="#3D2400">: [</tspan><tspan fill="#80670A">'plasma'</tspan><tspan fill="#3D2400">, </tspan><tspan fill="#80670A">'ember'</tspan><tspan fill="#3D2400">]</tspan></tspan></text>
-  <text x="1008" y="446" font-family="SF Mono, Menlo, Consolas, monospace" font-size="25"><tspan fill="#8F4A00"> 6</tspan><tspan dx="42"><tspan fill="#3D2400">};</tspan></tspan></text>
-  <text x="1008" y="532" font-family="SF Mono, Menlo, Consolas, monospace" font-size="25"><tspan fill="#8F4A00"> 7</tspan><tspan dx="42"><tspan fill="#B64B22">export </tspan><tspan fill="#B64B22">default </tspan><tspan fill="#592C00">theme</tspan><tspan fill="#3D2400">;</tspan></tspan></text>
-    <rect x="972" y="714" width="740" height="132" fill="#FFF5EF" stroke="#FFD8B2"/>
-    <text x="1008" y="764" fill="#AE5800" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">$ code --install-extension jpfchang.gas-plasma-theme</text>
-    <text x="1008" y="804" fill="#80670A" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">Gas Plasma Icons + Product Icons enabled</text>
-    <rect x="734" y="846" width="978" height="48" rx="0" fill="#FFDDC5"/>
-    <text x="774" y="878" fill="#3D2400" font-family="SF Mono, Menlo, Consolas, monospace" font-size="18">Open VSX namespace: jpfchang</text>
-  </g>
+    <circle cx="1199.6" cy="674" r="10" fill="#9E2000"/>
+    <path d="M1194.6 669l10 10m0-10l-10 10" stroke="#F6E0C4" stroke-width="2.5" stroke-linecap="round"/>
+    <text x="1219.6" y="681" font-family="SF Mono, Menlo, Consolas, monospace" font-size="18" xml:space="preserve"><tspan fill="#9E2000" font-weight="700">error</tspan><tspan fill="#7A4A22"> TS2551</tspan></text>
+    <text x="1193.6" y="710" font-family="SF Mono, Menlo, Consolas, monospace" font-size="16" xml:space="preserve"><tspan fill="#3D1A00">Property 'nam' does not exist on 'Variant'.</tspan></text>
+    <rect x="744" y="806" width="968" height="46" fill="#F9E2C6"/>
+    <path d="M744 806h968" stroke="#E3BE94"/>
+    <circle cx="778" cy="829" r="9" fill="#9E2000"/>
+    <path d="M774 825l8 8m0-8l-8 8" stroke="#F9E2C6" stroke-width="2.2" stroke-linecap="round"/>
+    <text x="796" y="836" font-family="SF Mono, Menlo, Consolas, monospace" font-size="18" xml:space="preserve"><tspan fill="#3D1A00">1</tspan></text>
+    <path d="M836 838l10-18 10 18z" fill="#B06A00"/>
+    <text x="864" y="836" font-family="SF Mono, Menlo, Consolas, monospace" font-size="18" xml:space="preserve"><tspan fill="#3D1A00">1</tspan></text>
+    <text x="914" y="836" font-family="SF Mono, Menlo, Consolas, monospace" font-size="18" xml:space="preserve"><tspan fill="#3D1A00">main</tspan><tspan fill="#7A8C00">  +5</tspan><tspan fill="#B06A00"> ~1</tspan><tspan fill="#9E2000"> -1</tspan></text>
+    <text x="1688" y="836" font-family="SF Mono, Menlo, Consolas, monospace" font-size="18" text-anchor="end" xml:space="preserve"><tspan fill="#7A4A22">TypeScript  Ln 11, Col 28</tspan></text>
 
-  <g transform="translate(110, 755)">
-    <rect width="52" height="52" rx="8" fill="#FFEFE5" stroke="#FFD8B2"/>
-    <text x="26" y="78" text-anchor="middle" fill="#592C00" font-family="SF Mono, Menlo, Consolas, monospace" font-size="14">bg</text>
+  <g transform="translate(88 884)">
+    <rect width="54" height="54" rx="10" fill="#FFF5EA" stroke="#E3BE94" stroke-width="2"/>
+    <text x="27" y="80" font-family="SF Mono, Menlo, Consolas, monospace" font-size="13" text-anchor="middle" xml:space="preserve"><tspan fill="#7A4A22">bg</tspan></text>
   </g>
-  <g transform="translate(188, 755)">
-    <rect width="52" height="52" rx="8" fill="#AE5800" stroke="#FFD8B2"/>
-    <text x="26" y="78" text-anchor="middle" fill="#592C00" font-family="SF Mono, Menlo, Consolas, monospace" font-size="14">fg</text>
+  <g transform="translate(162 884)">
+    <rect width="54" height="54" rx="10" fill="#B84A00" stroke="#E3BE94" stroke-width="2"/>
+    <text x="27" y="80" font-family="SF Mono, Menlo, Consolas, monospace" font-size="13" text-anchor="middle" xml:space="preserve"><tspan fill="#7A4A22">fg</tspan></text>
   </g>
-  <g transform="translate(266, 755)">
-    <rect width="52" height="52" rx="8" fill="#CE3B00" stroke="#FFD8B2"/>
-    <text x="26" y="78" text-anchor="middle" fill="#592C00" font-family="SF Mono, Menlo, Consolas, monospace" font-size="14">red</text>
+  <g transform="translate(236 884)">
+    <rect width="54" height="54" rx="10" fill="#C42B00" stroke="#E3BE94" stroke-width="2"/>
+    <text x="27" y="80" font-family="SF Mono, Menlo, Consolas, monospace" font-size="13" text-anchor="middle" xml:space="preserve"><tspan fill="#7A4A22">accent</tspan></text>
   </g>
-  <g transform="translate(344, 755)">
-    <rect width="52" height="52" rx="8" fill="#7B7100" stroke="#FFD8B2"/>
-    <text x="26" y="78" text-anchor="middle" fill="#592C00" font-family="SF Mono, Menlo, Consolas, monospace" font-size="14">green</text>
+  <g transform="translate(310 884)">
+    <rect width="54" height="54" rx="10" fill="#5B6B00" stroke="#E3BE94" stroke-width="2"/>
+    <text x="27" y="80" font-family="SF Mono, Menlo, Consolas, monospace" font-size="13" text-anchor="middle" xml:space="preserve"><tspan fill="#7A4A22">string</tspan></text>
   </g>
-  <g transform="translate(422, 755)">
-    <rect width="52" height="52" rx="8" fill="#956300" stroke="#FFD8B2"/>
-    <text x="26" y="78" text-anchor="middle" fill="#592C00" font-family="SF Mono, Menlo, Consolas, monospace" font-size="14">yellow</text>
+  <g transform="translate(384 884)">
+    <rect width="54" height="54" rx="10" fill="#7A8C00" stroke="#E3BE94" stroke-width="2"/>
+    <text x="27" y="80" font-family="SF Mono, Menlo, Consolas, monospace" font-size="13" text-anchor="middle" xml:space="preserve"><tspan fill="#7A4A22">added</tspan></text>
   </g>
-  <g transform="translate(500, 755)">
-    <rect width="52" height="52" rx="8" fill="#94641C" stroke="#FFD8B2"/>
-    <text x="26" y="78" text-anchor="middle" fill="#592C00" font-family="SF Mono, Menlo, Consolas, monospace" font-size="14">cyan</text>
+  <g transform="translate(458 884)">
+    <rect width="54" height="54" rx="10" fill="#B06A00" stroke="#E3BE94" stroke-width="2"/>
+    <text x="27" y="80" font-family="SF Mono, Menlo, Consolas, monospace" font-size="13" text-anchor="middle" xml:space="preserve"><tspan fill="#7A4A22">modified</tspan></text>
   </g>
-  <g transform="translate(578, 755)">
-    <rect width="52" height="52" rx="8" fill="#3D2400" stroke="#FFD8B2"/>
-    <text x="26" y="78" text-anchor="middle" fill="#592C00" font-family="SF Mono, Menlo, Consolas, monospace" font-size="14">white</text>
+  <g transform="translate(532 884)">
+    <rect width="54" height="54" rx="10" fill="#9E2000" stroke="#E3BE94" stroke-width="2"/>
+    <text x="27" y="80" font-family="SF Mono, Menlo, Consolas, monospace" font-size="13" text-anchor="middle" xml:space="preserve"><tspan fill="#7A4A22">deleted</tspan></text>
   </g>
-  <g transform="translate(86 920)">
-    <rect width="362" height="62" rx="8" fill="#FFEFE5" stroke="#A55C00"/>
-    <text x="28" y="40" fill="#592C00" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">#FFF5EA / #B84A00</text>
+  <g transform="translate(606 884)">
+    <rect width="54" height="54" rx="10" fill="#B06A00" stroke="#E3BE94" stroke-width="2"/>
+    <text x="27" y="80" font-family="SF Mono, Menlo, Consolas, monospace" font-size="13" text-anchor="middle" xml:space="preserve"><tspan fill="#7A4A22">warning</tspan></text>
   </g>
-  <g transform="translate(486 920)">
-    <rect width="350" height="62" rx="8" fill="#FFEFE5" stroke="#7B7100"/>
-    <text x="28" y="40" fill="#80670A" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">syntax colors intact</text>
+  <g transform="translate(680 884)">
+    <rect width="54" height="54" rx="10" fill="#9E2000" stroke="#E3BE94" stroke-width="2"/>
+    <text x="27" y="80" font-family="SF Mono, Menlo, Consolas, monospace" font-size="13" text-anchor="middle" xml:space="preserve"><tspan fill="#7A4A22">error</tspan></text>
   </g>
-  <g transform="translate(874 920)">
-    <rect width="452" height="62" rx="8" fill="#FFEFE5" stroke="#94641C"/>
-    <text x="28" y="40" fill="#94641C" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">single palette, four targets</text>
+  <g transform="translate(780 884)">
+    <rect width="430" height="54" rx="10" fill="#FBEDDC" stroke="#7A8C00" stroke-width="2"/>
+    <text x="24" y="35" font-family="SF Mono, Menlo, Consolas, monospace" font-size="19" xml:space="preserve"><tspan fill="#7A8C00" font-weight="700">A</tspan><tspan fill="#7A4A22"> added  </tspan><tspan fill="#B06A00" font-weight="700">M</tspan><tspan fill="#7A4A22"> modified  </tspan><tspan fill="#9E2000" font-weight="700">D</tspan><tspan fill="#7A4A22"> deleted</tspan></text>
+  </g>
+  <g transform="translate(1230 884)">
+    <rect width="482" height="54" rx="10" fill="#FBEDDC" stroke="#8A6200" stroke-width="2"/>
+    <text x="24" y="35" font-family="SF Mono, Menlo, Consolas, monospace" font-size="19" xml:space="preserve"><tspan fill="#8A6200">single palette, four targets</tspan></text>
   </g>
 </svg>

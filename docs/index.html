@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Gas Plasma Theme</title>
-  <meta name="description" content="An orange-dominant theme inspired by ionized gas glow, in dark, light, and auto variants.">
+  <meta name="description" content="An orange-dominant theme inspired by ionized gas glow, in dark, light, auto, and color-blind-friendly variants.">
   <script>
     try {
       const saved = localStorage.getItem("gas-plasma-theme");
@@ -305,6 +305,25 @@
       font-size: 13px;
     }
     .palette-label { margin-top: 26px; }
+    .shots {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+    .shot { margin: 0; }
+    .shot img {
+      width: 100%;
+      display: block;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+    .shot figcaption {
+      color: var(--caption);
+      font-size: 14px;
+      margin-top: 8px;
+    }
+    .cvd-list { padding-left: 20px; }
+    .cvd-list li { margin: 6px 0; }
     .tile p code { overflow-wrap: anywhere; }
     .footer {
       border-top: 1px solid var(--line);
@@ -318,6 +337,7 @@
       .grid { grid-template-columns: 1fr; }
       .icon-strip { grid-template-columns: repeat(4, 1fr); }
       .palette { grid-template-columns: repeat(4, 1fr); }
+      .shots { grid-template-columns: 1fr; }
     }
     @media (max-width: 560px) {
       .wrap { width: min(100% - 28px, 1180px); }
@@ -338,6 +358,7 @@
     </a>
     <div class="links">
       <a href="#install">Install</a>
+      <a href="#color-blind">Color blind</a>
       <a href="#icons">Icons</a>
       <a href="#architecture">Architecture</a>
       <a href="#palette">Palette</a>
@@ -355,7 +376,7 @@
       <div>
         <img class="hero-logo" src="assets/logo.svg" alt="Gas Plasma logo">
         <h1>Gas Plasma</h1>
-        <p class="lead">An orange-dominant theme inspired by ionized gas glow, in dark, light, and auto variants. A single warm, high-contrast palette for Apple Terminal, iTerm2, VS Code, Open VSX-compatible editors, and Zed.</p>
+        <p class="lead">An orange-dominant theme inspired by ionized gas glow, in dark, light, auto, and color-blind-friendly variants. A single warm, high-contrast palette for Apple Terminal, iTerm2, VS Code, Open VSX-compatible editors, and Zed.</p>
         <div class="actions">
           <a class="button primary" href="https://github.com/JohnThre/GasPlasma-theme/releases">Releases</a>
           <a class="button" href="https://open-vsx.org/extension/jpfchang/gas-plasma-theme">Open VSX</a>
@@ -370,24 +391,76 @@
         <div class="grid">
           <article class="tile">
             <h3>Apple Terminal</h3>
-            <p>Download <code>GasPlasma.terminal</code> (dark) or <code>GasPlasma-Light.terminal</code> from GitHub Releases and open it in Terminal. Terminal profiles cannot follow the system appearance, so switch profiles manually.</p>
+            <p>Download <code>GasPlasma.terminal</code> (dark), <code>GasPlasma-Light.terminal</code>, or the <code>GasPlasma-ColorBlind*.terminal</code> profiles from GitHub Releases and open one in Terminal. Terminal profiles cannot follow the system appearance, so switch profiles manually.</p>
             <code class="command">open GasPlasma-Light.terminal</code>
           </article>
           <article class="tile">
             <h3>iTerm2</h3>
-            <p>Import the dark, light, or auto preset. For auto, enable <em>Use separate colors for light and dark mode</em> first (iTerm2 3.5+).</p>
+            <p>Import the dark, light, auto, or color-blind presets. For the auto presets, enable <em>Use separate colors for light and dark mode</em> first (iTerm2 3.5+).</p>
             <code class="command">GasPlasma-Auto.itermcolors</code>
           </article>
           <article class="tile">
             <h3>VS Code</h3>
-            <p>Install from Open VSX, then pick <code>Gas Plasma</code> or <code>Gas Plasma Light</code>. File icons switch with the theme; enable <code>window.autoDetectColorScheme</code> to follow the OS.</p>
+            <p>Install from Open VSX, then pick <code>Gas Plasma</code>, <code>Gas Plasma Light</code>, or a <code>Gas Plasma Color Blind</code> variant. File icons switch with the theme; enable <code>window.autoDetectColorScheme</code> to follow the OS.</p>
             <code class="command">jpfchang.gas-plasma-theme</code>
           </article>
           <article class="tile">
             <h3>Zed</h3>
-            <p>Install the color theme and file icon theme from the Zed extensions store. Both ship dark and light variants; set <code>"mode": "system"</code> to follow the OS.</p>
+            <p>Install the color theme and file icon theme from the Zed extensions store. Both ship dark and light variants, plus the color-blind themes; set <code>"mode": "system"</code> to follow the OS.</p>
             <code class="command">Gas Plasma Theme + Icons</code>
           </article>
+        </div>
+      </div>
+    </section>
+    <section id="color-blind" class="band">
+      <div class="wrap">
+        <h2>Color Blind Variants</h2>
+        <p class="section-note"><code>Gas Plasma Color Blind</code> and <code>Gas Plasma Color Blind Light</code> keep the orange background, text, and accent, but move every status signal off the red/green axis: additions, success, and strings are blue, deletions and errors are vermillion, warnings and modifications are yellow, and conflicts are pink.</p>
+        <ul class="cvd-list">
+          <li>Checked on every build by simulating protanopia, deuteranopia, and tritanopia (Machado et al. 2009) and requiring a visible OKLab difference between added/deleted, error/warning/success, ANSI red/green, and strings/keywords.</li>
+          <li>Status colors also keep at least 3:1 contrast against the editor background, and code colors keep 4.5:1.</li>
+          <li>The original Gas Plasma themes also separate added/deleted and error/success by brightness, so they stay readable with red-green color blindness.</li>
+        </ul>
+        <img class="mockup" src="assets/mockup-colorblind.png" alt="Gas Plasma Color Blind terminal and editor mockup">
+      </div>
+    </section>
+    <section id="screenshots" class="band">
+      <div class="wrap">
+        <h2>Screenshots</h2>
+        <p class="section-note">Captured from the real apps with the generated presets and extensions installed.</p>
+        <div class="shots">
+          <figure class="shot">
+            <a href="assets/screenshots/zed-dark.png"><img src="assets/screenshots/zed-dark.png" alt="Zed with Gas Plasma and Gas Plasma Icons" loading="lazy"></a>
+            <figcaption>Zed with Gas Plasma and Gas Plasma Icons</figcaption>
+          </figure>
+          <figure class="shot">
+            <a href="assets/screenshots/zed-light.png"><img src="assets/screenshots/zed-light.png" alt="Zed with Gas Plasma Light" loading="lazy"></a>
+            <figcaption>Zed with Gas Plasma Light</figcaption>
+          </figure>
+          <figure class="shot">
+            <a href="assets/screenshots/zed-colorblind.png"><img src="assets/screenshots/zed-colorblind.png" alt="Zed with Gas Plasma Color Blind" loading="lazy"></a>
+            <figcaption>Zed with Gas Plasma Color Blind</figcaption>
+          </figure>
+          <figure class="shot">
+            <a href="assets/screenshots/zed-colorblind-light.png"><img src="assets/screenshots/zed-colorblind-light.png" alt="Zed with Gas Plasma Color Blind Light" loading="lazy"></a>
+            <figcaption>Zed with Gas Plasma Color Blind Light</figcaption>
+          </figure>
+          <figure class="shot">
+            <a href="assets/screenshots/iterm2-dark.png"><img src="assets/screenshots/iterm2-dark.png" alt="iTerm2 with GasPlasma.itermcolors" loading="lazy"></a>
+            <figcaption>iTerm2 with GasPlasma.itermcolors</figcaption>
+          </figure>
+          <figure class="shot">
+            <a href="assets/screenshots/iterm2-light.png"><img src="assets/screenshots/iterm2-light.png" alt="iTerm2 with GasPlasma-Light.itermcolors" loading="lazy"></a>
+            <figcaption>iTerm2 with GasPlasma-Light.itermcolors</figcaption>
+          </figure>
+          <figure class="shot">
+            <a href="assets/screenshots/iterm2-colorblind.png"><img src="assets/screenshots/iterm2-colorblind.png" alt="iTerm2 with GasPlasma-ColorBlind.itermcolors" loading="lazy"></a>
+            <figcaption>iTerm2 with GasPlasma-ColorBlind.itermcolors</figcaption>
+          </figure>
+          <figure class="shot">
+            <a href="assets/screenshots/iterm2-colorblind-light.png"><img src="assets/screenshots/iterm2-colorblind-light.png" alt="iTerm2 with GasPlasma-ColorBlind-Light.itermcolors" loading="lazy"></a>
+            <figcaption>iTerm2 with GasPlasma-ColorBlind-Light.itermcolors</figcaption>
+          </figure>
         </div>
       </div>
     </section>
@@ -701,6 +774,28 @@
           <div class="swatch" style="background:#A04E00;color:#FFF0DB">#A04E00</div>
           <div class="swatch" style="background:#B5304A;color:#FFF0DB">#B5304A</div>
           <div class="swatch" style="background:#A07800;color:#FFF0DB">#A07800</div>
+        </div>
+        <h3 class="palette-label">Gas Plasma Color Blind</h3>
+        <div class="palette" aria-label="Gas Plasma Color Blind palette">
+          <div class="swatch" style="background:#1A0A00;color:#FFF0DB">#1A0A00</div>
+          <div class="swatch" style="background:#FF8C00;color:#2A1200">#FF8C00</div>
+          <div class="swatch" style="background:#FF5A1F;color:#FFF0DB">#FF5A1F</div>
+          <div class="swatch" style="background:#3DA5E0;color:#FFF0DB">#3DA5E0</div>
+          <div class="swatch" style="background:#FFD700;color:#2A1200">#FFD700</div>
+          <div class="swatch" style="background:#6F8FF0;color:#FFF0DB">#6F8FF0</div>
+          <div class="swatch" style="background:#E07FB0;color:#FFF0DB">#E07FB0</div>
+          <div class="swatch" style="background:#A8E0FF;color:#2A1200">#A8E0FF</div>
+        </div>
+        <h3 class="palette-label">Gas Plasma Color Blind Light</h3>
+        <div class="palette" aria-label="Gas Plasma Color Blind Light palette">
+          <div class="swatch" style="background:#FFF5EA;color:#2A1200">#FFF5EA</div>
+          <div class="swatch" style="background:#B84A00;color:#FFF0DB">#B84A00</div>
+          <div class="swatch" style="background:#C42B00;color:#FFF0DB">#C42B00</div>
+          <div class="swatch" style="background:#0068A8;color:#FFF0DB">#0068A8</div>
+          <div class="swatch" style="background:#B06A00;color:#FFF0DB">#B06A00</div>
+          <div class="swatch" style="background:#3B4FB0;color:#FFF0DB">#3B4FB0</div>
+          <div class="swatch" style="background:#A3366F;color:#FFF0DB">#A3366F</div>
+          <div class="swatch" style="background:#2385A8;color:#FFF0DB">#2385A8</div>
         </div>
       </div>
     </section>

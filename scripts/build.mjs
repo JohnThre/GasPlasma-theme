@@ -5,6 +5,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { Resvg } from "@resvg/resvg-js";
 import * as simpleIcons from "simple-icons";
+import { contrastRatio, hexToRgb, mixHex, relativeLuminance } from "./lib/color.mjs";
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(scriptDir, "..");
@@ -20,6 +21,7 @@ const repositoryUrl = pkg.repository.url.replace(/^git\+/, "").replace(/\.git$/,
 
 for (const dir of [
   "docs/assets/icons",
+  "docs/assets/screenshots",
   "icons/file/svg",
   "icons/file/svg-light",
   "icons/product/svg",
@@ -38,6 +40,7 @@ const dirs = [
   "docs/assets",
   "docs/assets/icons",
   "docs/assets/icons/light",
+  "docs/assets/screenshots",
   "dist",
   "icons",
   "icons/file",
@@ -55,17 +58,6 @@ const dirs = [
 ];
 for (const dir of dirs) {
   mkdirSync(path.join(root, dir), { recursive: true });
-}
-
-function hexToRgb(hex) {
-  const match = /^#?([0-9a-f]{6})$/i.exec(hex);
-  if (!match) throw new Error(`Invalid hex color: ${hex}`);
-  const value = match[1];
-  return {
-    r: Number.parseInt(value.slice(0, 2), 16),
-    g: Number.parseInt(value.slice(2, 4), 16),
-    b: Number.parseInt(value.slice(4, 6), 16)
-  };
 }
 
 function hexWithAlpha(hex, alpha) {
@@ -180,10 +172,15 @@ function writeItermColors(variant) {
 
 // iTerm2 3.5+ "Use separate colors for light and dark mode": the preset carries
 // "(Dark)" and "(Light)" copies of every key; the plain keys keep older versions on dark.
-function writeItermAutoColors() {
-  const dark = itermEntries(palette.variants.dark);
-  const light = itermEntries(palette.variants.light);
-  writeItermPlist("GasPlasma-Auto.itermcolors", [
+const autoVariantPairs = [
+  { dark: palette.variants.dark, light: palette.variants.light, suffix: "" },
+  { dark: palette.variants.colorblind, light: palette.variants.colorblindLight, suffix: "-ColorBlind" }
+];
+
+function writeItermAutoColors({ dark: darkSource, light: lightSource, suffix }) {
+  const dark = itermEntries(darkSource);
+  const light = itermEntries(lightSource);
+  writeItermPlist(`GasPlasma${suffix}-Auto.itermcolors`, [
     ...dark,
     ...dark.map(([key, hex, alpha]) => [`${key} (Dark)`, hex, alpha]),
     ...light.map(([key, hex, alpha]) => [`${key} (Light)`, hex, alpha])
@@ -191,7 +188,7 @@ function writeItermAutoColors() {
 }
 
 function writeVsCodeTheme(variant) {
-  const { core, ui, syntax, ansi: { normal, bright } } = variant;
+  const { core, ui, syntax, semantic, ansi: { normal, bright } } = variant;
   const theme = {
     $schema: "vscode://schemas/color-theme",
     name: variant.name,
@@ -253,7 +250,58 @@ function writeVsCodeTheme(variant) {
       "terminal.ansiBrightCyan": bright.cyan,
       "terminal.ansiBrightWhite": bright.white,
       "titleBar.activeBackground": ui.raised,
-      "titleBar.activeForeground": ui.strong
+      "titleBar.activeForeground": ui.strong,
+      // Status colors come from palette.semantic so every variant controls its own
+      // color-vision-safe pairs instead of inheriting VS Code's default red/green.
+      "gitDecoration.addedResourceForeground": semantic.added,
+      "gitDecoration.untrackedResourceForeground": semantic.added,
+      "gitDecoration.modifiedResourceForeground": semantic.modified,
+      "gitDecoration.stageModifiedResourceForeground": semantic.modified,
+      "gitDecoration.deletedResourceForeground": semantic.deleted,
+      "gitDecoration.stageDeletedResourceForeground": semantic.deleted,
+      "gitDecoration.renamedResourceForeground": semantic.renamed,
+      "gitDecoration.conflictingResourceForeground": semantic.conflict,
+      "gitDecoration.ignoredResourceForeground": semantic.ignored,
+      "editorGutter.addedBackground": semantic.added,
+      "editorGutter.modifiedBackground": semantic.modified,
+      "editorGutter.deletedBackground": semantic.deleted,
+      "minimapGutter.addedBackground": semantic.added,
+      "minimapGutter.modifiedBackground": semantic.modified,
+      "minimapGutter.deletedBackground": semantic.deleted,
+      "editorOverviewRuler.addedForeground": hexWithAlpha(semantic.added, 0.6),
+      "editorOverviewRuler.modifiedForeground": hexWithAlpha(semantic.modified, 0.6),
+      "editorOverviewRuler.deletedForeground": hexWithAlpha(semantic.deleted, 0.6),
+      "editorOverviewRuler.errorForeground": semantic.error,
+      "editorOverviewRuler.warningForeground": semantic.warning,
+      "editorOverviewRuler.infoForeground": semantic.info,
+      "diffEditor.insertedTextBackground": hexWithAlpha(semantic.added, 0.22),
+      "diffEditor.removedTextBackground": hexWithAlpha(semantic.deleted, 0.22),
+      "diffEditor.insertedLineBackground": hexWithAlpha(semantic.added, 0.12),
+      "diffEditor.removedLineBackground": hexWithAlpha(semantic.deleted, 0.12),
+      "diffEditorGutter.insertedLineBackground": hexWithAlpha(semantic.added, 0.3),
+      "diffEditorGutter.removedLineBackground": hexWithAlpha(semantic.deleted, 0.3),
+      "merge.currentHeaderBackground": hexWithAlpha(semantic.added, 0.4),
+      "merge.currentContentBackground": hexWithAlpha(semantic.added, 0.16),
+      "merge.incomingHeaderBackground": hexWithAlpha(semantic.conflict, 0.4),
+      "merge.incomingContentBackground": hexWithAlpha(semantic.conflict, 0.16),
+      "editorError.foreground": semantic.error,
+      "editorWarning.foreground": semantic.warning,
+      "editorInfo.foreground": semantic.info,
+      "editorHint.foreground": semantic.hint,
+      "problemsErrorIcon.foreground": semantic.error,
+      "problemsWarningIcon.foreground": semantic.warning,
+      "problemsInfoIcon.foreground": semantic.info,
+      "list.errorForeground": semantic.error,
+      "list.warningForeground": semantic.warning,
+      "testing.iconPassed": semantic.success,
+      "testing.iconFailed": semantic.error,
+      "testing.iconErrored": semantic.error,
+      "testing.iconQueued": semantic.warning,
+      "notificationsErrorIcon.foreground": semantic.error,
+      "notificationsWarningIcon.foreground": semantic.warning,
+      "notificationsInfoIcon.foreground": semantic.info,
+      "terminalCommandDecoration.successBackground": semantic.success,
+      "terminalCommandDecoration.errorBackground": semantic.error
     },
     tokenColors: [
       { scope: ["comment", "punctuation.definition.comment"], settings: { foreground: syntax.comment, fontStyle: "italic" } },
@@ -285,7 +333,7 @@ function writeVsCodeTheme(variant) {
 }
 
 function zedStyle(variant) {
-  const { core, ui, syntax, ansi: { normal, bright } } = variant;
+  const { core, ui, syntax, semantic, ansi: { normal, bright } } = variant;
   return {
     accents: [ui.accent, normal.yellow, ui.focus, syntax.type],
     "background.appearance": "opaque",
@@ -357,40 +405,36 @@ function zedStyle(variant) {
     "drop_target.background": hexWithAlpha(ui.focus, 0.18),
     "search.match_background": hexWithAlpha(ui.focus, 0.3),
     "link_text.hover": ui.link,
-    error: normal.red,
-    "error.background": hexWithAlpha(normal.red, 0.18),
-    "error.border": normal.red,
-    warning: bright.yellow,
-    "warning.background": hexWithAlpha(bright.yellow, 0.16),
-    "warning.border": bright.yellow,
-    success: bright.green,
-    "success.background": hexWithAlpha(bright.green, 0.16),
-    "success.border": bright.green,
-    hint: bright.cyan,
-    "hint.background": hexWithAlpha(bright.cyan, 0.16),
-    "hint.border": bright.cyan,
-    info: normal.cyan,
-    "info.background": hexWithAlpha(normal.cyan, 0.16),
-    "info.border": normal.cyan,
-    created: bright.green,
-    "created.background": hexWithAlpha(bright.green, 0.16),
-    "created.border": bright.green,
-    modified: bright.yellow,
-    "modified.background": hexWithAlpha(bright.yellow, 0.16),
-    "modified.border": bright.yellow,
-    deleted: normal.red,
-    "deleted.background": hexWithAlpha(normal.red, 0.16),
-    "deleted.border": normal.red,
-    conflict: normal.magenta,
-    "conflict.background": hexWithAlpha(normal.magenta, 0.16),
-    "conflict.border": normal.magenta,
-    renamed: bright.cyan,
-    "renamed.background": hexWithAlpha(bright.cyan, 0.16),
-    "renamed.border": bright.cyan,
-    predictive: normal.green,
-    "predictive.background": hexWithAlpha(normal.green, 0.14),
-    "predictive.border": normal.green,
-    ignored: ui.muted,
+    ...Object.fromEntries(
+      [
+        ["error", semantic.error, 0.18],
+        ["warning", semantic.warning, 0.16],
+        ["success", semantic.success, 0.16],
+        ["hint", semantic.hint, 0.16],
+        ["info", semantic.info, 0.16],
+        ["created", semantic.added, 0.16],
+        ["modified", semantic.modified, 0.16],
+        ["deleted", semantic.deleted, 0.16],
+        ["conflict", semantic.conflict, 0.16],
+        ["renamed", semantic.renamed, 0.16],
+        ["predictive", normal.green, 0.14]
+      ].flatMap(([key, color, alpha]) => [
+        [key, color],
+        [`${key}.background`, hexWithAlpha(color, alpha)],
+        [`${key}.border`, color]
+      ])
+    ),
+    ignored: semantic.ignored,
+    "version_control.added": semantic.added,
+    "version_control.modified": semantic.modified,
+    "version_control.deleted": semantic.deleted,
+    "version_control.renamed": semantic.renamed,
+    "version_control.conflict": semantic.conflict,
+    "version_control.ignored": semantic.ignored,
+    "version_control.word_added": hexWithAlpha(semantic.added, 0.35),
+    "version_control.word_deleted": hexWithAlpha(semantic.deleted, 0.35),
+    "version_control.conflict_marker.ours": hexWithAlpha(semantic.added, 0.16),
+    "version_control.conflict_marker.theirs": hexWithAlpha(semantic.conflict, 0.16),
     hidden: ui.muted,
     unreachable: ui.muted,
     "terminal.background": core.background,
@@ -539,22 +583,6 @@ function languageText(label, x, y, size, fill = "#FFD2A6", weight = 900) {
   return `<text x="${x}" y="${y}" text-anchor="middle" font-family="Inter, SF Pro Display, Segoe UI, Arial, sans-serif" font-size="${size}" font-weight="${weight}" fill="${fill}">${xmlEscape(label)}</text>`;
 }
 
-function relativeLuminance(hex) {
-  const { r, g, b } = hexToRgb(hex);
-  const channel = (value) => {
-    const c = value / 255;
-    return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
-  };
-  return (0.2126 * channel(r)) + (0.7152 * channel(g)) + (0.0722 * channel(b));
-}
-
-function mixHex(from, to, amount) {
-  const a = hexToRgb(from);
-  const b = hexToRgb(to);
-  const mix = (x, y) => Math.round(x + ((y - x) * amount)).toString(16).padStart(2, "0");
-  return `#${mix(a.r, b.r)}${mix(a.g, b.g)}${mix(a.b, b.b)}`.toUpperCase();
-}
-
 // Icons sit on near-black (#140800) tiles; lift brand colors that would vanish there
 // toward the theme's peach so every mark keeps at least ~3.5:1 contrast.
 const minIconLuminance = 0.14;
@@ -569,11 +597,6 @@ function liftForDarkTile(hex, fallback = iconLiftColor) {
     if (relativeLuminance(lifted) >= minIconLuminance) return lifted;
   }
   return fallback;
-}
-
-function contrastRatio(a, b) {
-  const [hi, lo] = [relativeLuminance(a), relativeLuminance(b)].sort((x, y) => y - x);
-  return (hi + 0.05) / (lo + 0.05);
 }
 
 function rgbToHsl({ r, g, b }) {
@@ -1485,161 +1508,299 @@ function writeLogoSvg() {
   writeFileSync(path.join(root, "docs/assets/logo.svg"), svg);
 }
 
-function writeMockupSvg() {
-  const codeLine = (line, y, parts) => {
-    const content = parts.map(([text, color]) => `<tspan fill="${color}">${xmlEscape(text)}</tspan>`).join("");
-    return `<text x="1008" y="${y}" font-family="SF Mono, Menlo, Consolas, monospace" font-size="25"><tspan fill="#8F4A00">${String(line).padStart(2, " ")}</tspan><tspan dx="42">${content}</tspan></text>`;
-  };
-  const editorLines = [
-    codeLine(1, 256, [["const ", "#FF6B3D"], ["theme", "#FFD2A6"], [" = ", "#FFF0DB"], ["{", "#FFF0DB"]]),
-    codeLine(2, 294, [["  name", "#E8C547"], [": ", "#FFF0DB"], ["'__NAME__'", "#B5CC18"], [",", "#FFF0DB"]]),
-    codeLine(3, 332, [["  background", "#E8C547"], [": ", "#FFF0DB"], ["'__BG__'", "#B5CC18"], [",", "#FFF0DB"]]),
-    codeLine(4, 370, [["  foreground", "#E8C547"], [": ", "#FFF0DB"], ["'__FG__'", "#B5CC18"], [",", "#FFF0DB"]]),
-    codeLine(5, 408, [["  accents", "#E8C547"], [": [", "#FFF0DB"], ["'plasma'", "#B5CC18"], [", ", "#FFF0DB"], ["'ember'", "#B5CC18"], ["]", "#FFF0DB"]]),
-    codeLine(6, 446, [["};", "#FFF0DB"]]),
-    codeLine(7, 532, [["export ", "#FF6B3D"], ["default ", "#FF6B3D"], ["theme", "#FFD2A6"], [";", "#FFF0DB"]])
-  ].join("\n  ");
-  const swatches = [
-    ["#1A0A00", "bg"],
-    ["#FF8C00", "fg"],
-    ["#FF4500", "red"],
-    ["#8B9A00", "green"],
-    ["#FFD700", "yellow"],
-    ["#E8C547", "cyan"],
-    ["#FFF0DB", "white"]
-  ].map(([hex, label], index) => {
-    const x = 110 + index * 78;
-    return `<g transform="translate(${x}, 755)">
-    <rect width="52" height="52" rx="8" fill="${hex}" stroke="#4D2600"/>
-    <text x="26" y="78" text-anchor="middle" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="14">${label}</text>
+// The preview mockups are drawn straight from each palette variant, so the dark,
+// light, and color-blind images always show the exact theme colors. Status is
+// double-coded with letters and shapes (M/A/D, PASS/FAIL, circle/triangle) so the
+// picture reads without relying on hue alone.
+const mockupFont = "SF Mono, Menlo, Consolas, monospace";
+const mockupCharWidth = 0.6;
+
+function renderIconByName(iconName) {
+  if (fileIconRenderers[iconName]) return fileIconRenderers[iconName]();
+  const folder = /^folder-(.+?)(-open)?$/.exec(iconName);
+  if (folder) return folderIconSvg(folder[1], Boolean(folder[2]));
+  throw new Error(`Missing file icon renderer for mockup icon ${iconName}`);
+}
+
+let mockupIconCount = 0;
+function mockupIcon(iconName, x, y, size, light) {
+  const prefix = `i${mockupIconCount += 1}-`;
+  const svg = light ? toLightSvg(renderIconByName(iconName)) : renderIconByName(iconName);
+  return svg
+    .trim()
+    .replace(/^<svg [^>]*>/, `<svg x="${x}" y="${y}" width="${size}" height="${size}" viewBox="0 0 96 96">`)
+    .replace(/id="([^"]+)"/g, `id="${prefix}$1"`)
+    .replace(/url\(#([^)]+)\)/g, `url(#${prefix}$1)`)
+    .replace(/href="#([^"]+)"/g, `href="#${prefix}$1"`);
+}
+
+function mockupText(x, y, parts, { size = 22, weight, anchor } = {}) {
+  const spans = (Array.isArray(parts) ? parts : [parts])
+    .map(([text, color, extra = ""]) => `<tspan fill="${color}"${extra}>${xmlEscape(text)}</tspan>`)
+    .join("");
+  const attrs = [
+    `x="${x}"`,
+    `y="${y}"`,
+    `font-family="${mockupFont}"`,
+    `font-size="${size}"`,
+    weight ? `font-weight="${weight}"` : "",
+    anchor ? `text-anchor="${anchor}"` : "",
+    `xml:space="preserve"`
+  ].filter(Boolean).join(" ");
+  return `<text ${attrs}>${spans}</text>`;
+}
+
+function squiggle(x, y, width, color) {
+  const step = 5;
+  let d = `M${x} ${y}`;
+  for (let offset = step, up = true; offset <= width; offset += step, up = !up) {
+    d += `L${(x + offset).toFixed(1)} ${up ? y - 3 : y}`;
+  }
+  return `<path d="${d}" fill="none" stroke="${color}" stroke-width="2" stroke-linejoin="round"/>`;
+}
+
+function mockupSvg(variant, { label, light }) {
+  const { core, ui, syntax, semantic, ansi: { normal, bright } } = variant;
+  const shadow = light ? lightShadow : { color: "#000000", opacity: ".55" };
+  const mono = (size) => size * mockupCharWidth;
+
+  // Terminal window: git status, a test run, and the full 16-color ANSI ramp.
+  const term = { x: 88, y: 232, w: 604, h: 600 };
+  const prompt = (y, command) => mockupText(term.x + 30, y, [
+    ["~/gas-plasma", syntax.function],
+    [" main", normal.magenta],
+    [" $ ", ui.strong],
+    [command, core.foreground]
+  ], { size: 21 });
+  const terminalLines = [
+    prompt(term.y + 96, "git status --short"),
+    mockupText(term.x + 30, term.y + 130, [["A ", normal.green, ' font-weight="700"'], [" src/palette.json", core.foreground]], { size: 21 }),
+    mockupText(term.x + 30, term.y + 162, [[" M", normal.red, ' font-weight="700"'], [" src/theme.ts", core.foreground]], { size: 21 }),
+    mockupText(term.x + 30, term.y + 194, [[" D", normal.red, ' font-weight="700"'], [" legacy/old-theme.ts", core.foreground]], { size: 21 }),
+    mockupText(term.x + 30, term.y + 226, [["??", normal.red, ' font-weight="700"'], [" docs/notes.md", core.foreground]], { size: 21 }),
+    prompt(term.y + 276, "npm test"),
+    mockupText(term.x + 30, term.y + 310, [[" PASS ", core.background, ""], ["  palette contrast", core.foreground]], { size: 21 }),
+    mockupText(term.x + 30, term.y + 344, [[" SKIP ", core.background, ""], ["  zed snapshot", core.foreground]], { size: 21 }),
+    mockupText(term.x + 30, term.y + 378, [[" FAIL ", core.background, ""], ["  icons: 1 missing", core.foreground]], { size: 21 }),
+    prompt(term.y + 428, "")
+  ];
+  const badges = [[normal.green, 310], [normal.yellow, 344], [normal.red, 378]]
+    .map(([color, dy]) => `<rect x="${term.x + 28}" y="${term.y + dy - 22}" width="${mono(21) * 6 + 4}" height="30" rx="4" fill="${color}"/>`)
+    .join("\n    ");
+  const cursorX = term.x + 30 + mono(21) * "~/gas-plasma main $ ".length;
+  const ansiNames = ["black", "red", "green", "yellow", "blue", "magenta", "cyan", "white"];
+  const ansiRamp = [normal, bright].map((row, rowIndex) => ansiNames.map((name, index) => {
+    const x = term.x + 30 + index * 68;
+    const y = term.y + 478 + rowIndex * 50;
+    return `<rect x="${x}" y="${y}" width="60" height="40" rx="6" fill="${row[name]}" stroke="${ui.border}"/>`;
+  }).join("")).join("\n    ");
+
+  // Editor window: project panel with the real icon theme, git gutter, diagnostics.
+  const ed = { x: 744, y: 148, w: 968, h: 704 };
+  const panelW = 262;
+  const rowH = 38;
+  const tree = [
+    { icon: "folder-code-open", name: "src", depth: 0, color: ui.strong },
+    { icon: "typescript", name: "theme.ts", depth: 1, color: semantic.modified, status: "M", active: true },
+    { icon: "json", name: "palette.json", depth: 1, color: semantic.added, status: "A" },
+    { icon: "rust", name: "glow.rs", depth: 1, color: core.foreground },
+    { icon: "folder-test", name: "tests", depth: 0, color: ui.strong },
+    { icon: "folder-markdown", name: "docs", depth: 0, color: semantic.added, status: "U" },
+    { icon: "docker", name: "Dockerfile", depth: 0, color: core.foreground },
+    { icon: "npm", name: "package.json", depth: 0, color: semantic.modified, status: "M" },
+    { icon: "markdown", name: "README.md", depth: 0, color: core.foreground },
+    { icon: "git", name: ".gitignore", depth: 0, color: core.foreground },
+    { icon: "folder", name: "dist", depth: 0, color: semantic.ignored }
+  ];
+  const treeRows = tree.map((row, index) => {
+    const y = ed.y + 104 + index * rowH;
+    const x = ed.x + 22 + row.depth * 22;
+    const highlight = row.active
+      ? `<rect x="${ed.x}" y="${y - 6}" width="${panelW}" height="${rowH - 2}" fill="${ui.border}"/>`
+      : "";
+    const status = row.status
+      ? mockupText(ed.x + panelW - 18, y + 21, [[row.status, row.color]], { size: 18, weight: 700, anchor: "end" })
+      : "";
+    return `${highlight}
+      ${mockupIcon(row.icon, x, y - 2, 28, light)}
+      ${mockupText(x + 38, y + 21, [[row.name, row.color]], { size: 19 })}
+      ${status}`;
+  }).join("\n      ");
+
+  const codeSize = 21;
+  const codeX = ed.x + panelW + 92;
+  const codeTop = ed.y + 118;
+  const lineH = 36;
+  const kw = syntax.keyword;
+  const p = syntax.punctuation;
+  const code = [
+    { parts: [["import ", kw], ["{ ", p], ["palette", syntax.variable], [" } ", p], ["from ", kw], ['"./palette.json"', syntax.string], [";", p]] },
+    { parts: [] },
+    { parts: [["export ", kw], ["interface ", kw], ["Variant", syntax.type], [" {", p]] },
+    { parts: [["  name", syntax.property], [": ", p], ["string", syntax.type], [";", p]] },
+    { parts: [["  appearance", syntax.property], [": ", p], ['"dark"', syntax.string], [" | ", p], ['"light"', syntax.string], [";", p]], git: "modified" },
+    { parts: [["}", p]] },
+    { parts: [] },
+    { parts: [["// ", syntax.comment], ["Ember accent for each variant", syntax.comment]], git: "added", italic: true },
+    { parts: [["export ", kw], ["function ", kw], ["accent", syntax.function], ["(", p], ["v", syntax.variable], [": ", p], ["Variant", syntax.type], [") {", p]], git: "added" },
+    { parts: [["  const ", kw], ["glow", syntax.variable], [" = ", p], ["0.42", syntax.constant], [";", p]], git: "added", warning: [8, 4] },
+    { parts: [["  return ", kw], ["palette", syntax.variable], [".", p], ["variants", syntax.property], ["[", p], ["v", syntax.variable], [".", p], ["nam", syntax.property], ["].", p], ["accent", syntax.property], [";", p]], git: "added", error: [27, 3], active: true },
+    { parts: [["}", p]], git: "added", deletedAfter: true }
+  ];
+  const activeLine = code.findIndex((line) => line.active);
+  const codeLines = code.map((line, index) => {
+    const baseline = codeTop + index * lineH;
+    const top = baseline - 25;
+    const pieces = [];
+    if (line.active) pieces.push(`<rect x="${ed.x + panelW}" y="${top}" width="${ed.w - panelW}" height="${lineH}" fill="${ui.active}"/>`);
+    if (line.git) pieces.push(`<rect x="${ed.x + panelW + 8}" y="${top + 2}" width="5" height="${lineH - 4}" rx="1" fill="${semantic[line.git]}"/>`);
+    if (line.deletedAfter) {
+      const y = top + lineH;
+      pieces.push(`<path d="M${ed.x + panelW + 6} ${y - 7}l9 7-9 7z" fill="${semantic.deleted}"/>`);
+    }
+    pieces.push(mockupText(codeX - 24, baseline, [[String(index + 1), index === activeLine ? ui.focus : ui.muted]], { size: 19, anchor: "end" }));
+    const parts = line.italic ? line.parts.map(([text, color]) => [text, color, ' font-style="italic"']) : line.parts;
+    if (parts.length) pieces.push(mockupText(codeX, baseline, parts, { size: codeSize }));
+    for (const [kind, color] of [["error", semantic.error], ["warning", semantic.warning]]) {
+      if (!line[kind]) continue;
+      const [column, length] = line[kind];
+      pieces.push(squiggle(codeX + column * mono(codeSize), baseline + 6, length * mono(codeSize), color));
+    }
+    return pieces.join("\n    ");
+  }).join("\n    ");
+
+  // Hover card for the error on the active line, with a shape cue as well as color.
+  const hoverY = codeTop + activeLine * lineH + 18;
+  const hoverX = codeX + 6 * mono(codeSize);
+  const hover = `<g filter="url(#shadow)">
+      <rect x="${hoverX}" y="${hoverY}" width="452" height="84" rx="10" fill="${ui.raised}" stroke="${semantic.error}" stroke-width="2"/>
+    </g>
+    <circle cx="${hoverX + 26}" cy="${hoverY + 30}" r="10" fill="${semantic.error}"/>
+    <path d="M${hoverX + 21} ${hoverY + 25}l10 10m0-10l-10 10" stroke="${ui.raised}" stroke-width="2.5" stroke-linecap="round"/>
+    ${mockupText(hoverX + 46, hoverY + 37, [["error", semantic.error, ' font-weight="700"'], [" TS2551", ui.textMuted]], { size: 18 })}
+    ${mockupText(hoverX + 20, hoverY + 66, [["Property 'nam' does not exist on 'Variant'.", ui.strong]], { size: 16 })}`;
+
+  const statusY = ed.y + ed.h - 46;
+  const statusBar = `<rect x="${ed.x}" y="${statusY}" width="${ed.w}" height="46" fill="${ui.active}"/>
+    <path d="M${ed.x} ${statusY}h${ed.w}" stroke="${ui.border}"/>
+    <circle cx="${ed.x + 34}" cy="${statusY + 23}" r="9" fill="${semantic.error}"/>
+    <path d="M${ed.x + 30} ${statusY + 19}l8 8m0-8l-8 8" stroke="${ui.active}" stroke-width="2.2" stroke-linecap="round"/>
+    ${mockupText(ed.x + 52, statusY + 30, [["1", ui.strong]], { size: 18 })}
+    <path d="M${ed.x + 92} ${statusY + 32}l10-18 10 18z" fill="${semantic.warning}"/>
+    ${mockupText(ed.x + 120, statusY + 30, [["1", ui.strong]], { size: 18 })}
+    ${mockupText(ed.x + 170, statusY + 30, [["main", ui.strong], ["  +5", semantic.added], [" ~1", semantic.modified], [" -1", semantic.deleted]], { size: 18 })}
+    ${mockupText(ed.x + ed.w - 24, statusY + 30, [["TypeScript  Ln 11, Col 28", ui.textMuted]], { size: 18, anchor: "end" })}`;
+
+  const swatchSpecs = [
+    [core.background, "bg"],
+    [core.foreground, "fg"],
+    [ui.accent, "accent"],
+    [syntax.string, "string"],
+    [semantic.added, "added"],
+    [semantic.modified, "modified"],
+    [semantic.deleted, "deleted"],
+    [semantic.warning, "warning"],
+    [semantic.error, "error"]
+  ];
+  const swatches = swatchSpecs.map(([hex, name], index) => {
+    const x = 88 + index * 74;
+    return `<g transform="translate(${x} 884)">
+    <rect width="54" height="54" rx="10" fill="${hex}" stroke="${ui.border}" stroke-width="2"/>
+    ${mockupText(27, 80, [[name, ui.textMuted]], { size: 13, anchor: "middle" })}
   </g>`;
   }).join("\n  ");
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1080" viewBox="0 0 1800 1080" role="img" aria-labelledby="title desc">
-  <title id="title">Gas Plasma theme mockup</title>
-  <desc id="desc">A polished design mockup showing Gas Plasma in Terminal, iTerm2, VS Code, and Zed.</desc>
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1080" viewBox="0 0 1800 1080" role="img" aria-labelledby="title desc">
+  <title id="title">${xmlEscape(variant.name)} theme mockup</title>
+  <desc id="desc">${xmlEscape(variant.name)} in a terminal showing git status, test results, and the ANSI palette, next to an editor with the Gas Plasma file icons, git gutter, and diagnostics.</desc>
   <defs>
     <linearGradient id="stage" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#0B0300"/>
-      <stop offset=".48" stop-color="#1A0A00"/>
-      <stop offset="1" stop-color="#261000"/>
+      <stop offset="0" stop-color="${ui.page}"/>
+      <stop offset=".5" stop-color="${core.background}"/>
+      <stop offset="1" stop-color="${ui.raised}"/>
     </linearGradient>
-    <linearGradient id="window" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#1E0B00"/>
-      <stop offset="1" stop-color="#0F0500"/>
+    <linearGradient id="accentBar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="${ui.accent}"/>
+      <stop offset=".5" stop-color="${ui.focus}"/>
+      <stop offset="1" stop-color="${syntax.type}"/>
     </linearGradient>
-    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#FF4500"/>
-      <stop offset=".5" stop-color="#FFD700"/>
-      <stop offset="1" stop-color="#E8C547"/>
-    </linearGradient>
-    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
-      <feDropShadow dx="0" dy="28" stdDeviation="28" flood-color="#000" flood-opacity=".55"/>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="24" stdDeviation="24" flood-color="${shadow.color}" flood-opacity="${shadow.opacity}"/>
     </filter>
     <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse">
-      <path d="M42 0H0v42" fill="none" stroke="#3A1800" stroke-width="1" opacity=".3"/>
+      <path d="M42 0H0v42" fill="none" stroke="${ui.border}" stroke-width="1" opacity=".22"/>
     </pattern>
   </defs>
   <rect width="1800" height="1080" fill="url(#stage)"/>
   <rect width="1800" height="1080" fill="url(#grid)"/>
-  <path d="M0 844C260 770 434 824 652 760c250-73 374-272 666-256 184 10 328 92 482 54v522H0z" fill="#100600" opacity=".62"/>
-  <text x="88" y="112" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="56" font-weight="900">__NAME__</text>
-  <text x="92" y="154" fill="#E8C547" font-family="SF Mono, Menlo, Consolas, monospace" font-size="24">Apple Terminal  |  iTerm2  |  VS Code  |  Zed</text>
-  <rect x="94" y="180" width="418" height="8" rx="4" fill="url(#accent)"/>
-
-  <g filter="url(#shadow)">
-    <rect x="88" y="248" width="572" height="456" rx="18" fill="url(#window)" stroke="#4D2600" stroke-width="2"/>
-    <rect x="88" y="248" width="572" height="58" rx="18" fill="#261000"/>
-    <path d="M88 288h572" stroke="#4D2600"/>
-    <circle cx="128" cy="261" r="10" fill="#FF4500"/>
-    <circle cx="160" cy="261" r="10" fill="#FFB347"/>
-    <circle cx="192" cy="261" r="10" fill="#8B9A00"/>
-    <text x="230" y="270" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="19">GasPlasma.terminal</text>
-    <text x="126" y="354" fill="#FF8C00" font-family="SF Mono, Menlo, Consolas, monospace" font-size="24">$ npm run build</text>
-    <text x="126" y="398" fill="#FFD700" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">generated GasPlasma.itermcolors</text>
-    <text x="126" y="438" fill="#E8C547" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">generated VS Code theme</text>
-    <text x="126" y="478" fill="#B5CC18" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">generated icon themes</text>
-    <text x="126" y="542" fill="#FF8C00" font-family="SF Mono, Menlo, Consolas, monospace" font-size="24">$ npm run package</text>
-    <text x="126" y="584" fill="#FF9B7A" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">jpfchang.gas-plasma-theme.vsix</text>
-    <rect x="126" y="638" width="14" height="30" fill="#FF8C00"/>
+  ${mockupText(88, 104, [[variant.name, ui.strong]], { size: 52, weight: 900 })}
+  ${mockupText(92, 148, [["Apple Terminal  |  iTerm2  |  VS Code  |  Zed", syntax.type]], { size: 23 })}
+  <rect x="94" y="172" width="418" height="8" rx="4" fill="url(#accentBar)"/>
+  <g transform="translate(${1712 - 24 - label.length * mono(20)} 72)">
+    <rect width="${label.length * mono(20) + 24}" height="40" rx="20" fill="${ui.raised}" stroke="${ui.accent}" stroke-width="2"/>
+    ${mockupText(12, 27, [[label, ui.strong]], { size: 20 })}
   </g>
 
   <g filter="url(#shadow)">
-    <rect x="734" y="148" width="978" height="746" rx="18" fill="#120600" stroke="#4D2600" stroke-width="2"/>
-    <rect x="734" y="148" width="978" height="60" rx="18" fill="#261000"/>
-    <path d="M734 190h978" stroke="#4D2600"/>
-    <text x="774" y="185" fill="#FFF0DB" font-family="SF Mono, Menlo, Consolas, monospace" font-size="19">gas-plasma-color-theme.json</text>
-    <rect x="734" y="208" width="238" height="686" fill="#0D0500"/>
-    <g font-family="SF Mono, Menlo, Consolas, monospace" font-size="20">
-      <g transform="translate(774 248)">
-        <rect width="24" height="20" rx="4" fill="#FF8C00" stroke="#FFD2A6"/>
-        <path d="M3 4h7l3 4h8" stroke="#FFF0DB" stroke-width="2" opacity=".55"/>
-        <text x="36" y="18" fill="#FFD700">src</text>
-      </g>
-      <g transform="translate(774 288)">
-        <rect width="24" height="24" rx="5" fill="#140800" stroke="#E8C547"/>
-        <rect x="5" y="5" width="6" height="6" rx="2" fill="#FF4500"/>
-        <rect x="13" y="5" width="6" height="6" rx="2" fill="#FFD700"/>
-        <rect x="5" y="13" width="6" height="6" rx="2" fill="#8B9A00"/>
-        <rect x="13" y="13" width="6" height="6" rx="2" fill="#E8C547"/>
-        <text x="36" y="20" fill="#E8C547">themes</text>
-      </g>
-      <g transform="translate(774 328)">
-        <circle cx="12" cy="12" r="11" fill="#E8C547" stroke="#FFD2A6"/>
-        <circle cx="12" cy="12" r="4" fill="#140800" stroke="#FFF0DB"/>
-        <text x="36" y="20" fill="#FF8C00">assets</text>
-      </g>
-      <g transform="translate(774 368)">
-        <path d="M5 1h12l7 7v22H5z" fill="#FFD2A6" stroke="#FF8C00"/>
-        <path d="M17 1v8h7" fill="#4D2600"/>
-        <text x="36" y="20" fill="#FFD2A6">README.md</text>
-      </g>
-      <g transform="translate(774 408)">
-        <circle cx="13" cy="17" r="12" fill="#140800" stroke="#FFD2A6"/>
-        <path d="M8 21c1-10 3-15 6-15s5 5 6 15c-2 4-4 6-6 6s-4-2-6-6z" fill="#FFD2A6"/>
-        <path d="M11 16h6" stroke="#FF8C00" stroke-width="3" stroke-linecap="round"/>
-        <text x="36" y="24" fill="#FFF0DB">linux</text>
-      </g>
-      <g transform="translate(774 448)">
-        <circle cx="10" cy="14" r="9" fill="#140800" stroke="#FFD700" stroke-width="3"/>
-        <circle cx="18" cy="14" r="9" fill="none" stroke="#FFD2A6" stroke-width="3"/>
-        <path d="M8 14h15" stroke="#FF8C00" stroke-width="3" stroke-linecap="round"/>
-        <text x="36" y="22" fill="#FFD700">crypto</text>
-      </g>
-    </g>
-    <rect x="972" y="208" width="740" height="506" fill="#1A0A00"/>
-    ${editorLines}
-    <rect x="972" y="714" width="740" height="132" fill="#100600" stroke="#4D2600"/>
-    <text x="1008" y="764" fill="#FF8C00" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">$ code --install-extension jpfchang.gas-plasma-theme</text>
-    <text x="1008" y="804" fill="#B5CC18" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">Gas Plasma Icons + Product Icons enabled</text>
-    <rect x="734" y="846" width="978" height="48" rx="0" fill="#3A1800"/>
-    <text x="774" y="878" fill="#FFF0DB" font-family="SF Mono, Menlo, Consolas, monospace" font-size="18">Open VSX namespace: jpfchang</text>
+    <rect x="${term.x}" y="${term.y}" width="${term.w}" height="${term.h}" rx="16" fill="${core.background}" stroke="${ui.border}" stroke-width="2"/>
   </g>
+  <path d="M${term.x} ${term.y + 52}V${term.y + 16}a16 16 0 0 1 16-16h${term.w - 32}a16 16 0 0 1 16 16V${term.y + 52}z" fill="${ui.raised}"/>
+  <path d="M${term.x} ${term.y + 52}h${term.w}" stroke="${ui.border}"/>
+  <circle cx="${term.x + 28}" cy="${term.y + 26}" r="8" fill="#FF5F57"/>
+  <circle cx="${term.x + 54}" cy="${term.y + 26}" r="8" fill="#FEBC2E"/>
+  <circle cx="${term.x + 80}" cy="${term.y + 26}" r="8" fill="#28C840"/>
+  ${mockupText(term.x + term.w / 2, term.y + 33, [["iTerm2 - zsh", ui.textMuted]], { size: 18, anchor: "middle" })}
+  ${badges}
+  ${terminalLines.join("\n  ")}
+  <rect x="${cursorX}" y="${term.y + 408}" width="${mono(21)}" height="28" fill="${core.cursor}"/>
+  ${mockupText(term.x + 30, term.y + 466, [["ANSI 0-7 / 8-15", ui.textMuted]], { size: 15 })}
+  ${ansiRamp}
+
+  <g filter="url(#shadow)">
+    <rect x="${ed.x}" y="${ed.y}" width="${ed.w}" height="${ed.h}" rx="16" fill="${core.background}" stroke="${ui.border}" stroke-width="2"/>
+  </g>
+  <path d="M${ed.x} ${ed.y + 52}V${ed.y + 16}a16 16 0 0 1 16-16h${ed.w - 32}a16 16 0 0 1 16 16V${ed.y + 52}z" fill="${ui.raised}"/>
+  <path d="M${ed.x} ${ed.y + 52}h${ed.w}" stroke="${ui.border}"/>
+  <rect x="${ed.x}" y="${ed.y + 52}" width="${panelW}" height="${ed.h - 98}" fill="${ui.deep}"/>
+  <path d="M${ed.x + panelW} ${ed.y + 52}v${ed.h - 98}" stroke="${ui.border}"/>
+  ${mockupText(ed.x + 22, ed.y + 84, [["GAS-PLASMA", ui.textMuted]], { size: 15, weight: 700 })}
+  <rect x="${ed.x + panelW}" y="${ed.y + 8}" width="170" height="44" fill="${core.background}"/>
+  <path d="M${ed.x + panelW} ${ed.y + 50}h170" stroke="${ui.accent}" stroke-width="3"/>
+  ${mockupIcon("typescript", ed.x + panelW + 14, ed.y + 16, 26, light)}
+  ${mockupText(ed.x + panelW + 48, ed.y + 37, [["theme.ts", ui.strong]], { size: 18 })}
+  <circle cx="${ed.x + panelW + 150}" cy="${ed.y + 30}" r="5" fill="${semantic.modified}"/>
+  ${mockupText(ed.x + panelW + 190, ed.y + 37, [["palette.json", ui.textMuted]], { size: 18 })}
+  ${mockupText(ed.x + ed.w - 24, ed.y + 37, [["Zed", ui.muted]], { size: 18, anchor: "end" })}
+      ${treeRows}
+    ${codeLines}
+    ${hover}
+    ${statusBar}
 
   ${swatches}
-  <g transform="translate(86 920)">
-    <rect width="362" height="62" rx="8" fill="#1A0A00" stroke="#CC7A00"/>
-    <text x="28" y="40" fill="#FFD2A6" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">__BG__ / __FG__</text>
+  <g transform="translate(780 884)">
+    <rect width="430" height="54" rx="10" fill="${ui.deep}" stroke="${semantic.added}" stroke-width="2"/>
+    ${mockupText(24, 35, [["A", semantic.added, ' font-weight="700"'], [" added  ", ui.textMuted], ["M", semantic.modified, ' font-weight="700"'], [" modified  ", ui.textMuted], ["D", semantic.deleted, ' font-weight="700"'], [" deleted", ui.textMuted]], { size: 19 })}
   </g>
-  <g transform="translate(486 920)">
-    <rect width="350" height="62" rx="8" fill="#1A0A00" stroke="#8B9A00"/>
-    <text x="28" y="40" fill="#B5CC18" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">syntax colors intact</text>
-  </g>
-  <g transform="translate(874 920)">
-    <rect width="452" height="62" rx="8" fill="#1A0A00" stroke="#E8C547"/>
-    <text x="28" y="40" fill="#E8C547" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22">single palette, four targets</text>
+  <g transform="translate(1230 884)">
+    <rect width="482" height="54" rx="10" fill="${ui.deep}" stroke="${syntax.type}" stroke-width="2"/>
+    ${mockupText(24, 35, [["single palette, four targets", syntax.type]], { size: 19 })}
   </g>
 </svg>
 `;
-  const fill = (template, variant) => template
-    .replaceAll("__NAME__", variant.name)
-    .replaceAll("__BG__", variant.core.background)
-    .replaceAll("__FG__", variant.core.foreground);
-  const darkSvg = fill(svg, darkVariant);
-  const lightSvg = fill(toLightSvg(svg, { minContrast: 4.5 }), lightVariant);
-  writeFileSync(path.join(root, "assets/mockup.svg"), darkSvg);
-  writeFileSync(path.join(root, "docs/assets/mockup.svg"), darkSvg);
-  writeFileSync(path.join(root, "assets/mockup-light.svg"), lightSvg);
-  writeFileSync(path.join(root, "docs/assets/mockup-light.svg"), lightSvg);
+}
+
+const mockupVariants = [
+  { variant: palette.variants.dark, file: "mockup", label: "Dark", light: false },
+  { variant: palette.variants.light, file: "mockup-light", label: "Light", light: true },
+  { variant: palette.variants.colorblind, file: "mockup-colorblind", label: "Color Blind", light: false }
+];
+
+function writeMockupSvg() {
+  for (const { variant, file, label, light } of mockupVariants) {
+    const svg = mockupSvg(variant, { label, light });
+    writeFileSync(path.join(root, `assets/${file}.svg`), svg);
+    writeFileSync(path.join(root, `docs/assets/${file}.svg`), svg);
+  }
 }
 
 function writeArchitectureSvg() {
@@ -1718,11 +1879,11 @@ function writeLogoPng() {
 }
 
 function writeMockupPng() {
-  renderSvgToPng(path.join(root, "assets/mockup.svg"), path.join(root, "assets/mockup.png"), { zoom: 2 });
-  copyFileSync(path.join(root, "assets/mockup.png"), path.join(root, "docs/assets/mockup.png"));
+  for (const { file } of mockupVariants) {
+    renderSvgToPng(path.join(root, `assets/${file}.svg`), path.join(root, `assets/${file}.png`), { zoom: 2 });
+    copyFileSync(path.join(root, `assets/${file}.png`), path.join(root, `docs/assets/${file}.png`));
+  }
   copyFileSync(path.join(root, "assets/mockup.png"), path.join(root, "screenshot.png"));
-  renderSvgToPng(path.join(root, "assets/mockup-light.svg"), path.join(root, "assets/mockup-light.png"), { zoom: 2 });
-  copyFileSync(path.join(root, "assets/mockup-light.png"), path.join(root, "docs/assets/mockup-light.png"));
 }
 
 function writeArchitecturePng() {
@@ -1771,7 +1932,45 @@ function docsSwatches(variant) {
     .join("\n          ");
 }
 
+// Real captures from iTerm2 and Zed (scripts/capture-screenshots.mjs). They are committed
+// rather than generated, so the docs page only lists the ones that exist.
+const screenshotSpecs = [
+  ["zed-dark", "Zed with Gas Plasma and Gas Plasma Icons"],
+  ["zed-light", "Zed with Gas Plasma Light"],
+  ["zed-colorblind", "Zed with Gas Plasma Color Blind"],
+  ["zed-colorblind-light", "Zed with Gas Plasma Color Blind Light"],
+  ["iterm2-dark", "iTerm2 with GasPlasma.itermcolors"],
+  ["iterm2-light", "iTerm2 with GasPlasma-Light.itermcolors"],
+  ["iterm2-colorblind", "iTerm2 with GasPlasma-ColorBlind.itermcolors"],
+  ["iterm2-colorblind-light", "iTerm2 with GasPlasma-ColorBlind-Light.itermcolors"]
+];
+
+function copyScreenshots() {
+  return screenshotSpecs.filter(([file]) => {
+    const source = path.join(root, "assets/screenshots", `${file}.png`);
+    if (!existsSync(source)) return false;
+    copyFileSync(source, path.join(root, "docs/assets/screenshots", `${file}.png`));
+    return true;
+  });
+}
+
 function writeDocsIndex() {
+  const screenshots = copyScreenshots();
+  const screenshotGallery = screenshots.map(([file, caption]) => `<figure class="shot">
+            <a href="assets/screenshots/${file}.png"><img src="assets/screenshots/${file}.png" alt="${xmlEscape(caption)}" loading="lazy"></a>
+            <figcaption>${xmlEscape(caption)}</figcaption>
+          </figure>`).join("\n          ");
+  const screenshotSection = screenshots.length ? `<section id="screenshots" class="band">
+      <div class="wrap">
+        <h2>Screenshots</h2>
+        <p class="section-note">Captured from the real apps with the generated presets and extensions installed.</p>
+        <div class="shots">
+          ${screenshotGallery}
+        </div>
+      </div>
+    </section>` : "";
+  const colorBlind = palette.variants.colorblind;
+  const colorBlindLight = palette.variants.colorblindLight;
   const iconGallery = iconManifest.fileTheme.gallery.map((iconName) => {
     const label = iconName.replaceAll("-", " ");
     return `<figure class="icon-sample">
@@ -2021,6 +2220,25 @@ function writeDocsIndex() {
       font-size: 13px;
     }
     .palette-label { margin-top: 26px; }
+    .shots {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+    .shot { margin: 0; }
+    .shot img {
+      width: 100%;
+      display: block;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+    .shot figcaption {
+      color: var(--caption);
+      font-size: 14px;
+      margin-top: 8px;
+    }
+    .cvd-list { padding-left: 20px; }
+    .cvd-list li { margin: 6px 0; }
     .tile p code { overflow-wrap: anywhere; }
     .footer {
       border-top: 1px solid var(--line);
@@ -2034,6 +2252,7 @@ function writeDocsIndex() {
       .grid { grid-template-columns: 1fr; }
       .icon-strip { grid-template-columns: repeat(4, 1fr); }
       .palette { grid-template-columns: repeat(4, 1fr); }
+      .shots { grid-template-columns: 1fr; }
     }
     @media (max-width: 560px) {
       .wrap { width: min(100% - 28px, 1180px); }
@@ -2054,6 +2273,7 @@ function writeDocsIndex() {
     </a>
     <div class="links">
       <a href="#install">Install</a>
+      <a href="#color-blind">Color blind</a>
       <a href="#icons">Icons</a>
       <a href="#architecture">Architecture</a>
       <a href="#palette">Palette</a>
@@ -2086,27 +2306,40 @@ function writeDocsIndex() {
         <div class="grid">
           <article class="tile">
             <h3>Apple Terminal</h3>
-            <p>Download <code>GasPlasma.terminal</code> (dark) or <code>GasPlasma-Light.terminal</code> from GitHub Releases and open it in Terminal. Terminal profiles cannot follow the system appearance, so switch profiles manually.</p>
+            <p>Download <code>GasPlasma.terminal</code> (dark), <code>GasPlasma-Light.terminal</code>, or the <code>GasPlasma-ColorBlind*.terminal</code> profiles from GitHub Releases and open one in Terminal. Terminal profiles cannot follow the system appearance, so switch profiles manually.</p>
             <code class="command">open GasPlasma-Light.terminal</code>
           </article>
           <article class="tile">
             <h3>iTerm2</h3>
-            <p>Import the dark, light, or auto preset. For auto, enable <em>Use separate colors for light and dark mode</em> first (iTerm2 3.5+).</p>
+            <p>Import the dark, light, auto, or color-blind presets. For the auto presets, enable <em>Use separate colors for light and dark mode</em> first (iTerm2 3.5+).</p>
             <code class="command">GasPlasma-Auto.itermcolors</code>
           </article>
           <article class="tile">
             <h3>VS Code</h3>
-            <p>Install from Open VSX, then pick <code>Gas Plasma</code> or <code>Gas Plasma Light</code>. File icons switch with the theme; enable <code>window.autoDetectColorScheme</code> to follow the OS.</p>
+            <p>Install from Open VSX, then pick <code>Gas Plasma</code>, <code>Gas Plasma Light</code>, or a <code>Gas Plasma Color Blind</code> variant. File icons switch with the theme; enable <code>window.autoDetectColorScheme</code> to follow the OS.</p>
             <code class="command">jpfchang.gas-plasma-theme</code>
           </article>
           <article class="tile">
             <h3>Zed</h3>
-            <p>Install the color theme and file icon theme from the Zed extensions store. Both ship dark and light variants; set <code>"mode": "system"</code> to follow the OS.</p>
+            <p>Install the color theme and file icon theme from the Zed extensions store. Both ship dark and light variants, plus the color-blind themes; set <code>"mode": "system"</code> to follow the OS.</p>
             <code class="command">Gas Plasma Theme + Icons</code>
           </article>
         </div>
       </div>
     </section>
+    <section id="color-blind" class="band">
+      <div class="wrap">
+        <h2>Color Blind Variants</h2>
+        <p class="section-note"><code>${xmlEscape(colorBlind.name)}</code> and <code>${xmlEscape(colorBlindLight.name)}</code> keep the orange background, text, and accent, but move every status signal off the red/green axis: additions, success, and strings are blue, deletions and errors are vermillion, warnings and modifications are yellow, and conflicts are pink.</p>
+        <ul class="cvd-list">
+          <li>Checked on every build by simulating protanopia, deuteranopia, and tritanopia (Machado et al. 2009) and requiring a visible OKLab difference between added/deleted, error/warning/success, ANSI red/green, and strings/keywords.</li>
+          <li>Status colors also keep at least 3:1 contrast against the editor background, and code colors keep 4.5:1.</li>
+          <li>The original Gas Plasma themes also separate added/deleted and error/success by brightness, so they stay readable with red-green color blindness.</li>
+        </ul>
+        <img class="mockup" src="assets/mockup-colorblind.png" alt="${xmlEscape(colorBlind.name)} terminal and editor mockup">
+      </div>
+    </section>
+    ${screenshotSection}
     <section id="icons" class="band">
       <div class="wrap">
         <h2>VS Code Icons</h2>
@@ -2127,14 +2360,10 @@ function writeDocsIndex() {
     <section id="palette" class="band">
       <div class="wrap">
         <h2>Palette</h2>
-        <h3 class="palette-label">${xmlEscape(darkVariant.name)}</h3>
-        <div class="palette" aria-label="${xmlEscape(darkVariant.name)} palette">
-          ${docsSwatches(darkVariant)}
-        </div>
-        <h3 class="palette-label">${xmlEscape(lightVariant.name)}</h3>
-        <div class="palette" aria-label="${xmlEscape(lightVariant.name)} palette">
-          ${docsSwatches(lightVariant)}
-        </div>
+        ${themeVariants.map((variant) => `<h3 class="palette-label">${xmlEscape(variant.name)}</h3>
+        <div class="palette" aria-label="${xmlEscape(variant.name)} palette">
+          ${docsSwatches(variant)}
+        </div>`).join("\n        ")}
       </div>
     </section>
   </main>
@@ -2170,7 +2399,7 @@ for (const variant of themeVariants) {
   writeItermColors(variant);
   writeVsCodeTheme(variant);
 }
-writeItermAutoColors();
+for (const pair of autoVariantPairs) writeItermAutoColors(pair);
 writeZedTheme();
 writeFileIcons();
 await writeProductIcons();
@@ -2196,6 +2425,8 @@ const built = [
   "assets/mockup.png",
   "assets/mockup-light.svg",
   "assets/mockup-light.png",
+  "assets/mockup-colorblind.svg",
+  "assets/mockup-colorblind.png",
   "screenshot.png",
   "docs/index.html"
 ];
