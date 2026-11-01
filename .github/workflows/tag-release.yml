@@ -10,6 +10,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 jobs:
   tag:
@@ -45,3 +46,9 @@ jobs:
           git config gpg.program "$PWD/.github/scripts/gpg-wrapper.sh"
           git tag -s "v${{ inputs.version }}" -m "Release v${{ inputs.version }}"
           git push origin "v${{ inputs.version }}"
+      # Tags pushed with GITHUB_TOKEN do not fire the release workflow's push trigger,
+      # but workflow_dispatch events from GITHUB_TOKEN do, so start the release explicitly.
+      - name: Start release workflow
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run release.yml --repo "$GITHUB_REPOSITORY" --ref "v${{ inputs.version }}"

@@ -164,6 +164,8 @@ Primary source files:
 
 Releases are designed to start from signed `v*` tags. The release workflow verifies the tag signature, builds artifacts, signs `SHA256SUMS` with GPG key `FEA322F2C85C0E17`, creates a GitHub Release, publishes the VSIX to Open VSX, and opens or updates a PR against `zed-industries/extensions` for the Zed marketplace entries.
 
+To cut a release, bump `version` in `package.json`, add a `CHANGELOG.md` entry, push to `main`, then run the **Create Signed Release Tag** workflow with that version. It creates and pushes the signed tag and then starts the release workflow on it automatically. Pushing a signed `v*` tag yourself also starts the release.
+
 Required repository secrets:
 
 - `GPG_PRIVATE_KEY`
